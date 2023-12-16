@@ -1,0 +1,62 @@
+{
+  "name": "validation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SparrowAcst/validation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SparrowAcst/validation/issues"
+  },
+  "dependencies": {
+    "@stdlib/stats-base-dists-t-quantile": "0.0.6",
+    "@stdlib/stats-ttest": "0.0.7",
+    "@stdlib/stats-ttest2": "0.0.7",
+    "canvas": "^2.11.2",
+    "deep-extend": "^0.6.0",
+    "dsp.js": "^1.0.1",
+    "echarts": "^5.4.3",
+    "exectimer": "^2.2.2",
+    "fast-glob": "^3.2.12",
+    "firebase-admin": "^11.4.1",
+    "fs-extra": "^11.1.0",
+    "google-auth-library": "^8.7.0",
+    "google-drive-getfilelist": "^1.0.5",
+    "googleapis": "^110.0.0",
+    "himalaya": "^1.1.0",
+    "inly": "^4.0.8",
+    "js-excel-date-convert": "^1.0.2",
+    "js-yaml": "^4.1.0",
+    "json2csv": "^5.0.7",
+    "jszip-utils": "^0.1.0",
+    "lignator": "^1.0.2",
+    "line2": "^0.2.1",
+    "lodash": "^4.17.21",
+    "mammoth": "^1.6.0",
+    "matrix-js": "^1.6.1",
+    "moment": "^2.29.4",
+    "mongodb": "^5.0.1",
+    "nanomatch": "^1.2.13",
+    "node-mime-types": "^1.1.0",
+    "node-wav": "0.0.2",
+    "ora": "^6.1.2",
+    "pino": "^8.8.0",
+    "pino-pretty": "^9.1.1",
+    "r-integration": "^2.4.0",
+    "random-js": "^2.1.0",
+    "smooth-path": "^1.0.1",
+    "stream-json": "^1.7.5",
+    "uuid": "^9.0.0",
+    "wav-file-info": "0.0.10",
+    "xlsx": "^0.18.5",
+    "yargs": "^17.7.2",
+    "zip-folder": "^1.0.0"
+  },
+  "homepage": "https://github.com/SparrowAcst/validation#readme"
+}
