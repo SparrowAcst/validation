@@ -74,7 +74,7 @@ async function loadList({ drive, options}){
 				)
 			)		
 		    res = res.concat(part.data.files)
-		    // process.stdout.write(`...load  ${res.length} items                                     ${'\x1b[0G'}`)
+		    process.stdout.write(`...load  ${res.length} items                                     ${'\x1b[0G'}`)
 		    nextPageToken = part.data.nextPageToken
 	
 	  	} while (nextPageToken)
@@ -82,7 +82,7 @@ async function loadList({ drive, options}){
 	  	return res
   	
   	} catch (e) {
-  		// console.log(e.toString())
+  		console.log(e.toString())
     	throw e;
   	}
 }
