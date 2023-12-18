@@ -31,9 +31,9 @@ const run = async () => {
 
 	const filelist = await prepareFiles("ADE BACKUP/Heart Harvest 2 Recovery/Denis/ECHO")
 
-	let forms = require("./form2-OCH.json")
-				.concat(require("./form2-IBO.json"))
-				.concat(require("./form2-VON.json"))
+	let forms = require("../../data/collection/Denis/form2-OCH.json")
+				.concat(require("../../data/collection/Denis/form2-IBO.json"))
+				.concat(require("../../data/collection/Denis/form2-VON.json"))
 				
 	// let forms = require("./form2-IBO.json")
 	// let forms = require("./form2-VON.json")
