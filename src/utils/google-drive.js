@@ -2,7 +2,7 @@
 
 const mem = (msg) => {
 		const used = process.memoryUsage();
-		console.log(`${msg} :Memory usage: ${Math.round(used.rss / 1024 / 1024 * 100) / 100} MB`);
+		// console.log(`${msg} :Memory usage: ${Math.round(used.rss / 1024 / 1024 * 100) / 100} MB`);
 		return used.rss
 	}	
 	
@@ -55,7 +55,7 @@ const getList = files => {
 async function loadList({ drive, options}){
 	try {
 		
-		// console.log(options)
+		// // console.log(options)
 
 	  	let res = []
 	  	let nextPageToken
@@ -74,7 +74,7 @@ async function loadList({ drive, options}){
 				)
 			)		
 		    res = res.concat(part.data.files)
-		    process.stdout.write(`...load  ${res.length} items                                     ${'\x1b[0G'}`)
+		    // process.stdout.write(`...load  ${res.length} items                                     ${'\x1b[0G'}`)
 		    nextPageToken = part.data.nextPageToken
 	
 	  	} while (nextPageToken)
@@ -82,7 +82,7 @@ async function loadList({ drive, options}){
 	  	return res
   	
   	} catch (e) {
-  		console.log(e.toString())
+  		// console.log(e.toString())
     	throw e;
   	}
 }
@@ -146,9 +146,9 @@ async function createPath({ drive, pathes }){
 		}
 		parent = current.instance.id
 		buf.push(current)
-		process.stdout.write(`Create folder: "${buf.map(d => d.name).join("/")}"${(created) ? "(created)" : "(already exists)"}                                      ${'\x1b[0G'}`)
+		// process.stdout.write(`Create folder: "${buf.map(d => d.name).join("/")}"${(created) ? "(created)" : "(already exists)"}                                      ${'\x1b[0G'}`)
 	}
-	console.log()
+	// console.log()
 	return buf 
 
 }
@@ -272,13 +272,13 @@ const Drive = class {
 
 				  res.data
 				    .on("end", () => {
-				    	console.log(`DOWNLOAD: ${filename}`)
+				    	// console.log(`DOWNLOAD: ${filename}`)
 				    	resolve()
 				    	return
 				    })
 				    .on("error", (err) => {
 				      reject(err)
-				      console.log(err);
+				      // console.log(err);
 				      return 
 				    })
 				    .pipe(dest);
@@ -317,7 +317,7 @@ const Drive = class {
 
 	async load(path, owner) {
 
-		console.log(`Google Drive Service (${this.$subject}) load tree "${path}" belonging to ${owner || this.$owner || this.$subject}`)
+		// console.log(`Google Drive Service (${this.$subject}) load tree "${path}" belonging to ${owner || this.$owner || this.$subject}`)
 
 		let f 
 		
@@ -326,7 +326,7 @@ const Drive = class {
 			f = await this.getFolder(path, owner || this.$owner)
 		
 		} catch(e){
-			console.log(e.toString())
+			// console.log(e.toString())
 		}	
 		
 		if(!f) return []
@@ -386,21 +386,21 @@ const Drive = class {
 
 		return new Promise( async (resolve, reject) => {
 
-			console.log(`Download ${file.path} into ${destPath}/${file.name}}`)
+			// console.log(`Download ${file.path} into ${destPath}/${file.name}}`)
 			let inputStream = await this.geFiletWriteStream(file)
 			let destStream = fs.createWriteStream(`${destPath}/${file.name}`)
 			
 			inputStream.on("data", chunk => {
-				process.stdout.write(`DOWNLOAD: ${chunk.length} bytes                                      ${'\x1b[0G'}`)
+				// process.stdout.write(`DOWNLOAD: ${chunk.length} bytes                                      ${'\x1b[0G'}`)
 			})
 			
 			inputStream.on("error", chunk => {
-				console.log(e.toString())
+				// console.log(e.toString())
 				reject(error)
 			})
 			
 			inputStream.on("end", chunk => {
-				console.log(`${destPath}/${file.name} downloaded`)
+				// console.log(`${destPath}/${file.name} downloaded`)
 				destStream.end()
 				resolve(`${destPath}/${file.name}`)
 			})	
@@ -494,11 +494,11 @@ const Drive = class {
 		let sourceFiles = options.fs || ""
 		sourceFiles = await getFileList(sourceFiles)
 		let target = options.googleDrive || ""
-		console.log(sourceFiles)
+		// console.log(sourceFiles)
 
 		for(let i = 0; i< sourceFiles.length; i++){
 			let sourcePath = sourceFiles[i]
-			console.log(`UPLOAD: ${sourcePath} to ${target}`)
+			// console.log(`UPLOAD: ${sourcePath} to ${target}`)
 			await this.uploadFile(sourcePath, target, options.callback, true)
 		}
 	}
@@ -524,7 +524,7 @@ const Drive = class {
 
 		const body = fs.createReadStream(sourcePath)
 		
-		// console.log("UPLOAD", callback)
+		// // console.log("UPLOAD", callback)
 		
 		body.on("data", chunk => {
 
@@ -534,8 +534,8 @@ const Drive = class {
 				
 			size += chunk.length / 1024 / 1024 
 			if( (size - oldSize) > 0.2 ){
-				process.stdout.write(`Received: ${size.toFixed(1)} Mb ${'\x1b[0G'}`)
-				// console.log(`\rReceived ${size} bytes`)
+				// process.stdout.write(`Received: ${size.toFixed(1)} Mb ${'\x1b[0G'}`)
+				// // console.log(`\rReceived ${size} bytes`)
 				oldSize = size
 				// if (callback) callback({ upload: chunk.length, total: totalSize})	
 			}
@@ -558,10 +558,10 @@ const Drive = class {
 		
 		const existed = this.list(`${destFolder.path}/${path.basename(sourcePath)}`)[0]
 		
-		// console.log("EXISTS", existed)
+		// // console.log("EXISTS", existed)
 
 		if(existed && !force){
-			// console.log("UPDATE", `${destFolder.path}/${path.basename(sourcePath)}`, destFolder)
+			// // console.log("UPDATE", `${destFolder.path}/${path.basename(sourcePath)}`, destFolder)
 			cloned =  await this.$drive.files.update({
 				fileId: existed.id,
 				resource,
@@ -570,7 +570,7 @@ const Drive = class {
 			})
 
 		} else {
-			// console.log("CREATE", `${destFolder.path}/${path.basename(sourcePath)}`, destFolder)
+			// // console.log("CREATE", `${destFolder.path}/${path.basename(sourcePath)}`, destFolder)
 			resource.parents = [destFolder.id]
 			cloned =  await this.$drive.files.create({
 				  resource,
@@ -607,19 +607,19 @@ const Drive = class {
 			// 	rawSize += chunk.length
 			// 	size += chunk.length / 1024 / 1024 
 			// 	if( (size - oldSize) > 0.2 ){
-			// 		// process.stdout.write(`Upload: ${rawSize} bytes                                                 ${'\x1b[0G'}`)
+			// 		// // process.stdout.write(`Upload: ${rawSize} bytes                                                 ${'\x1b[0G'}`)
 			// 		oldSize = size	
 			// 	}
 			// })
 
 
 			cloned.data.on("error", error => {
-				console.log(error.toString())
+				// console.log(error.toString())
 				reject(error)
 			})
 
 			// cloned.data.on("end", () => {
-			// 	console.log(`UPLOAD ${rawSize} from ${source.size} bytes                                                      `)
+			// 	// console.log(`UPLOAD ${rawSize} from ${source.size} bytes                                                      `)
 			// })
 
 			resolve(cloned.data)
@@ -630,18 +630,18 @@ const Drive = class {
 	async copyFile(source, targetDrive, targetPath){
 		mem(1)
 		let destFolder = await targetDrive.createFolderbyPath(targetPath, path.dirname(source.path))
-		console.log("destFolder",destFolder.path)
-		console.log("from", path.dirname(source.path))
+		// console.log("destFolder",destFolder.path)
+		// console.log("from", path.dirname(source.path))
 
 		const existed = targetDrive.list(`${destFolder.path}/${path.basename(source.path)}`)[0]
 		
 		if( existed && source.size == existed.size){
-			console.log(`${destFolder.path}/${path.basename(source.path)} already exists.`)
+			// console.log(`${destFolder.path}/${path.basename(source.path)} already exists.`)
 			return {}
 		}
 
 		if(existed){
-			console.log(`${destFolder.path}/${path.basename(source.path)} already exists but expected size ${existed.size} not equal ${source.size}`)
+			// console.log(`${destFolder.path}/${path.basename(source.path)} already exists but expected size ${existed.size} not equal ${source.size}`)
 				
 		}
 		mem(2)
@@ -662,18 +662,18 @@ const Drive = class {
 		
 			if(existed){
 		
-				console.log(`Delete previus: ${destFolder.path}/${path.basename(source.path)}`)
+				// console.log(`Delete previus: ${destFolder.path}/${path.basename(source.path)}`)
 				cloned =  await targetDrive.delete(existed)
 		
 			}
 		
 		} catch (e){
 			
-			console.log(e.toString())
+			// console.log(e.toString())
 		
 		}
 mem(4)
-		console.log (`Create: ${destFolder.path}/${path.basename(source.path)}`)
+		// console.log (`Create: ${destFolder.path}/${path.basename(source.path)}`)
 		resource.parents = [destFolder.id]
 		
 		cloned =  await targetDrive.$drive.files.create({
@@ -683,12 +683,12 @@ mem(4)
 			},
 	    	{
 		      onUploadProgress: evt => {
-		      	process.stdout.write(`UPLOAD: ${evt.bytesRead} from ${source.size} (${(100*evt.bytesRead/source.size).toFixed(2)}%) ${'\x1b[0G'}`)
+		      	// process.stdout.write(`UPLOAD: ${evt.bytesRead} from ${source.size} (${(100*evt.bytesRead/source.size).toFixed(2)}%) ${'\x1b[0G'}`)
 		    }
 	    })
 		
 
-		console.log(`Status: ${cloned.status} ${cloned.statusText}                                                             `)
+		// console.log(`Status: ${cloned.status} ${cloned.statusText}                                                             `)
 mem(5)
 		cloned  = await targetDrive.$drive.files.get({ 
 			fileId: cloned.data.id, 
@@ -701,8 +701,8 @@ mem(5)
 		
 		if(cloned.size == source.size && cloned.md5Checksum == source.md5Checksum){
 		} else {
-			console.log(`File size "${cloned.path}" failed: ${source.size} bytes expected but ${cloned.size} bytes saved`)
-			console.log(`For file recovery use command: npm run recovery "${source.path}"`)
+			// console.log(`File size "${cloned.path}" failed: ${source.size} bytes expected but ${cloned.size} bytes saved`)
+			// console.log(`For file recovery use command: npm run recovery "${source.path}"`)
 		}
 mem(6)
 
@@ -722,14 +722,14 @@ mem(6)
 
 	
 		for(let i=0; i < cloned.length; i++){
-				console.log(`Copy ${cloned[i].path} into ${targetPath}`)
+				// console.log(`Copy ${cloned[i].path} into ${targetPath}`)
 				
 				try {
 					
 					await this.copyFile(cloned[i], targetDrive, targetPath)
 				
 				} catch (e) {
-					console.log(`${e.toString()}`)
+					// console.log(`${e.toString()}`)
 				}
 		}
 		
@@ -752,7 +752,7 @@ const create = async root => {
 
 	const drive = google.drive({version: 'v3', auth: jwtClient});
 
-	console.log(`Use Google Drive client account: ${key.client_email} (project:${key.project_id}) impersonated as ${key.subject || "default"}`)
+	// console.log(`Use Google Drive client account: ${key.client_email} (project:${key.project_id}) impersonated as ${key.subject || "default"}`)
 	
 	let result = new Drive(drive, [], key.subject, key.owner)
 	await result.load(root) 
