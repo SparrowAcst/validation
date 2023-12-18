@@ -20,8 +20,8 @@ const { makeDir, getFileList } = require("./file-system")
 
 const key = require(path.join(__dirname,"../../.config/key/gd/gd.key.json"))
 
-
-
+console.log("Google Drive Service Config: ", path.join(__dirname,"../../.config/key/gd/gd.key.json"))
+console.log(JSON.stringify(key, null, " "))
 
 
 let logger
