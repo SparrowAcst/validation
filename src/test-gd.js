@@ -8,7 +8,7 @@ const run = async () => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// const googleDrive = await googledriveService.create("VALIDATION-TEST-DATA")
+	const googleDrive = await googledriveService.create("VALIDATION-TEST-RESULTS")
 
 	// console.log(googleDrive.dirList( f => f.name.startsWith("SOURCE")))
 
@@ -64,26 +64,32 @@ const run = async () => {
 
 ////////////////////////////////////////////////////////////////////
 
-	// let res = await wav2spectrum({
-	// 	fs: "./data/wav/*/*.wav",
-	// 	metadata: { message: "test"}, 
-	// 	params: { frequency:{range: [0, 2000]}} 
-	// })
+	let res = await wav2spectrum({
+		fs: "./data/wav/*/*.wav",
+		metadata: { message: "test"}, 
+		params: { frequency:{range: [0, 2000]}} 
+	})
 	
-	// res = res.map( s => extend(
-	// 	{}, 
-	// 	s.spectrum,
-	// 	{
-	// 		message: s.metadata.message,
-	// 		name: s.metadata.fileName,
-	// 		path: s.metadata.file
-	// 	}
-	// ))
+	res = res.map( s => extend(
+		{}, 
+		s.spectrum,
+		{
+			message: s.metadata.message,
+			name: s.metadata.fileName,
+			path: s.metadata.file
+		}
+	))
 	
-	// await saveXLSX(
-	// 	res,
-	// 	"./data/processed/spectra.xlsx"
-	// )
+	await saveXLSX(
+		res,
+		"./data/processed/spectra-test.xlsx"
+	)
+
+	await googleDrive.uploadFiles({
+		fs: "./data/processed/spectra-test.xlsx",
+		googleDrive: "VALIDATION-TEST-RESULTS"
+	})
+
 
 ////////////////////////////////////////////////////////////////////	
 	
@@ -289,7 +295,7 @@ const run = async () => {
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	const R = require('./utils/R');
+	// const R = require('./utils/R');
 	
 	// let data = [
 	// 	[5,	4,	3,	5,	2],
@@ -341,13 +347,13 @@ const run = async () => {
 	// console.log(result)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-let data = {
-		x: [1,1,1,0,0],
-		g:[1,0,2,2,1]	
-	}
+// let data = {
+// 		x: [1,1,1,0,0],
+// 		g:[1,0,2,2,1]	
+// 	}
 			
-	let result = await R.call("./src/R/pairwise-wilcox-test.r", "execute", {data})
-	console.log(result)
+// 	let result = await R.call("./src/R/pairwise-wilcox-test.r", "execute", {data})
+// 	console.log(result)
 
 }
 

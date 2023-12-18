@@ -20,8 +20,8 @@ const { makeDir, getFileList } = require("./file-system")
 
 const key = require(path.join(__dirname,"../../.config/key/gd/gd.key.json"))
 
-console.log("Google Drive Service Config: ", path.join(__dirname,"../../.config/key/gd/gd.key.json"))
-console.log(JSON.stringify(key, null, " "))
+// console.log("Google Drive Service Config: ", path.join(__dirname,"../../.config/key/gd/gd.key.json"))
+// console.log(JSON.stringify(key, null, " "))
 
 
 let logger
@@ -74,7 +74,7 @@ async function loadList({ drive, options}){
 				)
 			)		
 		    res = res.concat(part.data.files)
-		    process.stdout.write(`...load  ${res.length} items                                     ${'\x1b[0G'}`)
+		    // process.stdout.write(`...load  ${res.length} items                                     ${'\x1b[0G'}`)
 		    nextPageToken = part.data.nextPageToken
 	
 	  	} while (nextPageToken)
