@@ -250,8 +250,7 @@ const Drive = class {
 				    };
 				    
 				    filename += convertMimeTypes[mimeType].ext;
-				    filename = path.join(path.resolve(target), filename)
-				    
+
 				    res = await this.$drive.files.export(
 				      {
 				        fileId,
@@ -268,6 +267,11 @@ const Drive = class {
 				      { responseType: "stream" }
 				    );
 				  }
+				  
+				  filename = path.join(path.resolve(target), filename)
+				    
+				  // console.log(filename)
+
 				  const dest = fs.createWriteStream(filename);
 
 				  res.data
@@ -278,7 +282,7 @@ const Drive = class {
 				    })
 				    .on("error", (err) => {
 				      reject(err)
-				      // console.log(err);
+				      console.log(err);
 				      return 
 				    })
 				    .pipe(dest);
@@ -499,7 +503,7 @@ const Drive = class {
 		for(let i = 0; i< sourceFiles.length; i++){
 			let sourcePath = sourceFiles[i]
 			// console.log(`UPLOAD: ${sourcePath} to ${target}`)
-			await this.uploadFile(sourcePath, target, options.callback, true)
+			await this.uploadFile(sourcePath, target, options.callback, false)
 		}
 	}
 
@@ -558,10 +562,10 @@ const Drive = class {
 		
 		const existed = this.list(`${destFolder.path}/${path.basename(sourcePath)}`)[0]
 		
-		// // console.log("EXISTS", existed)
+		// console.log("EXISTS", `${destFolder.path}/${path.basename(sourcePath)}`, existed)
 
 		if(existed && !force){
-			// // console.log("UPDATE", `${destFolder.path}/${path.basename(sourcePath)}`, destFolder)
+			// console.log("UPDATE", `${destFolder.path}/${path.basename(sourcePath)}`, destFolder)
 			cloned =  await this.$drive.files.update({
 				fileId: existed.id,
 				resource,
@@ -570,7 +574,7 @@ const Drive = class {
 			})
 
 		} else {
-			// // console.log("CREATE", `${destFolder.path}/${path.basename(sourcePath)}`, destFolder)
+			// console.log("CREATE", `${destFolder.path}/${path.basename(sourcePath)}`, destFolder)
 			resource.parents = [destFolder.id]
 			cloned =  await this.$drive.files.create({
 				  resource,

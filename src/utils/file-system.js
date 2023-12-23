@@ -3,7 +3,7 @@ const fs = require("fs")
 const fse = require("fs-extra")
 const path = require("path")
 const YAML = require("js-yaml")
-const { extend } = require("lodash")
+const { extend, keys } = require("lodash")
 
 const writeFile = fs.writeFileSync
 
@@ -12,6 +12,12 @@ const getFileList = async ( pattern, options ) => {
     let result = await glob(pattern, options)
     return result.map( f => path.resolve(f))
 }     
+
+
+const unlink = async path => {
+    await fs.promises.unlink(path)
+}
+
 
 const getDirList = async (pattern, options) => {
     
@@ -52,8 +58,35 @@ const makeDir = async dir => fse.ensureDir(path.resolve(dir))
 
 const loadConfig = filename => YAML.load(fs.readFileSync(path.resolve(process.argv[2])).toString().replace(/\t/gm, " "))
 
-const loadJSON = filename => JSON.parse(fs.readFileSync(path.resolve(filename)).toString())
+// const loadJSON = filename => JSON.parse(fs.readFileSync(path.resolve(filename)).toString())
 const loadYAML = filename => YAML.load(fs.readFileSync(path.resolve(filename)).toString().replace(/\t/gm, " "))
+
+
+
+const loadJSON = filename => {
+    let result = fs.readFileSync(path.resolve(filename)).toString()
+    // console.log(result)
+    
+    try {
+        result = JSON.parse(result)
+    } catch (e) {
+        console.log("LOAD JSON", e.toString())
+        result = result
+            .replace(/(:)(\s*)([A-Za-z\.0-9]+)/g, ": \"$3\"")
+            .replace(/(\")([0-9\.]+)(\")/g, "$2")
+        
+        eval(`result = ${result}`)
+        
+    }
+
+    return result
+
+}
+
+const loadText = filename => {
+    let result = fs.readFileSync(path.resolve(filename)).toString()
+    return result
+}    
 
 
 // const postFile = async ( url, file, script) => {
@@ -106,6 +139,8 @@ module.exports = {
 	makeDir,
 	writeFile,
     loadJSON,
-    loadYAML	
+    loadYAML,
+    loadText,
+    unlink	
 }
 
