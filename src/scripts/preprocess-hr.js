@@ -64,8 +64,6 @@ const run = async () => {
 				data = loadJSON(`${TEMP}/${file.name}`)
 			}
 
-			if( !data || data.length == 0) continue
-
 			data = data.map( d => {
 				delete d.segments
 				return d
@@ -80,24 +78,22 @@ const run = async () => {
 				path: `${RECROOT}/${dataset}`
 			})
 			
-				console.log("Save xlsx", `${TEMP}/${dataset}.xlsx`)
+			console.log("Save xlsx", `${TEMP}/${dataset}.xlsx`)
 
-				
-				await saveXLSX(
-					data,
-					`${TEMP}/${dataset}.xlsx`,
-					"data"
-				)
+			await saveXLSX(
+				data,
+				`${TEMP}/${dataset}.xlsx`,
+				"data"
+			)
 
-				console.log("Upload", `${TEMP}/${dataset}.xlsx`, "into", `${RECROOT}/${dataset}`)
-				
-				await drive.uploadFiles({
-					fs: [`${TEMP}/${dataset}.xlsx`],
-					googleDrive:`${RECROOT}/${dataset}`
-				})
+			console.log("Upload", `${TEMP}/${dataset}.xlsx`, "into", `${RECROOT}/${dataset}`)
+			
+			await drive.uploadFiles({
+				fs: [`${TEMP}/${dataset}.xlsx`],
+				googleDrive:`${RECROOT}/${dataset}`
+			})
 
-				await unlink(`${TEMP}/${dataset}.xlsx`)
-
+			await unlink(`${TEMP}/${dataset}.xlsx`)
 			await unlink(`${TEMP}/${file.name}`)
 				
 		
