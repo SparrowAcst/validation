@@ -1,7 +1,7 @@
 const googledriveService = require("../utils/google-drive")
 const { extend, sortBy, find, truncate, groupBy, keys } = require("lodash")
 const { loadJSON, unlink } = require("../utils/file-system")
-const { saveXLSX } = require("../utils/xlsx")
+const { saveXLSX, loadXLSX } = require("../utils/xlsx")
 
 const datasets = [
 	"v3p__dr", 
@@ -16,10 +16,11 @@ const datasets = [
 ]
 
 const ROOT = "V3-VALIDATION-TEST-DATA"
-const MONITOR = `${ROOT}/!MONITOR`
-const RECROOT = `${ROOT}/RECORDINGS`
-const EKODR = `${ROOT}/5.5.1.4.1. Recording of Heart Sound by Qualified Healthcare Professionals (dataset v3PxDr)/Eko CORE 500`
-const EKOECG = `${ROOT}/5.5.1.5.1. Simultaneous recording of heart sound and ECG (dataset V3PxECG)/Eko CORE 500`
+const PREPROCESS = `${ROOT}/!PREPROCESS`
+
+const ST_RECORDS = `${ROOT}/RECORDINGS/v3p__ecg/v3p__ecg.json`
+
+const EKO_RECORDS = `${ROOT}/5.5.1.5.1. Simultaneous recording of heart sound and ECG (dataset V3PxECG)/Eko CORE 500/R-R intervals.xlsx`
 
 const TEMP = "./.temp"
 
@@ -36,110 +37,89 @@ const prepareFiles = async path => {
 
 const run = async () => {
 
-	let allDatasets = []
+	let drive = await prepareFiles(ROOT)
 
-	let drive = await prepareFiles(RECROOT)
+	let file = drive.fileList(ST_RECORDS)[0]
 	
-	for(let i = 0; i < datasets.length; i++){
-		dataset = datasets[i]
-		console.log(i+1," from ",datasets.length, ": ", dataset)
+	let eko_data
+	let st_data
 
-		let file = drive.fileList(`${RECROOT}/${dataset}/${dataset}.json`)[0]
+	if(file){
+		console.log("Download", file.path)	
+		await drive.downloadFiles({
+			fs: TEMP,
+			googleDrive: [file]
+		})
+		await delay(1000)
+		console.log("Load JSON", `${TEMP}/${file.name}`)	
 		
-		if(file){
-			console.log("Download", file.path)	
-			await drive.downloadFiles({
-				fs: TEMP,
-				googleDrive: [file]
-			})
-			console.log("Delay")
-			await delay(1000)
-			console.log("Load JSON", `${TEMP}/${file.name}`)	
-			
-			let data 
-			
-			try {
-				data = loadJSON(`${TEMP}/${file.name}`)
-			} catch (e) {
-				data = loadJSON(`${TEMP}/${file.name}`)
-			}
-
-			data = data.map( d => {
-				delete d.segments
-				return d
-			})
-
-			data = sortBy(data, d => d.patient_id)
-
-			allDatasets.push({
-				dataset,
-				recordings: data.length,  
-				patients: keys(groupBy(data, d => d.patient_id)).length,
-				path: `${RECROOT}/${dataset}`
-			})
-			
-			console.log("Save xlsx", `${TEMP}/${dataset}.xlsx`)
-
-			await saveXLSX(
-				data,
-				`${TEMP}/${dataset}.xlsx`,
-				"data"
-			)
-
-			console.log("Upload", `${TEMP}/${dataset}.xlsx`, "into", `${RECROOT}/${dataset}`)
-			
-			await drive.uploadFiles({
-				fs: [`${TEMP}/${dataset}.xlsx`],
-				googleDrive:`${RECROOT}/${dataset}`
-			})
-
-			await unlink(`${TEMP}/${dataset}.xlsx`)
-			await unlink(`${TEMP}/${file.name}`)
-				
-		
-		} else {
-			console.log("skip")
-			allDatasets.push({
-				dataset, 
-				recordings: 0, 
-				patients: 0,
-				path: `${RECROOT}/${dataset}`, 
-			})
-			
+		try {
+			st_data = loadJSON(`${TEMP}/${file.name}`)
+		} catch (e) {
+			st_data = loadJSON(`${TEMP}/${file.name}`)
 		}
 	}
 
-	drive = await prepareFiles(`${EKODR}/files`)
-	allDatasets.push({
-		dataset: "v3p__dr-EKO",
-		recordings: drive.fileList().length,
-		patients: keys( groupBy(drive.fileList().map( f => f.name.split("-")[0]))).length,
-		path:EKODR
-	})	
+	file = drive.fileList(EKO_RECORDS)[0]
+	
+	if(file){
+		console.log("Download", file.path)	
+		await drive.downloadFiles({
+			fs: TEMP,
+			googleDrive: [file]
+		})
+		await delay(1000)
+		console.log("Load XLSX", `${TEMP}/${file.name}`)	
+		
+		eko_data = await loadXLSX(
+			`${TEMP}/${file.name}`,
+			"data"
+		)
+	}
 
+	if(!st_data || !eko_data) return
 
-	drive = await prepareFiles(`${EKOECG}/files`)
-	allDatasets.push({
-		dataset: "v3p__ecg-EKO",
-		recordings: drive.fileList().length,
-		patients: keys( groupBy(drive.fileList().map( f => f.name.split("-")[0]))).length,
-		path:EKOECG
-	})	
+	st_data = st_data.map(d => ({recordId: d.patient_id, ST_heartRate: d.heart_rate}))	
+	
+	let temp = groupBy( eko_data, d => d["Recording ID"])
+	
+	eko_data = keys(temp).map( key => {
+		
+		
+		let t = sortBy(temp[key], d => d["Cardio Cicle"]).map( d => d.R)
+		let c = []
+		for(let i=0; i < t.length-1; i++){
+			c.push( 60 /(t[i+1] - t[i]) )
+		}
+		let heartRate = Number.parseInt((c.reduce((a,b) => a+b) / c.length).toFixed(0))
+		
+		return {
+			recordId: key,
+			EKO_heartRate: heartRate
+		}
 
+	})
 
+		
+	result = st_data.concat(eko_data)
+	let g = groupBy(result, d => d.recordId)
+	result = keys(g).map( key => extend({}, g[key][0], g[key][1]) )
+
+	
 	await saveXLSX(
-		allDatasets,
-		`${TEMP}/datasets.xlsx`,
+		result,
+		`${TEMP}/heart_rate.xlsx`,
 		"data"
 	)
 
 	drive = await prepareFiles(`${ROOT}`)
+	console.log(`UPLOAD: ${TEMP}/heart_rate.xlsx into ${PREPROCESS}`)
 	await drive.uploadFiles({
-		fs: [`${TEMP}/datasets.xlsx`],
-		googleDrive:`${MONITOR}`
+		fs: [`${TEMP}/heart_rate.xlsx`],
+		googleDrive:`${PREPROCESS}`
 	})
 
-	await unlink(`${TEMP}/datasets.xlsx`)
+	await unlink(`${TEMP}/heart_rate.xlsx`)
 	
 	
 }

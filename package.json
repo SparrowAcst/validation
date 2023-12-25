@@ -4,12 +4,13 @@
   "main": "index.js",
   
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "monitor-datasets": "node ./src/scripts/monitor-datasets.js",
     "monitor-patients": "node ./src/scripts/monitor-patients.js",
     "monitor-experts": "node ./src/scripts/monitor-experts.js",
     "monitor-forms": "node ./src/scripts/monitor-forms.js",
-    "monitor-all": "node ./src/scripts/monitor-datasets.js && node ./src/scripts/monitor-patients.js && node ./src/scripts/monitor-experts.js && node ./src/scripts/monitor-forms.js"
+    "monitor-all": "node ./src/scripts/monitor-datasets.js && node ./src/scripts/monitor-patients.js && node ./src/scripts/monitor-experts.js && node ./src/scripts/monitor-forms.js",
+
+    "preprocess-hr": "node ./src/scripts/preprocess-hr.js"
     
   },
 

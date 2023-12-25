@@ -1,6 +1,6 @@
 const xlsx = require("xlsx")
 const path = require("path")
-const { keys, values, uniq, isArray, isObject } = require("lodash")
+const { keys, values, uniq, isArray, isObject, flattenDeep, uniqBy } = require("lodash")
 const { makeDir } = require("./file-system")
 const moment = require("moment")
 
@@ -66,11 +66,10 @@ const saveXlsx = async (data, filename, sheet) => {
 		} else {
 	
 			if( isObject(data[0])){
-	
-				res = [keys(data[0])]
+				
+				res = [uniqBy(flattenDeep(data.map(d => keys(d))))] //[keys(data[0])]
 				data.forEach( d => {
 					res.push(values(d))
-	
 				})
 	
 			} else {
