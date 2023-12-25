@@ -4,6 +4,9 @@
   "main": "index.js",
   
   "scripts": {
+
+    "ssl":"export OPENSSL_CONF=/dev/null",
+
     "monitor-datasets": "node ./src/scripts/monitor-datasets.js",
     "monitor-patients": "node ./src/scripts/monitor-patients.js",
     "monitor-experts": "node ./src/scripts/monitor-experts.js",
