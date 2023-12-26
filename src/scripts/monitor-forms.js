@@ -27,7 +27,7 @@ const forms = [
 		
 	},
 	{
-		name: "5.6.2. Assessment of patients’ heart murmur by experts",
+		name: "5.6.2. Experts assessment of informativeness of Stethophone’s heart sound analysis algorithm",
 		n: "5.6.2.",
 		path: `${ROOT}/5.6.2. Experts assessment of informativeness of Stethophone’s heart sound analysis algorithm for recordings made by lay users (dataset v3PxSelf)/Experts assessment of informativeness of Stethophone’s heart sound analysis algorithm`,
 		alt: `${ROOT}/5.6.2. Experts assessment of informativeness of Stethophone’s heart sound analysis algorithm for recordings made by lay users (dataset v3PxSelf)/Experts assessment of informativeness of Stethophone’s heart sound analysis algorithm.xlsx`,
