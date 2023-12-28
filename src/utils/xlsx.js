@@ -66,10 +66,10 @@ const saveXlsx = async (data, filename, sheet) => {
 		} else {
 	
 			if( isObject(data[0])){
-				
-				res = [uniqBy(flattenDeep(data.map(d => keys(d))))] //[keys(data[0])]
+				let header = uniqBy(flattenDeep(data.map(d => keys(d))))
+				res = [header] //[keys(data[0])]
 				data.forEach( d => {
-					res.push(values(d))
+					res.push(header.map( key => (d[key]) ? d[key] : ""))
 				})
 	
 			} else {
