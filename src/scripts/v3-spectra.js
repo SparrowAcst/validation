@@ -22,29 +22,29 @@ const prepareFiles = async path => {
 
 const run = async options => {
 	
-	// if(!(await exists(`${TEMP}`))){
-	// 	await mkdir(`${TEMP}`)	
-	// }
+	if(!(await exists(`${TEMP}`))){
+		await mkdir(`${TEMP}`)	
+	}
 
-	// if(!(await exists(`${TEMP}/wav`))){
-	// 	await mkdir(`${TEMP}/wav`)
-	// }	
+	if(!(await exists(`${TEMP}/wav`))){
+		await mkdir(`${TEMP}/wav`)
+	}	
 	
-	// if(!(await exists(`${TEMP}/spectra`))){
-	// 	await mkdir(`${TEMP}/spectra`)
-	// }	
+	if(!(await exists(`${TEMP}/spectra`))){
+		await mkdir(`${TEMP}/spectra`)
+	}	
 	
 	
-	// console.log(`Download files from ${options.source}`)
+	console.log(`Download files from ${options.source}`)
 	
-	// let sourceDrive = await prepareFiles(options.source)
+	let sourceDrive = await prepareFiles(options.source)
 		
-	// await sourceDrive.downloadFiles({
-	// 	googleDrive:sourceDrive.fileList(),
-	// 	fs: `${TEMP}/wav`
-	// })
+	await sourceDrive.downloadFiles({
+		googleDrive:sourceDrive.fileList(),
+		fs: `${TEMP}/wav`
+	})
 		
-	// console.log("Build spectra")
+	console.log("Build spectra")
 	
 	let res = await wav2spectrum({
 		fs: `${TEMP}/wav/*.wav`,
