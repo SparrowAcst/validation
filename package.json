@@ -2,23 +2,43 @@
   "name": "validation",
   "version": "1.0.0",
   "main": "index.js",
-  
   "scripts": {
-
-    "ssl":"export OPENSSL_CONF=/dev/null",
-
+    "v3-spectra": "node ./src/scripts/v3-spectra.js",
+    "ssl": "export OPENSSL_CONF=/dev/null",
+    "v2-monitor-datasets": "node ./src/scripts/v2-monitor-datasets.js",
+    "v2-dataset-totals": "node ./src/scripts/v2-dataset-totals.js",
+    "v2-preprocess-o2o": "node ./src/scripts/v2-preprocess-o2o.js",
+    "v2-preprocess-fr": "node ./src/scripts/v2-preprocess-fr.js",
+    "v2-preprocess-m2m": "node ./src/scripts/v2-preprocess-m2m.js",
+    "v2-preprocess-long": "node ./src/scripts/v2-preprocess-long.js",
+    "v2-preprocess-filter": "node ./src/scripts/v2-preprocess-filter.js",
+    "v2-preprocess-participant": "node ./src/scripts/v2-preprocess-participant.js",
+    "v2-preprocess-participant-eko": "node ./src/scripts/v2-preprocess-participant-eko.js",
     "monitor-datasets": "node ./src/scripts/monitor-datasets.js",
     "monitor-pfiles": "node ./src/scripts/monitor-pfiles.js",
-    
     "monitor-patients": "node ./src/scripts/monitor-patients.js",
     "monitor-experts": "node ./src/scripts/monitor-experts.js",
     "monitor-forms": "node ./src/scripts/monitor-forms.js",
     "monitor-all": "export OPENSSL_CONF=/dev/null && node ./src/scripts/monitor-datasets.js && node ./src/scripts/monitor-patients.js && node ./src/scripts/monitor-experts.js && node ./src/scripts/monitor-forms.js && node ./src/scripts/monitor-pfiles.js",
-
-    "preprocess-hr": "node ./src/scripts/preprocess-hr.js"
-    
+    "preprocess-hr": "node ./src/scripts/preprocess-hr.js",
+    "preprocess-hr-repeat": "node ./src/scripts/preprocess-hr-repeat.js",
+    "preprocess-segments": "node ./src/scripts/preprocess-segments.js",
+    "preprocess-segments-repeat": "node ./src/scripts/preprocess-segments-repeat.js",
+    "process-segmentation-agree": "node ./src/scripts/process-segmentation-agree",
+    "process-hr-agree": "node ./src/scripts/process-hr-agree",
+    "p-hr-repeat": "node ./src/scripts/p-hr-repeat",
+    "pilot-prepare": "node ./src/scripts/pilot-prepare.js",
+    "pilot-prepare-m-patients": "node ./src/scripts/pilot-prepare-m-patients.js",
+    "pilot-prepare-m-spots": "node ./src/scripts/pilot-prepare-m-spots.js",
+    "pilot-prepare-hr": "node ./src/scripts/pilot-prepare-hr.js",
+    "pilot-prepare-s1": "node ./src/scripts/pilot-prepare-s1.js",
+    "pilot-prepare-s2": "node ./src/scripts/pilot-prepare-s2.js",
+    "pilot-prepare-murmur-1": "node ./src/scripts/pilot-prepare-murmur-1.js",
+    "pilot-prepare-hr-1": "node ./src/scripts/pilot-prepare-hr-1.js",
+    "pilot-prepare-s-1": "node ./src/scripts/pilot-prepare-s-1.js",
+    "pilot-prepare-s1-1": "node ./src/scripts/pilot-prepare-s1-1.js",
+    "pilot-prepare-s2-1": "node ./src/scripts/pilot-prepare-s2-1.js"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SparrowAcst/validation.git"

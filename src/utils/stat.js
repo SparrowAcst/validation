@@ -650,7 +650,21 @@ function lstsq(m, n, A, b) {
 
 
 
+function anomalValues(values){
 
+  let res = []
+  let mm = mean(values)
+  let s = std(values, false, mm)
+
+  values.forEach( (value, index) => {
+    if ((value <= (mm-3*s)) || (value >= (mm+3*s))){
+      res.push({index, value, avg: mm, std: s, interval: [mm-3*s, mm+3*s]})
+    }
+  })
+
+  return res
+
+}
 
 
 
@@ -664,6 +678,9 @@ exports.median = median;
 exports.iqr = iqr;
 exports.mean = mean;
 exports.avg = mean;
+
+exports.anomals = anomalValues;
+exports.anomalies = anomalValues;
 
 exports.gmean = gmean;
 exports.hmean = hmean;

@@ -36,21 +36,26 @@ const getWavSpectrum = ( filePath, metadata, params ) => {
 	buffer = wav.decode(buffer)
 	let audioData = Array.prototype.slice.call( buffer.channelData[0])
 
-	let windowSize = Math.pow(2, Math.trunc(Math.log(buffer.sampleRate)/Math.log(2))+2)
-	console.log("Simple rate: ", buffer.sampleRate, "size:", audioData.length)
+	let semiWindowSize = Math.pow(2, Math.trunc(Math.log(buffer.sampleRate)/Math.log(2))+1)
+	let windowSize = semiWindowSize * 2
+	// let windowSize = Math.pow(2, Math.trunc(Math.log(buffer.sampleRate)/Math.log(2))+1)
+	
+	console.log("Simple rate: ", buffer.sampleRate, "size:", audioData.length, "window size:", windowSize)
 	
 	tick.start()
 
 	let spectra = []
 	let windowIndex = 0
 	let window = audioData.slice( windowIndex*windowSize, windowSize )
+	windowIndex++
 	let frequencies
 	
 	for( ; window.length == windowSize; windowIndex++ ){
 		const temp = getWindowSpectrum( window, buffer.sampleRate, frequencyRange )
 		spectra.push(temp.magnitudes)
 		if(!frequencies) frequencies = temp.frequencies
-		window = audioData.slice( windowIndex*windowSize, windowSize )
+		window = audioData.slice( windowIndex*windowSize, windowIndex*windowSize + windowSize )
+		// console.log("index:", windowIndex,"wsize:",windowSize,"start:", windowIndex*semiWindowSize,"length:", window.length)
 	}
 
 	for( let i = window.length; i < windowSize; i++ ){
@@ -59,6 +64,7 @@ const getWavSpectrum = ( filePath, metadata, params ) => {
 
 	spectra.push( getWindowSpectrum( window, buffer.sampleRate, frequencyRange ).magnitudes)
 	
+	// console.log("window index", windowIndex)
 	tick.stop()
 
 	let magnitudes =  centroid(spectra).slice( frequencyRange[0], frequencyRange[1] - frequencyRange[0] + 1 )//,

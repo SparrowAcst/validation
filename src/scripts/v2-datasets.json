@@ -1,0 +1,198 @@
+[
+    {
+        "folder": "v2iph_pspt",
+        "path": [
+        {
+            "meta": "PT.10.8.3 v2iph_pspt/v2iph_pspt.json"
+        },
+        {
+            "folder": "PT.10.8.3 v2iph_pspt/processed"
+        }]
+    },
+    {
+        "folder": "v2participant_",
+        "path": [
+        {
+            "meta": "PT.10.8.4 v2participant_/v2participant_.json"
+        },
+        {
+            "folder": "PT.10.8.4 v2participant_/processed"
+        }]
+
+    },
+    {
+        "folder": "v2ptself_",
+        "path": [
+        {
+            "meta": "PT.10.8.6 v2ptself_/v2ptself_.json"
+        },
+        {
+            "folder": "PT.10.8.6 v2ptself_/processed"
+        }]
+    },
+    {
+        "folder": "v2iph_wn",
+        "path": [
+        {
+            "meta": "PT.10.8.2 v2iph_wn/v2iph_wn.json"
+        },
+        {
+            "folder": "PT.10.8.2 v2iph_wn/processed"
+        }]
+    },
+    {
+        "folder": "v2noisydeclick_",
+        "path": [
+        {
+            "meta": "PT.10.8.5 v2noisydeclick_/v2noisydeclick_.json"
+        },
+        {
+            "folder": "PT.10.8.5 v2noisydeclick_/processed"
+        }]
+    },
+    {
+        "folder": "v2iph_p_m2m",
+        "path": [
+        {
+            "meta": "RRT.8.7.2 v2iph__p__m2m/v2iph_p_m2m.json"
+        },
+        {
+            "folder": "RRT.8.7.2 v2iph__p__m2m/processed"
+        }]
+    },
+    {
+        "folder": "v2iph_operators_",
+        "path": [
+        {
+            "meta": "RRT.8.7.3 v2iph_operators_/v2iph_operators_.json"
+        },
+        {
+            "folder": "RRT.8.7.3 v2iph_operators_/processed"
+        }]
+    },
+    {
+        "folder": "v2iph_long_",
+        "path": [
+        {
+            "meta": "RRT.8.7.2 v2iph_long_/v2iph_long_.json"
+        },
+        {
+            "folder": "RRT.8.7.2 v2iph_long_/processed"
+        }]
+    },
+
+    {
+        "folder": "v2ekocorewn",
+        "path": [
+        {
+            "folder": "PT.10.8.2 v2ekocorewn/files"
+        },
+        {
+            "folder": "PT.10.8.2 v2ekocorewn/processed"
+        }]
+    },
+    {
+        "folder": "v2micwn",
+        "path": [
+        {
+            "folder": "PT.10.8.2 v2micwn/files"
+        },
+        {
+            "folder": "PT.10.8.2 v2micwn/processed"
+        }
+    ]
+    },
+    {
+        "folder": "v2sourcewn",
+        "path": [
+        {
+            "folder": "PT.10.8.2 v2sourcewn/files"
+        }]
+    },
+    {
+        "folder": "v2ekocore_pspt",
+        "path": [
+        {
+            "folder": "PT.10.8.3 v2ekocorepspt/files"
+        },
+        {
+            "folder": "PT.10.8.3 v2ekocorepspt/processed"
+        }]
+    },
+    {
+        "folder": "v2ekocoreparticipant_",
+        "path": [
+        {
+            "folder": "PT.10.8.4 v2ekocoreparticipant_/files"
+        },
+        {
+            "folder": "PT.10.8.4 v2ekocoreparticipant_/processed"
+        }]
+    },
+    {
+        "folder": "v2noisyekocore",
+        "path": [
+        {
+            "folder": "PT.10.8.5 v2noisyekocore/files"
+        },
+        {
+            "folder": "PT.10.8.5 v2noisyekocore/processed"
+        }]
+    },
+
+    {
+        "folder": "v2ekocorefilter_",
+        "path": [
+        {
+            "folder": "PT.11.2.2 v2ekocorefilter_/files"
+        },
+        {
+            "folder": "PT.11.2.2 v2ekocorefilter_/processed"
+        } 
+    ]
+    },
+
+    {
+        "folder": "v2stethophonefilter_",
+        "path": [
+        {
+            "folder": "PT.11.2.2 v2stethophonefilter_/files"
+        },
+        {
+            "folder": "PT.11.2.2 v2stethophonefilter_/processed"
+        } 
+    ]
+    },
+
+    {
+        "folder": "v2ekocorelong_",
+        "path": [
+        {
+            "folder": "RRT.8.7.2 v2ekocorelong_/files"
+        },
+        {
+            "folder": "RRT.8.7.2 v2ekocorelong_/processed"
+        }]
+    },
+    {
+        "folder": "v2ekocorep_m2m",
+        "path": [
+        {
+            "folder": "RRT.8.7.2 v2ekocorep_m2m/files"
+        },
+        {
+            "folder": "RRT.8.7.2 v2ekocorep_m2m/processed"
+        }]
+    },
+    {
+        "folder": "v2ekocoreoperators_",
+        "path": [
+        {
+            "folder": "RRT.8.7.3 v2ekocoreoperators_/files"
+        },
+        {
+            "folder": "RRT.8.7.3 v2ekocoreoperators_/processed"
+        }]
+    }
+
+]

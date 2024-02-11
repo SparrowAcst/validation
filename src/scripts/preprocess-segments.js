@@ -4,6 +4,8 @@ const { loadJSON, unlink } = require("../utils/file-system")
 const { saveXLSX, loadXLSX } = require("../utils/xlsx")
 const { avg, std, anomals } = require("../utils/stat")
 
+const { fitSegmentations } = require("../utils/fit-segments")
+
 const datasets = [
 	"v3p__dr", 
 	"v3p__ecg", 
@@ -21,7 +23,7 @@ const PREPROCESS = `${ROOT}/!PREPROCESS`
 
 const ST_RECORDS = `${ROOT}/RECORDINGS/v3p__ecg/v3p__ecg.json`
 
-const EKO_RECORDS = `${ROOT}/5.5.1.5.1. Simultaneous recording of heart sound and ECG (dataset V3PxECG)/Eko CORE 500/R-R intervals.xlsx`
+const EKO_RECORDS = `${ROOT}/5.5.1.5.1. Simultaneous recording of heart sound and ECG (dataset V3PxECG)/Eko CORE 500/segments.xlsx`
 
 const TEMP = "./.temp"
 
@@ -98,70 +100,93 @@ const run = async () => {
 	}
 
 	// eko_data = await loadXLSX(
-	// 		`${TEMP}/R-R intervals.xlsx`,
+	// 		`${TEMP}/segments.xlsx`,
 	// 		"data"
 	// 	)
 
-
 	if(!st_data || !eko_data) return
-
-	st_data = st_data.map(d => ({recordId: d.patient_id, ST_heartRate: d.heart_rate}))	
 	
 	let temp = groupBy( eko_data, d => d["Recording ID"])
 	
 	eko_data = keys(temp).map( key => {
 		
-		let t = sortBy(temp[key], d => d["Cardio Cicle"]).map( d => d.R)
-		
-		let anomals = checkIntervals(t)
+		let t = sortBy(temp[key], d => d.start)
+		let anomals = checkIntervals(t.filter(d => d.Segment == "s1").map(d => d.start))
 		if(anomals.length > 0){
 			anomals = anomals.map( (data, index) => {
 				data.recording = key
-				data.cardioCicle = data.index+1
+				data.timeIndex = data.index+1
 				data.start = t[data.index] 
-				data.duration = data.value
 				data.form = EKO_RECORDS
 				delete data.value
 				delete data.index
 				return data
 			})
-			console.log("ANOMALIES:", anomals)
+			console.log("ANOMALIES S1:", anomals)
 		}
 		
-		let c = []
-		for(let i=0; i < t.length-1; i++){
-			c.push( 60 /(t[i+1] - t[i]) )
+		anomals = checkIntervals(t.filter(d => d.Segment == "s2").map(d => d.start))
+		if(anomals.length > 0){
+			anomals = anomals.map( (data, index) => {
+				data.recording = key
+				data.timeIndex = data.index+1
+				data.start = t[data.index] 
+				data.form = EKO_RECORDS
+				delete data.value
+				delete data.index
+				return data
+			})
+			console.log("ANOMALIES S2:", anomals)
 		}
-		
-		let heartRate = Number.parseInt((c.reduce((a,b) => a+b) / c.length).toFixed(0))
 		
 		return {
 			recordId: key,
-			EKO_heartRate: heartRate
+			EKO_segments: t.map( d => ({type: d.Segment, start: d.Start}))
 		}
 
 	})
 
-		
-	result = st_data.concat(eko_data)
-	let g = groupBy(result, d => d.recordId)
-	result = keys(g).map( key => extend({}, g[key][0], g[key][1]) )
+	eko_data = eko_data.map( d => {
+		let f = find(st_data, t => t.patient_id == d.recordId)
+		d.ST_segments = (f) ? f.segments.map( s => ({type: s.type, start: s.start})) : []
+		return d
+	})
 
 	
+	let fitted = []
+
+	eko_data.forEach( rec => {
+		fitted = fitted.concat( fitSegmentations({
+			reference:{
+				name: "EKO",
+				data: rec.EKO_segments
+			},
+			segmentation:{
+				name:"ST",
+				data: rec.ST_segments
+			}
+		}))
+	})
+
+	// fitted.forEach( d => {
+	// 	console.log( d.EKO_type, "\t", d.EKO_start, "\t", d.ST_type, "\t", d.ST_start )
+	// })
+	
 	await saveXLSX(
-		result,
-		`${TEMP}/heart_rate.xlsx`,
+		fitted,
+		`${TEMP}/segmentation-ecg.xlsx`,
 		"data"
 	)
 
-	drive = await prepareFiles(`${ROOT}`)
-	console.log(`UPLOAD: ${TEMP}/heart_rate.xlsx into ${PREPROCESS}`)
-	await drive.uploadFiles({
-		fs: [`${TEMP}/heart_rate.xlsx`],
-		googleDrive:`${PREPROCESS}`
-	})
+	// drive = await prepareFiles(`${ROOT}`)
+	// console.log(`UPLOAD: ${TEMP}/segmentation-ecg.xlsx into ${PREPROCESS}`)
+	// await drive.uploadFiles({
+	// 	fs: [`${TEMP}/segmentation-ecg.xlsx`],
+	// 	googleDrive:`${PREPROCESS}`
+	// })
 
-	await unlink(`${TEMP}/heart_rate.xlsx`)
+	// await unlink(`${TEMP}/heart_rate.xlsx`)
+	
 	
 }
 
