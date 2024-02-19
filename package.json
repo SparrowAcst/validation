@@ -37,8 +37,26 @@
     "pilot-prepare-hr-1": "node ./src/scripts/pilot-prepare-hr-1.js",
     "pilot-prepare-s-1": "node ./src/scripts/pilot-prepare-s-1.js",
     "pilot-prepare-s1-1": "node ./src/scripts/pilot-prepare-s1-1.js",
-    "pilot-prepare-s2-1": "node ./src/scripts/pilot-prepare-s2-1.js"
+    "pilot-prepare-s2-1": "node ./src/scripts/pilot-prepare-s2-1.js",
+    
+
+    "v3-wn-spectra": "node ./src/scripts/v3-preprocess-wn.js",
+    
+
+    "v3-hr-prep-ecg": "node ./src/scripts/v3-preprocess-hr.js",
+    "v3-hr-prep-rep": "node ./src/scripts/v3-preprocess-hr-rep.js",
+    "v3-mur-prep": "node ./src/scripts/v3-prepare-murmur.js",
+    "v3-mur-prep-self": "node ./src/scripts/v3-prepare-murmur-self.js",
+      
+
+    "v3-seg-pool-ecg": "node ./src/scripts/v3-manual-seg-ecg.js",
+    "v3-seg-pool-rep": "node ./src/scripts/v3-manual-seg-rep.js",
+    
+    "v3-scan-ai": "node ./src/scripts/v3-scan-records-ai.js",
+    "v3-scan-pt": "node ./src/scripts/v3-scan-records-pt.js",
+    "v3-scan-rrt": "node ./src/scripts/v3-scan-records-rrt.js"
   },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SparrowAcst/validation.git"
@@ -52,6 +70,7 @@
     "@stdlib/stats-base-dists-t-quantile": "0.0.6",
     "@stdlib/stats-ttest": "0.0.7",
     "@stdlib/stats-ttest2": "0.0.7",
+    "axios": "^1.6.7",
     "canvas": "^2.11.2",
     "deep-extend": "^0.6.0",
     "dsp.js": "^1.0.1",

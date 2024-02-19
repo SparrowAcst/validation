@@ -44,7 +44,7 @@ const resolveFile = (filePath, defaultFilename) => {
 }
 
 
-const saveXlsx = async (data, filename, sheet) => {
+const saveXlsx = async (data, filename, sheet, header) => {
 	
 	if(!data) throw new Error('XLSX SAVE ERROR: Data must be not empty')
 	
@@ -66,7 +66,9 @@ const saveXlsx = async (data, filename, sheet) => {
 		} else {
 	
 			if( isObject(data[0])){
-				let header = uniqBy(flattenDeep(data.map(d => keys(d))))
+				if(!header){
+					header = uniqBy(flattenDeep(data.map(d => keys(d))))
+				}	
 				res = [header] //[keys(data[0])]
 				data.forEach( d => {
 					res.push(header.map( key => (!isUndefined(d[key])) ? d[key] : ""))

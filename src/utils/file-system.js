@@ -137,6 +137,10 @@ const loadJSON = filename => {
 
 }
 
+const saveJSON = (filename, data) => {
+    writeFile(filename, JSON.stringify(data))
+}
+
 const loadText = filename => {
     let result = fs.readFileSync(path.resolve(filename)).toString()
     return result
@@ -192,13 +196,16 @@ const rmDir = require('lignator').remove
 
 module.exports = {
 	getFileList,
-	getDirList,
+	files: getFileList,
+    getDirList,
+    dirs: getDirList,
 	makeDir,
     mkdir: makeDir,
     rmDir,
     rmdir: rmDir,
 	writeFile,
     loadJSON,
+    saveJSON,
     loadYAML,
     loadText,
     unlink,

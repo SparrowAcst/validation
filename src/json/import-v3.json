@@ -1,0 +1,142 @@
+[
+ {
+  "stVersion": 3,
+  "record_folder_id": "1QL5YFagHpNY1nBmVBso_NjW6ub6ebrqE",
+  "examination_folder_id": "1esOlxRec_rnrTFOGPBZjD7mBroQFKVO9",
+  "folder": "v3-try-v3",
+  "template": "v3-WN-trytest2024-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "1H4VqIlqJUGjTBf23uydRl7-nxrNXdsYq",
+  "examination_folder_id": "1on_60Qe4rebesGGcFmokpBaGl545vkeZ",
+  "folder": "v3pxdr",
+  "template": "v3-ai-dr-iph-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "1qA2JdwYnLFAb2MaCD7o0bIjJ6oKejrO0",
+  "examination_folder_id": "15gXHiEYKe6lXiYnzVPrqO2O8fe8FHBPn",
+  "folder": "v3pxecg-iph",
+  "template": "v3-ai-ecg-iph-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "10LG4Y8m9urXvwVelptT-75AKi4uOhdNp",
+  "examination_folder_id": "1cgXRt47czgKQZxmLv85LGhGtFGaChlUK",
+  "folder": "v3qtyxambi",
+  "template": "v3-ai-ambi-iph-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "194-kRKkcADChCGE5anjuEQY8cmqY1z32",
+  "examination_folder_id": "1QAHd6RWQS3Dg4obQagPhkEf10eicfKWD",
+  "folder": "v3qtyxarm",
+  "template": "v3-ai-arm-iph-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "1NxdnUWtvK_9J_WCXDRZut53CHqFu6y15",
+  "examination_folder_id": "1qPEmH9zZfCgPL3G7Ai0CoDgFv-560tFD",
+  "folder": "v3qtyxcardiac",
+  "template": "v3-ai-cardiac-iph-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "1_aXJDzA1x_10bDu7eXEtW15MwhA1xkEd",
+  "examination_folder_id": "1DMORTD8eiLwHMDPCYZKqSXKzbjeVuPsl",
+  "folder": "v3qtyxcardiaccotton",
+  "template": "v3-ai-cardiaccotton-iph-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "1c6EnDxE3V9ICWmHNE-8NhOx-6Mw1viND",
+  "examination_folder_id": "1d6xXTleHVBV3Y-VnDhzgCXmpyRDEyWrr",
+  "folder": "v3qtyxcardiacwool",
+  "template": "v3-ai-cardiacwool-iph-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "1LKiMjpBOrNdryEigFdxn6XSOXBg2bq36",
+  "examination_folder_id": "1BOFaNu1oE4p2bD28uh6KHd8yREiGmXe9",
+  "folder": "v3pxrepeathr-iph",
+  "template": "v3-ai-repeathr-iph-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "1pVI64NfuTD5rHClFM3_Z0_TVO23W3NMr",
+  "examination_folder_id": "1rvdOXNHfy0O9rSsnOVXt1qGCXFc6uUwa",
+  "folder": "v3pxself",
+  "template": "v3-ai-self-iph-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "1GM8E_eZDPJcK-6eaOvgMlWyjekpaFAFo",
+  "examination_folder_id": "1g8FJicKTovboSqchk5orCb1b3GXTNurb",
+  "folder": "v3-pt-filter-iph",
+  "template": "v3-pt-filter-iph-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "1xjOrT30rfEad4LdEo2jZTZ8buLoUkCzy",
+  "examination_folder_id": "1okIkZpDV9Hcv5cEBi-xN5OHDJfEeGC7c",
+  "folder": "v3-pt-noisydeclick-iph",
+  "template": "v3-pt-noisy-iph-declick-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "12Q21pFZVy7IdK9R1jAo1GCh5Q9JWtJHr",
+  "examination_folder_id": "1PsFBCOqWkIIXkEv3suIApczMXF9UiyC1",
+  "folder": "v3-pt-participant-iph",
+  "template": "v3-pt-participant-iph-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "1RG6j3WKHLPLuoaUHrfuOjncF0lfP8IjE",
+  "examination_folder_id": "1pJKHSrbthH6A_z2FpvZHlA4BCkwCprMq",
+  "folder": "v3-pt-pspt-iph",
+  "template": "v3-pt-pspt-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "1rRjqfYvv_guhhnzc4Qf07afMeBDTJDR3",
+  "examination_folder_id": "189LWGZgWoGWiBmLd8BqturedpAdXjH2K",
+  "folder": "v3-pt-self-iph",
+  "template": "v3-pt-self-iph-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "1rEIx94uBf2vxYB8USu25Em2fqjvLkhP8",
+  "examination_folder_id": "1IMoKqe99yvSrAWFH4pX-hUB_utigQb-u",
+  "folder": "v3-pt-wn-iph",
+  "template": "v3-pt-wn-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "148wBbTrm_zMzLfVVFDDoFuYIoO_fQEty",
+  "examination_folder_id": "1fKRCIZw_JibrYfGLoF3iL5wpwH55RKqt",
+  "folder": "v3-rrt-d2d-iph",
+  "template": "v3-rrt-d2d-iph-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "1aSSxzriypxTuhdJWjyFMX8JXrYipUFoI",
+  "examination_folder_id": "1xbRHuVabwPsLV7vDo3ZQAWvJeJ8Dd6wO",
+  "folder": "v3-rrt-long-iph",
+  "template": "v3-rrt-long-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "15qgHM-sACMtWP5325vn2asUbmxLCeH1R",
+  "examination_folder_id": "19UJ7hXiz5VaLGZVtIZhfjrgQHsIm3Zj_",
+  "folder": "v3-rrt-m2m-iph",
+  "template": "v3-rrt-m2m-%"
+ },
+ {
+  "stVersion": 3,
+  "record_folder_id": "11nOK0pckIo2qAXeRw1DCkS3AmYcQMxmX",
+  "examination_folder_id": "1aBBvjLjm5PTdZgy_sw8aqKuG4vXlIlaA",
+  "folder": "v3-rrt-operators-iph",
+  "template": "v3-rrt-operators-iph-%"
+ }
+]

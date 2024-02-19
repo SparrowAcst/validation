@@ -7,7 +7,7 @@ const { FFT } = require("dsp.js")
 const wavFileInfo = require('wav-file-info')
 const { keys, extend, zipObject, isUndefined } = require("lodash")
 const { centroid, rebase, aggregate, smoothPath, normEuclide, normalize } = require("./vector")
-
+const { avg, max, sum, gmean } = require("./stat")
 
 const getWindowSpectrum = ( window, sampleRate, frequencyRange ) => {
 	const fft = new FFT(window.length, sampleRate)
@@ -90,6 +90,57 @@ const getWavSpectrum = ( filePath, metadata, params ) => {
 
 } 
 
+
+const f = x =>  x //(Math.abs(x)<0.3) ? x/10 : x //Math.sign(x)*Math.log(Math.abs(x))
+
+const getWaveform = ( filePath, metadata, params ) => {
+	
+	let buffer = fs.readFileSync(filePath)
+	buffer = wav.decode(buffer)
+	
+	let audioData = Array.prototype.slice.call( buffer.channelData[0])
+	
+	let windowIndex = 0
+	let windowSize = Math.round( params.tick * buffer.sampleRate )
+	// console.log(windowSize)
+
+	let window = audioData.slice( 0, windowSize*20 )
+	// console.log(window)
+
+	let waveForm = []
+	let tick = params.tick
+	while (window.length == windowSize*20) {
+		waveForm.push( [ tick, avg(window.map(d => d)) ])
+		tick += params.tick
+		windowIndex++
+		window = audioData.slice( windowIndex*windowSize, windowIndex*windowSize + windowSize*20 )
+	}
+
+	let maxValue = max(waveForm.map( d => Math.abs(d[1])))
+	// console.log(maxValue)
+	
+	waveForm.forEach( d => {
+		d[1] = f(d[1] / maxValue)
+	})
+
+	return {
+		params,
+		metadata: extend({}, metadata, {
+			filePath,
+			fileName: path.basename(filePath),
+			sampleRate: buffer.sampleRate,
+			length: audioData.length
+		}),
+		
+		waveform: waveForm
+	}
+
+	// return waveForm	
+
+}
+
+
 module.exports = {
-	getSpectrum: getWavSpectrum
+	getSpectrum: getWavSpectrum,
+	getWaveform
 }

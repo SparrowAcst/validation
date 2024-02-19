@@ -1,0 +1,72 @@
+[
+ {
+  "stVersion": 2,
+  "record_folder_id": "17I3ZjDk_lSnh0jt6Qj8wvFxdBS0u3loF",
+  "examination_folder_id": "1RcTkNNA9KMJ28UnPsSohyXTNoZy60W6O",
+  "folder": "v3-try-v2",
+  "template": "v2-WN-trytest2024-%"
+ },
+ {
+  "stVersion": 2,
+  "record_folder_id": "1X1iAHsVGi4GK4wOXPXq4hsgSdkgGjTOK",
+  "examination_folder_id": "1j33M_MbN1FBnw5qu2VdE9OewaosdzceS",
+  "folder": "v3-pt-filter-predicate",
+  "template": "v3-pt-filter-predicate-%"
+ },
+ {
+  "stVersion": 2,
+  "record_folder_id": "1DafvCg9a3N_C0erH8fzjQ_FxdT8bhrGg",
+  "examination_folder_id": "1DEqscoI87PEej_lH9oztZIs_AFBeRjKq",
+  "folder": "v3-pt-noisy-predicate",
+  "template": "v3-pt-noisy-predicate-declick-%"
+ },
+ {
+  "stVersion": 2,
+  "record_folder_id": "1ayltAn1HTCyKal2cl6v-GDPppnr2frZG",
+  "examination_folder_id": "1muGYF8M28ecMpgCrj1jFR7-yau-SRHml",
+  "folder": "v3-pt-participant-predicate",
+  "template": "v3-pt-participant-predicate-%"
+ },
+ {
+  "stVersion": 2,
+  "record_folder_id": "19Z1yiWd07TLKV7FcabWg35YjwRyoXmgi",
+  "examination_folder_id": "1pJUUe3XwRGYZ6YnGRQLPJ2XglLguAaBI",
+  "folder": "v3-pt-pspt-predicate",
+  "template": "v3-pt-pspt-predicate"
+ },
+ {
+  "stVersion": 2,
+  "record_folder_id": "1xvMl9ZNBeoEVvdFiVTqigmzgSjmbHsru",
+  "examination_folder_id": "1amJky4qg3clubNM0pp1Dwd9fVToctNcu",
+  "folder": "v3-pt-wn-predicate",
+  "template": "v3-pt-wn-predicate"
+ },
+ {
+  "stVersion": 2,
+  "record_folder_id": "1OfL9Yb9S73VMeZhO0-1K2zLdHTmTKzOK",
+  "examination_folder_id": "1B8kibGS0D7WBC1uwvOEheDJvY-UsDU4u",
+  "folder": "v3-rrt-d2d-predicate",
+  "template": "v3-rrt-d2d-predicate-%"
+ },
+ {
+  "stVersion": 2,
+  "record_folder_id": "1pRDUkUaliSLqL-dSTajfO4W0vsChxFwB",
+  "examination_folder_id": "1kITy3USxnxgf92caj_wlQgRxbSPxSyK4",
+  "folder": "v3-rrt-long-predicate",
+  "template": "v3-rrt-long-predicate-%"
+ },
+ {
+  "stVersion": 2,
+  "record_folder_id": "19-afUuKrFFoQyM-sbYvTK9aczEn2LNXd",
+  "examination_folder_id": "1O6ljaIiOymTM3q2uzb_61Hkv6xNCIagz",
+  "folder": "v3-rrt-m2m-predicate",
+  "template": "v3-rrt-m2m-predicate"
+ },
+ {
+  "stVersion": 2,
+  "record_folder_id": "1nelQBYHNAdZvKM896djc4HL5hoNMJq0X",
+  "examination_folder_id": "18hMOzX43kjDHfy58QNrUud-GYmV-XJJF",
+  "folder": "v3-rrt-operators-predicate",
+  "template": "v3-rrt-operators-predicate-%"
+ }
+]
