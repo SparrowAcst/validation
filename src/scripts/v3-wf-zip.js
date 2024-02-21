@@ -39,14 +39,14 @@ const run = async options => {
 		await mkdir(`${TEMP}/wf`)
 	}	
 	
-	console.log(`Download files from ${options.source}`)
+	// console.log(`Download files from ${options.source}`)
 	
-	let sourceDrive = await prepareFiles(options.source)
+	// let sourceDrive = await prepareFiles(options.source)
 		
-	await sourceDrive.downloadFiles({
-		googleDrive:sourceDrive.fileList(),
-		fs: `${TEMP}/zipped`
-	})
+	// await sourceDrive.downloadFiles({
+	// 	googleDrive:sourceDrive.fileList(),
+	// 	fs: `${TEMP}/zipped`
+	// })
 	
 
 	console.log("Unzip")
@@ -79,27 +79,26 @@ const run = async options => {
 		params: { tick: 0.01} 
 	})
 
-	res = res.map( r => {
-		return extend({
-			filename: r.metadata.fileName
-		}, r.waveform)
-	})
+	res = res.map( r => ({
+		filename: r.metadata.fileName,
+		waveform: r.waveform
+	}))
 
 
 	saveJSON(`${TEMP}/wf/${path.basename(options.dest)}`, res)
 
 	console.log(`Upload into ${options.dest}`)
 	
-	let destDrive = await prepareFiles(path.dirname(options.dest))
+	// let destDrive = await prepareFiles(path.dirname(options.dest))
 
-	await destDrive.uploadFiles({
-		fs: [`${TEMP}/wf/${path.basename(options.dest)}`],
-		googleDrive: path.dirname(options.dest)
-	})
+	// await destDrive.uploadFiles({
+	// 	fs: [`${TEMP}/wf/${path.basename(options.dest)}`],
+	// 	googleDrive: path.dirname(options.dest)
+	// })
 
 	await rmdir(`${TEMP}/wav`)
 	await rmdir(`${TEMP}/spectra`)
-	await rmdir(`${TEMP}/zipped`)
+	// await rmdir(`${TEMP}/zipped`)
 			
 
 	console.log("Complete")	

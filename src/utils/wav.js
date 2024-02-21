@@ -120,7 +120,8 @@ const getWaveform = ( filePath, metadata, params ) => {
 	// console.log(maxValue)
 	
 	waveForm.forEach( d => {
-		d[1] = f(d[1] / maxValue)
+		d[0] = Number.parseFloat(d[0].toFixed(2))
+		d[1] = Number.parseFloat((f(d[1] / maxValue)).toFixed(3))
 	})
 
 	return {
