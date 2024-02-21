@@ -39,14 +39,14 @@ const run = async options => {
 		await mkdir(`${TEMP}/wf`)
 	}	
 	
-	// console.log(`Download files from ${options.source}`)
+	console.log(`Download files from ${options.source}`)
 	
-	// let sourceDrive = await prepareFiles(options.source)
+	let sourceDrive = await prepareFiles(options.source)
 		
-	// await sourceDrive.downloadFiles({
-	// 	googleDrive:sourceDrive.fileList(),
-	// 	fs: `${TEMP}/zipped`
-	// })
+	await sourceDrive.downloadFiles({
+		googleDrive:sourceDrive.fileList(),
+		fs: `${TEMP}/zipped`
+	})
 	
 
 	console.log("Unzip")
@@ -89,12 +89,12 @@ const run = async options => {
 
 	console.log(`Upload into ${options.dest}`)
 	
-	// let destDrive = await prepareFiles(path.dirname(options.dest))
+	let destDrive = await prepareFiles(path.dirname(options.dest))
 
-	// await destDrive.uploadFiles({
-	// 	fs: [`${TEMP}/wf/${path.basename(options.dest)}`],
-	// 	googleDrive: path.dirname(options.dest)
-	// })
+	await destDrive.uploadFiles({
+		fs: [`${TEMP}/wf/${path.basename(options.dest)}`],
+		googleDrive: path.dirname(options.dest)
+	})
 
 	await rmdir(`${TEMP}/wav`)
 	await rmdir(`${TEMP}/spectra`)

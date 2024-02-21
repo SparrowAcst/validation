@@ -52,11 +52,10 @@ const run = async options => {
 		params: { tick: 0.01} 
 	})
 
-	res = res.map( r => {
-		return extend({
-			filename: r.metadata.fileName
-		}, r.waveform)
-	})
+	res = res.map( r => ({
+		filename: r.metadata.fileName,
+		waveform: r.waveform
+	}))
 
 
 	saveJSON(`${TEMP}/spectra/${path.basename(options.dest)}`, res)
