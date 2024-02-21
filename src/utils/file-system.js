@@ -3,7 +3,7 @@ const fs = require("fs")
 const fse = require("fs-extra")
 const path = require("path")
 const YAML = require("js-yaml")
-const { extend, keys } = require("lodash")
+const { extend, keys, isArray } = require("lodash")
 
 
 const filesize = (bytes, options) => {
@@ -194,6 +194,41 @@ const loadText = filename => {
 const rmDir = require('lignator').remove
 
 
+const unzip = (path2zip, path2dest, logger) => new Promise( (resolve, reject) => {
+    const inly = require('inly');
+    logger = logger || console
+    const extract = inly(path2zip, path2dest);
+    let _p = 0
+    let extractedFilePath 
+    extract.on('file', (name) => {
+        extractedFilePath = name
+        logger.info(`File ${name} extracted`)
+    });
+
+    extract.on('progress', (percent) => {
+        // if( config.mode == "development"){
+        //  if( (percent % 5) == 0) _p = percent
+        //  logUpdate(`${frame()} ${ _p }%`)    
+        // }
+    });
+
+    extract.on('error', (error) => {
+        reject(error)
+    });
+
+    extract.on('end', () => {
+        resolve(extractedFilePath)
+    }); 
+})
+
+const remove = filelist => {
+    filelist = (isArray(filelist)) ? filelist : [filelist]
+    filelist.forEach( f => {
+        fs.unlinkSync(f)
+    })
+}
+
+
 module.exports = {
 	getFileList,
 	files: getFileList,
@@ -210,6 +245,9 @@ module.exports = {
     loadText,
     unlink,
     filesize,
-    exists: fse.pathExists	
+    exists: fse.pathExists,
+    unzip,
+    rename: fs.renameSync,
+    rm: remove	
 }
 

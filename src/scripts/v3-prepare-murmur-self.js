@@ -14,7 +14,7 @@ const R = require('../utils/R')
 
 const EXPERT_INPUT_XLSX = "./data/structures/V3-AI-Validation-2024/10.7 Test 7. Validation of informativeness of Stethophone’s heart sound analysis algorithm for recordings made by lay users/box 9.3.5-2.xlsx"
 const ST_JSON = "./data/v3/ai/v3pxself.json"
-const RES_XLSX = "./data/structures/V3-AI-Validation-2024/10.7 Test 7. Validation of informativeness of Stethophone’s heart sound analysis algorithm for recordings made by lay users/murmur-hr-assessments-lay-users.xlsx"
+const RES_XLSX = "./data/structures/V3-AI-Validation-2024/10.7 Test 7. Validation of informativeness of Stethophone’s heart sound analysis algorithm for recordings made by lay users/murmur-hr-assessments-lay.xlsx"
 
 const GD_ROOT = "V3-AI-Validation-2024/10.7 Test 7. Validation of informativeness of Stethophone’s heart sound analysis algorithm for recordings made by lay users"
 
@@ -56,7 +56,7 @@ const run = async () => {
 		t = (d.tester) ? d.tester : t
 		d.patient = `v3-ai-self-iph-p${p.toString().padStart(2, "0")}`
 		d.tester = t
-		d.murmur = (d.murmur) ? "present" : "absent"  
+		// d.murmur = (d.murmur) ? "present" : "absent"  
 	})
 
 	data = data.map( d => {

@@ -15,7 +15,7 @@ const R = require('../utils/R')
 
 const EXPERT_INPUT_XLSX = "./data/structures/V3-AI-Validation-2024/10.7 Test 7. Validation of informativeness of Stethophone’s heart sound analysis algorithm for recordings made by lay users/pilot-murmur-hr-.xlsx"
 const ST_JSON = "./data/v3/ai/v3pxself.json"
-const RES_XLSX = "./data/structures/V3-AI-Validation-2024/10.7 Test 7. Validation of informativeness of Stethophone’s heart sound analysis algorithm for recordings made by lay users/pilot-murmur-hr-res.xlsx"
+const RES_XLSX = "./data/structures/V3-AI-Validation-2024/10.7 Test 7. Validation of informativeness of Stethophone’s heart sound analysis algorithm for recordings made by lay users/pilot-murmur-hr-res-wc.xlsx"
 
 
 
@@ -48,7 +48,7 @@ const rulesForAdvancedExpert = {
 }	
 
 
-const experts = [2,6,1]
+const experts = [2,5,1]
 
 
 const applyRules = (row, rules) => {
@@ -90,15 +90,16 @@ const run = async () => {
 	const rulesForAdvancedExpertMurmur = {
 		rules: [
 			
-			row => 
-					(row.data[experts[0]].confMurmur == "non confident") 
-				|| 	(row.data[experts[1]].confMurmur == "non confident"),
+			// row => 
+			// 		(row.data[experts[0]].confMurmur == "non confident") 
+			// 	|| 	(row.data[experts[1]].confMurmur == "non confident"),
 
 			row => 
-					(row.data[experts[0]].confMurmur == "confident") 
-				&& 	(row.data[experts[1]].confMurmur == "confident")
-				&& 	(row.data[experts[1]].murmur != row.data[experts[0]].murmur),
-					
+				// 	(row.data[experts[0]].confMurmur == "confident") 
+				// && 	(row.data[experts[1]].confMurmur == "confident")
+				(row.data[experts[1]].murmur != row.data[experts[0]].murmur),
+			
+			row => 	!row.data[experts[1]].murmur ||	!row.data[experts[2]].murmur
 		
 		],
 
@@ -109,8 +110,9 @@ const run = async () => {
 		rules: [
 			
 			row => Math.abs(row.data[experts[0]].hr - row.data[experts[1]].hr) > 10,
-			row => (row.data[experts[0]].confHr == row.data[experts[1]].confHr) && (row.data[experts[0]].confHr == "non confident"),
-			row => (row.data[experts[0]].confHr == "non confident") || (row.data[experts[1]].confHr == "non confident"),
+			// row => (row.data[experts[0]].confHr == row.data[experts[1]].confHr) && (row.data[experts[0]].confHr == "non confident"),
+			// row => (row.data[experts[0]].confHr == "non confident") || (row.data[experts[1]].confHr == "non confident"),
+			row => (!row.data[experts[0]].hr) || (!row.data[experts[1]].hr),
 
 		],
 
@@ -120,14 +122,14 @@ const run = async () => {
 	const rulesForAdvancedExpertS1 = {
 		rules: [
 			
-			row => 
-					(row.data[experts[0]].confS1 == "non confident") 
-				|| 	(row.data[experts[1]].confS1 == "non confident"),
+			// row => 
+			// 		(row.data[experts[0]].confS1 == "non confident") 
+			// 	|| 	(row.data[experts[1]].confS1 == "non confident"),
 
 			row => 
-					(row.data[experts[0]].confS1 == "confident") 
-				&& 	(row.data[experts[1]].confS1 == "confident")
-				&& 	(row.data[experts[1]].s1 != row.data[experts[0]].s1),
+				// 	(row.data[experts[0]].confS1 == "confident") 
+				// && 	(row.data[experts[1]].confS1 == "confident")
+					(row.data[experts[1]].s1 != row.data[experts[0]].s1),
 			
 			row => 
 					(!row.data[experts[0]].s1)
@@ -142,14 +144,14 @@ const run = async () => {
 	const rulesForAdvancedExpertS2 = {
 		rules: [
 			
-			row => 
-					(row.data[experts[0]].confS2 == "non confident") 
-				|| 	(row.data[experts[1]].confS2 == "non confident"),
+			// row => 
+			// 		(row.data[experts[0]].confS2 == "non confident") 
+			// 	|| 	(row.data[experts[1]].confS2 == "non confident"),
 
 			row => 
-					(row.data[experts[0]].confS2 == "confident") 
-				&& 	(row.data[experts[1]].confS2 == "confident")
-				&& 	(row.data[experts[1]].s2 != row.data[experts[0]].s2),
+				// 	(row.data[experts[0]].confS2 == "confident") 
+				// && 	(row.data[experts[1]].confS2 == "confident")
+				 	(row.data[experts[1]].s2 != row.data[experts[0]].s2),
 
 			row => 
 					(!row.data[experts[0]].s2)
@@ -283,7 +285,7 @@ const run = async () => {
 	const murmurAssessmentRules = {
 		rules: [
 			row => {
-				let a = row.data.filter( d => d.confMurmur == "confident").filter( d => d.murmur)
+				let a = row.data.filter( d => d.murmur)
 				if(a.length < 2) return
 				let presents = a.filter( d => d.murmur == "present").length
 				let absents = a.length - presents
@@ -300,7 +302,7 @@ const run = async () => {
 	const hrAssessmentRules = {
 		rules: [
 			row => {
-				let a = row.data.filter(d => d.confHr == "confident")
+				let a = row.data 
 
 				let pool = a.map( d => d.hr).filter(d => d)
 				if (pool.length <2) return
@@ -320,7 +322,7 @@ const run = async () => {
 		rules: [
 			row => {
 				// console.log(row.id, row.data.map( d => d.s1), row.data.map( d => d.confS1))
-				let a = row.data.filter( d => d.confS1 == "confident").filter(d => d.s1) //&& d.s1 != "cannot answer")
+				let a = row.data.filter(d => d.s1) //&& d.s1 != "cannot answer")
 				// console.log(a.map( d => d.s1))
 			
 				if(a.length < 2) return
@@ -343,7 +345,7 @@ const run = async () => {
 	const s2AssessmentRules = {
 		rules: [
 			row => {
-				let a = row.data.filter( d => d.confS2 == "confident").filter(d => d.s2) //&& d.s1 != "cannot answer")
+				let a = row.data.filter(d => d.s2) //&& d.s1 != "cannot answer")
 				
 				if(a.length < 2) return
 					
@@ -380,38 +382,38 @@ const run = async () => {
 			murmurInclusion: (d.murmurAssessment) ? "include" : "exclude",
 			murmurAssessment: d.murmurAssessment,
 			murmur_1: d.data[0].murmur,
-			confMurmur_1: d.data[0].confMurmur,
+			// confMurmur_1: d.data[0].confMurmur,
 			murmur_2: d.data[1].murmur,
-			confMurmur_2: d.data[1].confMurmur,
+			// confMurmur_2: d.data[1].confMurmur,
 			murmur_3: (d.need3stExpertMurmur) ? d.data[2].murmur : undefined,
-			confMurmur_3: (d.need3stExpertMurmur) ? d.data[2].confMurmur: undefined,
+			// confMurmur_3: (d.need3stExpertMurmur) ? d.data[2].confMurmur: undefined,
 		
 			hrInclusion: (d.hrAssessment) ? "include" : "exclude",
 			hr_1: d.data[0].hr,
-			confHR_1: d.data[0].confHr,
+			// confHR_1: d.data[0].confHr,
 			hr_2: d.data[1].hr,
-			confHR_2: d.data[1].confHr,
+			// confHR_2: d.data[1].confHr,
 			hr_3: (d.data[2] && d.need3stExpertHR) ? d.data[2].hr : undefined,
-			confHR_3: (d.data[2] && d.need3stExpertHR) ? d.data[2].confHr : undefined,
+			// confHR_3: (d.data[2] && d.need3stExpertHR) ? d.data[2].confHr : undefined,
 			hrAssessment: d.hrAssessment,
 
 			s1Inclusion: (d.s1Assessment) ? "include" : "exclude",
 			s1_1: d.data[0].s1,
-			confS1_1: d.data[0].confS1,
+			// confS1_1: d.data[0].confS1,
 			s1_2: d.data[1].s1,
-			confS1_2: d.data[1].confS1,
+			// confS1_2: d.data[1].confS1,
 			s1_3: (d.data[2] && d.need3stExpertS1) ? d.data[2].s1 : undefined,
-			confS1_3: (d.data[2] && d.need3stExpertS1) ? d.data[2].confS1: undefined,
+			// confS1_3: (d.data[2] && d.need3stExpertS1) ? d.data[2].confS1: undefined,
 			s1Assessment: d.s1Assessment,
 
 
 			s2Inclusion: (d.s2Assessment) ? "include" : "exclude",
 			s2_1: d.data[0].s2,
-			confS2_1: d.data[0].confS2,
+			// confS2_1: d.data[0].confS2,
 			s2_2: d.data[1].s2,
-			confS2_2: d.data[1].confS2,
+			// confS2_2: d.data[1].confS2,
 			s2_3: (d.data[2] && d.need3stExpertS2) ? d.data[2].s2 : undefined,
-			confS2_3: (d.data[2] && d.need3stExpertS2) ? d.data[2].confS2 : undefined,
+			// confS2_3: (d.data[2] && d.need3stExpertS2) ? d.data[2].confS2 : undefined,
 			s2Assessment: d.s2Assessment,
 
 		}
@@ -468,38 +470,38 @@ const run = async () => {
 		"nS1",
 		"nS2",
 		"murmur_1",
-		"confMurmur_1",
+		// "confMurmur_1",
 		"murmur_2",
-		"confMurmur_2",
+		// "confMurmur_2",
 		"murmur_3",
-		"confMurmur_3",
+		// "confMurmur_3",
 		"murmurInclusion",
 		"murmurAssessment",
 		"murmurAI",
 		"s1_1",
-		"confS1_1",
+		// "confS1_1",
 		"s1_2",
-		"confS1_2",
+		// "confS1_2",
 		"s1_3",
-		"confS1_3",
+		// "confS1_3",
 		"s1Inclusion",
 		"s1Assessment",
 		
 		"s2_1",
-		"confS2_1",
+		// "confS2_1",
 		"s2_2",
-		"confS2_2",
+		// "confS2_2",
 		"s2_3",
-		"confS2_3",
+		// "confS2_3",
 		"s2Inclusion",
 		"s2Assessment",
 
 		"hr_1",
-		"confHR_1",
+		// "confHR_1",
 		"hr_2",
-		"confHR_2",
+		// "confHR_2",
 		"hr_3",
-		"confHR_3",
+		// "confHR_3",
 		"hrInclusion",
 		"hrAssessment",
 		"hrAI"
