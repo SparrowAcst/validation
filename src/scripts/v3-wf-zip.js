@@ -93,7 +93,7 @@ const run = async options => {
 	let destDrive = await prepareFiles(path.dirname(options.dest))
 
 	await destDrive.uploadFiles({
-		fs: [`${TEMP}/spectra/${path.basename(options.dest)}`],
+		fs: [`${TEMP}/wf/${path.basename(options.dest)}`],
 		googleDrive: path.dirname(options.dest)
 	})
 
