@@ -68,17 +68,17 @@ const run = async options => {
 	// 	`${TEMP}/spectra/${path.basename(options.dest)}`
 	// )
 
-	// console.log(`Upload into ${options.dest}`)
+	console.log(`Upload into ${options.dest}`)
 	
-	// let destDrive = await prepareFiles(path.dirname(options.dest))
+	let destDrive = await prepareFiles(path.dirname(options.dest))
 
-	// await destDrive.uploadFiles({
-	// 	fs: [`${TEMP}/spectra/${path.basename(options.dest)}`],
-	// 	googleDrive: path.dirname(options.dest)
-	// })
+	await destDrive.uploadFiles({
+		fs: [`${TEMP}/spectra/${path.basename(options.dest)}`],
+		googleDrive: path.dirname(options.dest)
+	})
 
-	// await rmdir(`${TEMP}/wav`)
-	// await rmdir(`${TEMP}/spectra`)
+	await rmdir(`${TEMP}/wav`)
+	await rmdir(`${TEMP}/spectra`)
 			
 
 	console.log("Complete")	
