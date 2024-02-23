@@ -52,6 +52,7 @@ const run = async () => {
 
 	data.forEach( d => {
 		p = (d.patient) ? d.patient : p
+		console.log(p)
 		d.patientId = p
 		t = (d.tester) ? d.tester : t
 		d.patient = `v3-ai-self-iph-p${p.toString().padStart(2, "0")}`

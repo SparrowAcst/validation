@@ -95,45 +95,43 @@ const f = x =>  x //(Math.abs(x)<0.3) ? x/10 : x //Math.sign(x)*Math.log(Math.ab
 
 const getWaveform = ( filePath, metadata, params ) => {
 	
+	params.ratio = params.ratio || 2
+	params.tick = params.tick || 0.005
+	
+	
 	let buffer = fs.readFileSync(filePath)
 	buffer = wav.decode(buffer)
 	
 	let audioData = Array.prototype.slice.call( buffer.channelData[0])
 	
 	let windowIndex = 0
-	let windowSize = Math.round( params.tick * buffer.sampleRate )
+	let windowSize = Math.round( params.ratio * params.tick * buffer.sampleRate )
 	// console.log(windowSize)
 
-	let window = audioData.slice( 0, windowSize*20 )
+	let window = audioData.slice( 0, windowSize )
 	// console.log(window)
 
-	let waveForm = []
-	let tick = params.tick
-	while (window.length == windowSize*20) {
-		waveForm.push( [ tick, avg(window.map(d => d)) ])
-		tick += params.tick
+	let aForm = [0]
+	while (window.length == windowSize) {
+		aForm.push(  gmean(window.map(d => Math.abs(d))) )
 		windowIndex++
-		window = audioData.slice( windowIndex*windowSize, windowIndex*windowSize + windowSize*20 )
+		window = audioData.slice( windowIndex*windowSize, windowIndex*windowSize + windowSize)
 	}
-
-	let maxValue = max(waveForm.map( d => Math.abs(d[1])))
-	// console.log(maxValue)
 	
-	waveForm.forEach( d => {
-		d[0] = Number.parseFloat(d[0].toFixed(2))
-		d[1] = Number.parseFloat((f(d[1] / maxValue)).toFixed(3))
-	})
-
+	let maxValue = max(aForm)
+	
 	return {
 		params,
 		metadata: extend({}, metadata, {
 			filePath,
 			fileName: path.basename(filePath),
 			sampleRate: buffer.sampleRate,
-			length: audioData.length
+			length: audioData.length,
+			tick: params.tick,
+			ratio: params.ratio
 		}),
 		
-		waveform: waveForm
+		waveform: aForm.map( d => Number.parseFloat((d / maxValue).toFixed(3)))
 	}
 
 	// return waveForm	

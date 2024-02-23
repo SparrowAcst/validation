@@ -24,28 +24,6 @@ const not = rule => ( row => !rule(row))
 const andReducer = [(a,b) => a&&b, true]
 const orReducer = [(a,b) => a||b, false]
 
-const rulesForAdvancedExpert = {
-	rules: [
-		row => row.data[0].murmur != row.data[1].murmur,
-		row => row.data[0].confMurmur == row.data[1].confMurmur && row.data[0].confMurmur == "non confident",
-		row => row.data[0].confMurmur == "non confident" || row.data[1].confMurmur == "non confident",
-		
-		row => Math.abs(row.data[0].hr - row.data[1].hr) > 10,
-		row => row.data[0].confHr == row.data[1].confHr && row.data[0].confHr == "non confident",
-		row => row.data[0].confHr == "non confident" || row.data[1].confHr == "non confident",
-
-		row => row.data[0].s1 != row.data[1].s1,
-		row => row.data[0].confS1S2 == row.data[1].confS1S2 && row.data[0].confS1S2 == "non confident",
-		row => row.data[0].confS1S2 == "non confident" || row.data[1].confS1S2 == "non confident",
-		
-		row => row.data[0].s2 != row.data[1].s2,
-		row => row.data[0].confS1S2 == row.data[1].confS1S2 && row.data[0].confS1S2 == "non confident",
-		row => row.data[0].confS1S2 == "non confident" || row.data[1].confS1S2 == "non confident",
-		
-	],
-	reducer: orReducer
-}	
-
 
 const applyRules = (row, rules) => {
 	let res = rules.rules.map( rule => rule(row))

@@ -37,27 +37,30 @@ const run = async options => {
 	
 	console.log(`Download files from ${options.source}`)
 	
-	let sourceDrive = await prepareFiles(options.source)
+	// let sourceDrive = await prepareFiles(options.source)
 		
-	await sourceDrive.downloadFiles({
-		googleDrive:sourceDrive.fileList(),
-		fs: `${TEMP}/wav`
-	})
+	// await sourceDrive.downloadFiles({
+	// 	googleDrive:sourceDrive.fileList(),
+	// 	fs: `${TEMP}/wav`
+	// })
 		
 	console.log("Build waveform")
 	
 	let res = await wav2waveform({
 		fs: `${TEMP}/wav/*.wav`,
 		metadata: { message: ""}, 
-		params: { tick: 0.01} 
+		params: { 
+			tick: 0.005,
+			ratio: 2
+		} 
 	})
 
 	res = res.map( r => ({
-		filename: r.metadata.fileName,
+		metadata: r.metadata,
 		waveform: r.waveform
 	}))
 
-
+	console.log(`${TEMP}/spectra/${path.basename(options.dest)}`)
 	saveJSON(`${TEMP}/spectra/${path.basename(options.dest)}`, res)
 
 	// await saveXLSX(
@@ -65,16 +68,16 @@ const run = async options => {
 	// 	`${TEMP}/spectra/${path.basename(options.dest)}`
 	// )
 
-	console.log(`Upload into ${options.dest}`)
+	// console.log(`Upload into ${options.dest}`)
 	
-	let destDrive = await prepareFiles(path.dirname(options.dest))
+	// let destDrive = await prepareFiles(path.dirname(options.dest))
 
-	await destDrive.uploadFiles({
-		fs: [`${TEMP}/spectra/${path.basename(options.dest)}`],
-		googleDrive: path.dirname(options.dest)
-	})
+	// await destDrive.uploadFiles({
+	// 	fs: [`${TEMP}/spectra/${path.basename(options.dest)}`],
+	// 	googleDrive: path.dirname(options.dest)
+	// })
 
-	await rmdir(`${TEMP}/wav`)
+	// await rmdir(`${TEMP}/wav`)
 	// await rmdir(`${TEMP}/spectra`)
 			
 

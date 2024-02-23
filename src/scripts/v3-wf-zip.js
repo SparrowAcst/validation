@@ -80,10 +80,9 @@ const run = async options => {
 	})
 
 	res = res.map( r => ({
-		filename: r.metadata.fileName,
+		metadata: r.metadata,
 		waveform: r.waveform
 	}))
-
 
 	saveJSON(`${TEMP}/wf/${path.basename(options.dest)}`, res)
 
