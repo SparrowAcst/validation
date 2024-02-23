@@ -76,7 +76,7 @@ const run = async options => {
 	let res = await wav2waveform({
 		fs: `${TEMP}/wav/*.wav`,
 		metadata: { message: ""}, 
-		params: { tick: 0.01} 
+		params: { tick: 0.005, ratio:2 } 
 	})
 
 	res = res.map( r => ({

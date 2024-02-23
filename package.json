@@ -52,6 +52,9 @@
     "v3-seg-pool-ecg": "node ./src/scripts/v3-manual-seg-ecg.js",
     "v3-seg-pool-rep": "node ./src/scripts/v3-manual-seg-rep.js",
     
+    "v3-wf-ecg": "node ./src/scripts/v3-manual-wf-ecg.js",
+    
+
     "v3-scan-ai": "node ./src/scripts/v3-scan-records-ai.js",
     "v3-scan-pt": "node ./src/scripts/v3-scan-records-pt.js",
     "v3-scan-rrt": "node ./src/scripts/v3-scan-records-rrt.js"
