@@ -37,12 +37,12 @@ const run = async options => {
 	
 	console.log(`Download files from ${options.source}`)
 	
-	// let sourceDrive = await prepareFiles(options.source)
+	let sourceDrive = await prepareFiles(options.source)
 		
-	// await sourceDrive.downloadFiles({
-	// 	googleDrive:sourceDrive.fileList(),
-	// 	fs: `${TEMP}/wav`
-	// })
+	await sourceDrive.downloadFiles({
+		googleDrive:sourceDrive.fileList(),
+		fs: `${TEMP}/wav`
+	})
 		
 	console.log("Build waveform")
 	
