@@ -50,7 +50,7 @@ const run = async options => {
 		fs: `${TEMP}/wav/*.wav`,
 		metadata: { message: ""}, 
 		params: { 
-			tick: 0.005,
+			tick: 0.0025,
 			ratio: 2
 		} 
 	})
