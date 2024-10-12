@@ -7,6 +7,7 @@ const moment = require("moment")
 const wav2spectrum  = require("../utils/wav2spectrum")
 const fs = require("fs")
 
+const ROOT = "V2-I16-2024/Spectra"
 
 const prepareFiles = async path => {
 	let googleDrive = await googledriveService.create(path)
