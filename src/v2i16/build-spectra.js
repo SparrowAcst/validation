@@ -5,7 +5,7 @@ const { saveXLSX,loadXLSX} = require("../utils/xlsx")
 const path = require("path")
 const moment = require("moment")
 const wav2spectrum  = require("../utils/wav2spectrum")
-const fs = require(fs)
+const fs = require("fs")
 
 const TEMP_WAV_DIR = "../v2i16/"
 
