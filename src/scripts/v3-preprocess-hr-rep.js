@@ -119,7 +119,7 @@ const run = async () => {
 		}
 		
 		let heartRate = Number.parseInt((c.reduce((a,b) => a+b) / c.length).toFixed(0))
-		// console.log("heartRate", heartRate)
+		// console.log("EKO_heartRate", heartRate)
 		
 		return {
 			patientId: key,
@@ -136,11 +136,16 @@ const run = async () => {
 
 	result = result.map( d => {
 		d.difference = Math.abs(d.EKO_heartRate - d.ST_heartRate)
+		d.spot = d.patientId.split("-")[0]
+		console.log(d)
 		return d
 	})
 
+
+
 	let header = [
 		"patientId",
+		"spot",
 		"EKO_heartRate",			
 		"ST_heartRate",
 		"difference",

@@ -7,7 +7,7 @@ const { avg, std, anomals } = require("../utils/stat")
 
 const ST_JSON = "./data/v3/ai/v3pxecg-iph.json"
 const EKO_XLSX = "./data/structures/V3-AI-Validation-2024/10.3.1 Test 3.1. Accuracy of HR calculation by Stethophone in clinical environment/R-R.xlsx"
-const RESULT_XLSX = "./data/structures/V3-AI-Validation-2024/10.3.1 Test 3.1. Accuracy of HR calculation by Stethophone in clinical environment/HR-3-1-47.xlsx"
+const RESULT_XLSX = "./data/structures/V3-AI-Validation-2024/10.3.1 Test 3.1. Accuracy of HR calculation by Stethophone in clinical environment/HR-3-1-SEG.xlsx"
 
 const GD_ROOT = "V3-AI-Validation-2024/10.3.1 Test 3.1. Accuracy of HR calculation by Stethophone in clinical environment"
 
@@ -37,10 +37,21 @@ const run = async () => {
 
 	let st_data = loadJSON(ST_JSON)
 	
-	st_data = st_data.map( d => ({
-		patientId: last(d.patient_id.split("-")),
-		ST_heartRate: d.heart_rate
-	}))
+	st_data = st_data.map( d => {
+		let unseg = d.segments.filter(s => s.type == "unsegmentable")
+		let duration = unseg.map(s => s.end - s.start).reduce((a,b) => a+b, 0)
+		let seg = sortBy( d.segments, s => s.start)
+		return {
+			patientId: last(d.patient_id.split("-")),
+			st_hr: d.heart_rate,
+			unseg_count: unseg.length,
+			unseg_duration: duration,
+			type: (unseg.length) ? "unseg" : "seg",
+			duration: last(seg).end - first(seg).start
+
+		}
+
+	})
 	
 	let eko_data = await loadXLSX(EKO_XLSX,"data")
 
@@ -59,7 +70,7 @@ const run = async () => {
 	eko_data = keys(temp).map( key => {
 		
 		let t = sortBy(temp[key], d => d["Cardio Cicle"]).map( d => d.R)
-		console.log(key, t)
+		// console.log(key, t)
 		let anomals = checkIntervals(t)
 		if(anomals.length > 0){
 			anomals = anomals.map( (data, index) => {
@@ -72,7 +83,7 @@ const run = async () => {
 				delete data.index
 				return data
 			})
-			console.log("ANOMALIES:", anomals)
+			// console.log("ANOMALIES:", anomals)
 		}
 		
 		let c = []
@@ -81,10 +92,10 @@ const run = async () => {
 		}
 		// console.log(c)
 		let heartRate = Number.parseInt((60/avg(c)).toFixed(0))
-		console.log("heartRate", heartRate)
+		// console.log("heartRate", heartRate)
 		return {
 			patientId: key,
-			EKO_heartRate: heartRate,
+			ref_hr: heartRate,
 			anomalies: JSON.stringify(anomals, null, " ")
 		}
 
@@ -96,28 +107,27 @@ const run = async () => {
 	result = keys(g).map( key => extend({}, g[key][0], g[key][1]) )
 	
 	result = result.map( d => {
-		d.difference = Math.abs(d.EKO_heartRate - d.ST_heartRate)
-		console.log(d)
+		d.diff = d.ref_hr - d.st_hr
+		// console.log(d)
 		return d
 	})
 
 	let header = [
 		"patientId",
-		"EKO_heartRate",			
-		"ST_heartRate",
-		"difference",
-		"anomalies"
+		"duration",
+		"type",
+		"unseg_count",
+		"unseg_duration",
+		"ref_hr",			
+		"st_hr",
+		"diff",
+		// "anomalies"
 	]
 
+	result = result.filter( d => d.ref_hr)
 
 	await saveXLSX(	sortBy(result, d => d.patientId), RESULT_XLSX, "data", header)
 
-	// let drive = await getDrive(`${GD_ROOT}`)
-	// console.log(`Upload to: ${GD_ROOT}/HR.xlsx`)
-	// await drive.uploadFiles({
-	// 	fs: [RESULT_XLSX],
-	// 	googleDrive: GD_ROOT
-	// })
 	
 }
 

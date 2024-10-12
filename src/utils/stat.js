@@ -855,7 +855,7 @@ const evaluateMeasure = (values, m) => {
   let confidenceInterval = [mm-delta, mm+delta]
   let minv = min(v)
   let maxv = max(v) 
-  
+  let md = median(v)
   // if(confidenceInterval[0] < min(v) || confidenceInterval[1] > max(v)){
   //   if(mm - minv > maxv - mm) {
   //     delta = maxv - mm
@@ -870,6 +870,7 @@ const evaluateMeasure = (values, m) => {
   return {
     values: v,
     anomalValues,
+    median: md,
     mean: mm,
     std: s,
     delta,

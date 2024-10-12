@@ -38,28 +38,18 @@
     "pilot-prepare-s-1": "node ./src/scripts/pilot-prepare-s-1.js",
     "pilot-prepare-s1-1": "node ./src/scripts/pilot-prepare-s1-1.js",
     "pilot-prepare-s2-1": "node ./src/scripts/pilot-prepare-s2-1.js",
-    
-
     "v3-wn-spectra": "node ./src/scripts/v3-preprocess-wn.js",
-    
-
     "v3-hr-prep-ecg": "node ./src/scripts/v3-preprocess-hr.js",
     "v3-hr-prep-rep": "node ./src/scripts/v3-preprocess-hr-rep.js",
     "v3-mur-prep": "node ./src/scripts/v3-prepare-murmur.js",
     "v3-mur-prep-self": "node ./src/scripts/v3-prepare-murmur-self.js",
-      
-
     "v3-seg-pool-ecg": "node ./src/scripts/v3-manual-seg-ecg.js",
     "v3-seg-pool-rep": "node ./src/scripts/v3-manual-seg-rep.js",
-    
     "v3-wf-ecg": "node ./src/scripts/v3-manual-wf-ecg.js",
-    
-
     "v3-scan-ai": "node ./src/scripts/v3-scan-records-ai.js",
     "v3-scan-pt": "node ./src/scripts/v3-scan-records-pt.js",
     "v3-scan-rrt": "node ./src/scripts/v3-scan-records-rrt.js"
   },
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SparrowAcst/validation.git"
@@ -70,12 +60,16 @@
     "url": "https://github.com/SparrowAcst/validation/issues"
   },
   "dependencies": {
+    "@flatten-js/core": "^1.5.7",
+    "@stdlib/random-sample": "^0.2.1",
     "@stdlib/stats-base-dists-t-quantile": "0.0.6",
     "@stdlib/stats-ttest": "0.0.7",
     "@stdlib/stats-ttest2": "0.0.7",
+    "anova": "^1.0.2",
     "axios": "^1.6.7",
     "canvas": "^2.11.2",
     "deep-extend": "^0.6.0",
+    "diff-json": "^2.0.0",
     "dsp.js": "^1.0.1",
     "echarts": "^5.4.3",
     "exectimer": "^2.2.2",
@@ -88,28 +82,37 @@
     "himalaya": "^1.1.0",
     "inly": "^4.0.8",
     "js-excel-date-convert": "^1.0.2",
+    "js-md5": "^0.8.3",
     "js-yaml": "^4.1.0",
     "json2csv": "^5.0.7",
+    "jsondiffpatch": "^0.6.0",
     "jszip-utils": "^0.1.0",
     "lignator": "^1.0.2",
     "line2": "^0.2.1",
     "lodash": "^4.17.21",
     "mammoth": "^1.6.0",
     "matrix-js": "^1.6.1",
+    "ml-anova": "^1.1.5",
+    "ml-confusion-matrix": "^2.0.0",
     "moment": "^2.29.4",
     "mongodb": "^5.0.1",
     "nanomatch": "^1.2.13",
     "node-mime-types": "^1.1.0",
     "node-wav": "0.0.2",
     "ora": "^6.1.2",
+    "percentile": "^1.6.0",
     "pino": "^8.8.0",
     "pino-pretty": "^9.1.1",
     "r-integration": "^2.4.0",
     "random-js": "^2.1.0",
     "smooth-path": "^1.0.1",
     "stream-json": "^1.7.5",
+    "tonegenerator": "^0.3.3",
+    "url": "^0.11.3",
     "uuid": "^9.0.0",
+    "wav": "^1.0.2",
     "wav-file-info": "0.0.10",
+    "waveheader": "0.0.2",
     "xlsx": "^0.18.5",
     "yargs": "^17.7.2",
     "zip-folder": "^1.0.0"

@@ -1,8 +1,0 @@
-
-> validation@1.0.0 preprocess-segments D:\sparrow\validation
-> node ./src/scripts/preprocess-segments.js
-
-Download V3-VALIDATION-TEST-DATA/RECORDINGS/v3p__ecg/v3p__ecg.json
-Load JSON ./.temp/v3p__ecg.json
-Download V3-VALIDATION-TEST-DATA/5.5.1.5.1. Simultaneous recording of heart sound and ECG (dataset V3PxECG)/Eko CORE 500/segments.xlsx
-Load XLSX ./.temp/segments.xlsx

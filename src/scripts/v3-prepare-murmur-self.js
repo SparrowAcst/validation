@@ -5,7 +5,7 @@
 const googledriveService = require("../utils/google-drive")
 const { loadXLSX, saveXLSX } = require("../utils/xlsx")
 const { writeFile } = require("../utils/file-system")
-const { find, keys, sortBy, extend, groupBy, isUndefined } = require("lodash")
+const { find, keys, sortBy, extend, groupBy, isUndefined, isNumber } = require("lodash")
 const { loadJSON, unlink } = require("../utils/file-system")
 const { avg, std, mode, anomals, sum } = require("../utils/stat")
 const R = require('../utils/R')
@@ -14,7 +14,7 @@ const R = require('../utils/R')
 
 const EXPERT_INPUT_XLSX = "./data/structures/V3-AI-Validation-2024/10.7 Test 7. Validation of informativeness of Stethophone’s heart sound analysis algorithm for recordings made by lay users/box 9.3.5-2.xlsx"
 const ST_JSON = "./data/v3/ai/v3pxself.json"
-const RES_XLSX = "./data/structures/V3-AI-Validation-2024/10.7 Test 7. Validation of informativeness of Stethophone’s heart sound analysis algorithm for recordings made by lay users/murmur-hr-assessments-lay.xlsx"
+const RES_XLSX = "./data/structures/V3-AI-Validation-2024/10.7 Test 7. Validation of informativeness of Stethophone’s heart sound analysis algorithm for recordings made by lay users/murmur-lay-conf.xlsx"
 
 const GD_ROOT = "V3-AI-Validation-2024/10.7 Test 7. Validation of informativeness of Stethophone’s heart sound analysis algorithm for recordings made by lay users"
 
@@ -52,7 +52,7 @@ const run = async () => {
 
 	data.forEach( d => {
 		p = (d.patient) ? d.patient : p
-		console.log(p)
+		// console.log(p)
 		d.patientId = p
 		t = (d.tester) ? d.tester : t
 		d.patient = `v3-ai-self-iph-p${p.toString().padStart(2, "0")}`
@@ -81,14 +81,24 @@ const run = async () => {
 	const murmurAssessmentRules = {
 		rules: [
 			row => {
-				let a = row.data.filter( d => d.murmurConf == "confident")
+				let a = row.data.filter( d => d.confMurmur == "non confident")
 				
 				//TODO check exclusion rules
-				if(a.length < 4) return
+				// if(a.length > 3) return "non confident"
 
-				let presents = a.filter( d => d.murmur == "present").length
-				let absents = a.length - presents
-				return ((presents - absents) == 0) ? undefined : ((presents - absents) > 0) ? "present" : "absent"
+				let presents = row.data.filter( d => d.murmur == "present").length
+				let absents = row.data.length - presents
+				return ((presents - absents) == 0) ? "non consistent" : ((presents - absents) > 0) ? "present" : "absent"
+			
+
+				// let a = row.data //.filter( d => d.murmurConf == "confident")
+				
+				// //TODO check exclusion rules
+				// if(a.length < 4) return
+
+				// let presents = a.filter( d => d.murmur == "present").length
+				// let absents = a.length - presents
+				// return ((presents - absents) == 0) ? undefined : ((presents - absents) > 0) ? "present" : "absent"
 			},
 		],
 	}
@@ -96,14 +106,14 @@ const run = async () => {
 	const s1AssessmentRules = {
 		rules: [
 			row => {
-				let a = row.data.filter( d => d.s1Conf == "confident")
+				let a = row.data.filter( d => (d.s1Conf == "non confident") || isUndefined(d.s1) || d.s1 == "I cannot answer")
 				
 				//TODO check exclusion rules
-				if(a.length < 4) return
+				if(a.length > 3) return "non confident"
 
-				let presents = a.filter( d => d.s1 == "yes").length
-				let absents = a.length - presents
-				return ((presents - absents) == 0) ? undefined : ((presents - absents) > 0) ? "yes" : "no"
+				let presents = row.data.filter( d => d.s1 == "yes").length
+				let absents = row.data.filter( d => d.s1 == "no").length
+				return ((presents - absents) == 0) ? "non consistent" : ((presents - absents) > 0) ? "yes" : "no"
 			},
 		],
 	}
@@ -111,14 +121,14 @@ const run = async () => {
 	const s2AssessmentRules = {
 		rules: [
 			row => {
-				let a = row.data.filter( d => d.s2Conf == "confident")
+				let a = row.data.filter( d => (d.s2Conf == "non confident") || isUndefined(d.s2) || d.s2 == "I cannot answer")
 				
 				//TODO check exclusion rules
-				if(a.length < 4) return
+				if(a.length > 3) return "non confident"
 
-				let presents = a.filter( d => d.s2 == "yes").length
-				let absents = a.length - presents
-				return ((presents - absents) == 0) ? undefined : ((presents - absents) > 0) ? "yes" : "no"
+				let presents = row.data.filter( d => d.s2 == "yes").length
+				let absents = row.data.filter( d => d.s2 == "no").length
+				return ((presents - absents) == 0) ? "non consistent" : ((presents - absents) > 0) ? "yes" : "no"
 			},
 		],
 	} 
@@ -127,12 +137,13 @@ const run = async () => {
 		rules: [
 			row => {
 				let a = row.data
-						.filter( d => d.hrConf == "confident")
-						.filter( d => !isUndefined(d.hr))
+						//.filter( d => d.hrConf == "confident")
+						.filter( d => isUndefined(d.hr) || d.hrConf == "non confident")
 				
 				//TODO check exclusion rules
-				if(a.length < 4) return
+				// if(a.length > 3) return "non confident"
 
+				a = row.data.filter( d => !isUndefined(d.hr))	
 				return Math.round(avg(a.map(d => d.hr)))	
 			},
 		],
@@ -146,6 +157,7 @@ const run = async () => {
 			row.murmurInclusion = (isUndefined(row.murmurAssessment)) ? "exclude" : "include"
 		
 			row.hrAssessment = applyRules(row, hrAssessmentRules)
+			row.hrInclusion = (isUndefined(row.hrAssessment)) ? "exclude" : "include"
 		
 			row.s1Assessment = applyRules(row, s1AssessmentRules)
 			row.s1Inclusion = (isUndefined(row.s1Assessment)) ? "exclude" : "include"
@@ -165,6 +177,7 @@ const run = async () => {
 			murmurInclusion: d.murmurInclusion,
 			murmurAssessment: d.murmurAssessment,
 			hrAssessment: d.hrAssessment,
+			hrInclusion: d.hrInclusion,
 			s1Inclusion: d.s1Inclusion,
 			s1Assessment: d.s1Assessment,
 			s2Inclusion: d.s2Inclusion,
@@ -205,6 +218,19 @@ const run = async () => {
 		row.murmurAI = (f) ? (f.has_murmur) ? "present" : "absent" : undefined
 		row.qtyAI = (f) ? (f.is_fine) ? "acceptable" : "bad" : undefined
 		row.hrAI = (f) ? f.heart_rate : undefined
+
+		row.murmurAssessment = (row.qtyAI == "bad") ? "bad qty" : row.murmurAssessment
+		row.murmurInclusion = (["present", "absent"].includes(row.murmurAssessment)  ) ? "include" :"exclude" 
+		
+		row.hrAssessment = (row.qtyAI == "bad") ? "bad qty" : row.hrAssessment
+		row.hrInclusion = (isNumber(row.hrAssessment)) ? "include" :"exclude" 
+		
+		row.s1Assessment = (row.qtyAI == "bad") ? "bad qty" : row.s1Assessment
+		row.s1Inclusion = (["yes", "no"].includes(row.s1Assessment)  ) ? "include" :"exclude" 
+
+		row.s2Assessment = (row.qtyAI == "bad") ? "bad qty" : row.s2Assessment
+		row.s2Inclusion = (["yes", "no"].includes(row.s2Assessment)  ) ? "include" :"exclude" 
+
 	})
 
 
@@ -240,6 +266,7 @@ const run = async () => {
 		"confHR_5",
 		"hr_6",
 		"confHR_6",
+		"hrInclusion",
 		"hrAssessment",
 		"hrAI",
 		"s1_1",
@@ -272,14 +299,62 @@ const run = async () => {
 		"s2Assessment"
 	]
 	
-	await saveXLSX(data, RES_XLSX, "data", header)
+	// await saveXLSX(data, RES_XLSX, "data", header)
 
-	let drive = await getDrive(`${GD_ROOT}`)
-	console.log(`Upload to: ${GD_ROOT}/murmur-hr-assessments-lay-users.xlsx`)
-	await drive.uploadFiles({
-		fs: [RES_XLSX],
-		googleDrive: GD_ROOT
+	// let drive = await getDrive(`${GD_ROOT}`)
+	// console.log(`Upload to: ${GD_ROOT}/murmur-hr-assessments-lay-users.xlsx`)
+	// await drive.uploadFiles({
+	// 	fs: [RES_XLSX],
+	// 	googleDrive: GD_ROOT
+	// })
+
+	// let counts = groupBy(data, d => d.murmurAssessment)
+	// console.log("murmur")
+	// keys(counts).forEach(c => {
+	// 	console.log(c, counts[c].length)
+	// })
+
+	// counts = groupBy(data, d => d.hrAssessment)
+	// console.log("hr")
+	// keys(counts).forEach(c => {
+	// 	console.log(c, counts[c].length)
+	// })
+
+	
+	console.log("------- s1 ---------")
+	counts = groupBy(data, d => d.spot)
+	keys(counts).forEach(c => {
+		console.log(c, counts[c].filter(d => d.s1Inclusion == "include").length)
 	})
+
+	console.log("----------------------")	
+
+	counts = groupBy(data, d => d.s1Assessment)
+	keys(counts).forEach(c => {
+		console.log(c, counts[c].length)
+	})
+	
+	console.log("------- s2 ---------")
+	counts = groupBy(data, d => d.spot)
+	keys(counts).forEach(c => {
+		console.log(c, counts[c].filter(d => d.s2Inclusion == "include").length)
+	})
+
+	console.log("----------------------")	
+
+	counts = groupBy(data, d => d.s2Assessment)
+	keys(counts).forEach(c => {
+		console.log(c, counts[c].length)
+	})
+	console.log("----------------------")	
+
+
+	// counts = groupBy(data, d => d.spot)
+	// keys(counts).forEach(c => {
+	// 	console.log(c, counts[c].filter(d => d.hrInclusion == "include").length)
+	// })
+
+
 
 
 

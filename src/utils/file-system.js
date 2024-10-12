@@ -138,7 +138,7 @@ const loadJSON = filename => {
 }
 
 const saveJSON = (filename, data) => {
-    writeFile(filename, JSON.stringify(data))
+    writeFile(filename, JSON.stringify(data, null, " "))
 }
 
 const loadText = filename => {

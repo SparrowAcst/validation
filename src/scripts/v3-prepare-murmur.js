@@ -11,7 +11,7 @@ const R = require('../utils/R')
 
 const EXPERT_INPUT_XLSX = "./data/structures/V3-AI-Validation-2024/10.1.1 Test 1.1. Assessment of accuracy of heart murmur detection by Stethophone in clinical environment/Box 9.3.5.1-1.xlsx"
 const ST_JSON = "./data/v3/ai/v3pxdr.json"
-const RES_XLSX = "./data/structures/V3-AI-Validation-2024/10.1.1 Test 1.1. Assessment of accuracy of heart murmur detection by Stethophone in clinical environment/murmur-assessments.xlsx"
+const RES_XLSX = "./data/structures/V3-AI-Validation-2024/10.1.1 Test 1.1. Assessment of accuracy of heart murmur detection by Stethophone in clinical environment/murmur-assessments-n-conf.xlsx"
 
 const GD_ROOT = "V3-AI-Validation-2024/10.1.1 Test 1.1. Assessment of accuracy of heart murmur detection by Stethophone in clinical environment"
 
@@ -45,9 +45,11 @@ const run = async () => {
 		p = (d.patient) ? d.patient : p
 		d.patientId = p
 		t = (d.tester) ? d.tester : t
+		// console.log(t)
 		d.patient = `v3-ai-dr-iph-p${p.toString().padStart(2, "0")}`
 		d.tester = t
 		d.murmur = (d.murmur) ? "present" : "absent"  
+		// console.log(d.patient, d.tester)
 	})
 
 	data = data.map( d => {
@@ -64,19 +66,20 @@ const run = async () => {
 	}))
 
 
+
 ////////////////////////// murmur assessment //////////////////////////////////
 
 	const murmurAssessmentRules = {
 		rules: [
 			row => {
-				let a = row.data.filter( d => d.confMurmur == "confident")
+				let a = row.data.filter( d => d.confMurmur == "non confident")
 				
 				//TODO check exclusion rules
-				if(a.length < 4) return
+				// if(a.length > 3) return "non confident"
 
-				let presents = a.filter( d => d.murmur == "present").length
-				let absents = a.length - presents
-				return ((presents - absents) == 0) ? undefined : ((presents - absents) > 0) ? "present" : "absent"
+				let presents = row.data.filter( d => d.murmur == "present").length
+				let absents = row.data.length - presents
+				return ((presents - absents) == 0) ? "non consistent" : ((presents - absents) > 0) ? "present" : "absent"
 			},
 		],
 	} 
@@ -84,9 +87,10 @@ const run = async () => {
 	data
 		// .filter( d => d.murmurInclusion)
 		.forEach( row => {
+			
 			row.murmurAssessment = applyRules(row, murmurAssessmentRules)
-
-			row.murmurInclusion = (isUndefined(row.murmurAssessment)) ? "exclude" : "include"
+			row.murmurAssessment = (row.qtyAI == "bad") ? "bad qty" : row.murmurAssessment
+			row.murmurInclusion = (["present", "absent"].includes(row.murmurAssessment)  ) ? "include" :"exclude" 
 			// return row
 		})
 
@@ -103,6 +107,8 @@ const run = async () => {
 		}
 		
 		d.data.forEach((v, index) => {
+			// console.log(d.patient, v.tester)
+
 			res["murmur_"+v.tester] = v.murmur
 			res["confMurmur_"+v.tester] = v.confMurmur
 			
@@ -125,8 +131,11 @@ const run = async () => {
 
 		row.murmurAI = (f) ? (f.has_murmur) ? "present" : "absent" : undefined
 		row.qtyAI = (f) ? (f.is_fine) ? "acceptable" : "bad" : undefined
+		row.murmurAssessment = (row.qtyAI == "bad") ? "bad qty" : row.murmurAssessment
+		row.murmurInclusion = (["present", "absent"].includes(row.murmurAssessment)  ) ? "include" :"exclude" 
 	
 	})
+
 
 
 	let header = [
@@ -154,11 +163,17 @@ const run = async () => {
 
 	await saveXLSX(data, RES_XLSX, "data", header)
 
-	let drive = await getDrive(`${GD_ROOT}`)
-	console.log(`Upload to: ${GD_ROOT}/murmur-assessments.xlsx`)
-	await drive.uploadFiles({
-		fs: [RES_XLSX],
-		googleDrive: GD_ROOT
+	// let drive = await getDrive(`${GD_ROOT}`)
+	// console.log(`Upload to: ${GD_ROOT}/murmur-assessments.xlsx`)
+	// await drive.uploadFiles({
+	// 	fs: [RES_XLSX],
+	// 	googleDrive: GD_ROOT
+	// })
+
+	let counts = groupBy(data, d => d.murmurAssessment)
+	
+	keys(counts).forEach(c => {
+		console.log(c, counts[c].length)
 	})
 
 

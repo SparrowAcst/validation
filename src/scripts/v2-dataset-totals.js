@@ -27,6 +27,7 @@ const delay = ms => new Promise( resolve => {
 
 const prepareFiles = async path => {
 	let googleDrive = await googledriveService.create(path)
+	console.log(googleDrive.fileList())
 	return googleDrive	 
 }
 
@@ -120,7 +121,7 @@ const downloadWavs = async (googleDrive, fs) => {
 
 
 const run = async () => {
-	// let meta = await downloadMeta()
+	let meta = await downloadMeta()
 	// console.log(meta)
 
 	// // let ekoHeartMeta = meta.filter(m => m.device == 'ekocore' && m.type == 'heart')
@@ -143,42 +144,42 @@ const run = async () => {
 	// 	}, r.spectrum)
 	// })
 
-	let data = await loadXLSX("./data/processed/v2-datasets.xlsx", "files")
-	data = groupBy(data, d => d.dataset)
+	// let data = await loadXLSX("./data/processed/v2-datasets.xlsx", "files")
+	// data = groupBy(data, d => d.dataset)
 
-	let res = []
+	// let res = []
 	
-	keys(data).forEach(dkey => {
+	// keys(data).forEach(dkey => {
 		
-		console.log("Dataset:", dkey)
+	// 	console.log("Dataset:", dkey)
 		
-		let d = data[dkey]
-		let stages = groupBy(d, r => r.stage)
+	// 	let d = data[dkey]
+	// 	let stages = groupBy(d, r => r.stage)
 	
-		keys(stages).forEach( skey => {
+	// 	keys(stages).forEach( skey => {
 			
-			console.log("Stage:", dkey)
+	// 		console.log("Stage:", dkey)
 			
-			let stage = stages[skey]
-			let Devices = uniqBy(stage.map(r => r.device).filter(r => r))
-			Devices = (Devices.length > 0) ? Devices.join(", ") : "N/A"
-			res.push({
-				Dataset: dkey,
-				Stage: skey,
-				Files: stage.length,
-				Devices  
-			})	
+	// 		let stage = stages[skey]
+	// 		let Devices = uniqBy(stage.map(r => r.device).filter(r => r))
+	// 		Devices = (Devices.length > 0) ? Devices.join(", ") : "N/A"
+	// 		res.push({
+	// 			Dataset: dkey,
+	// 			Stage: skey,
+	// 			Files: stage.length,
+	// 			Devices  
+	// 		})	
 	
-		})
+	// 	})
 	
-	})	
+	// })	
 
-	// console.log(res)
+	// // console.log(res)
 
-	await saveXLSX(
-		res,
-		"./data/processed/v2-dataset-totals.xlsx"
-	)
+	// await saveXLSX(
+	// 	res,
+	// 	"./data/processed/v2-dataset-totals.xlsx"
+	// )
 
 
 }

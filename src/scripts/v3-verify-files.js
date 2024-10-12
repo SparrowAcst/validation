@@ -4,7 +4,26 @@ const { loadXLSX, saveXLSX } = require("../utils/xlsx")
 const path = require("path")
 const moment = require("moment")
 
-const RES_XLSX = "./data/structures/V3-PT-Validation-2024/SPECTRA/v3-wn-spectra-processed.xlsx"
+
+let dataSources = [
+	{
+		xlsx: "./data/structures/V3-AI-Validation-2024/v3-dataset-totals.xlsx",
+		name: "V3-AI"
+	},
+	{
+		xlsx: "./data/structures/V3-PT-Validation-2024/v3-pt-dataset-totals.xlsx",
+		name: "V3-PT"
+	},
+	{
+		xlsx: "./data/structures/V3-RRT-Validation-2024/v3-rrt-dataset-totals.xlsx",
+		name: "V3-RRT"
+	}
+]
+
+
+
+const RES_XLSX = "./data/structures/v3-file-verification.xlsx"
+
 
 const device2os = {
 
@@ -80,8 +99,6 @@ const device2os = {
 
 // }
 
-
-
 const device2release = {
 
 "iPhone 6s": 					"2014-2017",
@@ -123,19 +140,6 @@ const device2release = {
 
 
 
-let dataSources = [
-	{
-		xlsx: "./data/structures/V3-PT-Validation-2024/SPECTRA/v3-pt-wn-predicate-spectra.xlsx",
-		json: "./data/v3/pt/v3-pt-wn-predicate.json"
-	},
-	{
-		xlsx: "./data/structures/V3-PT-Validation-2024/SPECTRA/v3-pt-wn-iph-spectra.xlsx",
-		json: "./data/v3/pt/v3-pt-wn-iph.json"
-	}
-]
-
-
-
 const getDevice = name => {
 	let a = name.split("-")
 	let res = a[3]
@@ -150,25 +154,29 @@ const run = async () => {
 	
 	for( let dataSource of dataSources){
 
-		 let spectraData = await loadXLSX(dataSource.xlsx, "data")
-		 let metaData = await loadJSON(dataSource.json)
+		 console.log(dataSource)
 
-		 spectraData.forEach( row => {
-		 	let f = find(metaData, m => `${m.file_id}.wav` == row.filename)
-		 	if(f){
-		 		row.device = getDevice(f.patient_id)
-		 		row.os = device2os[row.device],
-		 		row.release = device2release[row.device]
-		 	} else {
-		 		console.log(`No metadata for ${row.filename}`)
-		 	}
+		 let data = await loadXLSX(dataSource.xlsx, "data")
+		 
+		 data = groupBy( data, d => d.patient_id)
 
-		 })
+		 data = keys(data).map( key => ({
+		 	protocol: dataSource.name,
+		 	id: key,
+		 	files: data[key].length
+		 }))
 
-		 result = result.concat(spectraData)
+		 
+		 result = result.concat(data)
 	}
 
-	await saveXLSX( sortBy(result, r => r.device), RES_XLSX)
+	await saveXLSX( 
+		sortBy(
+			sortBy( result, r => r.id), 
+			r => r.protocol
+		), 
+		RES_XLSX
+	)
 
 }
 

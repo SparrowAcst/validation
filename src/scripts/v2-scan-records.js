@@ -8,23 +8,13 @@ const axios = require("axios")
 
 
 const GD_ROOT = "V3-AI-Validation-2024/RECORDINGS"
-const FS_ROOT = "./data/v3/ai"
+const FS_ROOT = "./data/v2"
 const RES_FILE = `./data/structures/V3-AI-Validation-2024/v3-ai-dataset-totals.xlsx`
 
 
 const SYNC_URL = "https://35h7sworkec6bwn3oxj4rvvjqe0bkhtn.lambda-url.us-east-1.on.aws/"
-// const DATASETS = require("../json/import-v3")
+const DATASETS = require("../json/import-v3")
 
-
-const DATASETS = [
-	{
-	  "stVersion": 3,
-	  "record_folder_id": "1yI1mX-5M1yhQLPky1kzt15tIOBfCF81Y",
-	  "examination_folder_id": "1aeWQrygzYtEgpQTUTy7dUbE2caUFK4Q-",
-	  "folder": "v3-systole-diastole-chart",
-	  "template": "v3-allstufftest-iph%"
-	 }
-]
 
 const key2dataset = {
 	"ambi": "v3qtyxambi",
