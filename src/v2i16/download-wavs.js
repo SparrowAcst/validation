@@ -15,9 +15,9 @@ const prepareFiles = async path => {
 	return googleDrive	 
 }
 
-const downloadWavs = async (wavPath, fs) => {
-	let drive = await prepareFiles(wavPath)
-	await drive.downloadFiles({wavPath, fs})
+const downloadWavs = async (googleDrive, fs) => {
+	let drive = await prepareFiles(googleDrive)
+	await drive.downloadFiles({googleDrive, fs})
 }
 
 
