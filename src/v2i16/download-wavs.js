@@ -34,7 +34,7 @@ const run = async () => {
 
 	for( let o of operations){
 		console.log(o)
-		await downloadWavs(source, target)
+		await downloadWavs(o.source, o.target)
 	}
 }
 
