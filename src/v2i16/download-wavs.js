@@ -18,7 +18,7 @@ const prepareFiles = async path => {
 const downloadWavs = async (pathToWavs, fs) => {
 	let drive = await prepareFiles(pathToWavs.split("/").slice(0,-1).join("/"))
 	let googleDrive = drive.fileList()
-	console.log(googleDrive)
+	console.log(googleDrive.map( d => d.name))
 	await drive.downloadFiles({googleDrive, fs})
 }
 
