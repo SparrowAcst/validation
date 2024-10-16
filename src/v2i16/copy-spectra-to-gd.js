@@ -14,13 +14,14 @@ const prepareFiles = async path => {
 	return googleDrive	 
 }
 
+const pathToSpectra = process.argv[2] || "v2i16-spectra.json"
 
 const run = async () => {
 	
 	let drive = await prepareFiles(ROOT)
 	
 	let res = await drive.uploadFile(
-		"../v2i16/v2i16-spectra.json",
+		"../v2i16/${pathToSpectra}",
 		ROOT,
 		progress => { console.log(progress) },
 		true

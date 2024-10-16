@@ -2,7 +2,7 @@ const { extend, sortBy, find, truncate, groupBy, keys, isString, last, uniqBy } 
 const path = require("path")
 const fs = require("fs")
 
-const tests = require("./datasets")
+const tests = require("./datasets").filter(t => t.select || t.fromPath)
 const data = require("./json/v2i16-spectra.json")
 const metadata = require("./json/v2i16-datasets-report.json")
 
@@ -13,12 +13,21 @@ tests.forEach( test => {
 	let regex = new RegExp(`/${test.name}/`)
 	let testData = data.filter( d => regex.test(d.metadata.file))
 	testData = testData.map( d => {
-		let meta = find(metadata, m => (m.file_id+".wav") == path.basename(d.metadata.file)).patient_id.split("-")
-		keys(test.select).forEach( key => {
+		let meta = find(metadata, m => (m.file_id+".wav") == path.basename(d.metadata.file))
+		if(meta){
+			meta = meta.patient_id.split("-")
+			keys(test.select).forEach( key => {
+				// console.log(key, test.select[key](meta))
+				d[key] = test.select[key](meta)
+			})
+			return d 
+		}
+		meta = d.metadata.file.split("/")
+		keys(test.fromPath).forEach( key => {
 			// console.log(key, test.select[key](meta))
-			d[key] = test.select[key](meta)
+			d[key] = test.fromPath[key](meta)
 		})
-		return d 
+		return d	
 	})
 	console.log(testData.length, "items")
 	fs.writeFileSync(`./src/v2i16/json/${test.name}.json`, JSON.stringify(testData, null, " "))

@@ -10,15 +10,19 @@ const fs = require("fs")
 const TEMP_WAV_DIR = "../v2i16/"
 
 
+const pathToWavs = process.argv[2] || "**/*.wav"
+const pathToRes = process.argv[3] || "v2i16-spectra.json"
+
+
 const run = async () => {
 
 	let res = await wav2spectrum({
-		fs: `${TEMP_WAV_DIR}/**/*.wav`,
+		fs: `${TEMP_WAV_DIR}/${pathToWavs}`,
 		metadata: {}, 
 		params: { frequency:{range: [0, 2000]}} 
 	})
 
-	fs.writeFileSync(`${TEMP_WAV_DIR}v2i16-spectra.json`, JSON.stringify(res))
+	fs.writeFileSync(`${TEMP_WAV_DIR}/${pathToRes}`, JSON.stringify(res))
 
 }
 

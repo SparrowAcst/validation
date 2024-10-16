@@ -75,31 +75,19 @@ module.exports = [{
     {
         name: "10.8.2. White noise test",
         metadata: "Performance tests/10.8.2. White noise test/predicate/Eko Core/",
-        select:{
-            device: d => d[4],
-            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
-            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        fromPath:{
+            device: d => d[d.length-2]   
         }
     },
 
     {
         name: "10.8.2. White noise test",
         metadata: "Performance tests/10.8.2. White noise test/primary signal/",
-        select:{
-            device: d => d[4],
-            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
-            release: d => (/15/.test(d[4])) ? "2023" : "2024",
-        }
     },
 
     {
         name: "10.8.2. White noise test",
         metadata: "Performance tests/10.8.2. White noise test/nti microphone/",
-        select:{
-            device: d => d[4],
-            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
-            release: d => (/15/.test(d[4])) ? "2023" : "2024",
-        }
     },
 
 
