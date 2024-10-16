@@ -3,10 +3,10 @@ const googledriveService = require("../utils/google-drive")
 const { extend, sortBy, find, truncate, groupBy, keys, isString, last, uniqBy } = require("lodash")
 const path = require("path")
 
+// const ROOT = "V3-VALIDATION-TEST-DATA/RECORDINGS"
 const ROOT = "V3-I16-2024"
 
 const TEMP = "./src/v3i16/json"
-
 const TESTS = require("./datasets")
 
 const delay = ms => new Promise( resolve => {
@@ -21,7 +21,7 @@ const prepareFiles = async path => {
 const downloadMeta = async () => {
 	
 	
-	for( let t of TESTS){
+	for( let t of TESTS.filter(t => t.metadata.endsWith(".json"))){
 
 		let drive = await prepareFiles(`${ROOT}/${path.dirname(t.metadata)}`)
 		

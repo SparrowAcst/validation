@@ -5,7 +5,7 @@ const SYNC_URL = {
     v2: "https://f2widtdjmjfyutl3aunyzv4tmu0kzwio.lambda-url.us-east-1.on.aws/"
 }
 
-const DATASETS = require("./datasets").map( d => d.sync)
+const DATASETS = require("./datasets").map( d => d.sync).filter(d => d)
 
 const syncRecords = async () => {
 

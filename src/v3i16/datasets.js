@@ -11,14 +11,28 @@ module.exports = [
             "template": "v3-i16-rt-MtM-%"
         },
         localMetadata: "./json/v3-i16-rt-MtM.json",
-        select:{
-            device: d => d[4],
-            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
-            release: d => (/15/.test(d[4])) ? "2023" : "2024",
-        }
+        spectra: "../../../validation-data/v3i16/json/v3i16-m2m.json",
+        
+        fromMeta:{
+            device: d => d.patient_id.split("-")[4],
+            type: d => d.record_type,
+            os: d => (/15/.test(d.patient_id.split("-")[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d.patient_id.split("-")[4])) ? "2023" : "2024", 
+        },
 
+        fromSpectra:{
+            device: d => {
+                let a = d.file.split("/")
+                return a[a.length-4]
+            },
+            type: d => {
+                let a = d.file.split("/")
+                return a[a.length-3]
+            },       
+        }  
     },
 
+    
     {
         name: "9.1. Model to Model Reproducibility test",
         metadata: "Reproducibility tests/9.1. Model to Model Reproducibility test/predicate/v2 iP 15/v3-i16-rt-MtM-v2-iP-15.json",
@@ -30,12 +44,6 @@ module.exports = [
             "template": "v3-i16-rt-MtM-v2 iP 15%"
         },
         localMetadata: "./json/v3-i16-rt-MtM-v2-iP-15.json",
-        select:{
-            device: d => d[4],
-            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
-            release: d => (/15/.test(d[4])) ? "2023" : "2024",
-        }
-
     },
 
 
@@ -51,15 +59,26 @@ module.exports = [
             "template": "v3-i16-rt-LTR-%"
         },
         localMetadata: "./json/v3-i16-rt-LTR.json",
-        select:{
-            device: d => d[4],
-            day: d => Number.parseInt(d[5].substring(1)),
-            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
-            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        spectra: "../../../validation-data/v3i16/json/v3i16-ltr.json",
+        fromMeta:{
+            device: d => d.patient_id.split("-")[4],
+            day: d => Number.parseInt(d.patient_id.split("-")[5].substring(1)),
+            os: d => (/15/.test(d.patient_id.split("-")[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d.patient_id.split("-")[4])) ? "2023" : "2024",
+        },
+        fromSpectra:{
+            device: d => {
+                let a = d.file.split("/")
+                return a[a.length-4]
+            },
+            day: d => {
+                let a = d.file.split("/")
+                return Number.parseInt(last(a[a.length-3].split(" ")))
+            },       
         }
-
     },
 
+    
     {
         name: "9.2. Within Device Long Term Reproducibility Test",
         metadata: "Reproducibility tests/9.2. Within Device Long Term Reproducibility Test/predicate/v2 iP 15/v3-i16-rt-LTR-v2-iP-15.json",
@@ -71,13 +90,7 @@ module.exports = [
             "template": "v3-i16-rt-LTR-v2 iP 15%"
         },
         localMetadata: "./json/v3-i16-rt-LTR-v2-iP-15.json",
-        select:{
-            device: d => d[4],
-            day: d => Number.parseInt(d[5].substring(1)),
-            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
-            release: d => (/15/.test(d[4])) ? "2023" : "2024",
-        }
-
+        
     },
 
 
@@ -134,13 +147,32 @@ module.exports = [
             "template": "v3-i16-pt-WN-%"
         },
         localMetadata: "./json/v3-i16-pt-WN.json",
-        select:{
-            device: d => d[4],
-            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
-            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        spectra: "../../../validation-data/v3i16/json/v3i16-wn.json",
+        
+        fromMeta:{
+            device: d => d.patient_id.split("-")[4],
+            os: d => (/15/.test(d.patient_id.split("-")[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d.patient_id.split("-")[4])) ? "2023" : "2024",
+        },
+        fromSpectra:{
+            device: d => {
+                let a = d.file.split("/")
+                return a[a.length-3]
+            }       
         }
-
     },
+
+
+    {
+        name: "10.8.2. White noise test",
+        metadata: "Performance tests/10.8.2. White noise test/primary signal/",
+    },
+
+    {
+        name: "10.8.2. White noise test",
+        metadata: "Performance tests/10.8.2. White noise test/nti microphone/",
+    },
+
 
     {
         name: "10.8.2. White noise test",
@@ -155,12 +187,6 @@ module.exports = [
         
 
         localMetadata: "./json/v3-i16-pt-WN-v2-iP-15",
-        select:{
-            device: d => d[4],
-            user: d => Number.parseInt(d[5].substring(1)),
-            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
-            release: d => (/15/.test(d[4])) ? "2023" : "2024",
-        }
     },
 
     {

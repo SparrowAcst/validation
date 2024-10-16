@@ -2,9 +2,6 @@ const { extend, sortBy, find, truncate, groupBy, keys, isString, last, uniqBy } 
 const path = require("path")
 const fs = require("fs")
 
-
-// let pathToData = process.argv[2] || "v2i16-spectra"
-
 let pattern = process.argv[2] || ""
 
 if(pattern){
@@ -17,7 +14,7 @@ const tests = require("./datasets")
 				.filter(t => t.fromMeta || t.fromSpectra)
 				.filter( t => pattern.test(t.name))
 
-const metadata = require("./json/v2i16-datasets-report.json")
+const metadata = require("./json/v3i16-datasets-report.json")
 
 
 
@@ -46,9 +43,9 @@ tests.forEach( test => {
 		})
 		return d	
 	})
-	console.log(testData.length, "items > ", `./src/v2i16/json/${test.name}.json`)
+	console.log(testData.length, "items > ", `./src/v3i16/json/${test.name}.json`)
 	console.log(uniqBy(testData.map(d => d.device)))
-	fs.writeFileSync(`./src/v2i16/json/${test.name}.json`, JSON.stringify(testData, null, " "))
+	fs.writeFileSync(`./src/v3i16/json/${test.name}.json`, JSON.stringify(testData, null, " "))
 
 })
 

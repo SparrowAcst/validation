@@ -1,3 +1,4 @@
+
 const googledriveService = require("../utils/google-drive")
 const { extend, sortBy, find, truncate, groupBy, keys, isString, last, uniqBy } = require("lodash")
 const { loadJSON, unlink, filesize } = require("../utils/file-system")
@@ -19,20 +20,31 @@ const downloadWavs = async (pathToWavs, fs) => {
 	let drive = await prepareFiles(pathToWavs.split("/").slice(0,-1).join("/"))
 	let googleDrive = drive.fileList()
 	console.log(googleDrive.map( d => d.name))
+	console.log(`${googleDrive.length} items`)
+	
 	await drive.downloadFiles({googleDrive, fs})
 }
 
 
+let pattern = process.argv[2] || ""
 
+if(pattern){
+	pattern = new RegExp(`${pattern}`)
+}
+
+console.log(pattern)
 
 const run = async () => {
 	let operations = datasets.map( d => {
-		let pathToWavs = `${d.metadata.split("/").slice(0,-1).filter(d => d).join("/")}/raw`
+		let pathToWavs = `${d.metadata.split("/").slice(0,-1).filter(d => d).join("/")}/processed`
 		return {
 			source: `V3-I16-2024/${pathToWavs}/*.wav`,
-			target: path.resolve(`${TEMP_WAV_DIR}${pathToWavs}`) 
+			target: path.resolve(`${TEMP_WAV_DIR}${pathToWavs}`),
+			skip: (pattern && !pattern.test(pathToWavs)) 
 		}
 	})
+
+	operations = operations.filter( o => !o.skip)
 
 	for( let o of operations){
 		console.log(o)
@@ -44,4 +56,5 @@ const run = async () => {
 
 
 run()
+
 

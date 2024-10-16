@@ -21,7 +21,7 @@ const prepareFiles = async path => {
 const downloadMeta = async () => {
 	
 	
-	for( let t of TESTS.filter(t => t.endsWith(".json"))){
+	for( let t of TESTS.filter(t => t.metadata.endsWith(".json"))){
 
 		let drive = await prepareFiles(`${ROOT}/${path.dirname(t.metadata)}`)
 		
