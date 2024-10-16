@@ -35,7 +35,7 @@ console.log(pattern)
 
 const run = async () => {
 	let operations = datasets.map( d => {
-		let pathToWavs = `${d.metadata.split("/").slice(0,-1).filter(d => d).join("/")}/processed`
+		let pathToWavs = `${d.metadata.split("/").slice(0,-1).filter(d => d).join("/")}/processed**`
 		return {
 			source: `V2-I16-2024/${pathToWavs}/*.wav`,
 			target: path.resolve(`${TEMP_WAV_DIR}${pathToWavs}`),
