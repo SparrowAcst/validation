@@ -25,16 +25,25 @@ const downloadWavs = async (pathToWavs, fs) => {
 }
 
 
+let pattern = process.argv[2] || ""
 
+if(pattern){
+	pattern = new RegExp(`${pattern}`)
+}
+
+console.log(pattern)
 
 const run = async () => {
 	let operations = datasets.map( d => {
 		let pathToWavs = `${d.metadata.split("/").slice(0,-1).filter(d => d).join("/")}/processed`
 		return {
 			source: `V2-I16-2024/${pathToWavs}/*.wav`,
-			target: path.resolve(`${TEMP_WAV_DIR}${pathToWavs}`) 
+			target: path.resolve(`${TEMP_WAV_DIR}${pathToWavs}`),
+			skip: (pattern && !pattern.test(pathToWavs)) 
 		}
 	})
+
+	operations = operations.filter( o => !o.skip)
 
 	for( let o of operations){
 		console.log(o)
