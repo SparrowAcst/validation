@@ -7,7 +7,7 @@ const moment = require("moment")
 const wav2spectrum = require("../utils/wav2spectrum")
 const fs = require("fs")
 
-const datasets = require("./datasets")
+const datasets = require("./datasets").filter(d => d.localMetadata)
 
 
 const run = async () => {

@@ -1,4 +1,6 @@
-module.exports = [{
+module.exports = [
+    
+    {
         name: "9.1. Model to Model Reproducibility test",
         metadata: "Reproducibility tests/9.1. Model to Model Reproducibility test/v3-i16-rt-MtM.json",
         sync: {
@@ -9,7 +11,35 @@ module.exports = [{
             "template": "v3-i16-rt-MtM-%"
         },
         localMetadata: "./json/v3-i16-rt-MtM.json",
+        select:{
+            device: d => d[4],
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+
     },
+
+    {
+        name: "9.1. Model to Model Reproducibility test",
+        metadata: "Reproducibility tests/9.1. Model to Model Reproducibility test/predicate/v2 iP 15/v3-i16-rt-MtM-v2-iP-15.json",
+        sync: {
+            "stVersion": 2,
+            "record_folder_id": "1kqb7tn_A6C7pryCLISRu9XtEhWFm0Pwy",
+            "examination_folder_id": "1Alc-UBA2YTRFtrUJ7fxrzBAqtxSl33W4",
+            "folder": "v3-i16-rt-MtM-v2-iP-15",
+            "template": "v3-i16-rt-MtM-v2 iP 15%"
+        },
+        localMetadata: "./json/v3-i16-rt-MtM-v2-iP-15.json",
+        select:{
+            device: d => d[4],
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+
+    },
+
+
+
     {
         name: "9.2. Within Device Long Term Reproducibility Test",
         metadata: "Reproducibility tests/9.2. Within Device Long Term Reproducibility Test/v3-i16-rt-LTR.json",
@@ -21,7 +51,37 @@ module.exports = [{
             "template": "v3-i16-rt-LTR-%"
         },
         localMetadata: "./json/v3-i16-rt-LTR.json",
+        select:{
+            device: d => d[4],
+            day: d => Number.parseInt(d[5].substring(1)),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+
     },
+
+    {
+        name: "9.2. Within Device Long Term Reproducibility Test",
+        metadata: "Reproducibility tests/9.2. Within Device Long Term Reproducibility Test/predicate/v2 iP 15/v3-i16-rt-LTR-v2-iP-15.json",
+        sync: {
+            "stVersion": 2,
+            "record_folder_id": "1nl67qUHc6KZsrSNn3LSCO6q68XLquC-l",
+            "examination_folder_id": "1tkI1q3Mgbn5T1NPGmUgOku3FQes25pOL",
+            "folder": "v3-i16-rt-LTR-v2-iP-15",
+            "template": "v3-i16-rt-LTR-v2 iP 15%"
+        },
+        localMetadata: "./json/v3-i16-rt-LTR-v2-iP-15.json",
+        select:{
+            device: d => d[4],
+            day: d => Number.parseInt(d[5].substring(1)),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+
+    },
+
+
+
     {
         name: "9.3. Operator to Operator Reproducibility Test",
         metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/v3-i16-rt-OtO.json",
@@ -33,7 +93,35 @@ module.exports = [{
             "template": "v3-i16-rt-OtO-%"
         },
         localMetadata: "./json/v3-i16-rt-OtO.json",
+        select:{
+            device: d => d[4],
+            operator: d => Number.parseInt(d[5].substring(1)),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+
     },
+
+    {
+        name: "9.3. Operator to Operator Reproducibility Test",
+        metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/v2 iP 14/v3-i16-rt-OtO-v2-iP-14.json",
+        sync: {
+            "stVersion": 2,
+            "record_folder_id": "1EodekS-q3DzZnFJksL8icwOpFU7e-icA",
+            "examination_folder_id": "1Iym-c5PomrmVVpKD5yW8ih_ZkL4U_0pC",
+            "folder": "v3-i16-rt-OtO-v2-iP-14",
+            "template": "v3-i16-rt-OtO-v2 iP 14%"
+        },
+        localMetadata: "./json/v3-i16-rt-OtO-v2-iP-14.json",
+        select:{
+            device: d => d[4],
+            operator: d => Number.parseInt(d[5].substring(1)),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+
+    },
+
 
     {
         name: "10.8.2. White noise test",
@@ -46,7 +134,35 @@ module.exports = [{
             "template": "v3-i16-pt-WN-%"
         },
         localMetadata: "./json/v3-i16-pt-WN.json",
+        select:{
+            device: d => d[4],
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+
     },
+
+    {
+        name: "10.8.2. White noise test",
+        metadata: "Performance tests/10.8.2. White noise test/predicate/v2 iP 15/v3-i16-pt-WN-v2-iP-15.json",
+        sync: {
+            "stVersion": 2,
+            "record_folder_id": "1DabiTmDxQ1iy_MuvN3gDNPRFt5so09l0",
+            "examination_folder_id": "17EQfuZYqHovRFJQydMRQElnB7NW-GoRO",
+            "folder": "v3-i16-pt-WN-v2-iP-15",
+            "template": "v3-i16-pt-WN-v2 iP 15%",
+        },
+        
+
+        localMetadata: "./json/v3-i16-pt-WN-v2-iP-15",
+        select:{
+            device: d => d[4],
+            user: d => Number.parseInt(d[5].substring(1)),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+    },
+
     {
         name: "10.8.3. Recordings of the chest sound of a healthy participant",
         metadata: "Performance tests/10.8.3. Recordings of the chest sound of a healthy participant/v3-i16-pt-HP.json",
@@ -58,7 +174,34 @@ module.exports = [{
             "template": "v3-i16-pt-HP-%"
         },
         localMetadata: "./json/v3-i16-pt-HP.json",
+        select:{
+            device: d => d[4],
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+
     },
+
+    {
+        name: "10.8.3. Recordings of the chest sound of a healthy participant",
+        metadata: "Performance tests/10.8.3. Recordings of the chest sound of a healthy participant/predicate/v2 iP 15/v3-i16-pt-HP-v2-iP-15.json",
+        sync: {
+            "stVersion": 2,
+            "record_folder_id": "1KT32wX9Ys5T0u2yEzh172y_upWQsLWm9",
+            "examination_folder_id": "1ssj26enGUePDOPYD2yqDGWE3IaY46MGq",
+            "folder": "v3-i16-pt-HP-v2-iP-15",
+            "template": "v3-i16-pt-HP-v2 iP 15%"
+        },
+        localMetadata: "./json/v3-i16-pt-HP-v2-iP-15.json",
+        select:{
+            device: d => d[4],
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+
+    },
+
+    
     {
         name: "10.8.4. Recordings of Heart and Lung Sounds of Ten Participants",
         metadata: "Performance tests/10.8.4. Recordings of Heart and Lung Sounds of Ten Participants/v3-i16-pt-10P.json",
@@ -70,7 +213,33 @@ module.exports = [{
             "template": "v3-i16-pt-10P-%"
         },
         localMetadata: "./json/v3-i16-pt-10P.json",
+        select:{
+            device: d => d[4],
+            participant: d => Number.parseInt(d[5].substring(1)),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",        }
     },
+
+    {
+        name: "10.8.4. Recordings of Heart and Lung Sounds of Ten Participants",
+        metadata: "Performance tests/10.8.4. Recordings of Heart and Lung Sounds of Ten Participants/predicate/v2 iP 14/v3-i16-pt-10P-v2-iP-14.json",
+        sync: {
+            "stVersion": 2,
+            "record_folder_id": "1mB9W1MT4d2iQN1u3EsjMFFYNKHaZ88oB",
+            "examination_folder_id": "1FEv6obNaXI_tpKvvr-bsUhWtvSCJCFle",
+            "folder": "v3-i16-pt-10P-v2-iP-14",
+            "template": "v3-i16-pt-10P-v2 iP 14%"
+        },
+        localMetadata: "./json/v3-i16-pt-10P-v2-iP-14.json",
+        select:{
+            device: d => d[4],
+            participant: d => Number.parseInt(d[5].substring(1)),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",        }
+    },
+
+
+
     {
         name: "10.8.5. Auscultation and Recordings of the Heart and Lung Sounds of a Healthy Participant in a Noisy Environment",
         metadata: "Performance tests/10.8.5. Auscultation and Recordings of the Heart and Lung Sounds of a Healthy Participant in a Noisy Environment/v3-i16-pt-NE.json",
@@ -82,6 +251,12 @@ module.exports = [{
             "template": "v3-i16-pt-NE-%"
         },
         localMetadata: "./json/v3-i16-pt-NE.json",
+        select:{
+            device: d => d[4],
+            state: d => d[5].substring(1),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
     },
     {
         name: "10.8.6. Self-recordings of heart and lung sounds of five lay users",
@@ -94,5 +269,12 @@ module.exports = [{
             "template": "v3-i16-pt-5Us-%"
         },
         localMetadata: "./json/v3-i16-pt-5Us.json",
+        select:{
+            device: d => d[4],
+            user: d => Number.parseInt(d[5].substring(1)),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+
     },
 ]

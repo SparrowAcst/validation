@@ -9,6 +9,11 @@ module.exports = [{
             "template": "v2-i16-rt-MtM-%"
         },
         localMetadata: "./json/v2-i16-rt-MtM.json",
+        select:{
+            device: d => d[4],
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024", 
+        }
     },
     {
         name: "9.2. Within Device Long Term Reproducibility Test",
@@ -21,6 +26,12 @@ module.exports = [{
             "template": "v2-i16-rt-LTR-%"
         },
         localMetadata: "./json/v2-i16-rt-LTR.json",
+        select:{
+            device: d => d[4],
+            day: d => Number.parseInt(d[5].substring(1)),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
     },
     {
         name: "9.3. Operator to Operator Reproducibility Test",
@@ -33,7 +44,14 @@ module.exports = [{
             "template": "v2-i16-rt-OtO-%"
         },
         localMetadata: "./json/v2-i16-rt-OtO.json",
+        select:{
+            device: d => d[4],
+            operator: d => Number.parseInt(d[5].substring(1)),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
     },
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
     {
         name: "10.8.2. White noise test",
@@ -46,7 +64,49 @@ module.exports = [{
             "template": "v2-i16-pt-WN-%"
         },
         localMetadata: "./json/v2-i16-pt-WN.json",
+        select:{
+            device: d => d[4],
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
     },
+
+
+    {
+        name: "10.8.2. White noise test",
+        metadata: "Performance tests/10.8.2. White noise test/predicate/Eko Core/",
+        select:{
+            device: d => d[4],
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+    },
+
+    {
+        name: "10.8.2. White noise test",
+        metadata: "Performance tests/10.8.2. White noise test/primary signal/",
+        select:{
+            device: d => d[4],
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+    },
+
+    {
+        name: "10.8.2. White noise test",
+        metadata: "Performance tests/10.8.2. White noise test/nti microphone/",
+        select:{
+            device: d => d[4],
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+    },
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
     {
         name: "10.8.3. Recordings of the chest sound of a healthy participant",
         metadata: "Performance tests/10.8.3. Recordings of the chest sound of a healthy participant/v2-i16-pt-HP.json",
@@ -58,7 +118,12 @@ module.exports = [{
             "template": "v2-i16-pt-HP-%"
         },
         localMetadata: "./json/v2-i16-pt-HP.json",
-
+        select:{
+            device: d => d[4],
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
+  
     },
     {
         name: "10.8.4. Recordings of Heart and Lung Sounds of Ten Participants",
@@ -71,6 +136,12 @@ module.exports = [{
             "template": "v2-i16-pt-10P-%"
         },
         localMetadata: "./json/v2-i16-pt-10P.json",
+        select:{
+            device: d => d[4],
+            participant: d => Number.parseInt(d[5].substring(1)),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
     },
     {
         name: "10.8.5. Auscultation and Recordings of the Heart and Lung Sounds of a Healthy Participant in a Noisy Environment",
@@ -83,18 +154,30 @@ module.exports = [{
             "template": "v2-i16-pt-NE-%"
         },
         localMetadata: "./json/v2-i16-pt-NE.json",
+        select:{
+            device: d => d[4],
+            state: d => d[5].substring(1),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
     },
     {
         name: "10.8.6. Self-recordings of heart and lung sounds of five lay users",
-        metadata: "Performance tests/10.8.6. Self-recordings of heart and lung sounds of five lay users/v2-i16-pt-5Us-NE.json",
+        metadata: "Performance tests/10.8.6. Self-recordings of heart and lung sounds of five lay users/v2-i16-pt-5Us.json",
         sync: {
             "stVersion": 2,
             "record_folder_id": "1AjRIFofPXzeVzI37OUf6PTCy5xtFm1yg",
             "examination_folder_id": "1jQxLTeK_gEPBIqfXIb2iu2yzb17uokHR",
-            "folder": "v2-i16-pt-5Us-NE",
+            "folder": "v2-i16-pt-5Us",
             "template": "v2-i16-pt-5Us-%"
         },
         localMetadata: "./json/v2-i16-pt-5Us-NE.json",
+        select:{
+            device: d => d[4],
+            user: d => Number.parseInt(d[5].substring(1)),
+            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        }
     },
 
 ]

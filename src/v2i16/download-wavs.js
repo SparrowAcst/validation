@@ -19,6 +19,8 @@ const downloadWavs = async (pathToWavs, fs) => {
 	let drive = await prepareFiles(pathToWavs.split("/").slice(0,-1).join("/"))
 	let googleDrive = drive.fileList()
 	console.log(googleDrive.map( d => d.name))
+	console.log(`${googleDrive.length} items`)
+	
 	await drive.downloadFiles({googleDrive, fs})
 }
 
@@ -27,7 +29,7 @@ const downloadWavs = async (pathToWavs, fs) => {
 
 const run = async () => {
 	let operations = datasets.map( d => {
-		let pathToWavs = `${d.metadata.split("/").slice(0,-1).filter(d => d).join("/")}/raw`
+		let pathToWavs = `${d.metadata.split("/").slice(0,-1).filter(d => d).join("/")}/processed`
 		return {
 			source: `V2-I16-2024/${pathToWavs}/*.wav`,
 			target: path.resolve(`${TEMP_WAV_DIR}${pathToWavs}`) 
