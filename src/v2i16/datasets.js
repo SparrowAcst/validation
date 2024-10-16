@@ -1,4 +1,7 @@
-module.exports = [{
+module.exports = [
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    {
         name: "9.1. Model to Model Reproducibility test",
         metadata: "Reproducibility tests/9.1. Model to Model Reproducibility test/v2-i16-rt-MtM.json",
         sync: {
@@ -15,6 +18,17 @@ module.exports = [{
             release: d => (/15/.test(d[4])) ? "2023" : "2024", 
         }
     },
+
+    {
+        name: "9.1. Model to Model Reproducibility test",
+        metadata: "Reproducibility tests/9.1. Model to Model Reproducibility test/predicate/",
+    },
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     {
         name: "9.2. Within Device Long Term Reproducibility Test",
         metadata: "Reproducibility tests/9.2. Within Device Long Term Reproducibility Test/v2-i16-rt-LTR.json",
@@ -68,6 +82,9 @@ module.exports = [{
             device: d => d[4],
             os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
             release: d => (/15/.test(d[4])) ? "2023" : "2024",
+        },
+        fromPath:{
+            device: d => d[d.length-3]   
         }
     },
 
@@ -75,9 +92,6 @@ module.exports = [{
     {
         name: "10.8.2. White noise test",
         metadata: "Performance tests/10.8.2. White noise test/predicate/Eko Core/",
-        fromPath:{
-            device: d => d[d.length-2]   
-        }
     },
 
     {

@@ -2,11 +2,29 @@ const { extend, sortBy, find, truncate, groupBy, keys, isString, last, uniqBy } 
 const path = require("path")
 const fs = require("fs")
 
-const tests = require("./datasets").filter(t => t.select || t.fromPath)
-const data = require("./json/v2i16-spectra.json")
+
+let pathToData = process.argv[2] || "v2i16-spectra"
+
+let pattern = process.argv[3] || ""
+
+if(pattern){
+	pattern = new RegExp(`${pattern}`)
+}
+
+console.log(pattern)
+
+const tests = require("./datasets")
+				.filter(t => t.select || t.fromPath)
+				.filter( t => pattern.test(t.name))
+
+const data = require(`./json/${pathToData}.json`)
 const metadata = require("./json/v2i16-datasets-report.json")
 
 console.log("load", data.length, "items")
+
+
+
+
 
 tests.forEach( test => {
 	console.log(test.name)
@@ -29,7 +47,8 @@ tests.forEach( test => {
 		})
 		return d	
 	})
-	console.log(testData.length, "items")
+	console.log(testData.length, "items > ", `./src/v2i16/json/${test.name}.json`)
+	console.log(uniqBy(testData.map(d => d.device)))
 	fs.writeFileSync(`./src/v2i16/json/${test.name}.json`, JSON.stringify(testData, null, " "))
 })
 
