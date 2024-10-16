@@ -21,7 +21,7 @@ const run = async () => {
 	let drive = await prepareFiles(ROOT)
 	
 	let res = await drive.uploadFile(
-		"../v2i16/${pathToSpectra}",
+		`../v2i16/${pathToSpectra}`,
 		ROOT,
 		progress => { console.log(progress) },
 		true
