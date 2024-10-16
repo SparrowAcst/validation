@@ -51,6 +51,36 @@ module.exports = [
             release: d => (/15/.test(d[4])) ? "2023" : "2024",
         }
     },
+
+    {
+        name: "9.2. Within Device Long Term Reproducibility Test",
+        metadata: "Reproducibility tests/9.2. Within Device Long Term Reproducibility Test/predicate/Eko Core/day 01/",
+    },
+    {
+        name: "9.2. Within Device Long Term Reproducibility Test",
+        metadata: "Reproducibility tests/9.2. Within Device Long Term Reproducibility Test/predicate/Eko Core/day 02/",
+    },
+    {
+        name: "9.2. Within Device Long Term Reproducibility Test",
+        metadata: "Reproducibility tests/9.2. Within Device Long Term Reproducibility Test/predicate/Eko Core/day 03/",
+    },
+    {
+        name: "9.2. Within Device Long Term Reproducibility Test",
+        metadata: "Reproducibility tests/9.2. Within Device Long Term Reproducibility Test/predicate/Eko Core/day 04/",
+    },
+    {
+        name: "9.2. Within Device Long Term Reproducibility Test",
+        metadata: "Reproducibility tests/9.2. Within Device Long Term Reproducibility Test/predicate/Eko Core/day 05/",
+    },
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
     {
         name: "9.3. Operator to Operator Reproducibility Test",
         metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/v2-i16-rt-OtO.json",
