@@ -21,9 +21,13 @@ module.exports = [
 
     {
         name: "9.1. Model to Model Reproducibility test",
-        metadata: "Reproducibility tests/9.1. Model to Model Reproducibility test/predicate/",
+        metadata: "Reproducibility tests/9.1. Model to Model Reproducibility test/predicate/Eko Core/lung/",
     },
 
+    {
+        name: "9.1. Model to Model Reproducibility test",
+        metadata: "Reproducibility tests/9.1. Model to Model Reproducibility test/predicate/Eko Core/heart/",
+    },
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
