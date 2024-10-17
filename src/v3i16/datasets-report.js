@@ -16,6 +16,7 @@ const run = async () => {
         flatten(
             datasets
             .map((d, i) => {
+                console.log("load:", d.localMetadata, "for", d.name)
                 return require(d.localMetadata).map(r => {
                     r.test = d.name
                     return r
