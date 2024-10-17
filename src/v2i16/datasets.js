@@ -239,7 +239,7 @@ module.exports = [
             "folder": "v2-i16-pt-5Us",
             "template": "v2-i16-pt-5Us-%"
         },
-        localMetadata: "./json/v2-i16-pt-5Us-NE.json",
+        localMetadata: "./json/v2-i16-pt-5Us.json",
         fromMeta:{
             device: d => d.patient_id.split("-")[4],
             user: d => Number.parseInt(d.patient_id.split("-")[5].substring(1)),
@@ -247,5 +247,69 @@ module.exports = [
             release: d => (/15/.test(d.patient_id.split("-")[4])) ? "2023" : "2024",
         }
     },
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+{
+        name: "11.2.2. Test 2.2: Validation of the Effect of Stethophone v3 Filters on the Spectral Composition of Sound",
+        metadata: "Performance tests/11.2.2 Test 2.2: Validation of the Effect of Stethophone v2 Filters on the Spectral Composition of Sound/iP 15/no filter/",
+        spectra: "../../../validation-data/v2i16/json/v2i16-filter.json",
+        analyzer: "v2i16-spectra-filter",
+        fromMeta:{
+            device: d => d.patient_id.split("-")[4],
+            os: d => (/15/.test(d.patient_id.split("-")[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d.patient_id.split("-")[4])) ? "2023" : "2024",
+        },
+        fromSpectra:{
+            device: d => {
+                let a = d.file.split("/")
+                return a[a.length-4]
+            },
+            filter: d => {
+                let a = d.file.split("/")
+                return a[a.length-3]
+            },       
+        }
+    },
+
+
+    {
+        name: "11.2.2. Test 2.2: Validation of the Effect of Stethophone v3 Filters on the Spectral Composition of Sound",
+        metadata: "Performance tests/11.2.2 Test 2.2: Validation of the Effect of Stethophone v2 Filters on the Spectral Composition of Sound/iP 15/bell/",
+    },
+    {
+        name: "11.2.2. Test 2.2: Validation of the Effect of Stethophone v3 Filters on the Spectral Composition of Sound",
+        metadata: "Performance tests/11.2.2 Test 2.2: Validation of the Effect of Stethophone v2 Filters on the Spectral Composition of Sound/iP 15/diaphragm/",
+    },
+    {
+        name: "11.2.2. Test 2.2: Validation of the Effect of Stethophone v3 Filters on the Spectral Composition of Sound",
+        metadata: "Performance tests/11.2.2 Test 2.2: Validation of the Effect of Stethophone v2 Filters on the Spectral Composition of Sound/iP 15/starling/",
+    },
+
+    {
+        name: "11.2.2. Test 2.2: Validation of the Effect of Stethophone v3 Filters on the Spectral Composition of Sound",
+        metadata: "Performance tests/11.2.2 Test 2.2: Validation of the Effect of Stethophone v2 Filters on the Spectral Composition of Sound/iP 16/no filter/",
+    },
+    {
+        name: "11.2.2. Test 2.2: Validation of the Effect of Stethophone v3 Filters on the Spectral Composition of Sound",
+        metadata: "Performance tests/11.2.2 Test 2.2: Validation of the Effect of Stethophone v2 Filters on the Spectral Composition of Sound/iP 16/bell/",
+    },
+    {
+        name: "11.2.2. Test 2.2: Validation of the Effect of Stethophone v3 Filters on the Spectral Composition of Sound",
+        metadata: "Performance tests/11.2.2 Test 2.2: Validation of the Effect of Stethophone v2 Filters on the Spectral Composition of Sound/iP 16/diaphragm/",
+    },
+    {
+        name: "11.2.2. Test 2.2: Validation of the Effect of Stethophone v3 Filters on the Spectral Composition of Sound",
+        metadata: "Performance tests/11.2.2 Test 2.2: Validation of the Effect of Stethophone v2 Filters on the Spectral Composition of Sound/iP 16/starling/",
+    },
+
+    {
+        name: "11.2.2. Test 2.2: Validation of the Effect of Stethophone v3 Filters on the Spectral Composition of Sound",
+        metadata: "Performance tests/11.2.2 Test 2.2: Validation of the Effect of Stethophone v2 Filters on the Spectral Composition of Sound/nti microphone/na/",
+    },
+
+
+
+
 
 ]

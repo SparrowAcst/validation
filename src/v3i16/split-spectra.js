@@ -30,13 +30,13 @@ tests.forEach( test => {
 	
 	let testData = data //.filter( d => regex.test(d.metadata.file))
 	testData = testData.map( d => {
-		let meta = find(metadata, m => (m.file_id+".wav") == path.basename(d.metadata.file))
-		if(meta){
-			keys(test.fromMeta).forEach( key => {
-				d[key] = test.fromMeta[key](meta)
-			})
-			return d 
-		}
+		// let meta = find(metadata, m => (m.file_id+".wav") == path.basename(d.metadata.file))
+		// if(meta){
+		// 	keys(test.fromMeta).forEach( key => {
+		// 		d[key] = test.fromMeta[key](meta)
+		// 	})
+		// 	return d 
+		// }
 		meta = d.metadata //.file.split("/")
 		keys(test.fromSpectra).forEach( key => {
 			d[key] = test.fromSpectra[key](meta)
