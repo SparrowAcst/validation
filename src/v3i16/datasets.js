@@ -310,7 +310,7 @@ module.exports = [
         name: "11.2.2. Test 2.2: Validation of the Effect of Stethophone v3 Filters on the Spectral Composition of Sound",
         metadata: "Performance tests/11.2.2 Test 2.2: Validation of the Effect of Stethophone v2 Filters on the Spectral Composition of Sound/iP 15/no filter/",
         spectra: "../../../validation-data/v3i16/json/v3i16-filter.json",
-        
+        analyzer: "v3i16-spectra-filter",
         fromMeta:{
             device: d => d.patient_id.split("-")[4],
             os: d => (/15/.test(d.patient_id.split("-")[4])) ? "17.1" : "18.0",
@@ -319,8 +319,12 @@ module.exports = [
         fromSpectra:{
             device: d => {
                 let a = d.file.split("/")
+                return a[a.length-4]
+            },
+            filter: d => {
+                let a = d.file.split("/")
                 return a[a.length-3]
-            }       
+            },       
         }
     },
 
@@ -354,5 +358,11 @@ module.exports = [
         name: "11.2.2. Test 2.2: Validation of the Effect of Stethophone v3 Filters on the Spectral Composition of Sound",
         metadata: "Performance tests/11.2.2 Test 2.2: Validation of the Effect of Stethophone v2 Filters on the Spectral Composition of Sound/iP 16/starling/",
     },
+
+    {
+        name: "11.2.2. Test 2.2: Validation of the Effect of Stethophone v3 Filters on the Spectral Composition of Sound",
+        metadata: "Performance tests/11.2.2 Test 2.2: Validation of the Effect of Stethophone v2 Filters on the Spectral Composition of Sound/nti microphone/na/",
+    },
+
 
 ]

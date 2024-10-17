@@ -28,7 +28,7 @@ tests.forEach( test => {
 
 	console.log(test.name, path.resolve(test.spectra), `: ${data.length} items`)
 	
-	let testData = data.filter( d => regex.test(d.metadata.file))
+	let testData = data //.filter( d => regex.test(d.metadata.file))
 	testData = testData.map( d => {
 		let meta = find(metadata, m => (m.file_id+".wav") == path.basename(d.metadata.file))
 		if(meta){
@@ -43,9 +43,9 @@ tests.forEach( test => {
 		})
 		return d	
 	})
-	console.log(testData.length, "items > ", `./src/v3i16/json/${test.name}.json`)
+	console.log(testData.length, "items > ", `./src/v3i16/json/${test.analyzer || test.name}.json`)
 	console.log(uniqBy(testData.map(d => d.device)))
-	fs.writeFileSync(`./src/v3i16/json/${test.name}.json`, JSON.stringify(testData, null, " "))
+	fs.writeFileSync(`./src/v3i16/json/${test.analyzer || test.name}.json`, JSON.stringify(testData, null, " "))
 
 })
 
