@@ -257,6 +257,9 @@ module.exports = [
         }
   
     },
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     {
         name: "10.8.4. Recordings of Heart and Lung Sounds of Ten Participants",
         metadata: "Performance tests/10.8.4. Recordings of Heart and Lung Sounds of Ten Participants/v2-i16-pt-10P.json",
@@ -268,13 +271,44 @@ module.exports = [
             "template": "v2-i16-pt-10P-%"
         },
         localMetadata: "./json/v2-i16-pt-10P.json",
+
+        spectra: "../../../validation-data/v2i16/json/v2i16-10p.json",
+        analyzer: "v2i16-spectra-10P",
+        
         fromMeta:{
             device: d => d.patient_id.split("-")[4],
             participant: d => Number.parseInt(d.patient_id.split("-")[5].substring(1)),
             os: d => (/15/.test(d.patient_id.split("-")[4])) ? "17.1" : "18.0",
             release: d => (/15/.test(d.patient_id.split("-")[4])) ? "2023" : "2024",
+        },
+        fromSpectra:{
+            device: d => {
+                let a = d.file.split("/")
+                return a[a.length-5]
+            },
+            type: d => {
+                let a = d.file.split("/")
+                return a[a.length-4]
+            },   
+            participant: d => {
+                let a = d.file.split("/")
+                return Number.parseInt(a[a.length-3])
+            },       
         }
     },
+
+    {
+        name: "10.8.4. Recordings of Heart and Lung Sounds of Ten Participants",
+        metadata: "Performance tests/10.8.4. Recordings of Heart and Lung Sounds of Ten Participants/predicate/Eko Core/heart/",
+    },
+
+    {
+        name: "10.8.4. Recordings of Heart and Lung Sounds of Ten Participants",
+        metadata: "Performance tests/10.8.4. Recordings of Heart and Lung Sounds of Ten Participants/predicate/Eko Core/lungs/",
+    },
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     {
         name: "10.8.5. Auscultation and Recordings of the Heart and Lung Sounds of a Healthy Participant in a Noisy Environment",
         metadata: "Performance tests/10.8.5. Auscultation and Recordings of the Heart and Lung Sounds of a Healthy Participant in a Noisy Environment/v2-i16-pt-NE.json",
