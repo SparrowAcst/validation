@@ -93,7 +93,7 @@ module.exports = [
         
     },
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     {
         name: "9.3. Operator to Operator Reproducibility Test",
@@ -125,17 +125,78 @@ module.exports = [
             "folder": "v3-i16-rt-OtO-v2-iP-14",
             "template": "v3-i16-rt-OtO-v2 iP 14%"
         },
-        localMetadata: "./json/v3-i16-rt-OtO-v2-iP-14.json",
-        select:{
-            device: d => d[4],
-            operator: d => Number.parseInt(d[5].substring(1)),
-            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
-            release: d => (/15/.test(d[4])) ? "2023" : "2024",
-        }
-
+        localMetadata: "./json/v3-i16-rt-OtO.json",
+        fromMeta:{
+            device: d => d.patient_id.split("-")[4],
+            operator: d => Number.parseInt(d.patient_id.split("-")[5].substring(1)),
+            type: d => d.record_type,
+            os: d => (/15/.test(d.patient_id.split("-")[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d.patient_id.split("-")[4])) ? "2023" : "2024",
+        },
+        
+        spectra: "../../../validation-data/v3i16/json/v3i16-OtO.json",
+        analyzer: "v2i16-spectra-OtO",
+        
+        // fromSpectra:{
+        //     device: d => {
+        //         let a = d.file.split("/")
+        //         return a[a.length-5]
+        //     },
+        //     type: d => {
+        //         let a = d.file.split("/")
+        //         return a[a.length-4]
+        //     },   
+        //     day: d => {
+        //         let a = d.file.split("/")
+        //         return Number.parseInt(a[a.length-3])
+        //     },       
+        // }
     },
 
+    // {
+    //     name: "9.3. Operator to Operator Reproducibility Test",
+    //     metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/heart/01/",
+    // },
+    // {
+    //     name: "9.3. Operator to Operator Reproducibility Test",
+    //     metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/heart/02/",
+    // },
+    // {
+    //     name: "9.3. Operator to Operator Reproducibility Test",
+    //     metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/heart/03/",
+    // },
+    // {
+    //     name: "9.3. Operator to Operator Reproducibility Test",
+    //     metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/heart/04/",
+    // },
+    // {
+    //     name: "9.3. Operator to Operator Reproducibility Test",
+    //     metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/heart/05/",
+    // },
 
+    // {
+    //     name: "9.3. Operator to Operator Reproducibility Test",
+    //     metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/lungs/01/",
+    // },
+    // {
+    //     name: "9.3. Operator to Operator Reproducibility Test",
+    //     metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/lungs/02/",
+    // },
+    // {
+    //     name: "9.3. Operator to Operator Reproducibility Test",
+    //     metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/lungs/03/",
+    // },
+    // {
+    //     name: "9.3. Operator to Operator Reproducibility Test",
+    //     metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/lungs/04/",
+    // },
+    // {
+    //     name: "9.3. Operator to Operator Reproducibility Test",
+    //     metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/lungs/05/",
+    // },
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     {
         name: "10.8.2. White noise test",
         metadata: "Performance tests/10.8.2. White noise test/v3-i16-pt-WN.json",

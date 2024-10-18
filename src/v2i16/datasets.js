@@ -122,18 +122,26 @@ module.exports = [
         fromMeta:{
             device: d => d.patient_id.split("-")[4],
             operator: d => Number.parseInt(d.patient_id.split("-")[5].substring(1)),
+            type: d => d.record_type,
             os: d => (/15/.test(d.patient_id.split("-")[4])) ? "17.1" : "18.0",
             release: d => (/15/.test(d.patient_id.split("-")[4])) ? "2023" : "2024",
         },
+        
         spectra: "../../../validation-data/v2i16/json/v2i16-OtO.json",
+        analyzer: "v2i16-spectra-OtO",
+        
         fromSpectra:{
             device: d => {
                 let a = d.file.split("/")
-                return a[a.length-4]
+                return a[a.length-5]
             },
+            type: d => {
+                let a = d.file.split("/")
+                return a[a.length-4]
+            },   
             day: d => {
                 let a = d.file.split("/")
-                return Number.parseInt(last(a[a.length-3].split(" ")))
+                return Number.parseInt(a[a.length-3])
             },       
         }
     },
