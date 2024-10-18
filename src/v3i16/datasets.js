@@ -288,6 +288,8 @@ module.exports = [
 
     },
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     {
         name: "10.8.4. Recordings of Heart and Lung Sounds of Ten Participants",
@@ -300,11 +302,17 @@ module.exports = [
             "template": "v3-i16-pt-10P-%"
         },
         localMetadata: "./json/v3-i16-pt-10P.json",
-        select:{
-            device: d => d[4],
-            participant: d => Number.parseInt(d[5].substring(1)),
-            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
-            release: d => (/15/.test(d[4])) ? "2023" : "2024",        }
+        spectra: "../../../validation-data/v3i16/json/v3i16-10p.json",
+        analyzer: "v3i16-spectra-10P",
+        
+        fromMeta:{
+            device: d => d.patient_id.split("-")[4],
+            type: d => d.record_type,
+            participant: d => Number.parseInt(d.patient_id.split("-")[5].substring(1)),
+            os: d => (/15/.test(d.patient_id.split("-")[4])) ? "17.1" : "18.0",
+            release: d => (/15/.test(d.patient_id.split("-")[4])) ? "2023" : "2024",
+            spot: d => (d.record_type == "heart") ? d.record_spot : "rightAnteriorLowerLung"
+        },
     },
 
     {
@@ -318,14 +326,9 @@ module.exports = [
             "template": "v3-i16-pt-10P-v2 iP 14%"
         },
         localMetadata: "./json/v3-i16-pt-10P-v2-iP-14.json",
-        select:{
-            device: d => d[4],
-            participant: d => Number.parseInt(d[5].substring(1)),
-            os: d => (/15/.test(d[4])) ? "17.1" : "18.0",
-            release: d => (/15/.test(d[4])) ? "2023" : "2024",        }
     },
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     {
         name: "10.8.5. Auscultation and Recordings of the Heart and Lung Sounds of a Healthy Participant in a Noisy Environment",

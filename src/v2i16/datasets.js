@@ -277,23 +277,31 @@ module.exports = [
         
         fromMeta:{
             device: d => d.patient_id.split("-")[4],
+            type: d => d.record_type,
             participant: d => Number.parseInt(d.patient_id.split("-")[5].substring(1)),
             os: d => (/15/.test(d.patient_id.split("-")[4])) ? "17.1" : "18.0",
             release: d => (/15/.test(d.patient_id.split("-")[4])) ? "2023" : "2024",
+            spot: d => (d.record_type == "heart") ? d.record_spot : "rightAnteriorLowerLung"
         },
         fromSpectra:{
             device: d => {
                 let a = d.file.split("/")
-                return a[a.length-5]
+                return a[a.length-4]
             },
             type: d => {
                 let a = d.file.split("/")
-                return a[a.length-4]
-            },   
-            participant: d => {
-                let a = d.file.split("/")
-                return Number.parseInt(a[a.length-3])
-            },       
+                return a[a.length-3]
+            },
+            spot: d => {
+                let a = last(d.fileName.split(" "))
+                let b = d.file.split("/")
+                
+                return (b[b.length-3] == "heart") ? (a == "PM-heart.wav") ? "apex" : "erbs" : "rightAnteriorLowerLung"
+            }
+            // participant: d => {
+            //     let a = d.file.split("/")
+            //     return Number.parseInt(a[a.length-3])
+            // },       
         }
     },
 
