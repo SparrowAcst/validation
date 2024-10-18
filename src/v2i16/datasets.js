@@ -124,8 +124,64 @@ module.exports = [
             operator: d => Number.parseInt(d.patient_id.split("-")[5].substring(1)),
             os: d => (/15/.test(d.patient_id.split("-")[4])) ? "17.1" : "18.0",
             release: d => (/15/.test(d.patient_id.split("-")[4])) ? "2023" : "2024",
+        },
+        spectra: "../../../validation-data/v2i16/json/v2i16-OtO.json",
+        fromSpectra:{
+            device: d => {
+                let a = d.file.split("/")
+                return a[a.length-4]
+            },
+            day: d => {
+                let a = d.file.split("/")
+                return Number.parseInt(last(a[a.length-3].split(" ")))
+            },       
         }
     },
+
+    {
+        name: "9.3. Operator to Operator Reproducibility Test",
+        metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/heart/01/",
+    },
+    {
+        name: "9.3. Operator to Operator Reproducibility Test",
+        metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/heart/02/",
+    },
+    {
+        name: "9.3. Operator to Operator Reproducibility Test",
+        metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/heart/03/",
+    },
+    {
+        name: "9.3. Operator to Operator Reproducibility Test",
+        metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/heart/04/",
+    },
+    {
+        name: "9.3. Operator to Operator Reproducibility Test",
+        metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/heart/05/",
+    },
+
+    {
+        name: "9.3. Operator to Operator Reproducibility Test",
+        metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/lungs/01/",
+    },
+    {
+        name: "9.3. Operator to Operator Reproducibility Test",
+        metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/lungs/02/",
+    },
+    {
+        name: "9.3. Operator to Operator Reproducibility Test",
+        metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/lungs/03/",
+    },
+    {
+        name: "9.3. Operator to Operator Reproducibility Test",
+        metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/lungs/04/",
+    },
+    {
+        name: "9.3. Operator to Operator Reproducibility Test",
+        metadata: "Reproducibility tests/9.3. Operator to Operator Reproducibility Test/predicate/Eko Core/lungs/05/",
+    },
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     {

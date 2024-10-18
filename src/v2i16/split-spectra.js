@@ -31,24 +31,24 @@ tests.forEach( test => {
 
 	console.log(test.name, path.resolve(test.spectra), `: ${data.length} items`)
 	
-	let testData = data.filter( d => regex.test(d.metadata.file))
+	let testData = data //.filter( d => regex.test(d.metadata.file))
 	testData = testData.map( d => {
-		let meta = find(metadata, m => (m.file_id+".wav") == path.basename(d.metadata.file))
-		if(meta){
-			keys(test.fromMeta).forEach( key => {
-				d[key] = test.fromMeta[key](meta)
-			})
-			return d 
-		}
+		// let meta = find(metadata, m => (m.file_id+".wav") == path.basename(d.metadata.file))
+		// if(meta){
+		// 	keys(test.fromMeta).forEach( key => {
+		// 		d[key] = test.fromMeta[key](meta)
+		// 	})
+		// 	return d 
+		// }
 		meta = d.metadata //.file.split("/")
 		keys(test.fromSpectra).forEach( key => {
 			d[key] = test.fromSpectra[key](meta)
 		})
 		return d	
 	})
-	console.log(testData.length, "items > ", `./src/v2i16/json/${test.name}.json`)
+	console.log(testData.length, "items > ", `./src/v2i16/json/${test.analyzer || test.name}.json`)
 	console.log(uniqBy(testData.map(d => d.device)))
-	fs.writeFileSync(`./src/v2i16/json/${test.name}.json`, JSON.stringify(testData, null, " "))
+	fs.writeFileSync(`./src/v2i16/json/${test.analyzer || test.name}.json`, JSON.stringify(testData, null, " "))
 
 })
 
