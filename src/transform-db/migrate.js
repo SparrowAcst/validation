@@ -50,13 +50,13 @@ const run = async () => {
             console.log(`${SOURCE} > Read buffer ${bufferCount}: starts at ${skip} ${buffer.length} items`)
             // console.log(buffer.map(b => b.id).join("\n"))
 
-            if(buffer.length > 0){
+            if (buffer.length > 0) {
                 await mongodb.insertAll({
                     db,
                     collection: DEST,
                     data: buffer
                 })
-              
+
             }
 
             // let ops = buffer.map(b => ({
@@ -75,24 +75,34 @@ const run = async () => {
             //     })
             // }
 
-            console.log(`${DEST} > Write ${ops.length} items`)
+            console.log(`${DEST} > Write ${buffer.length} items`)
 
-            ops = buffer.map(b => ({
-                updateOne: {
-                    "filter": { id: b.id },
-                    "update": {
-                        $set: { migrated: true }
-                    }
+            await mongodb.updateMany({
+                db,
+                collection: SOURCE,
+                filter: {id: { $in: buffer.map(d => d.id)}}
+                data: {
+                  migrated: true
                 }
-            }))
+            })
 
-            if (ops.length > 0) {
-                await mongodb.bulkWrite({
-                  db,
-                  collection:SOURCE, 
-                  commands: ops
-                })
-            }
+
+            // ops = buffer.map(b => ({
+            //     updateOne: {
+            //         "filter": { id: b.id },
+            //         "update": {
+            //             $set: { migrated: true }
+            //         }
+            //     }
+            // }))
+
+            // if (ops.length > 0) {
+            //     await mongodb.bulkWrite({
+            //       db,
+            //       collection:SOURCE, 
+            //       commands: ops
+            //     })
+            // }
 
         }
 
