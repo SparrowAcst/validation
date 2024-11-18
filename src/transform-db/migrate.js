@@ -80,7 +80,7 @@ const run = async () => {
             await mongodb.updateMany({
                 db,
                 collection: SOURCE,
-                filter: {id: { $in: buffer.map(d => d.id)}}
+                filter: {id: { $in: buffer.map(d => d.id)}},
                 data: {
                   migrated: true
                 }
