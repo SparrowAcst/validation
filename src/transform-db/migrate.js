@@ -90,7 +90,7 @@ const run = async () => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0 && bufferCount < 2)
+    } while (buffer.length > 0)
 
 }
 
