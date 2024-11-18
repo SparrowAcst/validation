@@ -38,6 +38,11 @@ const run = async () => {
             },
             {
                 '$limit': PAGE_SIZE
+            },
+            {
+              $project: {
+                _id: 0
+              }
             }
         ]
 
