@@ -20,7 +20,7 @@ const run = async () => {
         return
     }
 
-    const PAGE_SIZE = 5
+    const PAGE_SIZE = 500
 
     let buffer = []
     let bufferCount = 0
