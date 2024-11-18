@@ -48,7 +48,7 @@ const run = async () => {
         })
         if (buffer.length > 0) {
             console.log(`${SOURCE} > Read buffer ${bufferCount}: starts at ${skip} ${buffer.length} items`)
-            console.log(buffer.map(b => b.id).join("\n"))
+            // console.log(buffer.map(b => b.id).join("\n"))
 
             let ops = buffer.map(b => ({
                 replaceOne: {
