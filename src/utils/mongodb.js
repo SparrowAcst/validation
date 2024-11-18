@@ -20,6 +20,35 @@ const createClient = async options => {
 	return client	
 }
 
+
+
+const getAggregateCursor =  async options => {
+
+	
+	try {
+		
+		const conf = normalize(options.collection)
+		let client = await createClient(options)
+		pipeline = options.pipeline || []
+	    let res = client
+	    			.db(conf.dbName)
+					.collection(conf.collectionName)
+					.aggregate(pipeline.concat([{$project:{_id:0}}]))
+	    return res
+
+	} catch (e) {
+	
+		throw e
+	
+	} finally {
+	
+		// if(client) client.close()
+		// clients--
+	
+	}     
+}
+
+
 const drop = async options => {
 	let client
 	clients++
@@ -374,5 +403,6 @@ module.exports =  {
 	drop,
 	aggregate_raw,
 	deleteMany,
-	updateMany	
+	updateMany,
+	getAggregateCursor	
 }
