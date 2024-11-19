@@ -5,7 +5,7 @@ const s3bucket = require("../utils/s3-bucket")
 const filesize = require("file-size")
 const uuid = require("uuid").v4
 const { extension, lookup } = require("mime-types")
-const { first, last,  } = require("lodash")
+const { first, last, } = require("lodash")
 
 const SOURCE = "HH3.attachements"
 const PROCESSED = "HH3.attachements_processed"
@@ -16,10 +16,10 @@ const db = require("../../.config-migrate-db").mongodb.ade
 
 
 const resolveSource = d => {
-  if(d.storage == "s3") return "S3"
-  if(/^\.\/api\/controller\/file\/gd\?id/.test(d.data.url)) return "GD"
-  if(/^https\:\/\/firebasestorage\.googleapis\.com/.test(d.data.url)) return "FB"
-     
+    if (d.storage == "s3") return "S3"
+    if (/^\.\/api\/controller\/file\/gd\?id/.test(d.data.url)) return "GD"
+    if (/^https\:\/\/firebasestorage\.googleapis\.com/.test(d.data.url)) return "FB"
+
 }
 
 const resolvers = {
@@ -67,7 +67,7 @@ const resolvers = {
     FB: async d => {
 
         let id = uuid()
-        
+
         let mimeType = d.data.mimeType || "application/octet-stream"
         mimeType = (mimeType == "application/octet-stream") ? "image/jpeg" : mimeType
 
@@ -85,7 +85,7 @@ const resolvers = {
             })
 
             console.log()
-            
+
             return {
                 type: "FB",
                 id,
@@ -109,7 +109,7 @@ const resolvers = {
     S3: async d => {
 
         let id = uuid()
-        
+
         let source = `${d.data.path}`
         let target = `${DEST}${id}.${path.extname(d.data.path)}`
 
@@ -124,7 +124,7 @@ const resolvers = {
             })
 
             console.log()
-            
+
             return {
                 type: "S3",
                 id,
@@ -153,29 +153,32 @@ const resolveURL = async buffer => {
 
     buffer = buffer.filter(d => d && d.data)
     let result = []
-    
+
     for (let d of buffer) {
 
-        console.log(d.patientId, d.aid)
+        let resolver = resolvers[resolveSource(d)]
+        if (resolver) {
+  
+            let res = await resolver(d)
+  
+            if (!res.error) {
 
-        let res = await resolvers[resolveSource(d)](d)
-        // console.log(res)
-        // console.log(`${res.type}: ${res.source}  > ${res.target}, ${res.path}`)
+                d.data.id = res.id
+                d.data.path = res.path
+                d.data.name = last(res.path.split("/"))
+                d.data.publicName = d.data.name
+                d.data.mimeType = lookup(d.data.publicName)
+                d.data.storage = "s3"
+                d.data.url = await s3bucket.getPresignedUrl(res.path)
 
-        if(!res.error){
- 
-          d.data.id = res.id
-          d.data.path = res.path
-          d.data.name = last(res.path.split("/"))
-          d.data.publicName = d.data.name
-          d.data.mimeType = lookup(d.data.publicName)
-          d.data.storage = "s3"
-          d.data.url = await s3bucket.getPresignedUrl(res.path)
- 
+            } else {
+                d.error = res
+            }
+
         } else {
-          d.error = res
+            d.error = "No resolver"
         }
-        
+
         result.push(d)
 
     }
@@ -186,7 +189,7 @@ const resolveURL = async buffer => {
 
 const run = async () => {
 
-    const PAGE_SIZE = 3
+    const PAGE_SIZE = 50
     let skip = 0
     let bufferCount = 0
 
@@ -244,7 +247,7 @@ const run = async () => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0 && bufferCount < 2)
+    } while (buffer.length > 0)
 
 }
 
