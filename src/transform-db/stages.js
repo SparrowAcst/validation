@@ -654,3 +654,52 @@ module.exports = [{
     },
 
 ]
+
+
+
+
+
+
+
+
+
+// [
+//   {
+//     $match:
+//       {
+//         type: "attachements",
+//       },
+//   },
+//   {
+//     $unwind:
+//       {
+//         path: "$data",
+//         preserveNullAndEmptyArrays: true,
+//       },
+//   },
+//   {
+//     $set:
+//       {
+//         aid: {
+//           $function: {
+//             body: function () {
+//               return UUID()
+//                 .toString()
+//                 .split('"')[1];
+//             },
+//             args: [],
+//             lang: "js",
+//           },
+//         },
+//       },
+//   },
+//   {
+//     $project: {
+//       _id: 0
+//     }
+//   },
+//   {
+//     $out:
+//       "attachements",
+//   },
+// ]

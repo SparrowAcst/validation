@@ -18,9 +18,11 @@ const nanomatch = require('nanomatch')
 const YAML = require("js-yaml")
 
 // const key = require(path.join(__dirname,"../../.config/key/gd/gd.key.json"))
-const key = require(path.join(__dirname,"../../.config/key/gd/gd.key.json"))
+// const key = require(path.join(__dirname,"../../.config/key/gd/gd.key.json"))
 
-
+const conf = require(path.join(__dirname,"../../.config-migrate-db"))
+const key = conf.gd
+const subject = conf.subject
 
 
 
@@ -658,12 +660,12 @@ const create = async root => {
 	  null,
 	  key.private_key,
 	  ["https://www.googleapis.com/auth/drive"],
-	  key.subject
+	  subject
 	);
 
 	const drive = google.drive({version: 'v3', auth: jwtClient});
 
-	console.log(`Use Google Drive client account: ${key.client_email} (project:${key.project_id}) impersonated as ${key.subject || "default"}`)
+	console.log(`Use Google Drive client account: ${key.client_email} (project:${key.project_id}) impersonated as ${subject || "default"}`)
 	
 	let result = new Drive(drive, [], key.subject, key.owner)
 	return result

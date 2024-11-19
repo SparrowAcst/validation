@@ -78,6 +78,7 @@
     "echarts": "^5.4.3",
     "exectimer": "^2.2.2",
     "fast-glob": "^3.2.12",
+    "file-size": "^1.0.0",
     "firebase-admin": "^11.4.1",
     "fs-extra": "^11.1.0",
     "google-auth-library": "^8.7.0",

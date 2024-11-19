@@ -40,12 +40,19 @@ const { Upload } = require("@aws-sdk/lib-storage")
 
 
 // TODO transfer into settings
-const settings = require("../../../sync-data/.config/key/s3/s3.settings.json")
-// const settings = require("../../.config/ade-clinic").s3
-const bucket = settings.bucket.default
+
+const settings = require("../../.config-migrate-db").s3
+let bucket = settings.bucket.TEST
+
 console.log("S3 bucket:", bucket)
 
 const client = new S3Client(settings.access)
+
+
+const setBucket = bucketAlias => {
+    bucket = settings.bucket[bucketAlias] || settings.bucket.default
+}
+
 
 const dir = async path => {
     try {
@@ -212,6 +219,8 @@ const uploadFromURL = async ({ source, target, callback }) => {
         callback = (callback && isFunction(callback)) ? callback : (() => {})
         const ContentType = lookup(path.extname(`./${target}`))
 
+        console.log(`TARGET: ${bucket}: ${target} - ${ContentType}`)
+        
         const axiosResponse = await axios({
             method: 'GET',
             url: source,
@@ -233,6 +242,38 @@ const uploadFromURL = async ({ source, target, callback }) => {
 
     } catch (e) {
         console.log(`uploadFromURL`, e.toString(), e.stack)
+    }
+
+}
+
+
+const uploadFromStream = async ({ stream, target, callback }) => {
+    try {
+
+        callback = (callback && isFunction(callback)) ? callback : (() => {})
+        const ContentType = lookup(path.extname(`./${target}`))
+        console.log(`TARGET: ${bucket}: ${target} - ${ContentType}`)
+        // const axiosResponse = await axios({
+        //     method: 'GET',
+        //     url: source,
+        //     responseType: 'stream'
+        // })
+
+        const uploadProcess = new Upload({
+            client,
+            params: {
+                Bucket: bucket,
+                Key: target,
+                ContentType,
+                Body: stream
+            },
+        })
+
+        uploadProcess.on("httpUploadProgress", callback)
+        await uploadProcess.done();
+
+    } catch (e) {
+        console.log(`uploadFromStream`, e.toString(), e.stack)
     }
 
 }
@@ -342,17 +383,87 @@ const uploadChunks = async ({
     }
 }
 
+const copyObject = async ({
+    sourceBucket,
+    sourceKey,
+    destinationBucket,
+    destinationKey,
+}) => {
+
+    try {
+        await client.send(
+            new CopyObjectCommand({
+                CopySource: `${sourceBucket}/${sourceKey}`,
+                Bucket: destinationBucket,
+                Key: destinationKey,
+            }),
+        );
+        await waitUntilObjectExists({ client }, { Bucket: destinationBucket, Key: destinationKey }, );
+        // console.log(
+        //     `Successfully copied ${sourceBucket}/${sourceKey} to ${destinationBucket}/${destinationKey}`,
+        // );
+    } catch (caught) {
+        if (caught instanceof ObjectNotInActiveTierError) {
+            console.error(
+                `Could not copy ${sourceKey} from ${sourceBucket}. Object is not in the active tier.`,
+            );
+        } else {
+            throw caught;
+        }
+    }
+}
+
+const copy = async ({ source, target, callback }) => {
+
+    callback = (callback && isFunction(callback)) ? callback : (() => {})
+
+    let defaultAlias = find(keys(settings.bucket), key => settings.bucket[key] == bucket) || "default"
+
+    let sourceBucketAlias = (/\:/.test(source)) ? first(source.split(":")).trim() || defaultAlias : defaultAlias
+    let targetBucketAlias = (/\:/.test(target)) ? first(target.split(":")).trim() || defaultAlias : defaultAlias
+
+    let sourceBucket = settings.bucket[sourceBucketAlias]
+    let sourcePath = (/\:/.test(source)) ? last(source.split(":")).trim() : source
+
+    let targetBucket = settings.bucket[targetBucketAlias]
+    let targetPath = (/\:/.test(target)) ? last(target.split(":")).trim() : target
+    targetPath = (targetPath.endsWith("/")) ? targetPath : `${targetPath}/`
+
+    let homedir = sourcePath.split("/")
+    homedir = homedir.slice(0, findIndex(homedir, d => /\*/.test(d))).join("/")
+    homedir = (!homedir) ? undefined : homedir
+
+    let fileList = await list(sourcePath)
+
+    let operations = fileList.map(f => ({
+        sourceBucketAlias,
+        sourceBucket,
+        sourceKey: f.Key,
+        destinationBucketAlias: targetBucketAlias,
+        destinationBucket: targetBucket,
+        destinationKey: `${targetPath}${f.Key.replace(homedir, "").substring(1)}`
+    }))
+
+    for (let operation of operations) {
+        await copyObject(operation)
+        callback(operation)
+    }
+
+}
 
 module.exports = {
+    setBucket,
     list,
     metadata,
     getStream,
     download,
+    copy,
     getPresignedUrl,
     uploadLt20M,
     uploadChunks,
     deleteFiles,
-    uploadFromURL
+    uploadFromURL,
+    uploadFromStream
 }
 
 // const run = async () => {
