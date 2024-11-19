@@ -82,11 +82,12 @@ const run = async () => {
 
   //////////////////////////////////// stage 1 ///////////////////////////////////////
 
-
-    const source = await mongodb.getAggregateCursor({
+    const aggCursor = await mongodb.getAggregateCursor({
       db,
       collection: SOURCE
     })
+    
+    const source = aggCursor.cursor
 
     const target = fs.createWriteStream(filePath)
 
@@ -102,6 +103,8 @@ const run = async () => {
     await source.close()
     target.end()
 
+    aggCursor.client.close()
+    
     console.log("\n\n")
 
   //////////////////////////////////// stage 2 ///////////////////////////////////////

@@ -34,7 +34,10 @@ const getAggregateCursor =  async options => {
 	    			.db(conf.dbName)
 					.collection(conf.collectionName)
 					.aggregate(pipeline.concat([{$project:{_id:0}}]))
-	    return res
+	    return {
+	    	cursor: res,
+	    	client
+	    }	
 
 	} catch (e) {
 	
