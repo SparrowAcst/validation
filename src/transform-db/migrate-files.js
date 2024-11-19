@@ -179,6 +179,7 @@ const resolveURL = async buffer => {
             d.error = "No resolver"
         }
 
+        d.migratedAt = new Date()
         result.push(d)
 
     }
