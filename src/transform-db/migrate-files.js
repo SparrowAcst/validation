@@ -159,6 +159,7 @@ const resolveURL = async buffer => {
         if(!res.error){
  
           d.data.id = res.id
+          d.data.path = res.path
           d.data.name = last(res.path.split("/"))
           d.data.publicName = d.data.name
           d.data.mimeType = lookup(d.data.publicName)

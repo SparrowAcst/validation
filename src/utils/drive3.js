@@ -665,7 +665,7 @@ const create = async root => {
 
 	const drive = google.drive({version: 'v3', auth: jwtClient});
 
-	console.log(`Use Google Drive client account: ${key.client_email} (project:${key.project_id}) impersonated as ${subject || "default"}`)
+	// console.log(`Use Google Drive client account: ${key.client_email} (project:${key.project_id}) impersonated as ${subject || "default"}`)
 	
 	let result = new Drive(drive, [], key.subject, key.owner)
 	return result
