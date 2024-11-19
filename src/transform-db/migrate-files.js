@@ -39,7 +39,7 @@ const resolvers = {
                 stream,
                 target,
                 callback: progress => {
-                    process.stdout.write(`COPY FROM GD ${filesize(progress.loaded).human("jedec")} from ${filesize(progress.total).human("jedec")} (${(100*progress.loaded/progress.total).toFixed(1)}%)`)
+                    process.stdout.write(`COPY FROM GD > ${filesize(progress.loaded).human("jedec")}`)
                 }
             })
 
@@ -80,7 +80,7 @@ const resolvers = {
                 source,
                 target,
                 callback: (progress) => {
-                    process.stdout.write(`COPY FROM FB ${filesize(progress.loaded).human("jedec")} from ${filesize(progress.total).human("jedec")} (${(100*progress.loaded/progress.total).toFixed(1)}%)`)
+                    process.stdout.write(`COPY FROM FB > ${filesize(progress.loaded).human("jedec")}`)
                 }
             })
 
@@ -213,8 +213,6 @@ const run = async () => {
             console.log(`${SOURCE} > Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
 
             let processedBuffer = await resolveURL(buffer)
-
-            console.log(JSON.stringify(processedBuffer, null, " "))
 
             if (buffer.length > 0) {
                 await mongodb.insertAll({
