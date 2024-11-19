@@ -233,7 +233,7 @@ const run = async () => {
             await mongodb.updateMany({
                 db,
                 collection: SOURCE,
-                filter: { id: { $in: buffer.map(d => d.aid) } },
+                filter: { aid: { $in: buffer.map(d => d.aid) } },
                 data: {
                     processed: true
                 }
