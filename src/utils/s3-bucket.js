@@ -219,7 +219,7 @@ const uploadFromURL = async ({ source, target, callback }) => {
         callback = (callback && isFunction(callback)) ? callback : (() => {})
         const ContentType = lookup(path.extname(`./${target}`))
 
-        console.log(`TARGET: ${bucket}: ${target} - ${ContentType}`)
+        // console.log(`TARGET: ${bucket}: ${target} - ${ContentType}`)
         
         const axiosResponse = await axios({
             method: 'GET',
@@ -252,7 +252,7 @@ const uploadFromStream = async ({ stream, target, callback }) => {
 
         callback = (callback && isFunction(callback)) ? callback : (() => {})
         const ContentType = lookup(path.extname(`./${target}`))
-        console.log(`TARGET: ${bucket}: ${target} - ${ContentType}`)
+        // console.log(`TARGET: ${bucket}: ${target} - ${ContentType}`)
         // const axiosResponse = await axios({
         //     method: 'GET',
         //     url: source,

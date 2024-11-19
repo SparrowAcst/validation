@@ -39,10 +39,10 @@ const resolvers = {
                 stream,
                 target,
                 callback: progress => {
-                    process.stdout.write(`COPY FROM GD > ${filesize(progress.loaded).human("jedec")}`)
+                    process.stdout.write(`COPY FROM GD > ${filesize(progress.loaded).human("jedec")} > ${target}`)
                 }
             })
-
+            console.log()
             return {
                 type: "GD",
                 id,
@@ -80,10 +80,12 @@ const resolvers = {
                 source,
                 target,
                 callback: (progress) => {
-                    process.stdout.write(`COPY FROM FB > ${filesize(progress.loaded).human("jedec")}`)
+                    process.stdout.write(`COPY FROM FB > ${filesize(progress.loaded).human("jedec")} > ${target}`)
                 }
             })
 
+            console.log()
+            
             return {
                 type: "FB",
                 id,
@@ -121,6 +123,8 @@ const resolvers = {
                 }
             })
 
+            console.log()
+            
             return {
                 type: "S3",
                 id,
