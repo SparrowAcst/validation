@@ -80,7 +80,7 @@ const resolvers = {
                 source,
                 target,
                 callback: (progress) => {
-                    process.stdout.write(`COPY FROM FB > ${filesize(progress.loaded).human("jedec")} > ${target}`)
+                    process.stdout.write(`COPY FROM FB > ${filesize(progress.loaded).human("jedec")} > ${target}                 ${'\x1b[0G'}`)
                 }
             })
 
@@ -156,6 +156,8 @@ const resolveURL = async buffer => {
     
     for (let d of buffer) {
 
+        console.log(d.patientId, d.aid)
+
         let res = await resolvers[resolveSource(d)](d)
         // console.log(res)
         // console.log(`${res.type}: ${res.source}  > ${res.target}, ${res.path}`)
@@ -184,7 +186,7 @@ const resolveURL = async buffer => {
 
 const run = async () => {
 
-    const PAGE_SIZE = 50
+    const PAGE_SIZE = 3
     let skip = 0
     let bufferCount = 0
 
@@ -242,7 +244,7 @@ const run = async () => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0 && bufferCount < 1)
+    } while (buffer.length > 0 && bufferCount < 2)
 
 }
 
