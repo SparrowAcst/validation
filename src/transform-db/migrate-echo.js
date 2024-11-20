@@ -54,7 +54,7 @@ const resolvers = {
                 stream,
                 target,
                 callback: progress => {
-                    process.stdout.write(`COPY FROM GD > ${filesize(progress.loaded).human("jedec")} > ${target}`)
+                    process.stdout.write(`COPY FROM GD > ${filesize(progress.loaded).human("jedec")} > ${target}        ${'\x1b[0G'}`)
                 }
             })
             
