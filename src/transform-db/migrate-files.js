@@ -144,7 +144,7 @@ const resolvers = {
         try {
 
             source = `${d.data.path}`
-            target = `${DEST}${id}.${path.extname(d.data.path)}`
+            target = `${DEST}${id}${path.extname(d.data.path)}`
 
 
             let meta = await s3bucket.metadata(source)
