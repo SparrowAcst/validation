@@ -9,6 +9,7 @@ const { first, last, } = require("lodash")
 
 const SOURCE = "HH3.attachements"
 const PROCESSED = "HH3.attachements_processed"
+const ENCODING = "HH3.files"
 
 const DEST = "ADE-FILES/"
 
@@ -181,32 +182,38 @@ const resolvers = {
 
 const resolveURL = async buffer => {
 
-    buffer = buffer.filter(d => d && d.data)
+    buffer = buffer //.filter(d => d && d.data)
     let result = []
 
     for (let d of buffer) {
 
-        let resolver = resolvers[resolveSource(d)]
-        if (resolver) {
+        if (d) {
 
-            let res = await resolver(d)
 
-            if (!res.error) {
+            let resolver = resolvers[resolveSource(d)]
+            if (resolver) {
 
-                d.data.id = res.id
-                d.data.path = res.path
-                d.data.name = last(res.path.split("/"))
-                d.data.publicName = d.data.name
-                d.data.mimeType = lookup(d.data.publicName)
-                d.data.storage = "s3"
-                d.data.url = await s3bucket.getPresignedUrl(res.path)
+                let res = await resolver(d)
+
+                if (!res.error) {
+
+                    d.data.id = res.id
+                    d.data.path = res.path
+                    d.data.name = last(res.path.split("/"))
+                    d.data.publicName = d.data.name
+                    d.data.mimeType = lookup(d.data.publicName)
+                    d.data.storage = "s3"
+                    d.data.url = await s3bucket.getPresignedUrl(res.path)
+
+                } else {
+                    d.error = res
+                }
 
             } else {
-                d.error = res
+                d.error = "No resolver"
             }
-
         } else {
-            d.error = "No resolver"
+            d.error = "data is undefined or null"
         }
 
         d.migratedAt = new Date()
@@ -250,8 +257,8 @@ const run = async () => {
         })
 
         if (buffer.length > 0) {
+            
             console.log(`${SOURCE} > Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
-
 
             if (buffer.length > 0) {
 
@@ -259,7 +266,7 @@ const run = async () => {
 
                 let commands = processedBuffer.map(d => ({
                     replaceOne: {
-                        filter: { "data.id": "d.data.id" },
+                        filter: { "data.id": d.data.id },
                         replacement: d,
                         upsert: true
                     }
@@ -270,7 +277,29 @@ const run = async () => {
                     collection: PROCESSED,
                     commands
                 })
+                
+                console.log(`Write processed attachements: ${buffer.length} items into ${PROCESSED}`)
 
+                commands = buffer.map( (d, index ) => ({
+                  replaceOne: {
+                        filter: { "id": processedBuffer[index].data.id },
+                        replacement: {
+                          id: processedBuffer[index].data.id,
+                          name: d.name || d.publicName,
+                          clinicalPatientId: d.patientId
+                        },
+                        upsert: true
+                    }
+                }))
+
+                await mongodb.bulkWrite({
+                    db,
+                    collection: ENCODING,
+                    commands
+                })
+
+                console.log(`Write file name encoding: ${buffer.length} items into ${ENCODING}`)
+            
             }
 
             await mongodb.updateMany({
