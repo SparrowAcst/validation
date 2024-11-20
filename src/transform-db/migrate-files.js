@@ -284,8 +284,9 @@ const run = async () => {
                   replaceOne: {
                         filter: { "id": processedBuffer[index].data.id },
                         replacement: {
-                          id: processedBuffer[index].data.id,
-                          name: d.name || d.publicName,
+                          fileid: processedBuffer[index].data.id,
+                          filepath: processedBuffer[index].data.path
+                          clinicFilename: d.data.name || d.data.publicName,
                           clinicalPatientId: d.patientId
                         },
                         upsert: true
