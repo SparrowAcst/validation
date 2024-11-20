@@ -9,7 +9,7 @@ const { first, last, extend } = require("lodash")
 
 const SOURCE = "HH3.echo"
 const PROCESSED = "HH3.echo_processed"
-const ENCODING = "ADE_ENCODING.HH3_echo"
+const ENCODING = "ADE_ENCODING.HH3_echos"
 
 const DEST = "ADE-ECHOS/"
 
@@ -221,6 +221,7 @@ const run = async () => {
                     clinicalDataFileName: b.data.en.dataFileName,
                     clinicalDataStorage: b.data.en.dataStorage,
                     clinicalDataPath: b.data.en.dataPath,
+                    clinicalPatientId: b.patientId
                   }
                 : undefined
               )
@@ -237,17 +238,19 @@ const run = async () => {
                     }
                 }))
 
+                
+                console.log(`Write processed attachements: ${buffer.length} items into ${PROCESSED}`)
+
                 await mongodb.bulkWrite({
                     db,
                     collection: PROCESSED,
                     commands
                 })
                 
-                console.log(`Write processed attachements: ${buffer.length} items into ${PROCESSED}`)
-
+                
                 commands = buffer.map( (d, index ) => ({
                   replaceOne: {
-                        filter: { "id": processedBuffer[index].id },
+                        filter: { "clinicalPatientId": clinicalData[index].clinicalPatientId },
                         replacement: extend(
                           {},
                           clinicalData[index],
@@ -272,14 +275,14 @@ const run = async () => {
             
             }
 
-            // await mongodb.updateMany({
-            //     db,
-            //     collection: SOURCE,
-            //     filter: { "id": { $in: buffer.map(d => d.id) } },
-            //     data: {
-            //         process_echo: true
-            //     }
-            // })
+            await mongodb.updateMany({
+                db,
+                collection: SOURCE,
+                filter: { "id": { $in: buffer.map(d => d.id) } },
+                data: {
+                    process_echo: true
+                }
+            })
 
         }
 
