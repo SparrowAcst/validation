@@ -208,7 +208,7 @@ const run = async () => {
 
         const pipeline = [{
                 '$match': {
-                    processed: {
+                    process_atch: {
                         $exists: false
                     }
                 }
@@ -232,24 +232,33 @@ const run = async () => {
         if (buffer.length > 0) {
             console.log(`${SOURCE} > Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
 
-            let processedBuffer = await resolveURL(buffer)
-
+            
             if (buffer.length > 0) {
-                await mongodb.insertAll({
+              
+                let processedBuffer = await resolveURL(buffer)
+                
+                let commands = processedBuffer.map( d => ({
+                  replaceOne:{
+                    filter: {"data.id": "d.data.id"},
+                    replacement: d,
+                    upsert: true
+                  }
+                }))
+
+                await mongodb.bulkWrite({
                     db,
                     collection: PROCESSED,
-                    data: processedBuffer
+                    commands
                 })
 
             }
 
-
             await mongodb.updateMany({
                 db,
                 collection: SOURCE,
-                filter: { aid: { $in: buffer.map(d => d.aid) } },
+                filter: { "data.id": { $in: buffer.map(d => d.data.id) } },
                 data: {
-                    processed: true
+                    process_atch: true
                 }
             })
 
