@@ -448,7 +448,7 @@ const copy = async ({ source, target, callback }) => {
         sourceKey: f.Key,
         destinationBucketAlias: targetBucketAlias,
         destinationBucket: targetBucket,
-        destinationKey: `${targetPath}${f.Key.replace(homedir, "").substring(1)}`
+        destinationKey: `${targetPath}` //${f.Key.replace(homedir, "").substring(1)}
     }))
 
     for (let operation of operations) {
