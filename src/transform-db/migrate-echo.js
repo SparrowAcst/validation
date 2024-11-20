@@ -5,21 +5,23 @@ const s3bucket = require("../utils/s3-bucket")
 const filesize = require("file-size")
 const uuid = require("uuid").v4
 const { extension, lookup } = require("mime-types")
-const { first, last, } = require("lodash")
+const { first, last, extend } = require("lodash")
 
-const SOURCE = "HH3.attachements"
-const PROCESSED = "HH3.attachements_processed"
-const ENCODING = "ADE_ENCODING.HH3_files"
+const SOURCE = "HH3.echo"
+const PROCESSED = "HH3.echo_processed"
+const ENCODING = "ADE_ENCODING.HH3_echo"
 
-const DEST = "ADE-FILES/"
+const DEST = "ADE-ECHOS/"
 
 const db = require("../../.config-migrate-db").mongodb.ade
 
 
 const resolveSource = d => {
-    if (d.storage == "s3") return "S3"
-    if (/^\.\/api\/controller\/file\/gd\?id/.test(d.data.url)) return "GD"
-    if (/^https\:\/\/firebasestorage\.googleapis\.com/.test(d.data.url)) return "FB"
+    
+    if( !d || !d.data || !d.data.en) return
+    
+    if (d.data.en.dataStorage == "s3") return "S3"
+    if (/^https\:\/\/drive\.google\.com\/file\/d/.test(d.data.en.dataUrl)) return "GD"
 
 }
 
@@ -27,21 +29,21 @@ const resolvers = {
 
     GD: async d => {
 
-        if (!d.data) {
+        if (!d.data || !d.data.en) {
             return {
                 error: "no data"
             }
         }
 
-        let id = d.data.id //uuid()
+        let id = d.dataFileId
 
         let source
         let target
 
         try {
 
-            source = last(d.data.url.split("?id="))
-            target = `${DEST}${id}${path.extname(d.data.publicName)}`
+            source = d.data.en.dataUrl
+            target = `${DEST}${id}${path.extname(d.data.en.dataFileName)}`
 
 
             const googleDrive = await require("../utils/drive3")()
@@ -55,7 +57,9 @@ const resolvers = {
                     process.stdout.write(`COPY FROM GD > ${filesize(progress.loaded).human("jedec")} > ${target}`)
                 }
             })
+            
             console.log()
+
             return {
                 type: "GD",
                 id,
@@ -77,74 +81,24 @@ const resolvers = {
         }
     },
 
-    FB: async d => {
-
-        if (!d.data) {
-            return {
-                error: "no data"
-            }
-        }
-
-        let id = d.data.id //uuid()
-
-        let mimeType
-        let source
-        let target
-
-        try {
-
-            mimeType = d.data.mimeType || "application/octet-stream"
-            mimeType = (mimeType == "application/octet-stream") ? "image/jpeg" : mimeType
-
-            source = `${d.data.url}`
-            target = `${ DEST }${ id }.${ extension(mimeType) }`
-
-            await s3bucket.uploadFromURL({
-                source,
-                target,
-                callback: (progress) => {
-                    process.stdout.write(`COPY FROM FB > ${filesize(progress.loaded).human("jedec")} > ${target}     ${'\x1b[0G'}`)
-                }
-            })
-
-            console.log()
-
-            return {
-                type: "FB",
-                id,
-                source,
-                target,
-                path: target
-            }
-
-        } catch (e) {
-            console.log(e.toString(), e.stack)
-            return {
-                type: "FB",
-                id,
-                source,
-                target,
-                error: `${e.toString()} ${e.stack}`
-            }
-        }
-    },
 
     S3: async d => {
 
-        if (!d.data) {
+        if (!d.data || !d.data.en) {
             return {
                 error: "no data"
             }
         }
 
-        let id = d.data.id //uuid()
+        let id = d.dataFileId
+
         let source
         let target
 
         try {
 
-            source = `${d.data.path}`
-            target = `${DEST}${id}.${path.extname(d.data.path)}`
+            source = `${d.en.data.path}`
+            target = `${DEST}${id}.${path.extname(d.en.data.path)}`
 
             await s3bucket.copy({
                 source: s,
@@ -194,16 +148,15 @@ const resolveURL = async buffer => {
 
                 let res = await resolver(d)
 
+                // console.log(res)
+
                 if (!res.error) {
 
-                    d.data.id = res.id
-                    d.data.path = res.path
-                    d.data.name = last(res.path.split("/"))
-                    d.data.publicName = d.data.name
-                    d.data.mimeType = lookup(d.data.publicName)
-                    d.data.storage = "s3"
-                    d.data.url = await s3bucket.getPresignedUrl(res.path)
-
+                  d.data.en.dataUrl = await (s3bucket.getPresignedUrl(res.path))
+                  d.data.en.dataFileName = last(res.path.split("/"))
+                  d.data.en.dataStorage = "s3"
+                  d.data.en.dataPath = res.path
+      
                 } else {
                     d.error = res
                 }
@@ -226,7 +179,7 @@ const resolveURL = async buffer => {
 
 const run = async () => {
 
-    const PAGE_SIZE = 50
+    const PAGE_SIZE = 1
     let skip = 0
     let bufferCount = 0
 
@@ -234,7 +187,7 @@ const run = async () => {
 
         const pipeline = [{
                 '$match': {
-                    process_atch: {
+                    process_echo: {
                         $exists: false
                     }
                 }
@@ -261,12 +214,24 @@ const run = async () => {
 
             if (buffer.length > 0) {
 
-                let clinicalFileNames = buffer.map( b => (b && b.data) ? b.data.name || b.data.publicName : undefined)
+                let clinicalData = buffer.map( b => (b && b.data && b.data.en) 
+                  ?
+                  {
+                    clinicalDataUrl: b.data.en.dataUrl,
+                    clinicalDataFileName: b.data.en.dataFileName,
+                    clinicalDataStorage: b.data.en.dataStorage,
+                    clinicalDataPath: b.data.en.dataPath,
+                  }
+                : undefined
+              )
+                
                 let processedBuffer = await resolveURL(buffer)
+
+                // console.log(JSON.stringify(processedBuffer, null, " "))
 
                 let commands = processedBuffer.map(d => ({
                     replaceOne: {
-                        filter: { "data.id": d.data.id },
+                        filter: { "id": d.id },
                         replacement: d,
                         upsert: true
                     }
@@ -282,13 +247,17 @@ const run = async () => {
 
                 commands = buffer.map( (d, index ) => ({
                   replaceOne: {
-                        filter: { "id": processedBuffer[index].data.id },
-                        replacement: {
-                          fileid: processedBuffer[index].data.id,
-                          filepath: processedBuffer[index].data.path,
-                          clinicalFilename: clinicalFileNames[index],
-                          clinicalPatientId: d.patientId
-                        },
+                        filter: { "id": processedBuffer[index].id },
+                        replacement: extend(
+                          {},
+                          clinicalData[index],
+                          {
+                            dataUrl: d.data.en.dataUrl,
+                            dataFileName: d.data.en.dataFileName,
+                            dataStorage: d.data.en.dataStorage,
+                            dataPath: d.data.en.dataPath,
+                          }
+                        ),
                         upsert: true
                     }
                 }))
@@ -303,21 +272,21 @@ const run = async () => {
             
             }
 
-            await mongodb.updateMany({
-                db,
-                collection: SOURCE,
-                filter: { "data.id": { $in: buffer.map(d => d.data.id) } },
-                data: {
-                    process_atch: true
-                }
-            })
+            // await mongodb.updateMany({
+            //     db,
+            //     collection: SOURCE,
+            //     filter: { "id": { $in: buffer.map(d => d.id) } },
+            //     data: {
+            //         process_echo: true
+            //     }
+            // })
 
         }
 
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0)
+    } while (buffer.length > 0 && bufferCount < 1)
 
 }
 

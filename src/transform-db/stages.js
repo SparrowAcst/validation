@@ -699,3 +699,33 @@ module.exports = [{
 //     $out: "attachements",
 //   },
 // ]
+
+
+// [
+//   {
+//     $match:
+//       {
+//         type: "echo",
+//       },
+//   },
+//   {
+//     $set:
+//       {
+//         dataFileId: {
+//           $function: {
+//             body: function () {
+//               return UUID()
+//                 .toString()
+//                 .split('"')[1];
+//             },
+//             args: [],
+//             lang: "js",
+//           },
+//         },
+//       },
+//   },
+//   {
+//     $out:
+//       "echo",
+//   },
+// ]
