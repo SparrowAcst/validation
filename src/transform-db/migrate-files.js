@@ -285,7 +285,7 @@ const run = async () => {
                         filter: { "id": processedBuffer[index].data.id },
                         replacement: {
                           fileid: processedBuffer[index].data.id,
-                          filepath: processedBuffer[index].data.path
+                          filepath: processedBuffer[index].data.path,
                           clinicFilename: d.data.name || d.data.publicName,
                           clinicalPatientId: d.patientId
                         },
