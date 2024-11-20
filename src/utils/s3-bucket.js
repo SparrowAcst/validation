@@ -461,6 +461,7 @@ const copy = async ({ source, target, callback }) => {
 module.exports = {
     setBucket,
     list,
+    dir, 
     metadata,
     getStream,
     download,

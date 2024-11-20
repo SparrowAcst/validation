@@ -98,7 +98,7 @@ const resolvers = {
         try {
 
             source = `${d.data.en.dataPath}`
-            target = `${DEST}${id}${path.extname(d.data.en.dataPath)}`
+            target = `${DEST}${id}${path.extname(last(d.data.en.dataPath.split("/")))}`
 
             let meta = await s3bucket.metadata(source)
             if(!meta){
@@ -107,7 +107,7 @@ const resolvers = {
                   id,
                   source,
                   target,
-                  error: `Source ${source} not exists`
+                  error: `Source "${source}" not exists`
               }
             }
             

@@ -146,9 +146,21 @@ const resolvers = {
             source = `${d.data.path}`
             target = `${DEST}${id}.${path.extname(d.data.path)}`
 
+
+            let meta = await s3bucket.metadata(source)
+            if(!meta){
+              return {
+                  type: "S3",
+                  id,
+                  source,
+                  target,
+                  error: `Source "${source}" not exists`
+              }
+            }
+            
             await s3bucket.copy({
-                source: s,
-                target: t,
+                source,
+                target,
                 callback: ({ sourceBucketAlias, sourceKey, destinationBucketAlias, destinationKey }) => {
                     console.log(`${sourceBucketAlias}:${sourceKey} > ${destinationBucketAlias}:${destinationKey}`)
                 }
