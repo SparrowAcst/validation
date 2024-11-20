@@ -101,8 +101,8 @@ const resolvers = {
             target = `${DEST}${id}.${path.extname(d.data.en.dataPath)}`
 
             await s3bucket.copy({
-                source: s,
-                target: t,
+                source,
+                target,
                 callback: ({ sourceBucketAlias, sourceKey, destinationBucketAlias, destinationKey }) => {
                     console.log(`${sourceBucketAlias}:${sourceKey} > ${destinationBucketAlias}:${destinationKey}`)
                 }
