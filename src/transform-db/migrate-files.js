@@ -102,7 +102,7 @@ const resolvers = {
                 source,
                 target,
                 callback: (progress) => {
-                    process.stdout.write(`COPY FROM FB > ${filesize(progress.loaded).human("jedec")} > ${target}                 ${'\x1b[0G'}`)
+                    process.stdout.write(`COPY FROM FB > ${filesize(progress.loaded).human("jedec")} > ${target}     ${'\x1b[0G'}`)
                 }
             })
 
