@@ -97,8 +97,8 @@ const resolvers = {
 
         try {
 
-            source = `${d.en.data.path}`
-            target = `${DEST}${id}.${path.extname(d.en.data.path)}`
+            source = `${d.data.en.dataPath}`
+            target = `${DEST}${id}.${path.extname(d.data.en.dataPath)}`
 
             await s3bucket.copy({
                 source: s,
