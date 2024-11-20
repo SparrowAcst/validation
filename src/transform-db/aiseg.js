@@ -58,7 +58,7 @@ const run = async () => {
 
     console.log("ATTACH AI SEGMENTATION for ", SCHEMA)
 
-    const PAGE_SIZE = 100
+    const PAGE_SIZE = 500
     let skip = 0
     let bufferCount = 0
 
