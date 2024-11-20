@@ -26,11 +26,15 @@ const resolvers = {
 
     GD: async d => {
         let id = uuid()
-        let source = last(d.data.url.split("?id="))
-        let target = `${DEST}${id}${path.extname(d.data.publicName)}`
+        let source
+        let target
 
         try {
 
+            source = last(d.data.url.split("?id="))
+            target = `${DEST}${id}${path.extname(d.data.publicName)}`
+
+        
             const googleDrive = await require("../utils/drive3")()
             const drive = await googleDrive.create()
             let stream = await drive.geFiletWriteStream({ id: source })
@@ -68,13 +72,17 @@ const resolvers = {
 
         let id = uuid()
 
-        let mimeType = d.data.mimeType || "application/octet-stream"
-        mimeType = (mimeType == "application/octet-stream") ? "image/jpeg" : mimeType
-
-        let source = `${d.data.url}`
-        let target = `${ DEST }${ id }.${ extension(mimeType) }`
+        let mimeType 
+        let source
+        let target
 
         try {
+
+        mimeType = d.data.mimeType || "application/octet-stream"
+        mimeType = (mimeType == "application/octet-stream") ? "image/jpeg" : mimeType
+
+        source = `${d.data.url}`
+        target = `${ DEST }${ id }.${ extension(mimeType) }`
 
             await s3bucket.uploadFromURL({
                 source,
@@ -109,11 +117,13 @@ const resolvers = {
     S3: async d => {
 
         let id = uuid()
-
-        let source = `${d.data.path}`
-        let target = `${DEST}${id}.${path.extname(d.data.path)}`
+        let source
+        let target
 
         try {
+
+            source = `${d.data.path}`
+            target = `${DEST}${id}.${path.extname(d.data.path)}`
 
             await s3bucket.copy({
                 source: s,
