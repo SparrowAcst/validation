@@ -294,7 +294,7 @@ const run = async () => {
 
                 commands = buffer.map( (d, index ) => ({
                   replaceOne: {
-                        filter: { "id": processedBuffer[index].data.id },
+                        filter: { "fileid": processedBuffer[index].data.id },
                         replacement: {
                           fileid: processedBuffer[index].data.id,
                           filepath: processedBuffer[index].data.path,
