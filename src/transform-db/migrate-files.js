@@ -25,7 +25,15 @@ const resolveSource = d => {
 const resolvers = {
 
     GD: async d => {
-        let id = uuid()
+
+        if (!d.data) {
+            return {
+                error: "no data"
+            }
+        }
+
+        let id = d.data.id //uuid()
+
         let source
         let target
 
@@ -34,7 +42,7 @@ const resolvers = {
             source = last(d.data.url.split("?id="))
             target = `${DEST}${id}${path.extname(d.data.publicName)}`
 
-        
+
             const googleDrive = await require("../utils/drive3")()
             const drive = await googleDrive.create()
             let stream = await drive.geFiletWriteStream({ id: source })
@@ -70,19 +78,25 @@ const resolvers = {
 
     FB: async d => {
 
-        let id = uuid()
+        if (!d.data) {
+            return {
+                error: "no data"
+            }
+        }
 
-        let mimeType 
+        let id = d.data.id //uuid()
+
+        let mimeType
         let source
         let target
 
         try {
 
-        mimeType = d.data.mimeType || "application/octet-stream"
-        mimeType = (mimeType == "application/octet-stream") ? "image/jpeg" : mimeType
+            mimeType = d.data.mimeType || "application/octet-stream"
+            mimeType = (mimeType == "application/octet-stream") ? "image/jpeg" : mimeType
 
-        source = `${d.data.url}`
-        target = `${ DEST }${ id }.${ extension(mimeType) }`
+            source = `${d.data.url}`
+            target = `${ DEST }${ id }.${ extension(mimeType) }`
 
             await s3bucket.uploadFromURL({
                 source,
@@ -116,7 +130,13 @@ const resolvers = {
 
     S3: async d => {
 
-        let id = uuid()
+        if (!d.data) {
+            return {
+                error: "no data"
+            }
+        }
+
+        let id = d.data.id //uuid()
         let source
         let target
 
@@ -168,9 +188,9 @@ const resolveURL = async buffer => {
 
         let resolver = resolvers[resolveSource(d)]
         if (resolver) {
-  
+
             let res = await resolver(d)
-  
+
             if (!res.error) {
 
                 d.data.id = res.id
@@ -232,17 +252,17 @@ const run = async () => {
         if (buffer.length > 0) {
             console.log(`${SOURCE} > Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
 
-            
+
             if (buffer.length > 0) {
-              
+
                 let processedBuffer = await resolveURL(buffer)
-                
-                let commands = processedBuffer.map( d => ({
-                  replaceOne:{
-                    filter: {"data.id": "d.data.id"},
-                    replacement: d,
-                    upsert: true
-                  }
+
+                let commands = processedBuffer.map(d => ({
+                    replaceOne: {
+                        filter: { "data.id": "d.data.id" },
+                        replacement: d,
+                        upsert: true
+                    }
                 }))
 
                 await mongodb.bulkWrite({
