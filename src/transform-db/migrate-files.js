@@ -17,7 +17,7 @@ const db = require("../../.config-migrate-db").mongodb.ade
 
 
 const resolveSource = d => {
-    if (d.storage == "s3") return "S3"
+    if (d.data.storage == "s3") return "S3"
     if (/^\.\/api\/controller\/file\/gd\?id/.test(d.data.url)) return "GD"
     if (/^https\:\/\/firebasestorage\.googleapis\.com/.test(d.data.url)) return "FB"
 
@@ -27,7 +27,7 @@ const resolvers = {
 
     GD: async d => {
 
-        if (!d.data) {
+        if (!d.data ) {
             return {
                 error: "no data"
             }
