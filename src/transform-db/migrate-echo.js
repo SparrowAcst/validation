@@ -98,8 +98,19 @@ const resolvers = {
         try {
 
             source = `${d.data.en.dataPath}`
-            target = `${DEST}${id}.${path.extname(d.data.en.dataPath)}`
+            target = `${DEST}${id}${path.extname(d.data.en.dataPath)}`
 
+            let meta = await s3bucket.metadata(source)
+            if(!meta){
+              return {
+                  type: "S3",
+                  id,
+                  source,
+                  target,
+                  error: `Source ${source} not exists`
+              }
+            }
+            
             await s3bucket.copy({
                 source,
                 target,
