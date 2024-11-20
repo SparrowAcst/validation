@@ -434,7 +434,7 @@ const copy = async ({ source, target, callback }) => {
 
     let targetBucket = settings.bucket[targetBucketAlias]
     let targetPath = (/\:/.test(target)) ? last(target.split(":")).trim() : target
-    targetPath = (targetPath.endsWith("/")) ? targetPath : `${targetPath}/`
+    targetPath = (targetPath.endsWith("/")) ? targetPath : `${targetPath}`
 
     let homedir = sourcePath.split("/")
     homedir = homedir.slice(0, findIndex(homedir, d => /\*/.test(d))).join("/")
