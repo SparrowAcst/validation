@@ -238,7 +238,7 @@ const resolveURL = async buffer => {
 
 const run = async () => {
 
-    const PAGE_SIZE = 50
+    const PAGE_SIZE = 1
     let skip = 0
     let bufferCount = 0
 
@@ -329,7 +329,7 @@ const run = async () => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0)
+    } while (buffer.length > 0 && bufferCount < 1)
 
 }
 
