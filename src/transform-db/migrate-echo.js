@@ -42,7 +42,7 @@ const resolvers = {
 
         try {
 
-            source = d.data.en.dataUrl
+            source = d.data.en.dataUrl.split("/")[5]
             target = `${DEST}${id}${path.extname(d.data.en.dataFileName)}`
 
 
