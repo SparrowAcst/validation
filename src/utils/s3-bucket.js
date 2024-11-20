@@ -17,6 +17,7 @@ const path = require("path")
 const { lookup } = require("mime-types")
 const nanomatch = require('nanomatch')
 
+
 const {
 
     ListObjectsCommand,
@@ -33,9 +34,13 @@ const {
     DeleteObjectsCommand,
     waitUntilObjectNotExists,
 
+    CopyObjectCommand,
+    ObjectNotInActiveTierError,
+    waitUntilObjectExists,
+
     S3Client
 
-} = require("@aws-sdk/client-s3");
+} = require("@aws-sdk/client-s3")
 
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner")
 const { Upload } = require("@aws-sdk/lib-storage")
