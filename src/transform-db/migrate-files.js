@@ -189,7 +189,6 @@ const resolveURL = async buffer => {
 
         if (d) {
 
-
             let resolver = resolvers[resolveSource(d)]
             if (resolver) {
 
@@ -262,6 +261,7 @@ const run = async () => {
 
             if (buffer.length > 0) {
 
+                let clinicalFileNames = buffer.map( b => (b && b.data) ? b.data.name || b.data.publicName : undefined)
                 let processedBuffer = await resolveURL(buffer)
 
                 let commands = processedBuffer.map(d => ({
@@ -286,7 +286,7 @@ const run = async () => {
                         replacement: {
                           fileid: processedBuffer[index].data.id,
                           filepath: processedBuffer[index].data.path,
-                          clinicFilename: d.data.name || d.data.publicName,
+                          clinicalFilename: clinicalFileNames[index],
                           clinicalPatientId: d.patientId
                         },
                         upsert: true
