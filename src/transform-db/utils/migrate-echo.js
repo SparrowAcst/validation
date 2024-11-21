@@ -1,7 +1,7 @@
-const mongodb = require("../utils/mongodb")
+const mongodb = require("../../utils/mongodb")
 const fs = require("fs")
 const path = require("path")
-const s3bucket = require("../utils/s3-bucket")
+const s3bucket = require("../../utils/s3-bucket")
 const filesize = require("file-size")
 const uuid = require("uuid").v4
 const { extension, lookup } = require("mime-types")
@@ -42,7 +42,7 @@ const resolvers = {
             target = `${DEST}${id}${path.extname(d.data.en.dataFileName)}`
 
 
-            const googleDrive = await require("../utils/drive3")()
+            const googleDrive = await require("../../utils/drive3")()
             const drive = await googleDrive.create()
             let stream = await drive.geFiletWriteStream({ id: source })
 
