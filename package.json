@@ -70,7 +70,6 @@
     "@stdlib/stats-ttest2": "0.0.7",
     "anova": "^1.0.2",
     "axios": "^1.6.7",
-    "canvas": "^2.11.2",
     "crypto-js": "^4.2.0",
     "deep-extend": "^0.6.0",
     "diff-json": "^2.0.0",
