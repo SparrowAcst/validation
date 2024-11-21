@@ -7,14 +7,7 @@ const uuid = require("uuid").v4
 const { extension, lookup } = require("mime-types")
 const { first, last, extend } = require("lodash")
 
-const SOURCE = "HH3.echo"
-const PROCESSED = "HH3.echo_processed"
-const ENCODING = "ADE_ENCODING.HH3_echos"
-
-const DEST = "ADE-ECHOS/"
-
-const db = require("../../.config-migrate-db").mongodb.ade
-
+const db = require("../../../.config-migrate-db").mongodb.ade
 
 const resolveSource = d => {
     
@@ -188,7 +181,15 @@ const resolveURL = async buffer => {
 }
 
 
-const run = async () => {
+const execute = async SCHEMA => {
+
+    const SOURCE = `${SCHEMA}.echo`
+    const PROCESSED = `${SCHEMA}.echo_processed`
+    const ENCODING = `ADE_ENCODING.${SCHEMA}_echo`
+
+    const DEST = "ADE-ECHOS/"
+
+
 
     const PAGE_SIZE = 1
     let skip = 0
@@ -305,4 +306,4 @@ const run = async () => {
 }
 
 
-run()
+module.exports = execute

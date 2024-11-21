@@ -1,19 +1,14 @@
-const mongodb = require("../utils/mongodb")
+const mongodb = require("../../utils/mongodb")
 const fs = require("fs")
 const path = require("path")
-const s3bucket = require("../utils/s3-bucket")
+const s3bucket = require("../../utils/s3-bucket")
 const filesize = require("file-size")
 const uuid = require("uuid").v4
 const { extension, lookup } = require("mime-types")
 const { first, last, } = require("lodash")
 
-const SOURCE = "HH3.attachements"
-const PROCESSED = "HH3.attachements_processed"
-const ENCODING = "ADE_ENCODING.HH3_files"
 
-const DEST = "ADE-FILES/"
-
-const db = require("../../.config-migrate-db").mongodb.ade
+const db = require("../../../.config-migrate-db").mongodb.ade
 
 
 const resolveSource = d => {
@@ -236,7 +231,14 @@ const resolveURL = async buffer => {
 }
 
 
-const run = async () => {
+const execute = async SCHEMA => {
+
+    const SOURCE = `${SCHEMA}.attachements`
+    const PROCESSED = `${SCHEMA}.attachements_processed`
+    const ENCODING = `ADE_ENCODING.${SCHEMA}_files`
+
+    const DEST = "ADE-FILES/"
+
 
     const PAGE_SIZE = 1
     let skip = 0
@@ -334,4 +336,4 @@ const run = async () => {
 }
 
 
-run()
+module.exports = execute 

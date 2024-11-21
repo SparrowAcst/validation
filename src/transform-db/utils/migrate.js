@@ -1,11 +1,11 @@
 const yargs = require("yargs");
-const mongodb = require("../utils/mongodb")
-const db = require("../../.config-migrate-db").mongodb.ade
+const mongodb = require("../../utils/mongodb")
+const db = require("../../../.config-migrate-db").mongodb.ade
 const fs = require("fs")
 const {parser} = require('stream-json/jsonl/Parser')
 const path = require("path")
 
-const filePath = path.join(__dirname,`../../../temp/dump.json`)
+const filePath = path.join(__dirname,`../../../../temp/dump.json`)
 
 let objectBuffer = []
   
@@ -70,7 +70,7 @@ const importCollectionData = async () => new Promise( (resolve, reject) => {
   }) 
 
 
-const run = async (SOURCE, DEST) => {
+const execute = async (SOURCE, DEST) => {
 
   console.log(`MIGRATE collection "${SOURCE}" > "${DEST}"`)
 

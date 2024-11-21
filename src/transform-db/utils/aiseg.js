@@ -1,13 +1,7 @@
-const mongodb = require("../utils/mongodb")
-const fs = require("fs")
-const path = require("path")
-const s3bucket = require("../utils/s3-bucket")
-const filesize = require("file-size")
-const uuid = require("uuid").v4
-const { extension, lookup } = require("mime-types")
-const { first, last, find } = require("lodash")
+const mongodb = require("../../utils/mongodb")
+const { find } = require("lodash")
 
-const db = require("../../.config-migrate-db").mongodb.ade
+const db = require("../../../.config-migrate-db").mongodb.ade
 
 const resolveSegmentation = async buffer => {
 

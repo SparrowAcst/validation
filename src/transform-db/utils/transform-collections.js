@@ -1,6 +1,6 @@
-const mongodb = require("../utils/mongodb")
+const mongodb = require("../../utils/mongodb")
 
-const db = require("../../.config-migrate-db").mongodb.ade
+const db = require("../../../.config-migrate-db").mongodb.ade
 
 
 const execute = async (schema, stages) => {
