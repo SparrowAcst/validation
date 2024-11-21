@@ -14,7 +14,7 @@ const execute = async (schema, stages) => {
 
   for( const stage of stages){
   
-    console.log(`Stage ${count} of ${stages.length}: ${stage.command} collection "${schema}.${stage.collection}"`)
+    console.log(`Stage ${count+1} of ${stages.length}: ${stage.command} collection "${schema}.${stage.collection}"`)
     count++
     stage.dataset = stage.dataset || (d => true)
     if(stage.dataset(schema)){

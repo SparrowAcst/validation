@@ -1,5 +1,5 @@
 module.exports = [{
-        collection: "labels",
+        collection: "forms",
         command: "aggregate",
         pipeline: [{
                 $match: {
@@ -41,7 +41,7 @@ module.exports = [{
 
 
     {
-        collection: "labels",
+        collection: "forms",
         command: "aggregate",
         pipeline: [{
                 $match: {

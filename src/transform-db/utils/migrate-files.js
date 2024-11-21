@@ -10,6 +10,8 @@ const { first, last, } = require("lodash")
 
 const db = require("../../../.config-migrate-db").mongodb.ade
 
+ const DEST = "ADE-FILES/"
+
 
 const resolveSource = d => {
     if (d.data.storage == "s3") return "S3"
@@ -39,7 +41,7 @@ const resolvers = {
             target = `${DEST}${id}${path.extname(d.data.publicName)}`
 
 
-            const googleDrive = await require("../utils/drive3")()
+            const googleDrive = await require("../../utils/drive3")()
             const drive = await googleDrive.create()
             let stream = await drive.geFiletWriteStream({ id: source })
 
@@ -237,8 +239,10 @@ const execute = async SCHEMA => {
     const PROCESSED = `${SCHEMA}.attachements_processed`
     const ENCODING = `ADE_ENCODING.${SCHEMA}_files`
 
-    const DEST = "ADE-FILES/"
+   
 
+    console.log(`MIGRATE FILES FOR ${SCHEMA}`)
+    console.log(SOURCE, PROCESSED, ENCODING)
 
     const PAGE_SIZE = 1
     let skip = 0

@@ -115,6 +115,7 @@ const execute = async migrationList => {
 
   for( let migration of migrationList) {
     console.log(`MIGRATE ${count+1} of ${migrationList.length}`)
+    count++
     await run(migration.source, migration.dest)
   }
 

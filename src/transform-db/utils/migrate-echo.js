@@ -9,6 +9,9 @@ const { first, last, extend } = require("lodash")
 
 const db = require("../../../.config-migrate-db").mongodb.ade
 
+const DEST = "ADE-ECHOS/"
+
+
 const resolveSource = d => {
     
     if( !d || !d.data || !d.data.en) return
@@ -187,10 +190,7 @@ const execute = async SCHEMA => {
     const PROCESSED = `${SCHEMA}.echo_processed`
     const ENCODING = `ADE_ENCODING.${SCHEMA}_echo`
 
-    const DEST = "ADE-ECHOS/"
-
-
-
+    
     const PAGE_SIZE = 1
     let skip = 0
     let bufferCount = 0
