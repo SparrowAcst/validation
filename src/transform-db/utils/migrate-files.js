@@ -244,7 +244,7 @@ const execute = async SCHEMA => {
     console.log(`MIGRATE FILES FOR ${SCHEMA}`)
     console.log(SOURCE, PROCESSED, ENCODING)
 
-    const PAGE_SIZE = 1
+    const PAGE_SIZE = 50
     let skip = 0
     let bufferCount = 0
 
@@ -335,7 +335,7 @@ const execute = async SCHEMA => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0 && bufferCount < 1)
+    } while (buffer.length > 0)
 
 }
 
