@@ -3,7 +3,7 @@ const { find } = require("lodash")
 
 const db = require("../../../.config-migrate-db").mongodb.ade
 
-const resolveSegmentation = async buffer => {
+const resolveSegmentation = async (SCHEMA, buffer) => {
 
     let pipeline = [{
             $match: {
@@ -82,7 +82,7 @@ const execute = async SCHEMA => {
 
             console.log(`${SCHEMA}.labels > Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
 
-            buffer = await resolveSegmentation(buffer)
+            buffer = await resolveSegmentation(SCHEMA, buffer)
 
             if (buffer.length > 0) {
 
