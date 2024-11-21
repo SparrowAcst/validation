@@ -9,7 +9,7 @@ const filePath = path.join(__dirname,`../../../../temp/dump.json`)
 
 let objectBuffer = []
   
-const importCollectionData = async () => new Promise( (resolve, reject) => {
+const importCollectionData = async DEST => new Promise( (resolve, reject) => {
     
     let readCounter = 0
     let writeCounter = 0
@@ -102,7 +102,7 @@ const run = async (SOURCE, DEST) => {
     console.log("\n\n")
 
   //////////////////////////////////// stage 2 ///////////////////////////////////////
-   await  importCollectionData()
+   await  importCollectionData(DEST)
    console.log("\n\n")
    console.log("DONE")
 }
