@@ -70,7 +70,7 @@ const importCollectionData = async () => new Promise( (resolve, reject) => {
   }) 
 
 
-const execute = async (SOURCE, DEST) => {
+const run = async (SOURCE, DEST) => {
 
   console.log(`MIGRATE collection "${SOURCE}" > "${DEST}"`)
 
