@@ -16,11 +16,11 @@ module.exports = [{
                 $set: {
                     "data.id": {
                         $function: {
-                            body: function() {
+                            body: `function() {
                                 return UUID()
                                     .toString()
                                     .split('"')[1];
-                            },
+                            }`,
                             args: [],
                             lang: "js",
                         },
