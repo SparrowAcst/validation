@@ -5,7 +5,7 @@ const db = require("../../../.config-migrate-db").mongodb.ade
 
 const execute = async (schema, stages) => {
   
-  schema = settings.schema || "ATEST"
+  schema = schema || "ATEST"
   schema = (["sparrow", "settings", "admin"].includes(schema)) ? "ATEST" : schema
 
   console.log(`TRANSFORM DATA STRUCTURES FOR SCHEMA "${schema}"`)
