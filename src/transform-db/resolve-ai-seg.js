@@ -1,5 +1,5 @@
 
-const execute = require("./utils/iaseg")
+const execute = require("./utils/aiseg")
 
 const SCHEMA = "HH3"
 
