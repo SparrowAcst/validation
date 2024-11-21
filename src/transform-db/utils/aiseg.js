@@ -6,10 +6,6 @@ const filesize = require("file-size")
 const uuid = require("uuid").v4
 const { extension, lookup } = require("mime-types")
 const { first, last, find } = require("lodash")
-const yargs = require("yargs");
-
-const settings = yargs.argv;
-const SCHEMA = settings.schema
 
 const db = require("../../.config-migrate-db").mongodb.ade
 
@@ -50,7 +46,8 @@ const resolveSegmentation = async buffer => {
 }
 
 
-const run = async () => {
+const execute = async SCHEMA => {
+    
     if (!SCHEMA) {
         console.log("--schema required")
         return
@@ -132,4 +129,4 @@ const run = async () => {
 }
 
 
-run()
+module.exports = execute
