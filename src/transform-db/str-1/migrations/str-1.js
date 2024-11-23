@@ -17,7 +17,7 @@ module.exports = [{
             },
             {
                 $lookup: {
-                    from: "forms",
+                    from: "H2-FORM",
                     localField: "patientId",
                     foreignField: "patientId",
                     as: "forms",
