@@ -91,7 +91,7 @@ const resolvers = {
         try {
 
             mimeType = d.data.mimeType || "application/octet-stream"
-            mimeType = (mimeType == "application/octet-stream") ? "image/jpeg" : mimeType
+            mimeType = (mimeType == "application/octet-stream" || mimeType == "image") ? "image/jpeg" : mimeType
 
             source = `${d.data.url}`
             target = `${ DEST }${ id }.${ extension(mimeType) }`
