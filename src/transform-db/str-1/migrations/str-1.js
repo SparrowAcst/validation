@@ -8,7 +8,7 @@ module.exports = [{
         }]
     },
     {
-        source: "sparrow.H2-FORM",
+        source: "sparrow.H2-EXAMINATION",
         dest: "DS-STR-1.forms",
         pipeline: [{
                 $match: {
