@@ -1,10 +1,10 @@
-const DS = require("../../utils/ds-map")["strazhesko-part-1"]
+const DS = require("../../utils/ds-map")["poltava-part-1"]
 module.exports = [{
         source: "sparrow.H2",
         dest: `${DS}.labels`,
         pipeline: [{
             $match: {
-                Clinic: "STRAZHESKO"
+                Clinic: "POLTAVA"
             },
         }]
     },
@@ -13,7 +13,7 @@ module.exports = [{
         dest: `${DS}.forms`,
         pipeline: [{
                 $match: {
-                    org: "STRAZHESKO",
+                    org: "POLTAVA",
                 },
             },
             {
@@ -46,7 +46,7 @@ module.exports = [{
         dest: `${DS}.examinations`,
         pipeline: [{
             $match: {
-                org: "STRAZHESKO",
+                org: "POLTAVA",
             },
         }]
     },
