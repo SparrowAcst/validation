@@ -70,15 +70,19 @@ const importCollectionData = async DEST => new Promise( (resolve, reject) => {
   }) 
 
 
-const run = async (SOURCE, DEST) => {
+const run = async (SOURCE, DEST, pipeline) => {
 
   console.log(`MIGRATE collection "${SOURCE}" > "${DEST}"`)
+  console.log(pipeline)
+
+  pipeline = pipeline || []
 
   //////////////////////////////////// stage 1 ///////////////////////////////////////
 
     const aggCursor = await mongodb.getAggregateCursor({
       db,
-      collection: SOURCE
+      collection: SOURCE,
+      pipeline
     })
     
     const source = aggCursor.cursor
@@ -116,7 +120,7 @@ const execute = async migrationList => {
   for( let migration of migrationList) {
     console.log(`MIGRATE ${count+1} of ${migrationList.length}`)
     count++
-    await run(migration.source, migration.dest)
+    await run(migration.source, migration.dest, migration.pipeline)
   }
 
 
