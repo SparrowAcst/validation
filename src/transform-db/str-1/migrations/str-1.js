@@ -1,4 +1,4 @@
-const DS = require("../utils/ds-map")["strazhesko-part-1"]
+const DS = require("../../utils/ds-map")["strazhesko-part-1"]
 module.exports = [{
         source: "sparrow.H2",
         dest: `${DS}.labels`,
