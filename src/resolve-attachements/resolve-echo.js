@@ -2,7 +2,7 @@
 const execute = require("./utils/migrate-echo")
 
 // const settings = yargs.argv;
-const collection  = "HH1.forms" //settings.collection || settings.c 
+const collection  = "8137d465-8583-44cc-883e-c2f39706a10c.forms" //settings.collection || settings.c 
 
 
 const run = async () => {
