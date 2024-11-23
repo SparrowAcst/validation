@@ -1,5 +1,5 @@
 // const yargs = require("yargs");
-const execute = require("./utils/migrate-files")
+const execute = require("./utils/migrate-echo")
 
 // const settings = yargs.argv;
 const collection  = "HH1.forms" //settings.collection || settings.c 
