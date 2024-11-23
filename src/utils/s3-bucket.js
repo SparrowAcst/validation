@@ -49,7 +49,7 @@ const { Upload } = require("@aws-sdk/lib-storage")
 // TODO transfer into settings
 
 const settings = require("../../.config-migrate-db").s3
-let bucket = settings.bucket.PROD
+let bucket = settings.bucket.TEST
 
 console.log("S3 bucket:", bucket)
 
