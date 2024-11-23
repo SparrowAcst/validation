@@ -250,7 +250,7 @@ const resolvers = {
             }
         }
 
-        let id = d.dataFileId
+        let id = uuid()
 
         let source
         let target
@@ -258,11 +258,17 @@ const resolvers = {
         try {
 
             source = d.data.en.dataUrl.split("/")[5]
-            target = `${DEST}${id}${path.extname(d.data.en.dataFileName)}`
-
+            
 
             const googleDrive = await require("../../utils/drive3")()
             const drive = await googleDrive.create()
+            
+            const metadata = await drive.getFileMetadata(source)
+            const dataFileName = metadata.data.name
+            
+            target = `${DEST}${id}${path.extname(dataFileName)}`
+
+
             let stream = await drive.geFiletWriteStream({ id: source })
 
             await s3bucket.uploadFromStream({
@@ -305,7 +311,7 @@ const resolvers = {
             }
         }
 
-        let id = d.dataFileId
+        let id = uuid()
 
         let source
         let target
@@ -364,11 +370,13 @@ const resolveURL = async buffer => {
 
     buffer = buffer //.filter(d => d && d.data)
     let result = []
-
+    let idx = 0
     for (let d of buffer) {
-
+        idx++
         if (d) {
 
+            console.log(`Patient ${idx}: ${d.patientId}`)
+            
             let resolver = resolvers[resolveSource(d)]
             if (resolver) {
 

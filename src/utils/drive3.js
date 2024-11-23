@@ -629,6 +629,16 @@ mem(6)
 	}
 
 
+	async getFileMetadata( fileId ){
+		let res  = await this.$drive.files.get({ 
+			fileId, 
+			fields: 'id, name, mimeType, md5Checksum, createdTime, modifiedTime, parents, size' 
+		})
+
+		return res
+	
+	}
+
 	async copy(sourcePath, targetDrive, targetPath){
 
 		let cloned = this.fileList(sourcePath)
@@ -646,7 +656,10 @@ mem(6)
 				}
 		}
 		
-	}	
+	}
+
+	
+
 
 }
 
