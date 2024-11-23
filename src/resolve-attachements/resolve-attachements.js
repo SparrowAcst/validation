@@ -1,8 +1,8 @@
-const yargs = require("yargs");
+// const yargs = require("yargs");
 const execute = require("./utils/migrate-files")
 
-const settings = yargs.argv;
-const collection  = settings.collection || settings.c 
+// const settings = yargs.argv;
+const collection  = "sparrow.form-upd" //settings.collection || settings.c 
 
 
 const run = async () => {

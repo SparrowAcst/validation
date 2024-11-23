@@ -232,9 +232,10 @@ const resolveURL = async buffer => {
 
 
 const resolveAttachements = async buffer => {
-
+    let i = 0
     for (let form of buffer) {
-        console.log(`Patient: ${form.patientId}`)
+        i++
+        console.log(`Patient ${i}: ${form.patientId}`)
         form.resolvedData = await resolveURL(form.data)
     }
 
