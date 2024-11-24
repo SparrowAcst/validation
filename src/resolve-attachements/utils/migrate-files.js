@@ -36,11 +36,17 @@ const resolvers = {
         try {
 
             source = last(d.url.split("?id="))
-            target = `${DEST}${id}${path.extname(d.publicName)}`
+            // target = `${DEST}${id}${path.extname(d.publicName)}`
 
 
             const googleDrive = await require("../../utils/drive3")()
             const drive = await googleDrive.create()
+
+            const metadata = await drive.getFileMetadata(source)
+            const dataFileName = metadata.data.name
+            
+            target = `${DEST}${id}${path.extname(dataFileName)}`
+
             let stream = await drive.geFiletWriteStream({ id: source })
 
             await s3bucket.uploadFromStream({
