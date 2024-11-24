@@ -430,7 +430,7 @@ const execute = async formCollection => {
 
     console.log(`RESOLVE ATTACHEMENTS FOR ${formCollection}`)
 
-    const PAGE_SIZE = 1
+    const PAGE_SIZE = 10
     let skip = 0
     let bufferCount = 0
 
@@ -499,7 +499,7 @@ const execute = async formCollection => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0 && bufferCount < 1)
+    } while (buffer.length > 0)
 
 }
 
