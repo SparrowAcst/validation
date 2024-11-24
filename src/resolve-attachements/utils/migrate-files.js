@@ -262,6 +262,9 @@ const execute = async formCollection => {
         const pipeline = [{
                 '$match': {
                     type: "attachements",
+                    patientId: {
+                        $exists: true
+                    },
                     process_atch: {
                         $exists: false
                     }
