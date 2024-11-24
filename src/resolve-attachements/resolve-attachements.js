@@ -2,7 +2,7 @@
 const execute = require("./utils/migrate-files")
 
 // const settings = yargs.argv;
-const collection  = "sparrow.form-upd" //settings.collection || settings.c 
+const collection  = "sparrow.H2-FORM" //settings.collection || settings.c 
 
 
 const run = async () => {
