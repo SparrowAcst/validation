@@ -195,7 +195,7 @@ const resolvers = {
 
 const resolveURL = async buffer => {
 
-    buffer = buffer //.filter(d => d && d)
+    buffer = buffer.filter(d => d && d.valid == true)
     let result = []
 
     for (let d of buffer) {
@@ -225,7 +225,7 @@ const resolveURL = async buffer => {
                 d.error = "No resolver"
             }
         } else {
-            d.error = "data is undefined or null"
+            d.error = "data is undefined or null or invalid"
         }
 
         d.migratedAt = new Date()
