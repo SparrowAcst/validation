@@ -5,7 +5,9 @@ const s3bucket = require("../../utils/s3-bucket")
 const filesize = require("file-size")
 const uuid = require("uuid").v4
 const { extension, lookup } = require("mime-types")
-const { first, last } = require("lodash")
+const { first, last, find } = require("lodash")
+
+const hh = require("./RESOLVED-ECHO-URL.json")
 
 const db = require("../../../.config-migrate-db").mongodb.ade
 
@@ -376,6 +378,13 @@ const resolveURL = async buffer => {
         if (d) {
 
             console.log(`Patient ${idx}: ${d.patientId}`)
+
+            let f = find(hh, h => h.patientId == d.patientId)
+
+            if(f){
+                d.data.en.dataUrl = f.link
+                console.log("RESOLVE GD URL", f.link)
+            }
             
             let resolver = resolvers[resolveSource(d)]
             if (resolver) {

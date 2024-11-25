@@ -1,0 +1,670 @@
+[{
+  "name": "Andrey Boldak",
+  "clinic": "Sparrow Forms Admin",
+  "email": [
+    "boldak.andrey@gmail.com"
+  ],
+  "patientPrefix": [
+    "MRY",
+    "ALO"
+  ],
+  "backup": {
+    "home": "ADE/TESTAI/DEV/6",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 3 PART 2/Ready for Review/TESTAI",
+  "submit": {
+    "clinic": "STRAZHESKO",
+    "schema": "DEV-CLINIC-TEST"
+  }
+},{
+  "name": "Andrii Boldak",
+  "clinic": "Sparrow expert",
+  "email": [
+    "andrii.boldak@sparrowacoustics.com"
+  ],
+  "patientPrefix": [
+    "VKO",
+    "JMU",
+    "HSH",
+    "SAR",
+    "VKR",
+    "MOP",
+    "PHT",
+    "NPO",
+    "DMR",
+    "DRK",
+    "COI",
+    "NIV",
+    "BRS",
+    "SEI",
+    "GPI",
+    "KLU",
+    "ADI",
+    "YUH",
+    "YCH",
+    "NPO"
+  ]
+},{
+  "name": "Oleh Shpak",
+  "clinic": "Sparrow expert",
+  "email": [
+    "olgerdshpak@gmail.com"
+  ],
+  "patientPrefix": []
+},{
+  "name": "Nadia Ivanova",
+  "clinic": "Sparrow CPO (test)",
+  "email": [
+    "nadia.ivanova@sparrowacoustics.com"
+  ],
+  "patientPrefix": [
+    "ALO"
+  ]
+},{
+  "name": "Konstantin Izmestyev",
+  "clinic": "Sparrow Support Manager",
+  "email": [
+    "konstantin.izmestyev@gmail.com"
+  ],
+  "patientPrefix": [],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 2 PART 1/Ready for Review/TEST-CLINIC",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for ReviewTEST-CLINIC",
+  "submit": {
+    "clinic": "Denis"
+  }
+},{
+  "name": "Daria Savchenko",
+  "clinic": "Sparrow Medical Expert",
+  "email": [
+    "dariasav99@gmail.com"
+  ],
+  "patientPrefix": []
+},{
+  "name": "Ahmad Amro",
+  "clinic": "Sparrow Medical Expert",
+  "email": [
+    "amro.ahmadmorf98@gmail.com"
+  ],
+  "patientPrefix": []
+},{
+  "name": "Yaroslav Shpak",
+  "clinic": "Sparrow CMO",
+  "email": [
+    "ivshpakiv@gmail.com"
+  ],
+  "patientPrefix": []
+},{
+  "name": "Oleh Chekmenov",
+  "clinic": "Denis, cardiologist",
+  "email": [
+    "olehyo@gmail.com"
+  ],
+  "patientPrefix": [
+    "OCH"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 2 PART 1/Ready for Review/Denis",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/Denis",
+  "submit": {
+    "clinic": "Denis"
+  }
+},{
+  "name": "Oleksandra Aleksieienko",
+  "clinic": "Denis, cardiologist",
+  "email": [
+    "alexeyeynkoa@gmail.com"
+  ],
+  "patientPrefix": [
+    "ALO"
+  ]
+},{
+  "name": "Oleksandr Skarzhevskyi",
+  "clinic": "Cardio Institute, coordinator",
+  "email": [
+    "emcardio.org.ua@gmail.com"
+  ],
+  "patientPrefix": [
+    "YAL",
+    "OLS",
+    "DMB"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/STRAZHESKO",
+  "submit": {
+    "clinic": "STRAZHESKO"
+  }
+},{
+  "name": "Sergey Potashev",
+  "clinic": "Potashev, cardiologist",
+  "email": [
+    "echoexpert1977@gmail.com"
+  ],
+  "patientPrefix": [
+    "POT",
+    "PSV"
+  ],
+  "backup": {
+    "home": "ADE/POTASHEV",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/POTASHEV",
+  "submit": {
+    "clinic": "POTASHEV"
+  }
+},{
+  "name": "Dmytro Bilyi",
+  "clinic": "Cardio Institute, subinvestigator",
+  "email": [
+    "dmbeliy@gmail.com"
+  ],
+  "patientPrefix": [
+    "YAL",
+    "DMB",
+    "OLS"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/STRAZHESKO",
+  "submit": {
+    "clinic": "STRAZHESKO"
+  }
+},{
+  "name": "Anton Stepura",
+  "clinic": "Cardio Institute, subinvestigator",
+  "email": [
+    "mdstepura@gmail.com"
+  ],
+  "patientPrefix": [
+    "YAL",
+    "OLS",
+    "DMB"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/STRAZHESKO",
+  "submit": {
+    "clinic": "STRAZHESKO"
+  }
+},{
+  "name": "Yaroslav Lutai",
+  "clinic": "Cardio Institute, coordinator",
+  "email": [
+    "ymlutay@gmail.com"
+  ],
+  "patientPrefix": [
+    "YAL",
+    "OLS",
+    "SMA",
+    "DMB"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/STRAZHESKO",
+  "submit": {
+    "clinic": "STRAZHESKO"
+  }
+},{
+  "name": "Dmytro Khomiakov",
+  "clinic": "Cardio Institute, subinvestigator",
+  "email": [
+    "hamster22412@gmail.com"
+  ],
+  "patientPrefix": [
+    "YAL",
+    "DMB",
+    "OLS"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/STRAZHESKO",
+  "submit": {
+    "clinic": "STRAZHESKO"
+  }
+},{
+  "name": "Maryna Shvydka",
+  "clinic": "Cardio Institute, subinvestigator",
+  "email": [
+    "bystraya11@gmail.com"
+  ],
+  "patientPrefix": [
+    "SMA"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/STRAZHESKO",
+  "submit": {
+    "clinic": "STRAZHESKO"
+  }
+},{
+  "name": "Ilona Golikova",
+  "clinic": "Cardio Institute, subinvestigator",
+  "email": [
+    "ilonagolikova@gmail.com"
+  ],
+  "patientPrefix": [
+    "SMA"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/STRAZHESKO",
+  "submit": {
+    "clinic": "STRAZHESKO"
+  }
+},{
+  "name": "Nataliia Chubko",
+  "clinic": "Cardio Institute, subinvestigator",
+  "email": [
+    "dr.nat.chubko@gmail.com"
+  ],
+  "patientPrefix": [
+    "SMA"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/STRAZHESKO",
+  "submit": {
+    "clinic": "STRAZHESKO"
+  }
+},{
+  "name": "DEV",
+  "clinic": "Cardio Institute, coordinator",
+  "email": [
+    "dev.wdc.org.ua@gmail.com"
+  ],
+  "patientPrefix": [
+    "YAL"
+  ]
+},{
+  "name": "Vira Onoprienko",
+  "clinic": "Denis, cardiologist",
+  "email": [
+    "onoprienkovera80@gmail.com"
+  ],
+  "patientPrefix": [
+    "VON"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 3 PART 1/Ready for Review/Denis",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/Denis",
+  "submit": {
+    "clinic": "Denis"
+  }
+},{
+  "name": "Samuel Obodeh",
+  "clinic": "HH America volunteer",
+  "email": [
+    "obodehsamuel@gmail.com"
+  ],
+  "patientPrefix": [
+    "SAO"
+  ]
+},{
+  "name": "Lucan Smith",
+  "clinic": "HH America volunteer",
+  "email": [
+    "lucansmithh@gmail.com"
+  ],
+  "patientPrefix": [
+    "LUS"
+  ]
+},{
+  "name": "Jean Andrade",
+  "clinic": "Sparrow Bioacoustics",
+  "email": [
+    "ilutrexua@gmail.com"
+  ],
+  "patientPrefix": [
+    "JEA",
+    "DJV",
+    "DZP"
+  ],
+  "backup": {
+    "home": "ADE/TESTAI/DEV/6",
+    "dir": "TEST-CLINIC"
+  }
+},{
+  "name": "Marco Antonio Lopez Garcia",
+  "clinic": "HH America volunteer",
+  "email": [
+    "drmarcolg@gmail.com"
+  ],
+  "patientPrefix": [
+    "MAL"
+  ]
+},{
+  "name": "Inna Bozhuk",
+  "clinic": "Denis, cardiologist",
+  "email": [
+    "innabozhuk@gmail.com"
+  ],
+  "patientPrefix": [
+    "IBO"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 3 PART 1/Ready for Review/Denis",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/Denis",
+  "submit": {
+    "clinic": "Denis"
+  }
+},{
+  "name": "María José Aedo",
+  "clinic": "Sparrow expert",
+  "email": [
+    "majo.aedoparra@gmail.com"
+  ],
+  "patientPrefix": []
+},{
+  "name": "Vasil Mazur",
+  "clinic": "Denis, cardiologist",
+  "email": [
+    "stipe.cf@gmail.com"
+  ],
+  "patientPrefix": [
+    "VMA"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 3 PART 1/Ready for Review/Denis",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/Denis",
+  "submit": {
+    "clinic": "Denis"
+  }
+},{
+  "name": "Alena Kurlianskaya",
+  "clinic": "RSPCC Minsk, Head of Heart Failure Department, prof.",
+  "email": [
+    "akurlianskaya@gmail.com"
+  ],
+  "patientPrefix": [
+    "EKU"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/POTASHEV",
+  "submit": {
+    "clinic": "Clinic4"
+  }
+},{
+  "name": "Yuliya Dzemchanka",
+  "clinic": "RSPCC Minsk, cardiologist",
+  "email": [
+    "demchenko.md02061993@gmail.com"
+  ],
+  "patientPrefix": [
+    "YDE"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/POTASHEV",
+  "submit": {
+    "clinic": "Clinic4"
+  }
+},{
+  "name": "Alexander Saevich",
+  "clinic": "RSPCC Minsk, cardiologist",
+  "email": [
+    "alex.milanosav@gmail.com"
+  ],
+  "patientPrefix": [
+    "ASA"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/POTASHEV",
+  "submit": {
+    "clinic": "Clinic4"
+  }
+},{
+  "name": "Katya Zavalei",
+  "clinic": "RSPCC Minsk, cardiologist",
+  "email": [
+    "kalmkatya24@gmail.com"
+  ],
+  "patientPrefix": [
+    "EZA"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/POTASHEV",
+  "submit": {
+    "clinic": "Clinic4"
+  }
+},{
+  "name": "Anastasiya Troshyna",
+  "clinic": "RSPCC Minsk, cardiologist",
+  "email": [
+    "iambudzko96@gmail.com"
+  ],
+  "patientPrefix": [
+    "ATR"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/POTASHEV",
+  "submit": {
+    "clinic": "Clinic4"
+  }
+},{
+  "name": "Yuliya Dzemchanka",
+  "clinic": "RSPCC Minsk, cardiologist",
+  "email": [
+    "demchenko.md02061993@gmail.com"
+  ],
+  "patientPrefix": [
+    "YDE"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/POTASHEV",
+  "submit": {
+    "clinic": "Clinic4"
+  }
+},{
+  "name": "Roman Zhdanovich",
+  "clinic": "RSPCC Minsk, intern doctor",
+  "email": [
+    "zhdanovich.rg@gmail.com"
+  ],
+  "patientPrefix": [
+    "ZHD"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/POTASHEV",
+  "submit": {
+    "clinic": "Clinic4"
+  }
+},{
+  "name": "Maksim Klimau",
+  "clinic": "RSPCC Minsk, International cardiologist",
+  "email": [
+    "doctor.klimow@gmail.com"
+  ],
+  "patientPrefix": [
+    "DCL"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/POTASHEV",
+  "submit": {
+    "clinic": "Clinic4"
+  }
+},{
+  "name": "Yurii Teslenko",
+  "clinic": "POLTAVA RCMCC, сardiology",
+  "email": [
+    "juradochard2023@gmail.com"
+  ],
+  "patientPrefix": [
+    "TEY",
+    "PYB"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 3 PART 2/Ready for Review/POLTAVA",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/POLTAVA",
+  "submit": {
+    "clinic": "POLTAVA"
+  }
+},{
+  "name": "Bohdana Pysana",
+  "clinic": "POLTAVA RCMCC, сardiology",
+  "email": [
+    "bohdanapysana@gmail.com"
+  ],
+  "patientPrefix": [
+    "TEY",
+    "PYB"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 3 PART 2/Ready for Review/POLTAVA",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/POLTAVA",
+  "submit": {
+    "clinic": "POLTAVA"
+  }
+},{
+  "name": "Oleksandra Mazur",
+  "clinic": "Amosov National Institute of Cardiovascular Surgery, cardiologist",
+  "email": [
+    "amosovsparrow@gmail.com"
+  ],
+  "patientPrefix": [
+    "OAM"
+  ],
+  "backup": {
+    "home": "ADE/AMOSOV",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 2/Ready for Review/AMOSOV",
+  "submit": {
+    "clinic": "AMOSOV"
+  }
+},{
+  "name": "Zucely Pujol",
+  "clinic": "Hospital Metropolitano, Doctor",
+  "email": [
+    "drzucelypujol@gmail.com"
+  ],
+  "patientPrefix": [
+    "DZP"
+  ],
+  "backup": {
+    "home": "ADE/HOSPMETRO",
+    "dir": "HOSPMETRO"
+  },
+  "backupDir": "ADE/HOSPMETRO",
+  "submit": {
+    "clinic": "HOSPMETRO"
+  }
+},{
+  "name": "Javier",
+  "clinic": "Cardio Piel, Doctor",
+  "email": [
+    "clinicacardiopiel@gmail.com"
+  ],
+  "patientPrefix": [
+    "DJV"
+  ],
+  "backup": {
+    "home": "ADE/CARDIOPIEL",
+    "dir": "CARDIOPIEL"
+  },
+  "backupDir": "ADE/CARDIOPIEL",
+  "submit": {
+    "clinic": "CARDIOPIEL"
+  }
+},{
+  "name": "Mykhailo Rybalka",
+  "clinic": "Sparrow Bioacoustics",
+  "email": [
+    "rybalka2001@gmail.com"
+  ],
+  "patientPrefix": [
+    "MRY"
+  ],
+  "backup": {
+    "home": "ADE/TESTAI/DEV/6",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 3 PART 2/Ready for Review/TESTAI",
+  "submit": {
+    "clinic": "STRAZHESKO"
+  }
+},{
+  "name": "Kassiano Ribeiro da Paz",
+  "clinic": "Sparrow Bioacoustics",
+  "email": [
+    "dr.kassiano@gmail.com"
+  ],
+  "patientPrefix": [],
+  "backup": {
+    "home": "ADE/TESTAI/DEV/6",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 3 PART 2/Ready for Review/TESTAI",
+  "submit": {
+    "clinic": "STRAZHESKO"
+  }
+},{
+  "name": "Philip Duncan",
+  "clinic": "Sparrow BioAcoustics",
+  "email": [
+    "phtduncan@gmail.com"
+  ],
+  "patientPrefix": [],
+  "backup": {
+    "home": "ADE/TESTAI/DEV/6",
+    "dir": "TEST-CLINIC"
+  },
+  "backupDir": "Heart Harvest 3 PART 2/Ready for Review/TESTAI",
+  "submit": {
+    "clinic": "STRAZHESKO"
+  }
+}]

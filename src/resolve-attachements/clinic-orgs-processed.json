@@ -1,0 +1,44 @@
+[
+ {
+  "name": "Cardio Institute",
+  "alias": "STRAZHESKO",
+  "country": "Ukraine",
+  "id": "c42ac1bd-ae37-4a47-b431-44cf4d886be1"
+ },
+ {
+  "name": "Denis",
+  "alias": "Denis",
+  "country": "Ukraine",
+  "id": "9a5f35a0-f1ba-4b68-96e6-582cd12a7523"
+ },
+ {
+  "name": "POTASHEV",
+  "alias": "POTASHEV",
+  "country": "Ukraine",
+  "id": "2031ce83-3eef-4c0d-8e01-192f47146a99"
+ },
+ {
+  "name": "POLTAVA RCMCC",
+  "alias": "POLTAVA",
+  "country": "Ukraine",
+  "id": "c74f57b8-6106-4ee7-b4ff-c13a14ca8791"
+ },
+ {
+  "name": "Cardio Piel",
+  "alias": "CARDIOPIEL",
+  "country": "Equador",
+  "id": "2bead9ce-2ac0-4e22-b9eb-4daf7247a48e"
+ },
+ {
+  "name": "Hospital Metropolitano",
+  "alias": "HOSPMETRO",
+  "country": "Equador",
+  "id": "f7825271-3230-4b1a-9f44-c6ac51514da6"
+ },
+ {
+  "name": "Amosov National Institute of Cardiovascular Surgery",
+  "alias": "AMOSOV",
+  "country": "Ukraine",
+  "id": "98a1444a-cd1d-4651-8787-917a8ca6e024"
+ }
+]
