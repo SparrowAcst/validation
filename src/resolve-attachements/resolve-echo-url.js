@@ -35,7 +35,7 @@ const getPath = patientId => {
 
 const run = async () => {
 	
-	data = sortBy(data, d => d.patientId)
+	data = sortBy(data.filter(d => d.patientId.substring(0,3) == "PYB"), d => d.patientId)
 
 	const googleDrive = await require("../utils/drive4")()
     const drive = await googleDrive.create({subject: "andrii.boldak@sparrowacoustics.com"})
