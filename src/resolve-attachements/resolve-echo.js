@@ -2,7 +2,7 @@
 const execute = require("./utils/migrate-echo")
 
 // const settings = yargs.argv;
-const collection  = "sparrow.H2-FORM" //settings.collection || settings.c 
+const collection  = "sparrow.H3-FORM" //settings.collection || settings.c 
 
 
 const run = async () => {
