@@ -1,0 +1,815 @@
+[{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc4e"
+  },
+  "name": "Daria Savchenko",
+  "clinic": "Sparrow Medical Expert",
+  "email": [
+    "dariasav99@gmail.com"
+  ],
+  "patientPrefix": [],
+  "id": "ae0e0c8e-5c97-4201-b347-df2580fc7d3d"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc4f"
+  },
+  "name": "Ahmad Amro",
+  "clinic": "Sparrow Medical Expert",
+  "email": [
+    "amro.ahmadmorf98@gmail.com"
+  ],
+  "patientPrefix": [],
+  "id": "64902301-5db1-4e2b-b080-bf27fa930bb7"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc56"
+  },
+  "name": "Anton Stepura",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "mdstepura@gmail.com"
+  ],
+  "patientPrefix": [
+    "YAL",
+    "OLS",
+    "DMB"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "STRAZHESKO"
+  },
+  "id": "f9e521dc-7dc2-41a6-981c-b9a24321cfd9"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc5b"
+  },
+  "name": "Nataliia Chubko",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "dr.nat.chubko@gmail.com"
+  ],
+  "patientPrefix": [
+    "SMA"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "STRAZHESKO"
+  },
+  "id": "c069c109-8c7e-4419-ab96-435f0ab98fef"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc5e"
+  },
+  "name": "Samuel Obodeh",
+  "clinic": "HH America volunteer",
+  "email": [
+    "obodehsamuel@gmail.com"
+  ],
+  "patientPrefix": [
+    "SAO"
+  ],
+  "id": "51bbe4d2-f300-4662-a590-e10e22465db7"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc5f"
+  },
+  "name": "Lucan Smith",
+  "clinic": "HH America volunteer",
+  "email": [
+    "lucansmithh@gmail.com"
+  ],
+  "patientPrefix": [
+    "LUS"
+  ],
+  "id": "d424ffef-9a9a-4f9e-9f3f-bc592cd565e4"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc61"
+  },
+  "name": "Marco Antonio Lopez Garcia",
+  "clinic": "HH America volunteer",
+  "email": [
+    "drmarcolg@gmail.com"
+  ],
+  "patientPrefix": [
+    "MAL"
+  ],
+  "id": "a202d2c0-d3ac-40e7-b344-f2fe51a199a4"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc64"
+  },
+  "name": "Vasil Mazur",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "stipe.cf@gmail.com"
+  ],
+  "patientPrefix": [
+    "VMA"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 3 PART 1/Ready for Review/Denis",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "Denis"
+  },
+  "id": "68d347ae-a579-4697-badf-063d504f1e84"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc65"
+  },
+  "name": "Alena Kurlianskaya",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "akurlianskaya@gmail.com"
+  ],
+  "patientPrefix": [
+    "EKU"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "Clinic4"
+  },
+  "id": "6358e02f-3ec6-42f7-a68c-8a6a04482b36"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc73"
+  },
+  "name": "Kassiano Ribeiro da Paz",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "dr.kassiano@gmail.com"
+  ],
+  "patientPrefix": [],
+  "backup": {
+    "home": "ADE/TESTAI/DEV/6",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "STRAZHESKO"
+  },
+  "id": "a23d62cc-a532-46c4-aa6d-515066d225e5"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc4a"
+  },
+  "name": "Andrii Boldak",
+  "clinic": "Sparrow expert",
+  "email": [
+    "andrii.boldak@sparrowacoustics.com"
+  ],
+  "patientPrefix": [
+    "VKO",
+    "JMU",
+    "HSH",
+    "SAR",
+    "VKR",
+    "MOP",
+    "PHT",
+    "NPO",
+    "DMR",
+    "DRK",
+    "COI",
+    "NIV",
+    "BRS",
+    "SEI",
+    "GPI",
+    "KLU",
+    "ADI",
+    "YUH",
+    "YCH",
+    "NPO"
+  ],
+  "id": "254fe903-54ce-48cf-9097-c96a6111f634"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc4c"
+  },
+  "name": "Nadia Ivanova",
+  "clinic": "Sparrow CPO (test)",
+  "email": [
+    "nadia.ivanova@sparrowacoustics.com"
+  ],
+  "patientPrefix": [
+    "ALO"
+  ],
+  "id": "4112e1ee-1614-4889-881f-16d87807b8dd"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc52"
+  },
+  "name": "Oleksandra Aleksieienko",
+  "clinic": "Denis, cardiologist",
+  "email": [
+    "alexeyeynkoa@gmail.com"
+  ],
+  "patientPrefix": [
+    "ALO"
+  ],
+  "id": "0f5eba21-e956-4efe-9725-84ab695e2e58"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc53"
+  },
+  "name": "Oleksandr Skarzhevskyi",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "emcardio.org.ua@gmail.com"
+  ],
+  "patientPrefix": [
+    "YAL",
+    "OLS",
+    "DMB"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "STRAZHESKO"
+  },
+  "id": "aa7a0753-6f92-4a11-88b4-6aab9bd58fc4"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc59"
+  },
+  "name": "Maryna Shvydka",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "bystraya11@gmail.com"
+  ],
+  "patientPrefix": [
+    "SMA"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "STRAZHESKO"
+  },
+  "id": "2f489445-de35-4fab-a391-45833e40b48b"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc5d"
+  },
+  "name": "Vira Onoprienko",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "onoprienkovera80@gmail.com"
+  ],
+  "patientPrefix": [
+    "VON"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 3 PART 1/Ready for Review/Denis",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "Denis"
+  },
+  "id": "0bb8f88a-210f-4259-8db5-da5d54f22964"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc60"
+  },
+  "name": "Jean Andrade",
+  "clinic": "Sparrow Bioacoustics",
+  "email": [
+    "ilutrexua@gmail.com"
+  ],
+  "patientPrefix": [
+    "JEA",
+    "DJV",
+    "DZP"
+  ],
+  "backup": {
+    "home": "ADE/TESTAI/DEV/6",
+    "dir": "TEST-CLINIC"
+  },
+  "id": "e376d96d-7e0f-40e1-a35b-9bc3d32234f0"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc63"
+  },
+  "name": "María José Aedo",
+  "clinic": "Sparrow expert",
+  "email": [
+    "majo.aedoparra@gmail.com"
+  ],
+  "patientPrefix": [],
+  "id": "f0c0ed49-8f77-4703-8d62-094672005d6f"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc66"
+  },
+  "name": "Yuliya Dzemchanka",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "demchenko.md02061993@gmail.com"
+  ],
+  "patientPrefix": [
+    "YDE"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "Clinic4"
+  },
+  "id": "b2df4b27-a4f6-4476-85cf-d01858b37daf"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc67"
+  },
+  "name": "Alexander Saevich",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "alex.milanosav@gmail.com"
+  ],
+  "patientPrefix": [
+    "ASA"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "Clinic4"
+  },
+  "id": "0c115902-4265-4542-bce9-2fa562c2620a"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc6b"
+  },
+  "name": "Roman Zhdanovich",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "zhdanovich.rg@gmail.com"
+  ],
+  "patientPrefix": [
+    "ZHD"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "Clinic4"
+  },
+  "id": "166b5108-7fcd-4be7-b41e-eb3da51b19d4"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc6f"
+  },
+  "name": "Oleksandra Mazur",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "amosovsparrow@gmail.com"
+  ],
+  "patientPrefix": [
+    "OAM"
+  ],
+  "backup": {
+    "home": "ADE/AMOSOV",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "AMOSOV"
+  },
+  "id": "beb9bc18-3ad8-4982-9fe7-7ea1e469a077"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc71"
+  },
+  "name": "Javier",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "clinicacardiopiel@gmail.com"
+  ],
+  "patientPrefix": [
+    "DJV"
+  ],
+  "backup": {
+    "home": "ADE/CARDIOPIEL",
+    "dir": "CARDIOPIEL"
+  },
+  "submit": {
+    "clinic": "CARDIOPIEL"
+  },
+  "id": "0283ebeb-7caf-43af-b019-82ffa19a3389"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc72"
+  },
+  "name": "Mykhailo Rybalka",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "rybalka2001@gmail.com"
+  ],
+  "patientPrefix": [
+    "MRY"
+  ],
+  "backup": {
+    "home": "ADE/TESTAI/DEV/6",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "STRAZHESKO"
+  },
+  "id": "f27dafd7-4a09-4581-b284-e653532b0764"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc49"
+  },
+  "name": "Andrey Boldak",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "boldak.andrey@gmail.com"
+  ],
+  "patientPrefix": [
+    "MRY",
+    "ALO"
+  ],
+  "backup": {
+    "home": "ADE/TESTAI/DEV/6",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "STRAZHESKO",
+    "schema": "DEV-CLINIC-TEST"
+  },
+  "id": "fdae39f1-6b1d-4848-8f26-ad47c941e058"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc51"
+  },
+  "name": "Oleh Chekmenov",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "olehyo@gmail.com"
+  ],
+  "patientPrefix": [
+    "OCH"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 2 PART 1/Ready for Review/Denis",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "Denis"
+  },
+  "id": "f75d2b3f-4f7a-434e-9bc7-ef1b932dd856"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc57"
+  },
+  "name": "Yaroslav Lutai",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "ymlutay@gmail.com"
+  ],
+  "patientPrefix": [
+    "YAL",
+    "OLS",
+    "SMA",
+    "DMB"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "STRAZHESKO"
+  },
+  "id": "0db71d72-1069-4f60-af33-3a689d7b9139"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc58"
+  },
+  "name": "Dmytro Khomiakov",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "hamster22412@gmail.com"
+  ],
+  "patientPrefix": [
+    "YAL",
+    "DMB",
+    "OLS"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "STRAZHESKO"
+  },
+  "id": "d30f1d13-5ed4-4fab-93d6-6963085d7eba"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc5a"
+  },
+  "name": "Ilona Golikova",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "ilonagolikova@gmail.com"
+  ],
+  "patientPrefix": [
+    "SMA"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "STRAZHESKO"
+  },
+  "id": "c964c03b-510f-41be-b15d-1f09d7b08c88"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc5c"
+  },
+  "name": "DEV",
+  "clinic": "Cardio Institute, coordinator",
+  "email": [
+    "dev.wdc.org.ua@gmail.com"
+  ],
+  "patientPrefix": [
+    "YAL"
+  ],
+  "id": "8e8e1595-815d-45d6-ac9e-a90dbdc6715e"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc68"
+  },
+  "name": "Katya Zavalei",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "kalmkatya24@gmail.com"
+  ],
+  "patientPrefix": [
+    "EZA"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "Clinic4"
+  },
+  "id": "45de07ea-f6f0-49c3-8d1d-71c759a8187f"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc69"
+  },
+  "name": "Anastasiya Troshyna",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "iambudzko96@gmail.com"
+  ],
+  "patientPrefix": [
+    "ATR"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "Clinic4"
+  },
+  "id": "d3a4780f-4aa0-4d50-8844-9f2aed9afe69"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc6a"
+  },
+  "name": "Yuliya Dzemchanka",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "demchenko.md02061993@gmail.com"
+  ],
+  "patientPrefix": [
+    "YDE"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "Clinic4"
+  },
+  "id": "743d5d55-b370-424e-8eeb-032af952cd48"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc6c"
+  },
+  "name": "Maksim Klimau",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "doctor.klimow@gmail.com"
+  ],
+  "patientPrefix": [
+    "DCL"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Clinic4 PART 1/Ready for Review/Clinic4",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "Clinic4"
+  },
+  "id": "e80be614-1307-4756-b77b-73bb525b38ba"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc6d"
+  },
+  "name": "Yurii Teslenko",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "juradochard2023@gmail.com"
+  ],
+  "patientPrefix": [
+    "TEY",
+    "PYB"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 3 PART 2/Ready for Review/POLTAVA",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "POLTAVA"
+  },
+  "id": "0f0e9b92-0998-4d2a-9d84-fa161738d0a8"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc6e"
+  },
+  "name": "Bohdana Pysana",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "bohdanapysana@gmail.com"
+  ],
+  "patientPrefix": [
+    "TEY",
+    "PYB"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 3 PART 2/Ready for Review/POLTAVA",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "POLTAVA"
+  },
+  "id": "9da4032c-a29c-4e98-a910-0dc133a06de2"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc70"
+  },
+  "name": "Zucely Pujol",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "drzucelypujol@gmail.com"
+  ],
+  "patientPrefix": [
+    "DZP"
+  ],
+  "backup": {
+    "home": "ADE/HOSPMETRO",
+    "dir": "HOSPMETRO"
+  },
+  "submit": {
+    "clinic": "HOSPMETRO"
+  },
+  "id": "6e979f4e-bede-469a-8002-8eaaedfde8ad"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc4b"
+  },
+  "name": "Oleh Shpak",
+  "clinic": "Sparrow expert",
+  "email": [
+    "olgerdshpak@gmail.com"
+  ],
+  "patientPrefix": [],
+  "id": "48271448-4557-4fea-abae-eafc5cf5554f"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc4d"
+  },
+  "name": "Konstantin Izmestyev",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "konstantin.izmestyev@gmail.com"
+  ],
+  "patientPrefix": [],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 2 PART 1/Ready for Review/TEST-CLINIC",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "Denis"
+  },
+  "id": "83b3ec63-be02-4bac-89b3-741b1ed074db"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc50"
+  },
+  "name": "Yaroslav Shpak",
+  "clinic": "Sparrow CMO",
+  "email": [
+    "ivshpakiv@gmail.com"
+  ],
+  "patientPrefix": [],
+  "id": "44c1b6e4-6df3-4b23-9e7c-ff1859f3142c"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc54"
+  },
+  "name": "Sergey Potashev",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "echoexpert1977@gmail.com"
+  ],
+  "patientPrefix": [
+    "POT",
+    "PSV"
+  ],
+  "backup": {
+    "home": "ADE/POTASHEV",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "POTASHEV"
+  },
+  "id": "cb84bceb-f8b9-4bcb-bd7a-3e06f8f95879"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc55"
+  },
+  "name": "Dmytro Bilyi",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "dmbeliy@gmail.com"
+  ],
+  "patientPrefix": [
+    "YAL",
+    "DMB",
+    "OLS"
+  ],
+  "backup": {
+    "home": "ADE/STRAZHESKO",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "STRAZHESKO"
+  },
+  "id": "d6a1b762-6990-45e6-a8ac-48feb2dc5324"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc62"
+  },
+  "name": "Inna Bozhuk",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "innabozhuk@gmail.com"
+  ],
+  "patientPrefix": [
+    "IBO"
+  ],
+  "backup": {
+    "home": "ADE BACKUP/Heart Harvest 3 PART 1/Ready for Review/Denis",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "Denis"
+  },
+  "id": "694dd317-3c27-4817-9281-7e7a03dee8de"
+},{
+  "_id": {
+    "$oid": "674467dd3cd4812a1627bc74"
+  },
+  "name": "Philip Duncan",
+  "clinic": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+  "email": [
+    "phtduncan@gmail.com"
+  ],
+  "patientPrefix": [],
+  "backup": {
+    "home": "ADE/TESTAI/DEV/6",
+    "dir": "TEST-CLINIC"
+  },
+  "submit": {
+    "clinic": "STRAZHESKO"
+  },
+  "id": "135e9b29-236c-4762-b771-aac46b483fec"
+}]
