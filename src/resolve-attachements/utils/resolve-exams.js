@@ -127,7 +127,7 @@ const execute = async collection => {
                 console.log(`${collection} > Write buffer ${bufferCount} : ${buffer.length} items`)
 
                 
-                await mongodb.bulkWrite({ db, collection, commands.filter( c => c) })
+                await mongodb.bulkWrite({ db, collection, commands: commands.filter( c => c) })
 
             }
 
