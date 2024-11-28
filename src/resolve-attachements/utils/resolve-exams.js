@@ -138,7 +138,7 @@ const execute = async collection => {
         bufferCount++
 
     }
-    while (buffer.length > 0 && bufferCount < 2)
+    while (buffer.length > 0)
 
 }
 
