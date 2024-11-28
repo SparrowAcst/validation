@@ -1,7 +1,7 @@
 module.exports = [
 
     {
-        source: "sparrow.yoda",
+        source: "sparrow.yoda-exams",
         dest: `ADE-ENCODING.yoda-examinations`,
         pipeline: [{
             $project: {
@@ -12,7 +12,7 @@ module.exports = [
         }]
     },
     {
-        source: "sparrow.vintage",
+        source: "sparrow.vintage-exam",
         dest: `ADE-ENCODING.vintage-examinations`,
         pipeline: [{
             $project: {
@@ -23,7 +23,7 @@ module.exports = [
         }]
     },
     {
-        source: "sparrow.vinil",
+        source: "sparrow.vinil-exams",
         dest: `ADE-ENCODING.vinil-examinations`,
         pipeline: [{
             $project: {
@@ -34,7 +34,7 @@ module.exports = [
         }]
     },
     {
-        source: "sparrow.stethophone-app",
+        source: "sparrow.stethophone-app-exams",
         dest: `ADE-ENCODING.stethophone-app-examinations`,
         pipeline: [{
             $project: {
@@ -45,7 +45,7 @@ module.exports = [
         }]
     },
     {
-        source: "sparrow.phonendo",
+        source: "sparrow.phonendo-exams",
         dest: `ADE-ENCODING.phonendo-examinations`,
         pipeline: [{
             $project: {
@@ -56,7 +56,7 @@ module.exports = [
         }]
     },
     {
-        source: "sparrow.phisionet",
+        source: "sparrow.phisionet-exams",
         dest: `ADE-ENCODING.phisionet-examinations`,
         pipeline: [{
             $project: {
@@ -67,7 +67,7 @@ module.exports = [
         }]
     },
     {
-        source: "sparrow.hha",
+        source: "sparrow.hha-examination",
         dest: `ADE-ENCODING.hha-examinations`,
         pipeline: [{
             $project: {
@@ -78,18 +78,7 @@ module.exports = [
         }]
     },
     {
-        source: "sparrow.hha",
-        dest: `ADE-ENCODING.hha-examinations`,
-        pipeline: [{
-            $project: {
-                _id: 0,
-                id: "$uuid",
-                patientId: 1
-            }
-        }]
-    },
-    {
-        source: "sparrow.digiscope",
+        source: "sparrow.digiscope-exams",
         dest: `ADE-ENCODING.digiscope-examinations`,
         pipeline: [{
             $project: {
@@ -100,7 +89,7 @@ module.exports = [
         }]
     },
     {
-        source: "sparrow.harvest1",
+        source: "sparrow.examination",
         dest: `ADE-ENCODING.hh1-examinations`,
         pipeline: [{
             $project: {
@@ -111,7 +100,7 @@ module.exports = [
         }]
     },
     {
-        source: "sparrow.clinic4",
+        source: "sparrow.clinic4-exam",
         dest: `ADE-ENCODING.clinic4-examinations`,
         pipeline: [{
             $project: {
@@ -122,7 +111,7 @@ module.exports = [
         }]
     },
     {
-        source: "sparrow.H2",
+        source: "sparrow.H2-EXAMINATION",
         dest: `ADE-ENCODING.strazhesko-part-1-examinations`,
         pipeline: [{
                 $match: {
@@ -139,7 +128,7 @@ module.exports = [
         ]
     },
     {
-        source: "sparrow.H2",
+        source: "sparrow.H2-EXAMINATION",
         dest: `ADE-ENCODING.potashev-part-1-examinations`,
         pipeline: [{
                 $match: {
@@ -156,7 +145,7 @@ module.exports = [
         ]
     },
     {
-        source: "sparrow.H2",
+        source: "sparrow.H2-EXAMINATION",
         dest: `ADE-ENCODING.denis-part-1-examinations`,
         pipeline: [{
                 $match: {
@@ -173,7 +162,7 @@ module.exports = [
         ]
     },
     {
-        source: "sparrow.H2",
+        source: "sparrow.H2-EXAMINATION",
         dest: `ADE-ENCODING.poltava-part-1-examinations`,
         pipeline: [{
                 $match: {
