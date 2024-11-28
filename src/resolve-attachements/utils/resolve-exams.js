@@ -58,7 +58,6 @@ const execute = async collection => {
             }
         ]
 
-        console.log(db, collection, pipeline)
         
         buffer = await mongodb.aggregate({ db, collection, pipeline })
 
@@ -122,11 +121,14 @@ const execute = async collection => {
 
                 })
 
+                commands  = commands.filter( c => c)
 
                 console.log(`${collection} > Write buffer ${bufferCount} : ${buffer.length} items`)
 
+                if( commands.length > 0 ){
+                    await mongodb.bulkWrite({ db, collection, commands })    
+                }
                 
-                await mongodb.bulkWrite({ db, collection, commands: commands.filter( c => c) })
 
             }
 
