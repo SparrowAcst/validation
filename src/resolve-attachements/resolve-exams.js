@@ -1,5 +1,4 @@
 // const yargs = require("yargs");
-const execute = require("./utils/resolve-exams")
 
 const collections = [
     "sparrow.clinic4-exam",
@@ -17,6 +16,8 @@ const collections = [
 ]
 
 const run = async () => {
+
+	const execute = await require("./utils/resolve-exams")()
 
     for (const collection of collections) {
         await execute(collection)

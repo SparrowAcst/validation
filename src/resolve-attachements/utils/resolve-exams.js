@@ -34,8 +34,7 @@ const execute = async collection => {
 
     console.log(`RESOLVE Examinations FOR ${collection}`)
 
-    await initEncoding()
-
+    
     const PAGE_SIZE = 1000
     let skip = 0
     let bufferCount = 0
@@ -142,4 +141,8 @@ const execute = async collection => {
 }
 
 
-module.exports = execute
+module.exports =  async () => {
+
+    await initEncoding()
+    return execute
+}    
