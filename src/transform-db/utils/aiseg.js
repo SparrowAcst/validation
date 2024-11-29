@@ -43,7 +43,7 @@ const resolveSegmentation = async (SCHEMA, buffer) => {
 const execute = async SCHEMA => {
     
     if (!SCHEMA) {
-        console.log("--schema required")
+        console.log("schema required")
         return
     }
 
@@ -86,7 +86,12 @@ const execute = async SCHEMA => {
 
             if (buffer.length > 0) {
 
-                let commands = buffer.map(d => ({
+                let commands = buffer
+                .map( d => {
+                    d.process_ai = true
+                    return d
+                })
+                .map(d => ({
                     replaceOne: {
                         filter: { "id": d.id },
                         replacement: d,
@@ -96,7 +101,7 @@ const execute = async SCHEMA => {
 
                 await mongodb.bulkWrite({
                     db,
-                    collection: `${SCHEMA}.labels-ai`,
+                    collection: `${SCHEMA}.labels`,
                     commands
                 })
 
@@ -104,14 +109,14 @@ const execute = async SCHEMA => {
 
             }
 
-            await mongodb.updateMany({
-                db,
-                collection: `${SCHEMA}.labels`,
-                filter: { "id": { $in: buffer.map(d => d.id) } },
-                data: {
-                    process_ai: true
-                }
-            })
+            // await mongodb.updateMany({
+            //     db,
+            //     collection: `${SCHEMA}.labels`,
+            //     filter: { "id": { $in: buffer.map(d => d.id) } },
+            //     data: {
+            //         process_ai: true
+            //     }
+            // })
 
         }
 
