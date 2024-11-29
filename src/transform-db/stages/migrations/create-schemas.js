@@ -1,106 +1,79 @@
 module.exports = [
 
     /////////////////////////////////////////////////////////////////////////////
-    {
-        source: "sparrow.H2",
-        dest: `strazhesko-part-1.labels`,
-        pipeline: [{
-                $match: {
-                    Clinic: "STRAZHESKO"
-                }
-            },
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    },
+    // {
+    //     source: "sparrow.H2",
+    //     dest: `strazhesko-part-1.labels`,
+    //     pipeline: [{
+    //             $match: {
+    //                 Clinic: "STRAZHESKO"
+    //             }
+    //         },
+    //         {
+    //             $project: {
+    //                 _id: 0
+    //             }
+    //         }
+    //     ]
+    // },
+
+    // {
+    //     source: "sparrow.H2-EXAMINATION",
+    //     dest: `strazhesko-part-1.examinations`,
+    //     pipeline: [{
+    //             $match: {
+    //                 siteId: "c42ac1bd-ae37-4a47-b431-44cf4d886be1"
+    //             }
+    //         },
+    //         {
+    //             $project: {
+    //                 _id: 0
+    //             }
+    //         }
+    //     ]
+    // },
+
+    // {
+    //     source: "sparrow.H2-FORM",
+    //     dest: `strazhesko-part-1.forms`,
+    //     pipeline: [{
+    //             $lookup: {
+    //                 from: "H2-EXAMINATION",
+    //                 localField: "examinationId",
+    //                 foreignField: "id",
+    //                 as: "examination",
+    //                 pipeline: [{
+    //                     $project: {
+    //                         _id: 0,
+    //                         siteId: 1,
+    //                     },
+    //                 }, ],
+    //             },
+    //         },
+    //         {
+    //             $set: {
+    //                 examination: {
+    //                     $first: "$examination",
+    //                 },
+    //             },
+    //         },
+    //         {
+    //             $match: {
+    //                 "examination.siteId": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
+    //             },
+    //         },
+    //         {
+    //             $project: {
+    //                 _id: 0,
+    //             },
+    //         },
+    //     ]
+    // },
 
     {
-        source: "sparrow.H2-EXAMINATION",
-        dest: `strazhesko-part-1.examinations`,
-        pipeline: [{
-                $match: {
-                    siteId: "c42ac1bd-ae37-4a47-b431-44cf4d886be1"
-                }
-            },
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    },
-
-    {
-        source: "sparrow.H2-FORM",
-        dest: `strazhesko-part-1.forms`,
-        pipeline: [{
-                $lookup: {
-                    from: "H2-EXAMINATION",
-                    localField: "examinationId",
-                    foreignField: "id",
-                    as: "examination",
-                    pipeline: [{
-                        $project: {
-                            _id: 0,
-                            siteId: 1,
-                        },
-                    }, ],
-                },
-            },
-            {
-                $set: {
-                    examination: {
-                        $first: "$examination",
-                    },
-                },
-            },
-            {
-                $match: {
-                    "examination.siteId": "c42ac1bd-ae37-4a47-b431-44cf4d886be1",
-                },
-            },
-            {
-                $project: {
-                    _id: 0,
-                },
-            },
-        ]
-    },
-
-    {
-        source: "sparrow.H2",
+        source: "sparrow.H2-SEGMENTATION",
         dest: `strazhesko-part-1.segmentations`,
         pipeline: [{
-                $match: {
-                    Clinic: "STRAZHESKO",
-                },
-            },
-            {
-                $project: {
-                    aiSegmentation: 1,
-                },
-            },
-            {
-                $lookup: {
-                    from: "H2-SEGMENTATION",
-                    localField: "aiSegmentation",
-                    foreignField: "id",
-                    as: "result",
-                },
-            },
-            {
-                $unwind: {
-                    path: "$result",
-                },
-            },
-            {
-                $replaceRoot: {
-                    newRoot: "$result",
-                },
-            },
             {
                 $project: {
                     _id: 0,
@@ -179,36 +152,9 @@ module.exports = [
     },
 
     {
-        source: "sparrow.H2",
+        source: "sparrow.H2-SEGMENTATION",
         dest: `potashev-part-1.segmentations`,
-        pipeline: [{
-                $match: {
-                    Clinic: "POTASHEV",
-                },
-            },
-            {
-                $project: {
-                    aiSegmentation: 1,
-                },
-            },
-            {
-                $lookup: {
-                    from: "H2-SEGMENTATION",
-                    localField: "aiSegmentation",
-                    foreignField: "id",
-                    as: "result",
-                },
-            },
-            {
-                $unwind: {
-                    path: "$result",
-                },
-            },
-            {
-                $replaceRoot: {
-                    newRoot: "$result",
-                },
-            },
+        pipeline: [
             {
                 $project: {
                     _id: 0,
@@ -291,36 +237,9 @@ module.exports = [
 
 
     {
-        source: "sparrow.H2",
+        source: "sparrow.H2-SEGMENTATION",
         dest: `denis-part-1.segmentations`,
-        pipeline: [{
-                $match: {
-                    Clinic: "Denis",
-                },
-            },
-            {
-                $project: {
-                    aiSegmentation: 1,
-                },
-            },
-            {
-                $lookup: {
-                    from: "H2-SEGMENTATION",
-                    localField: "aiSegmentation",
-                    foreignField: "id",
-                    as: "result",
-                },
-            },
-            {
-                $unwind: {
-                    path: "$result",
-                },
-            },
-            {
-                $replaceRoot: {
-                    newRoot: "$result",
-                },
-            },
+        pipeline: [
             {
                 $project: {
                     _id: 0,
@@ -401,36 +320,9 @@ module.exports = [
 
 
     {
-        source: "sparrow.H2",
+        source: "sparrow.H2-SEGMENTATION",
         dest: `poltava-part-1.segmentations`,
-        pipeline: [{
-                $match: {
-                    Clinic: "POLTAVA",
-                },
-            },
-            {
-                $project: {
-                    aiSegmentation: 1,
-                },
-            },
-            {
-                $lookup: {
-                    from: "H2-SEGMENTATION",
-                    localField: "aiSegmentation",
-                    foreignField: "id",
-                    as: "result",
-                },
-            },
-            {
-                $unwind: {
-                    path: "$result",
-                },
-            },
-            {
-                $replaceRoot: {
-                    newRoot: "$result",
-                },
-            },
+        pipeline: [
             {
                 $project: {
                     _id: 0,
