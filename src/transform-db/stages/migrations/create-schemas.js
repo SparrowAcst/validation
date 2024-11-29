@@ -1,21 +1,21 @@
 module.exports = [
 
     /////////////////////////////////////////////////////////////////////////////
-    // {
-    //     source: "sparrow.H2",
-    //     dest: `strazhesko-part-1.labels`,
-    //     pipeline: [{
-    //             $match: {
-    //                 Clinic: "STRAZHESKO"
-    //             }
-    //         },
-    //         {
-    //             $project: {
-    //                 _id: 0
-    //             }
-    //         }
-    //     ]
-    // },
+    {
+        source: "sparrow.H2",
+        dest: `strazhesko-part-1.labels`,
+        pipeline: [{
+                $match: {
+                    Clinic: "STRAZHESKO"
+                }
+            },
+            {
+                $project: {
+                    _id: 0
+                }
+            }
+        ]
+    },
 
     // {
     //     source: "sparrow.H2-EXAMINATION",
