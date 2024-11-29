@@ -332,97 +332,84 @@ module.exports = [
 
     ///////////////////////////////////////////////////////////////////////////////////
 
-	{
-        source: "sparrow.yoda",
-        dest: `yoda.labels`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    },
+	// {
+ //        source: "sparrow.yoda",
+ //        dest: `yoda.labels`,
+ //        pipeline: [
+ //            {
+ //                $project: {
+ //                    _id: 0
+ //                }
+ //            }
+ //        ]
+ //    },
 
-    {
-        source: "sparrow.yoda-exams",
-        dest: `yoda.examinations`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    },
+ //    {
+ //        source: "sparrow.yoda-exams",
+ //        dest: `yoda.examinations`,
+ //        pipeline: [
+ //            {
+ //                $project: {
+ //                    _id: 0
+ //                }
+ //            }
+ //        ]
+ //    },
 
-    {
-        source: "sparrow.yoda-forms-upd",
-        dest: `yoda.forms`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0,
-                },
-            },
-        ]
-    },
+ //    {
+ //        source: "sparrow.yoda-forms-upd",
+ //        dest: `yoda.forms`,
+ //        pipeline: [
+ //            {
+ //                $project: {
+ //                    _id: 0,
+ //                },
+ //            },
+ //        ]
+ //    },
 
 
-    {
-        source: "sparrow.yoda-SEGMENTATION",
-        dest: `yoda.segmentations`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0,
-                },
-            },
-        ]
-    },
+ //    {
+ //        source: "sparrow.yoda-SEGMENTATION",
+ //        dest: `yoda.segmentations`,
+ //        pipeline: [
+ //            {
+ //                $project: {
+ //                    _id: 0,
+ //                },
+ //            },
+ //        ]
+ //    },
 
     ////////////////////////////////////////////////////////////////////////////////////
 
-    {
-        source: "sparrow.phonendo",
-        dest: `phonendo.labels`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    },
-
-    {
-        source: "sparrow.phonendo-exams",
-        dest: `phonendo.examinations`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    },
-
-    {
-        source: "sparrow.phonendo-forms",
-        dest: `phonendo.forms`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0,
-                },
-            },
-        ]
-    },
-
+    // {
+    //     source: "sparrow.phonendo",
+    //     dest: `phonendo.labels`,
+    //     pipeline: [
+    //         {
+    //             $project: {
+    //                 _id: 0
+    //             }
+    //         }
+    //     ]
+    // },
 
     // {
-    //     source: "sparrow.phonendo-SEGMENTATION",
-    //     dest: `phonendo.segmentations`,
+    //     source: "sparrow.phonendo-exams",
+    //     dest: `phonendo.examinations`,
+    //     pipeline: [
+    //         {
+    //             $project: {
+    //                 _id: 0
+    //             }
+    //         }
+    //     ]
+    // },
+
+    // {
+    //     source: "sparrow.phonendo-forms",
+    //     dest: `phonendo.forms`,
     //     pipeline: [
     //         {
     //             $project: {
@@ -432,49 +419,37 @@ module.exports = [
     //     ]
     // },
 
+
     ////////////////////////////////////////////////////////////////////////////////////
 
 
-    {
-        source: "sparrow.digiscope",
-        dest: `digiscope.labels`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    },
-
-    {
-        source: "sparrow.digiscope-exams",
-        dest: `digiscope.examinations`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    },
-
-    {
-        source: "sparrow.digiscope-forms",
-        dest: `digiscope.forms`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0,
-                },
-            },
-        ]
-    },
-
+    // {
+    //     source: "sparrow.digiscope",
+    //     dest: `digiscope.labels`,
+    //     pipeline: [
+    //         {
+    //             $project: {
+    //                 _id: 0
+    //             }
+    //         }
+    //     ]
+    // },
 
     // {
-    //     source: "sparrow.phonendo-SEGMENTATION",
-    //     dest: `phonendo.segmentations`,
+    //     source: "sparrow.digiscope-exams",
+    //     dest: `digiscope.examinations`,
+    //     pipeline: [
+    //         {
+    //             $project: {
+    //                 _id: 0
+    //             }
+    //         }
+    //     ]
+    // },
+
+    // {
+    //     source: "sparrow.digiscope-forms",
+    //     dest: `digiscope.forms`,
     //     pipeline: [
     //         {
     //             $project: {
@@ -484,50 +459,38 @@ module.exports = [
     //     ]
     // },
 
+
     ////////////////////////////////////////////////////////////////////////////////////
 
 
 
-    {
-        source: "sparrow.hha",
-        dest: `hha.labels`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    },
-
-    {
-        source: "sparrow.hha-examination",
-        dest: `hha.examinations`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    },
-
-    {
-        source: "sparrow.hha-form",
-        dest: `hha.forms`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0,
-                },
-            },
-        ]
-    },
-
+    // {
+    //     source: "sparrow.hha",
+    //     dest: `hha.labels`,
+    //     pipeline: [
+    //         {
+    //             $project: {
+    //                 _id: 0
+    //             }
+    //         }
+    //     ]
+    // },
 
     // {
-    //     source: "sparrow.phonendo-SEGMENTATION",
-    //     dest: `phonendo.segmentations`,
+    //     source: "sparrow.hha-examination",
+    //     dest: `hha.examinations`,
+    //     pipeline: [
+    //         {
+    //             $project: {
+    //                 _id: 0
+    //             }
+    //         }
+    //     ]
+    // },
+
+    // {
+    //     source: "sparrow.hha-form",
+    //     dest: `hha.forms`,
     //     pipeline: [
     //         {
     //             $project: {
@@ -536,6 +499,7 @@ module.exports = [
     //         },
     //     ]
     // },
+
 
     ////////////////////////////////////////////////////////////////////////////////////
 
@@ -544,7 +508,7 @@ module.exports = [
 
     {
         source: "sparrow.harvest1",
-        dest: `hh1.labels`,
+        dest: `harvest1.labels`,
         pipeline: [
             {
                 $project: {
@@ -556,7 +520,7 @@ module.exports = [
 
     {
         source: "sparrow.examination",
-        dest: `hh1.examinations`,
+        dest: `harvest1.examinations`,
         pipeline: [
             {
                 $project: {
@@ -568,7 +532,7 @@ module.exports = [
 
     {
         source: "sparrow.form-upd",
-        dest: `hh1.forms`,
+        dest: `harvest1.forms`,
         pipeline: [
             {
                 $project: {
@@ -578,18 +542,6 @@ module.exports = [
         ]
     },
 
-
-    // {
-    //     source: "sparrow.phonendo-SEGMENTATION",
-    //     dest: `phonendo.segmentations`,
-    //     pipeline: [
-    //         {
-    //             $project: {
-    //                 _id: 0,
-    //             },
-    //         },
-    //     ]
-    // },
 
     ////////////////////////////////////////////////////////////////////////////////////
 
