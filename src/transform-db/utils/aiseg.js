@@ -105,7 +105,7 @@ const execute = async SCHEMA => {
                     commands
                 })
 
-                console.log(`Write processed labels: ${buffer.length} items into ${SCHEMA}.labels-ai`)
+                console.log(`Write processed labels: ${buffer.length} items into ${SCHEMA}.labels`)
 
             }
 
