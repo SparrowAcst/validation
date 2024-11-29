@@ -103,11 +103,11 @@ const run = async (SOURCE, DEST, pipeline) => {
 
     aggCursor.client.close()
     
-    console.log("\n\n")
+    console.log()
 
   //////////////////////////////////// stage 2 ///////////////////////////////////////
    await  importCollectionData(DEST)
-   console.log("\n\n")
+   console.log()
    console.log("DONE")
 }
 
