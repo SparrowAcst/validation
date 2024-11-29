@@ -74,7 +74,6 @@ module.exports = [
         source: "sparrow.H2-SEGMENTATION",
         dest: `strazhesko-part-1.segmentations`,
         pipeline: [{
-            {
                 $project: {
                     _id: 0,
                 },
