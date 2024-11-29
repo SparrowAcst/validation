@@ -68,8 +68,46 @@ module.exports = [
                 },
             },
         ]
-    }
+    },
 
+    {
+        source: "sparrow.H2",
+        dest: `strazhesko-part-1.segmentations`,
+        pipeline: [{
+                $match: {
+                    Clinic: "STRAZHESKO",
+                },
+            },
+            {
+                $project: {
+                    aiSegmentation: 1,
+                },
+            },
+            {
+                $lookup: {
+                    from: "H2-SEGMENTATION",
+                    localField: "aiSegmentation",
+                    foreignField: "id",
+                    as: "result",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$result",
+                },
+            },
+            {
+                $replaceRoot: {
+                    newRoot: "$result",
+                },
+            },
+            {
+                $project: {
+                    _id: 0,
+                },
+            },
+        ]
+    },
     ///////////////////////////////////////////////////////////////////////////////
     {
         source: "sparrow.H2",
@@ -138,7 +176,47 @@ module.exports = [
                 },
             },
         ]
-    }
+    },
+
+    {
+        source: "sparrow.H2",
+        dest: `potashev-part-1.segmentations`,
+        pipeline: [{
+                $match: {
+                    Clinic: "POTASHEV",
+                },
+            },
+            {
+                $project: {
+                    aiSegmentation: 1,
+                },
+            },
+            {
+                $lookup: {
+                    from: "H2-SEGMENTATION",
+                    localField: "aiSegmentation",
+                    foreignField: "id",
+                    as: "result",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$result",
+                },
+            },
+            {
+                $replaceRoot: {
+                    newRoot: "$result",
+                },
+            },
+            {
+                $project: {
+                    _id: 0,
+                },
+            },
+        ]
+    },
+
 
 
     /////////////////////////////////////////////////////////////////////////////////    
@@ -209,7 +287,48 @@ module.exports = [
                 },
             },
         ]
-    }
+    },
+
+
+    {
+        source: "sparrow.H2",
+        dest: `denis-part-1.segmentations`,
+        pipeline: [{
+                $match: {
+                    Clinic: "Denis",
+                },
+            },
+            {
+                $project: {
+                    aiSegmentation: 1,
+                },
+            },
+            {
+                $lookup: {
+                    from: "H2-SEGMENTATION",
+                    localField: "aiSegmentation",
+                    foreignField: "id",
+                    as: "result",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$result",
+                },
+            },
+            {
+                $replaceRoot: {
+                    newRoot: "$result",
+                },
+            },
+            {
+                $project: {
+                    _id: 0,
+                },
+            },
+        ]
+    },
+
     //////////////////////////////////////////////////////////////////////////////////    
     {
         source: "sparrow.H2",
@@ -278,7 +397,47 @@ module.exports = [
                 },
             },
         ]
-    }
+    },
+
+
+    {
+        source: "sparrow.H2",
+        dest: `poltava-part-1.segmentations`,
+        pipeline: [{
+                $match: {
+                    Clinic: "POLTAVA",
+                },
+            },
+            {
+                $project: {
+                    aiSegmentation: 1,
+                },
+            },
+            {
+                $lookup: {
+                    from: "H2-SEGMENTATION",
+                    localField: "aiSegmentation",
+                    foreignField: "id",
+                    as: "result",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$result",
+                },
+            },
+            {
+                $replaceRoot: {
+                    newRoot: "$result",
+                },
+            },
+            {
+                $project: {
+                    _id: 0,
+                },
+            },
+        ]
+    },
 
     ///////////////////////////////////////////////////////////////////////////////////
 
