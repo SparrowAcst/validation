@@ -304,7 +304,7 @@ const exchange = {
 }
 
 
-const getData =  patient => find( DATA_BUFFER, d => d.patientId == patient.patientId)
+const getData =  patient => find( DATA_BUFFER, d => d.examination.patientId == patient.patientId)
 
 // {
 
