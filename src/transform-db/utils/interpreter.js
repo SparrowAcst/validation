@@ -469,6 +469,12 @@ const updateDb = async command => {
         console.log(`insert into ADE-TRANSFORM.examinations ${insertedExaminations.length}`)
         console.log(insertedExaminations.map(d => `${d.schema}.${d.patientId}`))
 
+        await mongodb.insertManyIfNotExists({
+            db,
+            collection: `ADE-TRANSFORM.examinations`,
+            filter: d => ({id: d.id}),
+            data: insertedExaminations
+        })
 
         let insertedLabels = flatten(
             command.store.map(s => s.labels.map(l => {
@@ -478,6 +484,13 @@ const updateDb = async command => {
         )
 
         console.log(`insert into ADE-TRANSFORM.labels ${insertedLabels.length}`)
+
+        await mongodb.insertManyIfNotExists({
+            db,
+            collection: `ADE-TRANSFORM.labels`,
+            filter: d => ({id: d.id}),
+            data: insertedLabels
+        })
 
     }
 
@@ -498,6 +511,13 @@ const updateDb = async command => {
         for (let schema of schemas) {
             console.log(`remove from ${schema}-mix.examinations ${removedExaminations[schema].length}`)
             console.log(removedExaminations[schema].map(d => d.patientId))
+
+            await mongodb.deleteMany({
+                db,
+                collection: `${schema}-mix.examinations`,
+                filter: { id: $in: removedExaminations.map( d => d.id)}
+            })
+
         }
 
 
@@ -514,6 +534,12 @@ const updateDb = async command => {
 
         for (let schema of schemas) {
             console.log(`remove from ${schema}-mix.labels ${removedLabels[schema].length}`)
+            await mongodb.deleteMany({
+                db,
+                collection: `${schema}-mix.labels`,
+                filter: { id: $in: removedLabels.map( d => d.id)}
+            })
+
         }
 
     }
@@ -536,6 +562,11 @@ const updateDb = async command => {
         for (let schema of schemas) {
             console.log(`insert into ${schema}-mix.examinations ${updatedExaminations[schema].length}`)
             console.log(updatedExaminations[schema].map(d => d.patientId))
+            await mongodb.insertMany({
+                db,
+                collection: `${schema}-mix.examinations`,
+                data: updatedExaminations
+            })
         }
 
 
@@ -551,6 +582,11 @@ const updateDb = async command => {
         schemas = keys(updatedLabels)
         for (let schema of schemas) {
             console.log(`insert into ${schema}-mix.labels ${updatedLabels[schema].length}`)
+            await mongodb.insertMany({
+                db,
+                collection: `${schema}-mix.labels`,
+                data: updatedLabels
+            })   
         }
 
     }
