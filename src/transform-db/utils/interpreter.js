@@ -304,7 +304,14 @@ const exchange = {
 }
 
 
-const getData = patient => find(DATA_BUFFER, d => d.examination.patientId == patient.patientId)
+const getData = patient => {
+    let res = find(DATA_BUFFER, d => d.examination.patientId == patient.patientId)
+    if(!res){
+        throw new Error(`Patient ${patientId} not found in data buffer`)
+    } else {
+        return res    
+    }
+}    
 
 // {
 
