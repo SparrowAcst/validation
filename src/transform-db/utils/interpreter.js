@@ -535,7 +535,7 @@ const updateDb = async command => {
 }
 
 
-const loadDataBufferPart = async (schema, patients) {
+const loadDataBufferPart = async (schema, patients) => {
     let pipeline = [{
             $match: {
                 patientId: {
