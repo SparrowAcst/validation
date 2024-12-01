@@ -3,13 +3,13 @@ const mongodb = require("../../utils/mongodb")
 const fs = require("fs")
 const { parser } = require('stream-json/jsonl/Parser')
 const path = require("path")
-const { remove, values, groupBy, flatten, keys } = require("lodash")
+const { remove, values, groupBy, flatten, keys, find } = require("lodash")
 const uuid = require("uuid").v4
 
 const db = require("../../../.config-migrate-db").mongodb.ade
 
 
-const DATA_BUFFER = []
+let DATA_BUFFER = []
 
 
 const schema = {
