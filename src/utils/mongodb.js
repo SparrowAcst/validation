@@ -343,6 +343,66 @@ const updateOne = async options => {
 	}    
 }
 
+
+const insertOneIfNotExists = async options => {
+	let client
+	clients++
+	
+	try {
+	
+		let conf = normalize(options.collection)
+		client = await createClient(options)
+	
+	    await client
+	    		.db(conf.dbName)
+	    		.collection(conf.collectionName)
+	    		.updateOne(
+	    			options.filter, 
+	    			{ 
+	    				$setOnInsert: options.data 
+	    			}, 
+	    			{ 
+	    				upsert: true 
+	    			}
+	    		)
+	
+	} catch (e) {
+	
+		console.log(e.toString())
+		throw new Error(e)
+
+	} finally {
+	
+		if(client) client.close()
+		clients--
+	}    
+}
+
+insertManyIfNotExists = async options => {
+
+	try {
+		
+		options.commands = options.data.map( d => ({
+			updateOne:{
+				filter: options.filter(d),
+				update: {
+					$setOnInsert: d
+				},
+				upsert: true
+			}
+		}))
+
+		await bulkWrite(options)
+
+	} catch (e) {
+	
+		console.log(e.toString())
+		throw new Error(e)
+
+	} 
+}
+
+
 const deleteOne = async options => {
 	let client
 	try {
@@ -407,5 +467,11 @@ module.exports =  {
 	aggregate_raw,
 	deleteMany,
 	updateMany,
-	getAggregateCursor	
+	getAggregateCursor,
+	
+	insertOne: replaceOne, 
+	insertMany: insertAll,
+	
+	insertOneIfNotExists,
+	insertManyIfNotExists	
 }
