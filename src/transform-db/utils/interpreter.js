@@ -43,9 +43,9 @@ const cardioSpot = d => [
 
 
 const exchange_H_2_H = ({ p1, p2 }) => { // tested
-    
+
     console.log(`${p1.examination.patientId} > ${p2.examination.patientId} store: no stored, labels: exchange all, forms: exchange`)
-    
+
     let r1 = clone(p1)
     let r2 = clone(p2)
 
@@ -124,7 +124,7 @@ const exchange_H_2_H = ({ p1, p2 }) => { // tested
 const exchange_Y_2_H = ({ p1, p2 }) => { // tested
 
     console.log(`${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange selected, forms: no exchange`)
-    
+
 
     let yr = clone(p1)
     let hr = clone(p2)
@@ -170,7 +170,7 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
 const exchange_H_2_Y = ({ p1, p2 }) => { // tested
 
     console.log(`${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange all, forms: all clear`)
-    
+
     let hr = clone(p1)
     let yr = clone(p2)
 
@@ -222,7 +222,7 @@ const exchange_H_2_Y = ({ p1, p2 }) => { // tested
 
 
 const exchange_D_2_Y = ({ p1, p2 }) => { // tested
-    
+
     console.log(`${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange all set digiscope device, forms: all clear`)
 
     let hr = clone(p1)
@@ -533,9 +533,9 @@ const updateDb = async command => {
 const executePart = async script => {
 
     for (let command of script) {
-        
+
         console.log(`${command.index}: ${command.command}`)
-        
+
         try {
 
             let result
@@ -619,26 +619,30 @@ const execute = async () => {
             if (buffer.length > 0) {
 
                 let script = await executePart(buffer)
-                hasError = script.map(s => s.error).filter( d => d).length > 0
+                hasError = script.map(s => s.error).filter(d => d).length > 0
 
                 await mongodb.updateMany({
                     db,
                     collection: `ADE-TRANSFORM.commands`,
-                    filter: { index: {
-                        $in: script.filter(s => s.done).map(s => s.index) 
-                    }},
+                    filter: {
+                        index: {
+                            $in: script.filter(s => s.done).map(s => s.index)
+                        }
+                    },
                     data: {
                         done: true
                     }
 
                 })
 
-                let commands = script.filter(s => s.done || s.error).map( s => ({
+                let commands = script.filter(s => s.done || s.error).map(s => ({
                     updateOne: {
-                        filter: {index: s.index},
+                        filter: { index: s.index },
                         update: {
-                            done: s.done,
-                            error: s.error
+                            $set: {
+                                done: s.done,
+                                error: s.error
+                            }
                         }
                     }
                 }))
@@ -648,7 +652,7 @@ const execute = async () => {
                     collection: `ADE-TRANSFORM.commands`,
                     commands
                 })
- 
+
                 // TODO use bulkWrite for update script commands state
 
 
@@ -659,7 +663,7 @@ const execute = async () => {
 
         }
     }
-    while ( buffer.length > 0 && !hasError)
+    while (buffer.length > 0 && !hasError)
 
 }
 
