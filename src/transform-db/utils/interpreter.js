@@ -137,13 +137,15 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
     let yLabels = removeItems(yr.labels)
     let hLabels = removeItems(hr.labels, yLabels.length)
 
+
     yLabels = yLabels.map((l, index) => {
         l["Examination ID"] = hr.examination.patientId
-        let buf = hLabels[index].model
+        
+        let buf = (hLabels[index]) ? hLabels[index].model : "unknown"
         hLabels[index].model = l.model
         l.model = buf
 
-        buf = clone(hLabels[index].deviceDescription || {})
+        buf = clone( ( (hLabels[index]) ? hLabels[index].deviceDescription : {} ) || {})
         hLabels[index].deviceDescription = clone(l.deviceDescription || {})
         l.deviceDescription = buf
 
@@ -307,7 +309,7 @@ const exchange = {
 const getData = patient => {
     let res = find(DATA_BUFFER, d => d.examination.patientId == patient.patientId)
     if(!res){
-        throw new Error(`Patient ${patientId} not found in data buffer`)
+        throw new Error(`Patient ${patient.patientId} not found in data buffer`)
     } else {
         return res    
     }
