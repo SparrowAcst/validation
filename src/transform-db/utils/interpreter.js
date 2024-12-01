@@ -572,7 +572,7 @@ const loadDataBufferPart = async (schema, patients) => {
         pipeline
     })
 
-    res => res.map( d => {
+    res = res.map( d => {
         let examination = clone(d)
         let labels = clone(d.labels)
         delete examination.labels
@@ -584,6 +584,7 @@ const loadDataBufferPart = async (schema, patients) => {
             $records: patient.records
         }
     })
+
 
     return res
 }
