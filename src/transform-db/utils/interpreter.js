@@ -366,15 +366,15 @@ const executeExchange = async command => {
     let p1 = await loadData(command.data[0])
     let p2 = await loadData(command.data[1])
 
-    stat(p1)
-    stat(p2)
-    console.log("--------------")
+    // stat(p1)
+    // stat(p2)
+    // console.log("--------------")
 
     let change = exchange[`${command.data[0].site}_${command.data[1].site}`]({ p1, p2 })
 
-    stat(change.p1)
-    stat(change.p2)
-    console.log("--------------")
+    // stat(change.p1)
+    // stat(change.p2)
+    // console.log("--------------")
 
     return {
         remove: [p1, p2],
@@ -457,7 +457,7 @@ const updateDb = async command => {
             //         l.schema = p.schema
             //     })
 
-            console.log(`insert into ADE-TRANSFORM.labels ${labels.map( l => l.id ).join(",\n")}`)
+            console.log(`insert into ADE-TRANSFORM.labels  ${p.labels.length} items`) //${labels.map( l => l.id ).join(",\n")}`)
 
             // await mongodb.insertManyIfNotExists({
             //         db,
@@ -486,7 +486,7 @@ const updateDb = async command => {
             //     filter: { id: p.examination.id }
             // })
 
-            console.log(`remove from ${p.schema}.labels ${p.labels.map( l => l.id ).join(",\n")}`)
+            console.log(`remove from ${p.schema}.labels ${p.labels.length} items`) //${p.labels.map( l => l.id ).join(",\n")}`)
 
             // await mongodb.deleteMany({
             //     db,
@@ -516,7 +516,7 @@ const updateDb = async command => {
             //     data: p.examination
             // })
 
-            console.log(`insert into ${p.schema}.labels ${p.labels.map( l => l.id ).join(",\n")}`)
+            console.log(`insert into ${p.schema}.labels  ${p.labels.length} items`) //${p.labels.map( l => l.id ).join(",\n")}`)
 
             // await mongodb.insertMany({
             //     db,
@@ -576,6 +576,8 @@ const execute = async () => {
     let skip = 0
     let bufferCount = 0
 
+    hasError = false
+
     do {
 
         const pipeline = [{
@@ -617,7 +619,36 @@ const execute = async () => {
             if (buffer.length > 0) {
 
                 let script = await executePart(buffer)
+                hasError = script.map(s => s.error).filter( d => d).length > 0
 
+                await mongodb.updateMany({
+                    db,
+                    collection: `ADE-TRANSFORM.commands`,
+                    filter: { index: {
+                        $in: script.filter(s => s.done).map(s => s.index) 
+                    }},
+                    data: {
+                        done: true
+                    }
+
+                })
+
+                let commands = script.filter(s => s.done || s.error).map( s => ({
+                    updateOne: {
+                        filter: {index: s.index},
+                        update: {
+                            done: s.done,
+                            error: s.error
+                        }
+                    }
+                }))
+
+                await mongodb.bulkWrite({
+                    db,
+                    collection: `ADE-TRANSFORM.commands`,
+                    commands
+                })
+ 
                 // TODO use bulkWrite for update script commands state
 
 
@@ -628,7 +659,7 @@ const execute = async () => {
 
         }
     }
-    while ( buffer.length > 0 )
+    while ( buffer.length > 0 && !hasError)
 
 }
 
