@@ -625,7 +625,7 @@ const loadDataBuffer = async script => {
 
 const executePart = async script => {
 
-    await loadDataBuffer()
+    await loadDataBuffer(script)
 
     for (let command of script) {
 
