@@ -3,10 +3,13 @@ const mongodb = require("../../utils/mongodb")
 const fs = require("fs")
 const { parser } = require('stream-json/jsonl/Parser')
 const path = require("path")
-const { remove, values } = require("lodash")
+const { remove, values, groupBy, flatten, keys } = require("lodash")
 const uuid = require("uuid").v4
 
 const db = require("../../../.config-migrate-db").mongodb.ade
+
+
+const DATA_BUFFER = []
 
 
 const schema = {
@@ -301,50 +304,52 @@ const exchange = {
 }
 
 
-const loadData = async patient => {
+const loadData = async patient => find( DATA_BUFFER, d.patientId == patient.patientId)
 
-    let examination = await mongodb.aggregate({
-        db,
-        collection: `${patient.schema}.examinations`,
-        pipeline: [{
-                $match: {
-                    patientId: patient.patientId
-                }
-            },
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    })
-    examination = examination[0]
+// {
 
-    let labels = await mongodb.aggregate({
-        db,
-        collection: `${patient.schema}.labels`,
-        pipeline: [{
-                $match: {
-                    "Examination ID": patient.patientId
-                    // patientId: patient.patientId
-                }
-            },
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    })
+//     let examination = await mongodb.aggregate({
+//         db,
+//         collection: `${patient.schema}.examinations`,
+//         pipeline: [{
+//                 $match: {
+//                     patientId: patient.patientId
+//                 }
+//             },
+//             {
+//                 $project: {
+//                     _id: 0
+//                 }
+//             }
+//         ]
+//     })
+//     examination = examination[0]
 
-    return {
-        schema: patient.schema,
-        examination,
-        labels,
-        $records: patient.records
-    }
+//     let labels = await mongodb.aggregate({
+//         db,
+//         collection: `${patient.schema}.labels`,
+//         pipeline: [{
+//                 $match: {
+//                     "Examination ID": patient.patientId
+//                     // patientId: patient.patientId
+//                 }
+//             },
+//             {
+//                 $project: {
+//                     _id: 0
+//                 }
+//             }
+//         ]
+//     })
 
-}
+//     return {
+//         schema: patient.schema,
+//         examination,
+//         labels,
+//         $records: patient.records
+//     }
+
+// }
 
 
 
@@ -530,7 +535,97 @@ const updateDb = async command => {
 }
 
 
+const loadDataBufferPart = async (schema, patients) {
+    let pipeline = [{
+            $match: {
+                patientId: {
+                    $in: patients.map( p => p.patientId),
+                },
+            },
+        },
+        {
+            $lookup: {
+                from: "labels",
+                localField: "patientId",
+                foreignField: "Examination ID",
+                as: "labels",
+                pipeline: [{
+                        $match: {
+                            "Examination ID": {
+                                $in: patients.map( p => p.patientId),
+                            },
+                        },
+                    },
+                    {
+                        $project: {
+                            _id: 0,
+                        },
+                    },
+                ],
+            },
+        },
+    ]
+
+    let res = await mongodb.aggregate({
+        db,
+        collection: `${schema}.examinations`,
+        pipeline
+    })
+
+    res => res.map( d => {
+        let examination = clone(d)
+        let labels = clone(d.labels)
+        delete examination.labels
+        let patient = find(patients, p => p.patientId == examination.patientId)
+        return {
+            schema,
+            examination,
+            labels,
+            $records: patient.records
+        }
+    })
+
+    return res
+}
+
+
+const loadDataBuffer = async script => {
+    
+    DATA_BUFFER = []
+
+    let patients = groupBy(
+        flatten(
+            script.map(s => {
+                if (s.command == "exchange") return s.data.map(d => {
+                    d.schema = schema[d.site]
+                })
+                if (s.command == "split") return {
+                    "patientId": s.patientId,
+                    "dataset": s.dataset,
+                    "site": s.site,
+                    schema: schema[s.site]
+                }
+                return []
+            })
+        ),
+        d => d.schema
+    )
+
+    let schemas = keys(patients)
+
+    for (const schema of schemas) {
+        let part = await loadDataBufferPart(schema, patients[schema])
+        console.log(`LOAD DATA BUFFER from ${schema}: ${part.length} items`)
+        DATA_BUFFER = DATA_BUFFER.concat(part)
+    }
+
+
+}
+
+
 const executePart = async script => {
+
+    await loadDataBuffer()
 
     for (let command of script) {
 
