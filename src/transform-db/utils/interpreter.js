@@ -304,7 +304,7 @@ const exchange = {
 }
 
 
-const loadData = async patient => find( DATA_BUFFER, d.patientId == patient.patientId)
+const loadData = async patient => find( DATA_BUFFER, d => d.patientId == patient.patientId)
 
 // {
 
