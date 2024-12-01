@@ -304,7 +304,7 @@ const exchange = {
 }
 
 
-const loadData = async patient => find( DATA_BUFFER, d => d.patientId == patient.patientId)
+const getData =  patient => find( DATA_BUFFER, d => d.patientId == patient.patientId)
 
 // {
 
@@ -368,8 +368,8 @@ const executeExchange = async command => {
         return d
     })
 
-    let p1 = await loadData(command.data[0])
-    let p2 = await loadData(command.data[1])
+    let p1 = getData(command.data[0])
+    let p2 = getData(command.data[1])
 
     // stat(p1)
     // stat(p2)
@@ -396,7 +396,7 @@ const executeSplit = async command => {
 
     command.schema = schema[command.site]
 
-    let loadedPatient = await loadData(command)
+    let loadedPatient = getData(command)
 
     let sourcePatient = clone(loadedPatient)
 
@@ -627,6 +627,8 @@ const loadDataBuffer = async script => {
 const executePart = async script => {
 
     await loadDataBuffer(script)
+
+    console.log(DATA_BUFFER[0])
 
     for (let command of script) {
 
