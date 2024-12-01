@@ -496,7 +496,7 @@ const updateDb = async command => {
 
         let schemas = keys(removedExaminations)
         for (let schema of schemas) {
-            console.log(`remove from ${schema}.examinations ${removedExaminations[schema].length}`)
+            console.log(`remove from ${schema}-mix.examinations ${removedExaminations[schema].length}`)
             console.log(removedExaminations[schema].map(d => d.patientId))
         }
 
@@ -513,7 +513,7 @@ const updateDb = async command => {
         schemas = keys(removedLabels)
 
         for (let schema of schemas) {
-            console.log(`remove from ${schema}.labels ${removedLabels[schema].length}`)
+            console.log(`remove from ${schema}-mix.labels ${removedLabels[schema].length}`)
         }
 
     }
@@ -534,7 +534,7 @@ const updateDb = async command => {
 
         let schemas = keys(updatedExaminations)
         for (let schema of schemas) {
-            console.log(`insert into ${schema}.examinations ${updatedExaminations[schema].length}`)
+            console.log(`insert into ${schema}-mix.examinations ${updatedExaminations[schema].length}`)
             console.log(updatedExaminations[schema].map(d => d.patientId))
         }
 
@@ -550,7 +550,7 @@ const updateDb = async command => {
 
         schemas = keys(updatedLabels)
         for (let schema of schemas) {
-            console.log(`insert into ${schema}.labels ${updatedLabels[schema].length}`)
+            console.log(`insert into ${schema}-mix.labels ${updatedLabels[schema].length}`)
         }
 
     }
@@ -595,7 +595,7 @@ const loadDataBufferPart = async (schema, patients) => {
 
     let res = await mongodb.aggregate({
         db,
-        collection: `${schema}.examinations`,
+        collection: `${schema}-mix.examinations`,
         pipeline
     })
 
@@ -644,7 +644,7 @@ const loadDataBuffer = async script => {
 
     for (const schema of schemas) {
         let part = await loadDataBufferPart(schema, patients[schema])
-        console.log(`LOAD DATA BUFFER from ${schema}: ${part.length} items`)
+        console.log(`LOAD DATA BUFFER from ${schema}-mix: ${part.length} items`)
         console.log(part.map(p => p.examination.patientId).join(", "))
         DATA_BUFFER = DATA_BUFFER.concat(part)
     }
