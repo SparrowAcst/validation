@@ -564,6 +564,11 @@ const loadDataBufferPart = async (schema, patients) => {
                 ],
             },
         },
+        {
+            $project: {
+                _id: 0
+            }
+        }
     ]
 
     let res = await mongodb.aggregate({
@@ -618,7 +623,7 @@ const loadDataBuffer = async script => {
     for (const schema of schemas) {
         let part = await loadDataBufferPart(schema, patients[schema])
         console.log(`LOAD DATA BUFFER from ${schema}: ${part.length} items`)
-        // console.log(part.map(p => p.examination.patientId).join(", "))
+        console.log(part.map(p => p.examination.patientId).join(", "))
         DATA_BUFFER = DATA_BUFFER.concat(part)
     }
 
@@ -630,7 +635,7 @@ const executePart = async script => {
 
     await loadDataBuffer(script)
 
-    console.log(DATA_BUFFER[0])
+    // console.log(DATA_BUFFER[0])
 
     for (let command of script) {
 
