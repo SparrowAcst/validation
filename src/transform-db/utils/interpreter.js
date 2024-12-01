@@ -748,7 +748,7 @@ const execute = async () => {
 
             if (buffer.length > 0) {
 
-                console.log(`${new Date()} -------------------------> ${stage} Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
+                console.log(`Stage ${stage} ------------------------->  Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
 
 
                 if (buffer.length > 0) {
