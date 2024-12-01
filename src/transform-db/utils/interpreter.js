@@ -304,7 +304,7 @@ const exchange = {
 }
 
 
-const getData =  patient => find( DATA_BUFFER, d => d.examination.patientId == patient.patientId)
+const getData = patient => find(DATA_BUFFER, d => d.examination.patientId == patient.patientId)
 
 // {
 
@@ -446,34 +446,23 @@ const updateDb = async command => {
 
         console.log(`STORE DATA: ${command.store.length} items`)
 
-        for (const p of command.store) {
+        let insertedExaminations = command.store.map(s => {
+            s.examination.schema = s.schema
+            return s.examination
+        })
 
-            let examination = p.examination
-            examination.schema = p.schema
-            console.log(`insert into ADE-TRANSFORM.examinations ${examination.patientId}`)
-            // await mongodb.insertOneIfNotExists({
-            //         db,
-            //         collection: `ADE-TRANSFORM.examinations`,
-            //         filter: {
-            //             id: examination.id
-            //         },
-            //         data: examination
-            //     }),
+        console.log(`insert into ADE-TRANSFORM.examinations ${insertedExaminations.length}`)
+        console.log(insertedExaminations.map(d => `${d.schema}.${d.patientId}`))
 
-            //     let labels = p.labels.map(l => {
-            //         l.schema = p.schema
-            //     })
 
-            console.log(`insert into ADE-TRANSFORM.labels  ${p.labels.length} items`) //${labels.map( l => l.id ).join(",\n")}`)
+        let insertedLabels = flatten(
+            command.store.map(s => s.labels.map(l => {
+                l.schema = s.schema
+                return l
+            }))
+        )
 
-            // await mongodb.insertManyIfNotExists({
-            //         db,
-            //         collection: `ADE-TRANSFORM.labels`,
-            //         filter: l => ({ id: l.id }),
-            //         data: labels
-            //     }),
-
-        }
+        console.log(`insert into ADE-TRANSFORM.labels ${insertedLabels.length}`)
 
     }
 
@@ -483,24 +472,33 @@ const updateDb = async command => {
 
         console.log(`REMOVE DATA: ${command.remove.length} items`)
 
-        for (let p of command.remove) {
+        let removedExaminations = command.remove.map(s => {
+            s.examination.schema = s.schema
+            return s.examination
+        })
 
-            console.log(`remove from ${p.schema}.examinations ${p.examination.patientId}`)
+        removedExaminations = groupBy(removedExaminations, d => d.schema)
 
-            // await mongodb.deleteOne({
-            //     db,
-            //     collection: `${p.schema}.examinations`,
-            //     filter: { id: p.examination.id }
-            // })
+        let schemas = keys(removedExaminations)
+        for (let schema of schemas) {
+            console.log(`remove from ${schema}.examinations ${removedExaminations[schema].length}`)
+            console.log(removedExaminations[schema].map(d => d.patientId))
+        }
 
-            console.log(`remove from ${p.schema}.labels ${p.labels.length} items`) //${p.labels.map( l => l.id ).join(",\n")}`)
 
-            // await mongodb.deleteMany({
-            //     db,
-            //     collection: `${p.schema}.labels`,
-            //     filter: { id: { $in: p.labels.map(l => l.id) } }
-            // })
+        let removedLabels = flatten(
+            command.remove.map(s => s.labels.map(l => {
+                l.schema = s.schema
+                return l
+            }))
+        )
 
+        removedLabels = groupBy(removedLabels, d => d.schema)
+
+        schemas = keys(removedLabels)
+        
+        for (let schema of schemas) {
+            console.log(`remove from ${schema}.labels ${removedLabels[schema].length}`)
         }
 
     }
@@ -512,25 +510,32 @@ const updateDb = async command => {
 
         console.log(`INSERT DATA: ${command.insert.length} items`)
 
-        for (let p of command.insert) {
+        let updatedExaminations = command.insert.map(s => {
+            s.examination.schema = s.schema
+            return s.examination
+        })
 
-            console.log(`insert into ${p.schema}.examinations ${p.examination.patientId}`)
+        updatedExaminations = groupBy(updatedExaminations, d => d.schema)
 
-            // await mongodb.insertOne({
-            //     db,
-            //     collection: `${p.schema}.examinations`,
-            //     filter: { id: p.examination.id },
-            //     data: p.examination
-            // })
+        let schemas = keys(updatedExaminations)
+        for (let schema of schemas) {
+            console.log(`insert into ${schema}.examinations ${updatedExaminations[schema].length}`)
+            console.log(updatedExaminations[schema].map(d => d.patientId))
+        }
 
-            console.log(`insert into ${p.schema}.labels  ${p.labels.length} items`) //${p.labels.map( l => l.id ).join(",\n")}`)
 
-            // await mongodb.insertMany({
-            //     db,
-            //     collection: `${p.schema}.labels`,
-            //     data: p.labels
-            // })
+        let updatedLabels = flatten(
+            command.insert.map(s => s.labels.map(l => {
+                l.schema = s.schema
+                return l
+            }))
+        )
 
+        updatedLabels = groupBy(updatedLabels, d => d.schema)
+
+        schemas = keys(updatedLabels)
+        for (let schema of schemas) {
+            console.log(`remove from ${schema}.labels ${updatedLabels[schema].length}`)
         }
 
     }
@@ -541,7 +546,7 @@ const loadDataBufferPart = async (schema, patients) => {
     let pipeline = [{
             $match: {
                 patientId: {
-                    $in: patients.map( p => p.patientId),
+                    $in: patients.map(p => p.patientId),
                 },
             },
         },
@@ -554,7 +559,7 @@ const loadDataBufferPart = async (schema, patients) => {
                 pipeline: [{
                         $match: {
                             "Examination ID": {
-                                $in: patients.map( p => p.patientId),
+                                $in: patients.map(p => p.patientId),
                             },
                         },
                     },
@@ -579,7 +584,7 @@ const loadDataBufferPart = async (schema, patients) => {
         pipeline
     })
 
-    res = res.map( d => {
+    res = res.map(d => {
         let examination = clone(d)
         let labels = clone(d.labels)
         delete examination.labels
@@ -598,7 +603,7 @@ const loadDataBufferPart = async (schema, patients) => {
 
 
 const loadDataBuffer = async script => {
-    
+
     DATA_BUFFER = []
 
     let patients = groupBy(
@@ -639,6 +644,8 @@ const executePart = async script => {
 
     // console.log(DATA_BUFFER[0])
 
+    let results = []
+
     for (let command of script) {
 
         console.log(`${command.index}: ${command.command}`)
@@ -656,7 +663,8 @@ const executePart = async script => {
             }
 
             if (result) {
-                await updateDb(result)
+                // await updateDb(result)
+                results.push(result)
             }
 
             command.done = true
@@ -669,6 +677,14 @@ const executePart = async script => {
         }
 
     }
+
+    results = {
+        store: flatten(results.map(r => r.store || [])),
+        remove: flatten(results.map(r => r.remove || [])),
+        insert: flatten(results.map(r => r.insert || []))
+    }
+
+    await updateDb(results)
 
     return script
 
@@ -685,93 +701,95 @@ const execute = async () => {
 
     hasError = false
 
-    do {
+    for( let stage = 0; stage < 22; stage++){
+        do {
 
-        const pipeline = [{
-                '$match': {
-                    done: {
-                        $exists: false
-                    },
-                    error: {
-                        $exists: false
+            const pipeline = [{
+                    '$match': {
+                        done: {
+                            $exists: false
+                        },
+                        error: {
+                            $exists: false
+                        },
+                        stage
+                    }
+                },
+                {
+                    $sort: {
+                        index: 1
+                    }
+                },
+                {
+                    '$limit': PAGE_SIZE
+                },
+                {
+                    $project: {
+                        _id: 0
                     }
                 }
-            },
-            {
-                $sort: {
-                    index: 1
-                }
-            },
-            {
-                '$limit': PAGE_SIZE
-            },
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
+            ]
 
-        buffer = await mongodb.aggregate({
-            db,
-            collection: `ADE-TRANSFORM.commands`,
-            pipeline
-        })
-
-        if (buffer.length > 0) {
-
-            console.log(`${new Date()} -------------------------> Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
-
+            buffer = await mongodb.aggregate({
+                db,
+                collection: `ADE-TRANSFORM.commands`,
+                pipeline
+            })
 
             if (buffer.length > 0) {
 
-                let script = await executePart(buffer)
-                hasError = script.map(s => s.error).filter(d => d).length > 0
+                console.log(`${new Date()} -------------------------> ${stage} Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
 
-                await mongodb.updateMany({
-                    db,
-                    collection: `ADE-TRANSFORM.commands`,
-                    filter: {
-                        index: {
-                            $in: script.filter(s => s.done).map(s => s.index)
+
+                if (buffer.length > 0) {
+
+                    let script = await executePart(buffer)
+                    hasError = script.map(s => s.error).filter(d => d).length > 0
+
+                    await mongodb.updateMany({
+                        db,
+                        collection: `ADE-TRANSFORM.commands`,
+                        filter: {
+                            index: {
+                                $in: script.filter(s => s.done).map(s => s.index)
+                            }
+                        },
+                        data: {
+                            done: true
                         }
-                    },
-                    data: {
-                        done: true
-                    }
 
-                })
+                    })
 
-                let commands = script.filter(s => s.done || s.error).map(s => ({
-                    updateOne: {
-                        filter: { index: s.index },
-                        update: {
-                            $set: {
-                                done: s.done,
-                                error: s.error
+                    let commands = script.filter(s => s.done || s.error).map(s => ({
+                        updateOne: {
+                            filter: { index: s.index },
+                            update: {
+                                $set: {
+                                    done: s.done,
+                                    error: s.error
+                                }
                             }
                         }
-                    }
-                }))
+                    }))
 
-                await mongodb.bulkWrite({
-                    db,
-                    collection: `ADE-TRANSFORM.commands`,
-                    commands
-                })
+                    await mongodb.bulkWrite({
+                        db,
+                        collection: `ADE-TRANSFORM.commands`,
+                        commands
+                    })
 
-                // TODO use bulkWrite for update script commands state
+                    // TODO use bulkWrite for update script commands state
 
+
+                }
+
+                skip += buffer.length
+                bufferCount++
 
             }
-
-            skip += buffer.length
-            bufferCount++
-
         }
-    }
-    while (buffer.length > 0 && !hasError)
-
+        while (buffer.length > 0 && !hasError)
+    }        
 }
 
 
