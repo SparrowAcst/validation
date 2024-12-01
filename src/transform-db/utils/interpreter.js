@@ -598,6 +598,7 @@ const loadDataBuffer = async script => {
             script.map(s => {
                 if (s.command == "exchange") return s.data.map(d => {
                     d.schema = schema[d.site]
+                    return d
                 })
                 if (s.command == "split") return {
                     "patientId": s.patientId,
