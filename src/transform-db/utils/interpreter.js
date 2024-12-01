@@ -515,7 +515,7 @@ const updateDb = async command => {
             await mongodb.deleteMany({
                 db,
                 collection: `${schema}-mix.examinations`,
-                filter: { id: $in: removedExaminations.map( d => d.id)}
+                filter: { id: {$in: removedExaminations.map( d => d.id)} }
             })
 
         }
@@ -537,7 +537,7 @@ const updateDb = async command => {
             await mongodb.deleteMany({
                 db,
                 collection: `${schema}-mix.labels`,
-                filter: { id: $in: removedLabels.map( d => d.id)}
+                filter: { id: { $in: removedLabels.map( d => d.id)}}
             })
 
         }
