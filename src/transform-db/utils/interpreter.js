@@ -142,11 +142,16 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
         l["Examination ID"] = hr.examination.patientId
         
         let buf = (hLabels[index]) ? hLabels[index].model : "unknown"
-        hLabels[index].model = l.model
+        if(hLabels[index]){
+            hLabels[index].model = l.model
+        }
         l.model = buf
 
         buf = clone( ( (hLabels[index]) ? hLabels[index].deviceDescription : {} ) || {})
-        hLabels[index].deviceDescription = clone(l.deviceDescription || {})
+        if(hLabels[index]){
+            hLabels[index].deviceDescription = clone(l.deviceDescription || {})    
+        }
+        
         l.deviceDescription = buf
 
         return l
