@@ -678,7 +678,7 @@ const executePart = async script => {
 
 const execute = async () => {
 
-    const PAGE_SIZE = 10
+    const PAGE_SIZE = 100
 
     let skip = 0
     let bufferCount = 0
