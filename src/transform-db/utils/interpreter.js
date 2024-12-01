@@ -543,7 +543,7 @@ const updateDb = async command => {
 
         schemas = keys(updatedLabels)
         for (let schema of schemas) {
-            console.log(`remove from ${schema}.labels ${updatedLabels[schema].length}`)
+            console.log(`insert into ${schema}.labels ${updatedLabels[schema].length}`)
         }
 
     }
