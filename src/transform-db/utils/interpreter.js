@@ -371,6 +371,8 @@ const executeExchange = async command => {
     let p1 = getData(command.data[0])
     let p2 = getData(command.data[1])
 
+    console.log(command.data[0], p1)
+
     // stat(p1)
     // stat(p2)
     // console.log("--------------")
