@@ -406,8 +406,8 @@ const executeSplit = async command => {
 
     let patients = command.data.map(d => {
         let examination = clone(sourcePatient.examination)
-        examination.patientId = d.patientId,
-            examination.uuid = uuid()
+        examination.patientId = d.patientId
+        examination.uuid = uuid()
         let labels = (sourcePatient.labels.length > splittedRecordsCount) ?
             remove(sourcePatient.labels, (d, index) => index < splittedRecordsCount) :
             remove(sourcePatient.labels, () => true)
@@ -417,6 +417,7 @@ const executeSplit = async command => {
         })
 
         return {
+            schema: loadedPatient.schema,
             examination,
             labels
         }
@@ -496,7 +497,7 @@ const updateDb = async command => {
         removedLabels = groupBy(removedLabels, d => d.schema)
 
         schemas = keys(removedLabels)
-        
+
         for (let schema of schemas) {
             console.log(`remove from ${schema}.labels ${removedLabels[schema].length}`)
         }
@@ -701,7 +702,7 @@ const execute = async () => {
 
     hasError = false
 
-    for( let stage = 0; stage < 22; stage++){
+    for (let stage = 0; stage < 22; stage++) {
         do {
 
             const pipeline = [{
@@ -789,7 +790,7 @@ const execute = async () => {
             }
         }
         while (buffer.length > 0 && !hasError)
-    }        
+    }
 }
 
 
