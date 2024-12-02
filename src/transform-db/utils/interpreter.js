@@ -416,7 +416,7 @@ const executeSplit = async command => {
 
     let sourcePatient = clone(loadedPatient)
 
-    let splittedRecordsCount = Math.floor(sourcePatient.labels.length / command.data.length)
+    // let splittedRecordsCount = Math.floor(sourcePatient.labels.length / command.data.length)
 
     let patients = command.data.map(d => {
         let examination = clone(sourcePatient.examination)
@@ -438,8 +438,8 @@ const executeSplit = async command => {
         }
     })
 
-
-    stat(sourcePatient)
+    console.log(sourcePatient.examination.patientId, sourcePatient.labels.length)
+    // stat(sourcePatient)
     patients.forEach(p => {
         stat(p)
     })
