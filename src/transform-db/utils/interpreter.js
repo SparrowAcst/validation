@@ -422,7 +422,7 @@ const executeSplit = async command => {
         let examination = clone(sourcePatient.examination)
         examination.patientId = d.patientId
         examination.uuid = uuid()
-        let labels = remove(sourcePatient.labels, (r, index) => index < d.recordCount)
+        let labels = removeItems(sourcePatient.labels, d.recordCount)
         // let labels = (sourcePatient.labels.length > splittedRecordsCount) ?
         //     remove(sourcePatient.labels, (d, index) => index < splittedRecordsCount) :
         //     remove(sourcePatient.labels, () => true)
@@ -439,7 +439,7 @@ const executeSplit = async command => {
     })
 
     console.log(loadedPatient.examination.patientId, loadedPatient.labels.length)
-    // stat(sourcePatient)
+    
     patients.forEach(p => {
         stat(p)
     })
