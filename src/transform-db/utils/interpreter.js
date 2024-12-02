@@ -3,7 +3,7 @@ const mongodb = require("../../utils/mongodb")
 const fs = require("fs")
 const { parser } = require('stream-json/jsonl/Parser')
 const path = require("path")
-const { remove, values, groupBy, flatten, keys, find } = require("lodash")
+const { remove, values, groupBy, flatten, keys, find, fill } = require("lodash")
 const uuid = require("uuid").v4
 
 const db = require("../../../.config-migrate-db").mongodb.ade
