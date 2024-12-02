@@ -636,6 +636,8 @@ const updateDb = async command => {
 
 
 const loadDataBufferPart = async (schema, patients) => {
+    console.log("REQUIRE",patients.length)
+    
     let pipeline = [{
             $match: {
                 patientId: {
