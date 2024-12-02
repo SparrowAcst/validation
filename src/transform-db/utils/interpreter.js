@@ -253,7 +253,7 @@ const exchange_D_2_Y = ({ p1, p2 }) => { // tested
 
 
     yLabels = yLabels.map(l => {
-        l["Examination ID"] = hr.examination.patientId
+        l["Examination ID"] = dr.examination.patientId
         l.model = "digiscope"
         l.deviceDescription = {}
         return l
