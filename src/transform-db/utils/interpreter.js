@@ -423,7 +423,7 @@ const executeSplit = async command => {
         examination.patientId = d.patientId
         examination.uuid = uuid()
         // let labels = removeItems(sourcePatient.labels, d.recordCount)
-        let labels = (sourcePatient.labels.length >= splittedRecordsCount) ?
+        let labels = (sourcePatient.labels.length > splittedRecordsCount) ?
             removeItems(sourcePatient.labels, splittedRecordsCount) :
             removeItems(sourcePatient.labels)
         labels = labels.map(l => {
