@@ -277,7 +277,7 @@ const exchange_D_2_Y = ({ p1, p2 }) => { // tested
     }
 
 
-    delete hr.$records
+    delete dr.$records
 
     return {
         p1: dr,
