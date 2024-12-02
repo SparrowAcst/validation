@@ -103,48 +103,6 @@ const exchange_H_2_H = ({ p1, p2 }) => { // tested
 
 }
 
-// const exchange_H1_2_H2 = ({ p1, p2 }) => {
-
-//     let h1r = clone(p1)
-//     let h2r = clone(p2)
-
-//     h1r.labels = h1r.labels.filter(l => p1.$records.includes(l.path))
-
-//     let h1Labels = removeItems(h1r.labels)
-//     let h2Labels = removeItems(h2r.labels, h1Labels.length)
-
-//     h1Labels = h1Labels.map((l, index) => {
-//         l["Examination ID"] = h2r.examination.patientId
-
-//         let buf = h2Labels[index].model
-//         h2Labels[index].model = l.model
-//         l.model = buf
-
-//         buf = clone(h2Labels[index].deviceDescription || {})
-//         h2Labels[index].deviceDescription = clone(l.deviceDescription || {})
-//         l.deviceDescription = buf
-
-//         return l
-
-//     })
-
-
-//     h2Labels = h2Labels.map(l => {
-//         l["Examination ID"] = h1r.examination.patientId
-//         return l
-//     })
-
-//     h1r.labels = h2Labels
-//     h2r.labels = h1Labels
-
-//     delete h1r.$records
-
-//     return {
-//         p1: h1r,
-//         p2: h2r
-//     }
-
-// }
 
 const exchange_Y_2_H = ({ p1, p2 }) => { // tested
 
@@ -342,52 +300,6 @@ const getData = patient => {
     }
 }
 
-// {
-
-//     let examination = await mongodb.aggregate({
-//         db,
-//         collection: `${patient.schema}.examinations`,
-//         pipeline: [{
-//                 $match: {
-//                     patientId: patient.patientId
-//                 }
-//             },
-//             {
-//                 $project: {
-//                     _id: 0
-//                 }
-//             }
-//         ]
-//     })
-//     examination = examination[0]
-
-//     let labels = await mongodb.aggregate({
-//         db,
-//         collection: `${patient.schema}.labels`,
-//         pipeline: [{
-//                 $match: {
-//                     "Examination ID": patient.patientId
-//                     // patientId: patient.patientId
-//                 }
-//             },
-//             {
-//                 $project: {
-//                     _id: 0
-//                 }
-//             }
-//         ]
-//     })
-
-//     return {
-//         schema: patient.schema,
-//         examination,
-//         labels,
-//         $records: patient.records
-//     }
-
-// }
-
-
 
 const stat = p => {
     console.log(p.examination.patientId)
@@ -443,13 +355,11 @@ const executeSplit = async command => {
     let patients = command.data.map((d, index) => {
         
         let examination = clone(sourcePatient.examination)
+        
         examination.patientId = d.patientId
         examination.uuid = uuid()
         
         let labels = removeItems(sourcePatient.labels, partitions[index])
-        // let labels = (sourcePatient.labels.length > splittedRecordsCount) ?
-        //     removeItems(sourcePatient.labels, splittedRecordsCount) :
-        //     removeItems(sourcePatient.labels)
         
         labels = labels.map(l => {
             l["Examination ID"] = d.patientId
@@ -583,8 +493,10 @@ const stub = command => {
 
 
 const updateDb = async command => {
-    stub(command)
-    return
+    
+    // stub(command)
+    // return
+    
     //////////////////////////////////////////////////////////////////////////////////////////
     // 1. store
     if (command.store.length > 0) {
@@ -875,14 +787,14 @@ const executePart = async script => {
 
 const execute = async () => {
 
-    const PAGE_SIZE = 10
+    const PAGE_SIZE = 100
 
     let skip = 0
     let bufferCount = 0
 
     hasError = false
 
-    for (let stage = 17; stage < 18 && !hasError; stage++) {
+    for (let stage = 0; stage < 23 && !hasError; stage++) {
         do {
 
             const pipeline = [{
@@ -969,7 +881,7 @@ const execute = async () => {
 
             }
         }
-        while (buffer.length > 0 && !hasError && bufferCount < 1)
+        while (buffer.length > 0 && !hasError)
     }
 }
 
