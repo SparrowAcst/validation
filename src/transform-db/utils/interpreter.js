@@ -416,16 +416,16 @@ const executeSplit = async command => {
 
     let sourcePatient = clone(loadedPatient)
 
-    // let splittedRecordsCount = Math.floor(sourcePatient.labels.length / command.data.length)
+    let splittedRecordsCount = Math.floor(sourcePatient.labels.length / command.data.length)
 
     let patients = command.data.map(d => {
         let examination = clone(sourcePatient.examination)
         examination.patientId = d.patientId
         examination.uuid = uuid()
-        let labels = removeItems(sourcePatient.labels, d.recordCount)
-        // let labels = (sourcePatient.labels.length > splittedRecordsCount) ?
-        //     remove(sourcePatient.labels, (d, index) => index < splittedRecordsCount) :
-        //     remove(sourcePatient.labels, () => true)
+        // let labels = removeItems(sourcePatient.labels, d.recordCount)
+        let labels = (sourcePatient.labels.length >= splittedRecordsCount) ?
+            removeItems(sourcePatient.labels, splittedRecordsCount) :
+            removeItems(sourcePatient.labels)
         labels = labels.map(l => {
             l["Examination ID"] = d.patientId
             return l
