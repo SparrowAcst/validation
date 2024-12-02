@@ -12,6 +12,27 @@ const db = require("../../../.config-migrate-db").mongodb.ade
 let DATA_BUFFER = []
 
 
+const splitToParts = (volume, parts) {
+
+    if (volume < parts) return []
+    else if (volume % parts == 0) {
+        return fill(Array(n), Math.round(volume / parts));
+    } else {
+
+        // upto n-(x % n) the values 
+        // will be x / n 
+        // after that the values 
+        // will be x / n + 1
+        let zp = parts - (volume % parts);
+        let pp = Math.floor(volume / parts);
+        let res = []
+        for (let i = 0; i < n; i++) res.push(((i >= zp) ? Math.round(pp + 1) : Math.round(pp)))
+        return res
+    }
+}
+
+
+
 const schema = {
     digiscope: "digiscope",
     poltava: "poltava-part-1",
@@ -134,24 +155,24 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
 
 
     // yr.labels = yr.labels.filter(l => yr.$records.includes(l.path))
-    
+
     let yLabels = remove(yr.labels, l => yr.$records.includes(l.path))
     let hLabels = removeItems(hr.labels, yLabels.length)
 
     yLabels = yLabels.map((l, index) => {
         l["Examination ID"] = hr.examination.patientId
-        
+
         let buf = (hLabels[index]) ? hLabels[index].model : "unknown"
-        if(hLabels[index]){
+        if (hLabels[index]) {
             hLabels[index].model = l.model
         }
         l.model = buf
 
-        buf = clone( ( (hLabels[index]) ? hLabels[index].deviceDescription : {} ) || {})
-        if(hLabels[index]){
-            hLabels[index].deviceDescription = clone(l.deviceDescription || {})    
+        buf = clone(((hLabels[index]) ? hLabels[index].deviceDescription : {}) || {})
+        if (hLabels[index]) {
+            hLabels[index].deviceDescription = clone(l.deviceDescription || {})
         }
-        
+
         l.deviceDescription = buf
 
         return l
@@ -313,12 +334,12 @@ const exchange = {
 
 const getData = patient => {
     let res = find(DATA_BUFFER, d => d.examination.patientId == patient.patientId)
-    if(!res){
+    if (!res) {
         throw new Error(`Patient ${patient.patientId} not found in data buffer`)
     } else {
-        return res    
+        return res
     }
-}    
+}
 
 // {
 
@@ -416,16 +437,19 @@ const executeSplit = async command => {
 
     let sourcePatient = clone(loadedPatient)
 
-    let splittedRecordsCount = Math.floor(sourcePatient.labels.length / command.data.length)
-
-    let patients = command.data.map(d => {
+    let partitions = splitToParts(loadedPatient.labels.length, command.data.length)    
+    
+    let patients = command.data.map((d, index) => {
+        
         let examination = clone(sourcePatient.examination)
         examination.patientId = d.patientId
         examination.uuid = uuid()
-        // let labels = removeItems(sourcePatient.labels, d.recordCount)
-        let labels = (sourcePatient.labels.length > splittedRecordsCount) ?
-            removeItems(sourcePatient.labels, splittedRecordsCount) :
-            removeItems(sourcePatient.labels)
+        
+        let labels = removeItems(sourcePatient.labels, partitions[index])
+        // let labels = (sourcePatient.labels.length > splittedRecordsCount) ?
+        //     removeItems(sourcePatient.labels, splittedRecordsCount) :
+        //     removeItems(sourcePatient.labels)
+        
         labels = labels.map(l => {
             l["Examination ID"] = d.patientId
             return l
@@ -439,7 +463,7 @@ const executeSplit = async command => {
     })
 
     console.log(loadedPatient.examination.patientId, loadedPatient.labels.length, patients.length, splittedRecordsCount)
-    
+
     patients.forEach(p => {
         stat(p)
     })
@@ -577,7 +601,7 @@ const updateDb = async command => {
         await mongodb.insertManyIfNotExists({
             db,
             collection: `ADE-TRANSFORM.examinations`,
-            filter: d => ({id: d.id}),
+            filter: d => ({ id: d.id }),
             data: insertedExaminations
         })
 
@@ -593,7 +617,7 @@ const updateDb = async command => {
         await mongodb.insertManyIfNotExists({
             db,
             collection: `ADE-TRANSFORM.labels`,
-            filter: d => ({id: d.id}),
+            filter: d => ({ id: d.id }),
             data: insertedLabels
         })
 
@@ -620,7 +644,7 @@ const updateDb = async command => {
             await mongodb.deleteMany({
                 db,
                 collection: `${schema}-mix.examinations`,
-                filter: { id: {$in: removedExaminations[schema].map( d => d.id)} }
+                filter: { id: { $in: removedExaminations[schema].map(d => d.id) } }
             })
 
         }
@@ -642,7 +666,7 @@ const updateDb = async command => {
             await mongodb.deleteMany({
                 db,
                 collection: `${schema}-mix.labels`,
-                filter: { id: { $in: removedLabels[schema].map( d => d.id)}}
+                filter: { id: { $in: removedLabels[schema].map(d => d.id) } }
             })
 
         }
@@ -691,7 +715,7 @@ const updateDb = async command => {
                 db,
                 collection: `${schema}-mix.labels`,
                 data: updatedLabels[schema]
-            })   
+            })
         }
 
     }
