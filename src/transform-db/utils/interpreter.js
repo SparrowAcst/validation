@@ -26,8 +26,9 @@ const splitToParts = (volume, parts) => {
         let zp = parts - (volume % parts);
         let pp = Math.floor(volume / parts);
         let res = []
-        for (let i = 0; i < n; i++) res.push(((i >= zp) ? Math.round(pp + 1) : Math.round(pp)))
+        for (let i = 0; i < parts; i++) res.push(((i >= zp) ? Math.round(pp + 1) : Math.round(pp)))
         return res
+    
     }
 }
 
