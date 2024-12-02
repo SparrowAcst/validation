@@ -753,7 +753,7 @@ const execute = async () => {
 
     hasError = false
 
-    for (let stage = 17; stage < 23 && !hasError; stage++) {
+    for (let stage = 21; stage < 23 && !hasError; stage++) {
         do {
 
             const pipeline = [{
