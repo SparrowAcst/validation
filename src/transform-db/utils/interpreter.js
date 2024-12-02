@@ -445,7 +445,7 @@ const executeSplit = async command => {
     })
 
     return {
-        remove: sourcePatient,
+        remove: loadedPatient,
         insert: patients,
         store: [loadedPatient]
     }
