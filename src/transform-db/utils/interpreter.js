@@ -463,7 +463,7 @@ const executeSplit = async command => {
         }
     })
 
-    console.log(loadedPatient.examination.patientId, loadedPatient.labels.length, patients.length, splittedRecordsCount)
+    console.log(loadedPatient.examination.patientId, loadedPatient.labels.length, patients.length)
 
     patients.forEach(p => {
         stat(p)
