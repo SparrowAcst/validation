@@ -857,7 +857,7 @@ const execute = async () => {
 
     hasError = false
 
-    for (let stage = 0; stage < 1 && !hasError; stage++) {
+    for (let stage = 10; stage < 11 && !hasError; stage++) {
         do {
 
             const pipeline = [{
