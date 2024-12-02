@@ -47,7 +47,7 @@ const cardioSpot = d => [
 
 const exchange_H_2_H = ({ p1, p2 }) => { // tested
 
-    console.log(`${p1.examination.patientId} > ${p2.examination.patientId} store: no stored, labels: exchange all, forms: exchange`)
+    console.log(`H_2_H ${p1.examination.patientId} > ${p2.examination.patientId} store: no stored, labels: exchange all, forms: exchange`)
 
     let r1 = clone(p1)
     let r2 = clone(p2)
@@ -126,17 +126,17 @@ const exchange_H_2_H = ({ p1, p2 }) => { // tested
 
 const exchange_Y_2_H = ({ p1, p2 }) => { // tested
 
-    console.log(`${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange selected, forms: no exchange`)
+    console.log(`Y_2_H ${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange selected, forms: no exchange`)
 
 
     let yr = clone(p1)
     let hr = clone(p2)
 
 
-    yr.labels = yr.labels.filter(l => p1.$records.includes(l.path))
-    let yLabels = removeItems(yr.labels)
+    // yr.labels = yr.labels.filter(l => yr.$records.includes(l.path))
+    
+    let yLabels = remove(yr.labels, l => yr.$records.includes(l.path))
     let hLabels = removeItems(hr.labels, yLabels.length)
-
 
     yLabels = yLabels.map((l, index) => {
         l["Examination ID"] = hr.examination.patientId
@@ -164,8 +164,8 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
         return l
     })
 
-    yr.labels = hLabels
-    hr.labels = yLabels
+    yr.labels = yr.labels.concat(hLabels)
+    hr.labels = hr.labels.concat(yLabels)
 
     delete yr.$records
 
@@ -179,7 +179,7 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
 
 const exchange_H_2_Y = ({ p1, p2 }) => { // tested
 
-    console.log(`${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange all, forms: all clear`)
+    console.log(`H_2_Y ${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange all, forms: all clear`)
 
     let hr = clone(p1)
     let yr = clone(p2)
@@ -233,7 +233,7 @@ const exchange_H_2_Y = ({ p1, p2 }) => { // tested
 
 const exchange_D_2_Y = ({ p1, p2 }) => { // tested
 
-    console.log(`${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange all set digiscope device, forms: all clear`)
+    console.log(`D_2_Y ${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange all set digiscope device, forms: all clear`)
 
     let dr = clone(p1)
     let yr = clone(p2)
@@ -453,9 +453,113 @@ const executeSplit = async command => {
 
 }
 
+const stub = command => {
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // 1. store
+    if (command.store.length > 0) {
+
+        console.log(`STORE DATA: ${command.store.length} items`)
+
+        let insertedExaminations = command.store.map(s => {
+            s.examination.schema = s.schema
+            return s.examination
+        })
+
+        console.log(`insert into ADE-TRANSFORM.examinations ${insertedExaminations.length}`)
+        console.log(insertedExaminations.map(d => `${d.schema}.${d.patientId}`))
+
+        let insertedLabels = flatten(
+            command.store.map(s => s.labels.map(l => {
+                l.schema = s.schema
+                return l
+            }))
+        )
+
+        console.log(`insert into ADE-TRANSFORM.labels ${insertedLabels.length}`)
+
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // 2. remove
+    if (command.remove.length > 0) {
+
+        console.log(`REMOVE DATA: ${command.remove.length} items`)
+
+        let removedExaminations = command.remove.map(s => {
+            s.examination.schema = s.schema
+            return s.examination
+        })
+
+        removedExaminations = groupBy(removedExaminations, d => d.schema)
+
+        let schemas = keys(removedExaminations)
+        for (let schema of schemas) {
+            console.log(`remove from ${schema}-mix.examinations ${removedExaminations[schema].length}`)
+            console.log(removedExaminations[schema].map(d => d.patientId))
+
+        }
+
+
+        let removedLabels = flatten(
+            command.remove.map(s => s.labels.map(l => {
+                l.schema = s.schema
+                return l
+            }))
+        )
+
+        removedLabels = groupBy(removedLabels, d => d.schema)
+
+        schemas = keys(removedLabels)
+
+        for (let schema of schemas) {
+            console.log(`remove from ${schema}-mix.labels ${removedLabels[schema].length}`)
+        }
+
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // 3. insert
+
+    if (command.insert.length > 0) {
+
+        console.log(`INSERT DATA: ${command.insert.length} items`)
+
+        let updatedExaminations = command.insert.map(s => {
+            s.examination.schema = s.schema
+            return s.examination
+        })
+
+        updatedExaminations = groupBy(updatedExaminations, d => d.schema)
+
+        let schemas = keys(updatedExaminations)
+        for (let schema of schemas) {
+            console.log(`insert into ${schema}-mix.examinations ${updatedExaminations[schema].length}`)
+            console.log(updatedExaminations[schema].map(d => d.patientId))
+        }
+
+
+        let updatedLabels = flatten(
+            command.insert.map(s => s.labels.map(l => {
+                l.schema = s.schema
+                return l
+            }))
+        )
+
+        updatedLabels = groupBy(updatedLabels, d => d.schema)
+
+        schemas = keys(updatedLabels)
+        for (let schema of schemas) {
+            console.log(`insert into ${schema}-mix.labels ${updatedLabels[schema].length}`)
+        }
+
+    }
+}
+
 
 const updateDb = async command => {
-
+    stub(command)
+    return
     //////////////////////////////////////////////////////////////////////////////////////////
     // 1. store
     if (command.store.length > 0) {
@@ -753,7 +857,7 @@ const execute = async () => {
 
     hasError = false
 
-    for (let stage = 21; stage < 23 && !hasError; stage++) {
+    for (let stage = 0; stage < 1 && !hasError; stage++) {
         do {
 
             const pipeline = [{
@@ -840,7 +944,7 @@ const execute = async () => {
 
             }
         }
-        while (buffer.length > 0 && !hasError)
+        while (buffer.length > 0 && !hasError && bufferCount < 1)
     }
 }
 
