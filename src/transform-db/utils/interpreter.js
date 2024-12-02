@@ -16,7 +16,7 @@ const splitToParts = (volume, parts) => {
 
     if (volume < parts) return []
     else if (volume % parts == 0) {
-        return fill(Array(n), Math.round(volume / parts));
+        return fill(Array(parts), Math.round(volume / parts));
     } else {
 
         // upto n-(x % n) the values 
