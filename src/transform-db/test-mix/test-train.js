@@ -13,7 +13,8 @@ const schemas = [
 	"phonendo",
 	"strazhesko-part-1",
 	"poltava-part-1",
-	"digiscope"
+	"digiscope",
+	"hha"
 ] 
 
 const run = async () => {

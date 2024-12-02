@@ -1,9 +1,6 @@
 const mongodb = require("../../utils/mongodb")
-const { first, last, groupBy} = require("lodash")
 
 const db = require("../../../.config-migrate-db").mongodb.ade
-
-const data = require("./train-path-all.json")
 
 const schemas = [
 	"potashev-part-1",
@@ -13,7 +10,8 @@ const schemas = [
 	"phonendo",
 	"strazhesko-part-1",
 	"poltava-part-1",
-	"digiscope"
+	"digiscope",
+	"hha"
 ] 
 
 const run = async () => {
@@ -25,10 +23,10 @@ const run = async () => {
 
 		await mongodb.drop({
 			db,
-			collection: `${schema}-mix.examinations`
+			collection: `${schema}-mix.labels`
 		})
 		
-		console.log(`${schema}-mix.labels`)
+		console.log(`${schema}-mix.examinations`)
 		await mongodb.drop({
 			db,
 			collection: `${schema}-mix.examinations`

@@ -235,13 +235,13 @@ const exchange_D_2_Y = ({ p1, p2 }) => { // tested
 
     console.log(`${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange all set digiscope device, forms: all clear`)
 
-    let hr = clone(p1)
+    let dr = clone(p1)
     let yr = clone(p2)
 
-    let hLabels = clone(hr.labels)
+    let dLabels = clone(dr.labels)
     let yLabels = clone(yr.labels)
 
-    hLabels = hLabels.map((l, index) => {
+    dLabels = dLabels.map((l, index) => {
         l["Examination ID"] = yr.examination.patientId
 
         l.model = "unknown"
@@ -259,8 +259,8 @@ const exchange_D_2_Y = ({ p1, p2 }) => { // tested
         return l
     })
 
-    yr.labels = hLabels
-    hr.labels = yLabels
+    yr.labels = dLabels
+    dr.labels = yLabels
 
     yr.examination.forms = {
         patient: { type: "patient", data: {} },
@@ -269,7 +269,7 @@ const exchange_D_2_Y = ({ p1, p2 }) => { // tested
         attachenents: { type: "patient", data: [] },
     }
 
-    hr.examination.forms = {
+    dr.examination.forms = {
         patient: { type: "patient", data: {} },
         echo: { type: "patient", data: {} },
         ekg: { type: "patient", data: {} },
@@ -280,7 +280,7 @@ const exchange_D_2_Y = ({ p1, p2 }) => { // tested
     delete hr.$records
 
     return {
-        p1: hr,
+        p1: dr,
         p2: yr,
         store: [p1, p2]
     }
@@ -422,9 +422,10 @@ const executeSplit = async command => {
         let examination = clone(sourcePatient.examination)
         examination.patientId = d.patientId
         examination.uuid = uuid()
-        let labels = (sourcePatient.labels.length > splittedRecordsCount) ?
-            remove(sourcePatient.labels, (d, index) => index < splittedRecordsCount) :
-            remove(sourcePatient.labels, () => true)
+        let labels = remove(sourcePatient.labels, (d, index) => index < data.recordCount)
+        // let labels = (sourcePatient.labels.length > splittedRecordsCount) ?
+        //     remove(sourcePatient.labels, (d, index) => index < splittedRecordsCount) :
+        //     remove(sourcePatient.labels, () => true)
         labels = labels.map(l => {
             l["Examination ID"] = d.patientId
             return l

@@ -6,9 +6,15 @@ const db = require("../../../.config-migrate-db").mongodb.ade
 const data = require("./test-path-all.json")
 
 const schemas = [
+	"potashev-part-1",
+	"denis-part-1",
+	"yoda",
+	"harvest1",
+	"phonendo",
 	"strazhesko-part-1",
 	"poltava-part-1",
-	"digiscope"
+	"digiscope",
+	"hha"
 ] 
 
 const run = async () => {
