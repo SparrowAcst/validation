@@ -12,7 +12,7 @@ const db = require("../../../.config-migrate-db").mongodb.ade
 let DATA_BUFFER = []
 
 
-const splitToParts = (volume, parts) {
+const splitToParts = (volume, parts) => {
 
     if (volume < parts) return []
     else if (volume % parts == 0) {
