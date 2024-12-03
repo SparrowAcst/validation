@@ -132,8 +132,8 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
         l["Examination ID"] = hr.examination.patientId
 
         l.Ethnicity = swap(l.Ethnicity, hLabels, index, "Ethnicity", "unknown")
-        l["Sex at Birth"] = swap(l.["Sex at Birth"], hLabels, index, "Sex at Birth", "unknown")
-        l["Age (Years)"] = swap(l.["Age (Years)"], hLabels, index, "Age (Years)", "unknown")
+        l["Sex at Birth"] = swap(l["Sex at Birth"], hLabels, index, "Sex at Birth", "unknown")
+        l["Age (Years)"] = swap(l["Age (Years)"], hLabels, index, "Age (Years)", "unknown")
         
         l.model = swap(l.model, hLabels, index, "model", "unknown")
         l.deviceDescription = swap(l.deviceDescription, hLabels, index, "deviceDescription", {})
