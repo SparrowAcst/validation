@@ -1,8 +1,9 @@
 const execute = require("../utils/interpreter")
 
-const START_STAGE = process.argv[1] || 0
-const STOP_STAGE = process.argv[2] || 23
-const BUFFER_SIZE = process.argv[3] || 100
+const START_STAGE = Number.parseInt(process.argv[1] || 0)
+const STOP_STAGE = Number.parseInt(process.argv[2] || 23)
+const BUFFER_SIZE = Number.parseInt(process.argv[3] || 100)
+
 
 
 const run = async () => {
