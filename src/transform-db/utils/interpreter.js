@@ -506,7 +506,7 @@ const updateDb = async command => {
     // 1. store
     if (command.store.length > 0) {
 
-        command.store = command.store.filter(d => !/-S-/.test(d.patientId))
+        command.store = command.store.filter(d => !/-S-/.test(d.examination.patientId))
         console.log(`STORE DATA: ${command.store.length} items`)
 
         let insertedExaminations = command.store.map(s => {
