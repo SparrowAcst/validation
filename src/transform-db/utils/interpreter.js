@@ -358,6 +358,7 @@ const executeSplit = async command => {
         
         examination.patientId = d.patientId
         examination.uuid = uuid()
+        examination.id = examination.uuid
         
         let labels = removeItems(sourcePatient.labels, partitions[index])
         

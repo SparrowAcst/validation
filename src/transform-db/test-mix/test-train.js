@@ -1,5 +1,5 @@
 const mongodb = require("../../utils/mongodb")
-const { first, last, groupBy} = require("lodash")
+const { first, last, groupBy, difference} = require("lodash")
 
 const db = require("../../../.config-migrate-db").mongodb.ade
 
@@ -17,6 +17,11 @@ const schemas = [
 	"hha"
 ] 
 
+const PREFIX = ""
+
+
+let buffer = []
+
 const run = async () => {
 
 	total = 0
@@ -25,7 +30,7 @@ const run = async () => {
 
 		let res = await mongodb.aggregate({
 			db,
-			collection: `${schema}-mix.labels`,
+			collection: `${schema}${PREFIX}.labels`,
 			pipeline:[
 				{
 				$match:{
@@ -37,16 +42,13 @@ const run = async () => {
 				{
 					$project:{
 						_id: 0,
-						id: "$uuid"
+						path: "$path"
 					}
 				}
 			]
 		})
 
-		// res = res.map( d => {
-		// 	d.schema = schema
-		// 	return d
-		// })
+		buffer = buffer.concat(res)
 
 		console.log(`${schema} ${res.length}`)
 
@@ -55,6 +57,9 @@ const run = async () => {
 	}
 
 	console.log(`Total ${total} ${data.length}`)
+
+	// data = data.map()
+	console.log(difference(data, buffer.map( b => b.path)))
 
 }
 
