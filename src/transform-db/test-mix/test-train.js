@@ -51,7 +51,9 @@ const run = async () => {
 		buffer = buffer.concat(res)
 
 		console.log(`${schema} ${res.length}`)
-
+		if(schema == "digiscope") {
+			console.log(res)
+		}
 		total += res.length
 	
 	}

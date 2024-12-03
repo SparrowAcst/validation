@@ -61963,5 +61963,27 @@
    }
   ],
   "index": 2413
+ },
+
+ {
+  "command": "exchange",
+  "stage": 23,
+  "data": [
+   {
+    "patientId": "DGS68741",
+    "dataset": "digiscope",
+    "site": "digiscope",
+    "records": [
+      "gU8kIKjkGfMOF8X4Y5obyx2kmdn2/recordings/ThinklabsONE_9e3254f1-e361-4c0d-a0e9-6d3a90db7fd7"
+    ]
+   },
+   {
+    "patientId": "YSD0169-S-4",
+    "dataset": "yoda",
+    "site": "yoda"
+   }
+  ],
+  "index": 2414
  }
 ]
+
