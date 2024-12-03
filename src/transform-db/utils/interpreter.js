@@ -501,6 +501,7 @@ const updateDb = async command => {
     // 1. store
     if (command.store.length > 0) {
 
+        command.store = command.store.filter(d => !/-S-/.test(d.patientId))
         console.log(`STORE DATA: ${command.store.length} items`)
 
         let insertedExaminations = command.store.map(s => {
@@ -637,7 +638,7 @@ const updateDb = async command => {
 
 const loadDataBufferPart = async (schema, patients) => {
     console.log("REQUIRE",patients.length)
-    
+
     let pipeline = [{
             $match: {
                 patientId: {
@@ -787,16 +788,16 @@ const executePart = async script => {
 
 
 
-const execute = async () => {
+const execute = async (START_STAGE, STOP_STAGE, BUFFER_SIZE) => {
 
-    const PAGE_SIZE = 100
+    const PAGE_SIZE = BUFFER_SIZE
 
     let skip = 0
     let bufferCount = 0
 
     hasError = false
 
-    for (let stage = 0; stage < 23 && !hasError; stage++) {
+    for (let stage = START_STAGE; stage < STOP_STAGE && !hasError; stage++) {
         do {
 
             const pipeline = [{
