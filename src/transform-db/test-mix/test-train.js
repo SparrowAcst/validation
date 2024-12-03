@@ -17,7 +17,7 @@ const schemas = [
 	"hha"
 ] 
 
-const PREFIX = ""
+const PREFIX = "-mix"
 
 
 let buffer = []

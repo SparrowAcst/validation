@@ -28,7 +28,7 @@ const splitToParts = (volume, parts) => {
         let res = []
         for (let i = 0; i < parts; i++) res.push(((i >= zp) ? Math.round(pp + 1) : Math.round(pp)))
         return res
-    
+
     }
 }
 
@@ -104,6 +104,15 @@ const exchange_H_2_H = ({ p1, p2 }) => { // tested
 }
 
 
+const swap = (value, pool, index, field, defaultValue) => {
+    let buf = (pool[index]) ? ( pool[index][field] || defaultValue ) : defaultValue
+    if (pool[index]) {
+        pool[index][field] = value
+    }
+    return buf
+}
+
+
 const exchange_Y_2_H = ({ p1, p2 }) => { // tested
 
     console.log(`Y_2_H ${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange selected, forms: no exchange`)
@@ -119,20 +128,15 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
     let hLabels = removeItems(hr.labels, yLabels.length)
 
     yLabels = yLabels.map((l, index) => {
+        
         l["Examination ID"] = hr.examination.patientId
 
-        let buf = (hLabels[index]) ? hLabels[index].model : "unknown"
-        if (hLabels[index]) {
-            hLabels[index].model = l.model
-        }
-        l.model = buf
-
-        buf = clone(((hLabels[index]) ? hLabels[index].deviceDescription : {}) || {})
-        if (hLabels[index]) {
-            hLabels[index].deviceDescription = clone(l.deviceDescription || {})
-        }
-
-        l.deviceDescription = buf
+        l.Ethnicity = swap(l.Ethnicity, hLabels, index, "Ethnicity", "unknown")
+        l["Sex at Birth"] = swap(l.["Sex at Birth"], hLabels, index, "Sex at Birth", "unknown")
+        l["Age (Years)"] = swap(l.["Age (Years)"], hLabels, index, "Age (Years)", "unknown")
+        
+        l.model = swap(l.model, hLabels, index, "model", "unknown")
+        l.deviceDescription = swap(l.deviceDescription, hLabels, index, "deviceDescription", {})
 
         return l
 
@@ -234,7 +238,7 @@ const exchange_D_2_Y = ({ p1, p2 }) => { // tested
 
     yLabels = yLabels.map(l => {
         l["Examination ID"] = dr.examination.patientId
-        l.model = "digiscope"
+        l.model = "DigiScope"
         l.deviceDescription = {}
         return l
     })
@@ -350,18 +354,18 @@ const executeSplit = async command => {
 
     let sourcePatient = clone(loadedPatient)
 
-    let partitions = splitToParts(loadedPatient.labels.length, command.data.length)    
-    
+    let partitions = splitToParts(loadedPatient.labels.length, command.data.length)
+
     let patients = command.data.map((d, index) => {
-        
+
         let examination = clone(sourcePatient.examination)
-        
+
         examination.patientId = d.patientId
         examination.uuid = uuid()
         examination.id = examination.uuid
-        
+
         let labels = removeItems(sourcePatient.labels, partitions[index])
-        
+
         labels = labels.map(l => {
             l["Examination ID"] = d.patientId
             return l
@@ -494,10 +498,10 @@ const stub = command => {
 
 
 const updateDb = async command => {
-    
+
     // stub(command)
     // return
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////
     // 1. store
     if (command.store.length > 0) {
@@ -638,7 +642,7 @@ const updateDb = async command => {
 
 
 const loadDataBufferPart = async (schema, patients) => {
-    console.log("REQUIRE",patients.length)
+    console.log("REQUIRE", patients.length)
 
     let pipeline = [{
             $match: {

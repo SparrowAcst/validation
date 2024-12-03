@@ -27,22 +27,22 @@ const run = async () => {
 
 	for( const schema of schemas){
 
-		let res = await mongodb.aggregate({
+		let e = await mongodb.aggregate({
+			db,
+			collection: `${schema}${PREFIX}.examinations`,
+			pipeline:[
+				{
+					$count: "count"
+				}
+			]
+		})
+
+		let l = await mongodb.aggregate({
 			db,
 			collection: `${schema}${PREFIX}.labels`,
 			pipeline:[
 				{
-				$match:{
-					path:{
-						$in: data
-					}
-				}
-				},
-				{
-					$project:{
-						_id: 0,
-						id: "$uuid"
-					}
+					$count: "count"
 				}
 			]
 		})
@@ -52,13 +52,10 @@ const run = async () => {
 		// 	return d
 		// })
 
-		console.log(`${schema} ${res.length}`)
-
-		total += res.length
+		console.log(`${schema} ${e[0].count} ${l[0].count}`)
 	
 	}
 
-	console.log(`Total ${total} ${data.length}`)
 
 }
 
