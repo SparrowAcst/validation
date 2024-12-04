@@ -101,3 +101,70 @@ const run = async () => {
 }
 
 run()
+
+
+
+
+// [
+//   {
+//     $project:
+//       {
+//         _id: 0,
+//         "Examination ID": 1,
+//         s: {
+//           $first: "$Systolic murmurs",
+//         },
+//         d: {
+//           $first: "$Diastolic murmurs",
+//         },
+//         o: {
+//           $first: "$Other murmurs",
+//         },
+//       },
+//   },
+//   {
+//     $addFields:
+//       {
+//         murmurs: {
+//           $or: [
+//             {
+//               $and: [
+//                 {
+//                   $ifNull: ["$s", false],
+//                 },
+//                 {
+//                   $ne: [
+//                     "$s",
+//                     "No systolic murmurs",
+//                   ],
+//                 },
+//               ],
+//             },
+//             {
+//               $and: [
+//                 {
+//                   $ifNull: ["$d", false],
+//                 },
+//                 {
+//                   $ne: [
+//                     "$d",
+//                     "No diastolic murmurs",
+//                   ],
+//                 },
+//               ],
+//             },
+//             {
+//               $and: [
+//                 {
+//                   $ifNull: ["$o", false],
+//                 },
+//                 {
+//                   $ne: ["$o", "No Other Murmurs"],
+//                 },
+//               ],
+//             },
+//           ],
+//         },
+//       },
+//   },
+// ]

@@ -172,6 +172,59 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
     }
 }
 
+const exchange_P_2_H = ({ p1, p2 }) => { // tested
+
+    console.log(`Y_2_H ${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange selected, forms: no exchange`)
+
+
+    let yr = clone(p1)
+    let hr = clone(p2)
+
+
+    // yr.labels = yr.labels.filter(l => yr.$records.includes(l.path))
+
+    let yLabels = remove(yr.labels, l => yr.$records.includes(l.path))
+    let hLabels = removeItems(hr.labels, yLabels.length)
+
+    yLabels = yLabels.map((l, index) => {
+        
+        l["Examination ID"] = hr.examination.patientId
+
+        l.Ethnicity = swap(l.Ethnicity, hLabels, index, "Ethnicity", "unknown")
+        l["Sex at Birth"] = swap(l["Sex at Birth"], hLabels, index, "Sex at Birth", "unknown")
+        l["Age (Years)"] = swap(l["Age (Years)"], hLabels, index, "Age (Years)", "unknown")
+        
+        l.model = swap(l.model, hLabels, index, "model", "unknown")
+        l.deviceDescription = swap(l.deviceDescription, hLabels, index, "deviceDescription", {})
+
+        // if(hLabels[index]){
+        //     hLabels[index].model = l.model
+        //     hLabels[index].deviceDescription = l.deviceDescription || {}
+        // }
+
+        return l
+
+    })
+
+
+    hLabels = hLabels.map(l => {
+        l["Examination ID"] = yr.examination.patientId
+        return l
+    })
+
+    yr.labels = yr.labels.concat(hLabels)
+    hr.labels = hr.labels.concat(yLabels)
+    // console.log(yr.labels.map(l => `${l["Examination ID"]}: ${l.model}: ${l["Sex at Birth"]} : ${l["Age (Years)"]}`).join("\n"))
+    // console.log(hr.labels.map(l => `${l["Examination ID"]}: ${l.model}: ${l["Sex at Birth"]} : ${l["Age (Years)"]}`).join("\n"))
+    
+    delete yr.$records
+
+    return {
+        p1: yr,
+        p2: hr,
+        store: [p1, p2]
+    }
+}
 
 const exchange_H_2_Y = ({ p1, p2 }) => { // tested
 
@@ -294,7 +347,7 @@ const exchange = {
     "potashev_poltava": exchange_H_2_H,
     "potashev_strazhesko": exchange_H_2_H,
     "denis_strazhesko": exchange_H_2_H,
-    "phonendo_strazhesko": exchange_Y_2_H,
+    "phonendo_strazhesko": exchange_P_2_H,
     "$HHA_strazhesko": exchange_Y_2_H,
     "strazhesko_potashev": exchange_H_2_H,
     "strazhesko_denis": exchange_H_2_H,
