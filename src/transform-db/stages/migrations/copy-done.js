@@ -7,7 +7,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    "Examination ID": 0
                 }
             }
         ]
@@ -19,7 +20,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    af: 0
                 }
             }
         ]
@@ -32,7 +34,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    "Examination ID": 0
                 }
             }
         ]
@@ -44,7 +47,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    af: 0
                 }
             }
         ]
@@ -56,7 +60,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    "Examination ID": 0
                 }
             }
         ]
@@ -68,7 +73,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    af: 0
                 }
             }
         ]
@@ -80,7 +86,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    "Examination ID": 0
                 }
             }
         ]
@@ -92,7 +99,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    af: 0
                 }
             }
         ]
@@ -105,7 +113,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    "Examination ID": 0
                 }
             }
         ]
@@ -117,7 +126,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    af: 0
                 }
             }
         ]
@@ -131,7 +141,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    "Examination ID": 0
                 }
             }
         ]
@@ -143,7 +154,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    af: 0
                 }
             }
         ]
@@ -156,7 +168,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    "Examination ID": 0
                 }
             }
         ]
@@ -168,7 +181,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    af: 0
                 }
             }
         ]
@@ -181,7 +195,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    "Examination ID": 0
                 }
             }
         ]
@@ -193,7 +208,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    af: 0
                 }
             }
         ]
@@ -206,7 +222,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    "Examination ID": 0
                 }
             }
         ]
@@ -218,7 +235,8 @@ module.exports = [
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    af: 0
                 }
             }
         ]
