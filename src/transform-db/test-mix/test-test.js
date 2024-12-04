@@ -18,12 +18,12 @@ const schemas = [
 ] 
 
 
-const PREFIX = "-mix"
+const PREFIX = ""
 
 
 const run = async () => {
 
-	total = 0
+	let total = 0
 
 	for( const schema of schemas){
 
@@ -58,7 +58,45 @@ const run = async () => {
 	
 	}
 
+	total = 0
+
 	console.log(`Total ${total} ${data.length}`)
+
+		for( const schema of schemas){
+
+		let res = await mongodb.aggregate({
+			db,
+			collection: `${schema}${PREFIX}.labels`,
+			pipeline:[
+				{
+				$match:{
+					path:{
+						$in: data
+					}
+				}
+				},
+				{
+                $group: {
+                    _id: "$model",
+                    count: {
+                        $count: {},
+                    },
+                },
+            }			]
+		})
+
+		// buffer = buffer.concat(res)
+		res.forEach( r => {
+			console.log(`${schema} ${r._id} ${r.count}`)
+		})
+		// if(schema == "digiscope") {
+		// 	console.log(res)
+		// }
+		total += res.length
+	
+	}
+
+
 
 }
 

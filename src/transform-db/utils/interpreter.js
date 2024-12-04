@@ -135,8 +135,13 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
         l["Sex at Birth"] = swap(l["Sex at Birth"], hLabels, index, "Sex at Birth", "unknown")
         l["Age (Years)"] = swap(l["Age (Years)"], hLabels, index, "Age (Years)", "unknown")
         
-        l.model = swap(l.model, hLabels, index, "model", "unknown")
-        l.deviceDescription = swap(l.deviceDescription, hLabels, index, "deviceDescription", {})
+        // l.model = swap(l.model, hLabels, index, "model", "unknown")
+        // l.deviceDescription = swap(l.deviceDescription, hLabels, index, "deviceDescription", {})
+
+        if(hLabels[index]){
+            hLabels[index].model = l.model
+            hLabels[index].deviceDescription = l.deviceDescription || {}
+        }
 
         return l
 
@@ -150,7 +155,9 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
 
     yr.labels = yr.labels.concat(hLabels)
     hr.labels = hr.labels.concat(yLabels)
-
+    // console.log(yr.labels.map(l => `${l["Examination ID"]}: ${l.model}: ${l["Sex at Birth"]} : ${l["Age (Years)"]}`).join("\n"))
+    // console.log(hr.labels.map(l => `${l["Examination ID"]}: ${l.model}: ${l["Sex at Birth"]} : ${l["Age (Years)"]}`).join("\n"))
+    
     delete yr.$records
 
     return {

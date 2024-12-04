@@ -3,7 +3,8 @@ const { first, last, groupBy } = require("lodash")
 
 const db = require("../../../.config-migrate-db").mongodb.ade
 
-const data = require("./test-path-all.json")
+const data = require("./test-ids.json").map(d => d.id)
+const data1 = require("./train-ids.json").map(d => d.id)
 
 const schemas = [
     "potashev-part-1",
@@ -24,13 +25,22 @@ const PREFIX = "-mix"
 
 const run = async () => {
 
+// console.log("TEST")
 
     for (const schema of schemas) {
 
         let res = await mongodb.aggregate({
             db,
             collection: `${schema}${PREFIX}.labels`,
-            pipeline: [{
+            pipeline: [
+            {
+				$match:{
+					id:{
+						$in: data
+					}
+				}
+				},
+            {
                 $group: {
                     _id: "$model",
                     count: {
@@ -40,79 +50,281 @@ const run = async () => {
             }]
         })
 
-        console.log(`${schema} device`)
+        // console.log(`${schema} device`)
         res.forEach(r => {
             console.log(`${r._id} ${r.count}`)
         })
 
     }
+
+//     for (const schema of schemas) {
+
+//         let res = await mongodb.aggregate({
+//             db,
+//             collection: `${schema}${PREFIX}.labels`,
+//             pipeline: [
+//             {
+// 				$match:{
+// 					id:{
+// 						$in: data
+// 					}
+// 				}
+// 				},
+//             {
+//                 $group: {
+//                     _id: "$examinationId",
+//                     count: {
+//                         $count: {},
+//                     },
+//                 },
+//             }]
+//         })
+
+//         console.log(`${schema} patients`)
+//         // res.forEach(r => {
+//             console.log(`${schema} ${res.length}`)
+//         // })
+
+//     }
+
+//     for (const schema of schemas) {
+
+//         let res = await mongodb.aggregate({
+//             db,
+//             collection: `${schema}${PREFIX}.labels`,
+//             pipeline: [
+//             {
+// 				$match:{
+// 					id:{
+// 						$in: data
+// 					}
+// 				}
+// 				},
+// 				{
+//                 $group: {
+//                     _id: "$Ethnicity",
+//                     count: {
+//                         $count: {},
+//                     },
+//                 },
+//             }, ]
+//         })
+
+//         console.log(`${schema} Ethnicity`)
+//         res.forEach(r => {
+//             console.log(`${r._id} ${r.count}`)
+//         })
+
+//     }
+
+//     for (const schema of schemas) {
+
+//         let res = await mongodb.aggregate({
+//             db,
+//             collection: `${schema}${PREFIX}.labels`,
+//             pipeline: [{
+// 				$match:{
+// 					id:{
+// 						$in: data
+// 					}
+// 				}
+// 				},
+// 				{
+//                 $group: {
+//                     _id: "$Sex at Birth",
+//                     count: {
+//                         $count: {},
+//                     },
+//                 },
+//             }, ]
+//         })
+
+//         console.log(`${schema} Sex`)
+//         res.forEach(r => {
+//             console.log(`${r._id} ${r.count}`)
+//         })
+
+//     }
+
+//     for (const schema of schemas) {
+
+//         let res = await mongodb.aggregate({
+//             db,
+//             collection: `${schema}${PREFIX}.labels`,
+//             pipeline: [{
+// 				$match:{
+// 					id:{
+// 						$in: data
+// 					}
+// 				}
+// 				},{
+//                 $group: {
+//                     _id: "$Sex at Birth",
+//                     count: {
+//                         $count: {},
+//                     },
+//                 },
+//             }, ]
+//         })
+
+//         console.log(`${schema} Sex`)
+//         res.forEach(r => {
+//             console.log(`${r._id} ${r.count}`)
+//         })
+
+//     }
+
+
+////////////////////////////////////////////////////////////////////
+
+console.log("TRAIN")
+
+// for (const schema of schemas) {
+
+    //     let res = await mongodb.aggregate({
+    //         db,
+    //         collection: `${schema}${PREFIX}.labels`,
+    //         pipeline: [
+    //         {
+				// $match:{
+				// 	id:{
+				// 		$in: data1
+				// 	}
+				// }
+				// },
+    //         {
+    //             $group: {
+    //                 _id: "$model",
+    //                 count: {
+    //                     $count: {},
+    //                 },
+    //             },
+    //         }]
+    //     })
+
+    //     console.log(`${schema} device`)
+    //     res.forEach(r => {
+    //         console.log(`${r._id} ${r.count}`)
+    //     })
+
+    // }
 
     for (const schema of schemas) {
 
         let res = await mongodb.aggregate({
             db,
             collection: `${schema}${PREFIX}.labels`,
-            pipeline: [{
+            pipeline: [
+            {
+				$match:{
+					id:{
+						$in: data1
+					}
+				}
+				},
+            {
                 $group: {
-                    _id: "$Ethnicity",
+                    _id: "$Examination ID",
                     count: {
                         $count: {},
                     },
                 },
-            }, ]
+            }]
         })
 
-        console.log(`${schema} Ethnicity`)
-        res.forEach(r => {
-            console.log(`${r._id} ${r.count}`)
-        })
+        // console.log(`${schema} patients`)
+        // res.forEach(r => {
+            console.log(`${schema} ${res.length}`)
+        // })
 
     }
 
-    for (const schema of schemas) {
+    // for (const schema of schemas) {
 
-        let res = await mongodb.aggregate({
-            db,
-            collection: `${schema}${PREFIX}.labels`,
-            pipeline: [{
-                $group: {
-                    _id: "$Sex at Birth",
-                    count: {
-                        $count: {},
-                    },
-                },
-            }, ]
-        })
+    //     let res = await mongodb.aggregate({
+    //         db,
+    //         collection: `${schema}${PREFIX}.labels`,
+    //         pipeline: [
+    //         {
+				// $match:{
+				// 	id:{
+				// 		$in: data1
+				// 	}
+				// }
+				// },
+				// {
+    //             $group: {
+    //                 _id: "$Ethnicity",
+    //                 count: {
+    //                     $count: {},
+    //                 },
+    //             },
+    //         }, ]
+    //     })
 
-        console.log(`${schema} Sex at Birth`)
-        res.forEach(r => {
-            console.log(`${r._id} ${r.count}`)
-        })
+    //     console.log(`${schema} Ethnicity`)
+    //     res.forEach(r => {
+    //         console.log(`${r._id} ${r.count}`)
+    //     })
 
-    }
+    // }
 
-    for (const schema of schemas) {
+    // for (const schema of schemas) {
 
-        let res = await mongodb.aggregate({
-            db,
-            collection: `${schema}${PREFIX}.labels`,
-            pipeline: [{
-                $group: {
-                    _id: "$Sex at Birth",
-                    count: {
-                        $count: {},
-                    },
-                },
-            }, ]
-        })
+    //     let res = await mongodb.aggregate({
+    //         db,
+    //         collection: `${schema}${PREFIX}.labels`,
+    //         pipeline: [{
+				// $match:{
+				// 	id:{
+				// 		$in: data1
+				// 	}
+				// }
+				// },
+				// {
+    //             $group: {
+    //                 _id: "$Sex at Birth",
+    //                 count: {
+    //                     $count: {},
+    //                 },
+    //             },
+    //         }, ]
+    //     })
 
-        console.log(`${schema} Sex at Birth`)
-        res.forEach(r => {
-            console.log(`${r._id} ${r.count}`)
-        })
+    //     console.log(`${schema} Sex`)
+    //     res.forEach(r => {
+    //         console.log(`${r._id} ${r.count}`)
+    //     })
 
-    }
+    // }
 
+    // for (const schema of schemas) {
+
+    //     let res = await mongodb.aggregate({
+    //         db,
+    //         collection: `${schema}${PREFIX}.labels`,
+    //         pipeline: [{
+				// $match:{
+				// 	id:{
+				// 		$in: data1
+				// 	}
+				// }
+				// },{
+    //             $group: {
+    //                 _id: "$Sex at Birth",
+    //                 count: {
+    //                     $count: {},
+    //                 },
+    //             },
+    //         }, ]
+    //     })
+
+    //     console.log(`${schema} Sex`)
+    //     res.forEach(r => {
+    //         console.log(`${r._id} ${r.count}`)
+    //     })
+
+    // }
 
 
 

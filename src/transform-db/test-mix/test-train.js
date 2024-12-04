@@ -24,7 +24,7 @@ let buffer = []
 
 const run = async () => {
 
-	total = 0
+	let total = 0
 
 	for( const schema of schemas){
 
@@ -51,9 +51,44 @@ const run = async () => {
 		buffer = buffer.concat(res)
 
 		console.log(`${schema} ${res.length}`)
-		if(schema == "digiscope") {
-			console.log(res)
-		}
+		// if(schema == "digiscope") {
+		// 	console.log(res)
+		// }
+		total += res.length
+	
+	}
+
+	total = 0
+	
+	for( const schema of schemas){
+
+		let res = await mongodb.aggregate({
+			db,
+			collection: `${schema}${PREFIX}.labels`,
+			pipeline:[
+				{
+				$match:{
+					path:{
+						$in: data
+					}
+				}
+				},
+				{
+                $group: {
+                    _id: "$Examination ID",
+                    count: {
+                        $count: {},
+                    },
+                },
+            }			]
+		})
+
+		buffer = buffer.concat(res)
+
+		console.log(`${schema} ${res.length}`)
+		// if(schema == "digiscope") {
+		// 	console.log(res)
+		// }
 		total += res.length
 	
 	}
@@ -61,7 +96,7 @@ const run = async () => {
 	console.log(`Total ${total} ${data.length}`)
 
 	// data = data.map()
-	console.log(difference(data, buffer.map( b => b.path)))
+	// console.log(difference(data, buffer.map( b => b.path)))
 
 }
 
