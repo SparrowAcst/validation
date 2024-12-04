@@ -17,8 +17,9 @@ const schemas = [
     "hha"
 ]
 
+// node ./src/transform-db/stages/transform 8 10 100
 
-const PREFIX = ""
+const PREFIX = "-mix"
 
 
 const run = async () => {
