@@ -2,48 +2,74 @@ module.exports = (schema, out) => [{
         source: `${schema}.labels`,
         dest: `${out}.labels`,
         pipeline: [{
-            $project: {
-                _id: 0,
-                id: 1,
-                "Age (Years)": 1,
-                "Sex at Birth": 1,
-                Ethnicity: 1,
-                model: 1,
-                "Body Position": 1,
-                "Body Spot": 1,
-                "Type of artifacts , Artifact": 1,
-                "Systolic murmurs": 1,
-                "Diastolic murmurs": 1,
-                "Other murmurs": 1,
-                "Pathological findings": 1,
-                state: 1,
-                CMO: 1,
-                TODO: 1,
-                "updated at": {
-                    $dateFromString: {
-                        dateString: "$updated at",
+                $project: {
+                    _id: 0,
+                    "Segmentation URL": 0,
+                    Source: 0,
+                    Clinic: 0,
+                    path: 0,
+                    supd: 0,
+                    UPDATE_FB_SEG: 0,
+                    migrated: 0,
+                    process_ai: 0,
+                    PUBLIC_URL_UPDATED: 0,
+                    Healthy: 0,
+                    "Clinical Metadata Reviewed": 0,
+                    "Intestinal Sounds Review Completed": 0,
+                    "Final Lung Sound Review Completed": 0,
+                    "Final Heart Sound Review Completed": 0,
+                    "Final Vascular Sound Review Completed": 0,
+                    "Lung Pathologycal Sound": 0,
+                    SOUND_FILE_EXISTS: 0,
+                    "Sound Presentation": 0,
+                    "Sound Segmentation": 0,
+                    "S1 Description": 0,
+                    "S1 Mitral component Loudness": 0,
+                    "S1 Split Type": 0,
+                    "Stethoscope Model": 0,
+                    "Arterial murmur": 0,
+                    "Patient Count": 0,
+                    "S2 description": 0,
+                    "S2 Split Type": 0,
+                    "Recorded with Fiter": 0,
+                    _import: 0,
+                    "Class of the informativeness": 0,
+                    supd1: 0,
+                },
+            },
+            {
+                $lookup: {
+                    from: "examinations",
+                    localField: "Examination ID",
+                    foreignField: "patientId",
+                    as: "examinationId",
+                    pipeline: [{
+                        $project: {
+                            _id: 0,
+                            uuid: 1,
+                        },
+                    }, ],
+                },
+            },
+            {
+                $set: {
+                    examinationId: {
+                        $first: "$examinationId",
                     },
                 },
-                "updated by": 1,
-                "Stage Comment": 1,
-                "1st expert": 1,
-                "2nd expert": 1,
-                nextTodo: 1,
-                complete: 1,
-                Confidence: 1,
-                "Bowel sound is present": 1,
-                S3: 1,
-                S4: 1,
-                FINALIZED: 1,
-                "Arrhythmia at the moment of recording": 1,
-                segmentation: 1,
-                aiSegmentation: 1,
-                deviceDescription: 1,
-                "Rhythm and Arrhythmias": 1,
-                "Heart Sound Informativeness": 1,
-                "Lung Sound Informativeness": 1,
             },
-        }, ]
+            {
+                $set: {
+                    examinationId: "$examinationId.uuid",
+                    taskList: [],
+                    "updated at": {
+                      $dateFromString:{
+                        dateString: "$updated at"
+                      }
+                    }
+                },
+            },
+        ]
     },
     {
         source: `${schema}.examinations`,
