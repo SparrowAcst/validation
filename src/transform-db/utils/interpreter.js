@@ -88,12 +88,11 @@ const exchange_H_2_H = ({ p1, p2 }) => { // tested
         return l
     })
 
-    r1.trace = r1.trace || [r1.examination.patientId]
-    r2.trace = r2.trace || [r2.examination.patientId]
+    r1.examination.trace = r1.examination.trace || [r1.examination.patientId]
+    r2.examination.trace = r2.examination.trace || [r2.examination.patientId]
 
-    r1.trace.push(r2.examination.patientId)
-    r2.trace.push(r1.examination.patientId)
-
+    r1.examination.trace.push(r2.examination.patientId)
+    r2.examination.trace.push(r1.examination.patientId)
 
     let forms = clone(r1.examination.forms)
     r1.examination.forms = clone(r2.examination.forms)
