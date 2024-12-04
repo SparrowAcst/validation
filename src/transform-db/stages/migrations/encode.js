@@ -25,7 +25,7 @@ module.exports = schema => [{
 
     {
         source: `${schema}.examinations`,
-        dest: `ADE-ENCODING.files`,
+        dest: `ADE-ENCODING.attachements`,
         pipeline: [{
                 $project: {
                     patientId: 1,
@@ -67,7 +67,7 @@ module.exports = schema => [{
 
     {
         source: `${schema}.examinations`,
-        dest: `ADE-ENCODING.examinations`,
+        dest: `ADE-ENCODING.echos`,
         pipeline: [{
             $project: {
                 _id: 0,
