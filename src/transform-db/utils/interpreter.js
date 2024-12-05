@@ -327,10 +327,10 @@ const exchange_D_2_Y = ({ p1, p2 }) => { // tested
 
 
     yr.examination.trace = yr.examination.trace || [yr.examination.patientId]
-    hr.examination.trace = hr.examination.trace || [hr.examination.patientId]
+    dr.examination.trace = dr.examination.trace || [dr.examination.patientId]
 
-    yr.examination.trace.push(hr.examination.patientId)
-    hr.examination.trace.push(yr.examination.patientId)
+    yr.examination.trace.push(dr.examination.patientId)
+    dr.examination.trace.push(yr.examination.patientId)
 
 
     dLabels = dLabels.map((l, index) => {
