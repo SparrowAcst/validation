@@ -3,8 +3,8 @@ const { first, last, groupBy, flatten, keys, find } = require("lodash")
 
 const db = require("../../../.config-migrate-db").mongodb.ade
 
-// const data = require("./test-path-all.json")
-const data = require("./train-path-all.json")
+const data = require("./test-path-all.json")
+// const data = require("./train-path-all.json")
 
 const schemas = [
     "potashev-part-1",
@@ -51,9 +51,9 @@ const run = async () => {
         })
 
         console.log(`${schema} ${res.length}`)
-  //       if(schema == "strazhesko-part-1") {
-		// 	console.log(res)
-		// }
+        if(schema == "yoda") {
+			console.log(res)
+		}
         total += res.length
 
     }
@@ -87,9 +87,9 @@ const run = async () => {
         })
 
         console.log(`${schema} ${res.length}`)
-  //       if(schema == "strazhesko-part-1") {
-		// 	console.log(res)
-		// }
+        if(schema == "yoda") {
+			console.log(res)
+		}
   
         total += res.length
 

@@ -88,11 +88,24 @@ const exchange_H_2_H = ({ p1, p2 }) => { // tested
         return l
     })
 
-    r1.examination.trace = r1.examination.trace || [r1.examination.patientId]
-    r2.examination.trace = r2.examination.trace || [r2.examination.patientId]
+    r1.examination.trace = r1.examination.trace || [{
+        proc: "START",
+        patientId: r1.examination.patientId
+    }]
 
-    r1.examination.trace.push(r2.examination.patientId)
-    r2.examination.trace.push(r1.examination.patientId)
+    r2.examination.trace = r2.examination.trace || [{
+        proc: "START",
+        patientId: r2.examination.patientId
+    }]
+
+    r1.examination.trace.push({
+        proc: "H2H",
+        patientId: r2.examination.patientId
+    })
+    r2.examination.trace.push({
+        proc: "H2H",
+        patientId: r1.examination.patientId
+    })
 
     let forms = clone(r1.examination.forms)
     r1.examination.forms = clone(r2.examination.forms)
@@ -110,7 +123,7 @@ const exchange_H_2_H = ({ p1, p2 }) => { // tested
 
 
 const swap = (value, pool, index, field, defaultValue) => {
-    let buf = (pool[index]) ? ( pool[index][field] || defaultValue ) : defaultValue
+    let buf = (pool[index]) ? (pool[index][field] || defaultValue) : defaultValue
     if (pool[index]) {
         pool[index][field] = value
     }
@@ -127,37 +140,50 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
     let hr = clone(p2)
 
 
-    let yLabels =  clone(yr.labels)
+    let yLabels = clone(yr.labels)
     let hLabels = clone(hr.labels)
 
-    if(hLabels.length > yLabels.length){
+    if (hLabels.length > yLabels.length) {
         hLabels = removeItems(hLabels, yLabels.length)
     }
 
-    yr.examination.trace = yr.examination.trace || [yr.examination.patientId]
-    hr.examination.trace = hr.examination.trace || [hr.examination.patientId]
+    yr.examination.trace = yr.examination.trace || [{
+        proc: "START",
+        patientId: yr.examination.patientId
+    }]
 
-    yr.examination.trace.push(hr.examination.patientId)
-    hr.examination.trace.push(yr.examination.patientId)
+    hr.examination.trace = hr.examination.trace || [{
+        proc: "START",
+        patientId: hr.examination.patientId
+    }]
+
+    yr.examination.trace.push({
+        proc: "Y2H",
+        patientId: hr.examination.patientId
+    })
+    hr.examination.trace.push({
+        proc: "Y2H",
+        patientId: yr.examination.patientId
+    })
 
 
 
     let models = uniqBy(yLabels.map(d => d.model))
-    console.log("models YH", models.join(","))
-    
-    yLabels.forEach( l => {
+    // console.log("models YH", models.join(","))
+
+    yLabels.forEach(l => {
         l["Examination ID"] = hr.examination.patientId
         l.deviceDescription = {}
     })
-    
-    hLabels.forEach( l => {
+
+    hLabels.forEach(l => {
         l["Examination ID"] = yr.examination.patientId
         l.deviceDescription = {}
         l.model = sample(models) //models[Math.trunc(Math.random()*models.length)]
     })
 
-    
-    yr.labels =  hLabels
+
+    yr.labels = hLabels
     hr.labels = yLabels
 
     yr.examination.forms = {
@@ -173,7 +199,7 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
         ekg: { type: "patient", data: {} },
         attachenents: { type: "patient", data: [] },
     }
-    
+
     delete yr.$records
 
     return {
@@ -190,38 +216,52 @@ const exchange_P_2_H = ({ p1, p2 }) => { // tested
 
     let yr = clone(p1)
     let hr = clone(p2)
-    
-    let yLabels =  clone(yr.labels) 
-    let hLabels = clone(hr.labels) 
 
-    if(hLabels.length > yLabels.length){
+    let yLabels = clone(yr.labels)
+    let hLabels = clone(hr.labels)
+
+    if (hLabels.length > yLabels.length) {
         hLabels = removeItems(hLabels, yLabels.length)
     }
 
 
-    yr.examination.trace = yr.examination.trace || [yr.examination.patientId]
-    hr.examination.trace = hr.examination.trace || [hr.examination.patientId]
+    yr.examination.trace = yr.examination.trace || [{
+        proc: "START",
+        patientId: yr.examination.patientId
+    }]
 
-    yr.examination.trace.push(hr.examination.patientId)
-    hr.examination.trace.push(yr.examination.patientId)
+    hr.examination.trace = hr.examination.trace || [{
+        proc: "START",
+        patientId: hr.examination.patientId
+    }]
+
+    yr.examination.trace.push({
+        proc: "P2H",
+        patientId: hr.examination.patientId
+    })
+
+    hr.examination.trace.push({
+        proc: "P2H",
+        patientId: yr.examination.patientId
+    })
 
     let models = uniqBy(hLabels.map(d => d.model))
 
-    console.log("models PH", models.join(","))
-    
-    yLabels.forEach( l => {
+    // console.log("models PH", models.join(","))
+
+    yLabels.forEach(l => {
         l["Examination ID"] = hr.examination.patientId
-        l.model = sample(models)//models[Math.round(Math.random()*models.length)]
+        l.model = sample(models) //models[Math.round(Math.random()*models.length)]
         l.deviceDescription = {}
     })
-    
-    hLabels.forEach( l => {
+
+    hLabels.forEach(l => {
         l["Examination ID"] = yr.examination.patientId
         l.model = "Phonendo"
         l.deviceDescription = {}
     })
 
-    yr.labels =  hLabels
+    yr.labels = hLabels
     hr.labels = yLabels
 
     yr.examination.forms = {
@@ -237,7 +277,7 @@ const exchange_P_2_H = ({ p1, p2 }) => { // tested
         ekg: { type: "patient", data: {} },
         attachenents: { type: "patient", data: [] },
     }
-    
+
     delete yr.$records
 
     return {
@@ -257,19 +297,33 @@ const exchange_H_2_Y = ({ p1, p2 }) => { // tested
     let hLabels = clone(hr.labels)
     let yLabels = clone(yr.labels)
 
-    yr.examination.trace = yr.examination.trace || [yr.examination.patientId]
-    hr.examination.trace = hr.examination.trace || [hr.examination.patientId]
+    yr.examination.trace = yr.examination.trace || [{
+        proc: "START",
+        patientId: yr.examination.patientId
+    }]
 
-    yr.examination.trace.push(hr.examination.patientId)
-    hr.examination.trace.push(yr.examination.patientId)
+    hr.examination.trace = hr.examination.trace || [{
+        proc: "START",
+        patientId: hr.examination.patientId
+    }]
+
+    yr.examination.trace.push({
+        proc: "H2Y",
+        patientId: hr.examination.patientId
+    })
+
+    hr.examination.trace.push({
+        proc: "H2Y",
+        patientId: yr.examination.patientId
+    })
 
 
     yModels = uniqBy(yLabels.map(d => d.model))
     hModels = uniqBy(hLabels.map(d => d.model))
 
-    console.log("models H", hModels.join(","))
-    console.log("models Y", yModels.join(","))
-    
+    // console.log("models H", hModels.join(","))
+    // console.log("models Y", yModels.join(","))
+
 
     hLabels = hLabels.map((l, index) => {
         l["Examination ID"] = yr.examination.patientId
@@ -282,7 +336,7 @@ const exchange_H_2_Y = ({ p1, p2 }) => { // tested
 
     yLabels = yLabels.map(l => {
         l["Examination ID"] = hr.examination.patientId
-        l.model =  sample(hModels) //hModels[Math.round(Math.random()*hModels.length)]
+        l.model = sample(hModels) //hModels[Math.round(Math.random()*hModels.length)]
         l.deviceDescription = {}
         return l
     })
@@ -326,11 +380,25 @@ const exchange_D_2_Y = ({ p1, p2 }) => { // tested
     let yLabels = clone(yr.labels)
 
 
-    yr.examination.trace = yr.examination.trace || [yr.examination.patientId]
-    dr.examination.trace = dr.examination.trace || [dr.examination.patientId]
+    yr.examination.trace = yr.examination.trace || [{
+        proc: "START",
+        patientId: yr.examination.patientId
+    }]
 
-    yr.examination.trace.push(dr.examination.patientId)
-    dr.examination.trace.push(yr.examination.patientId)
+    dr.examination.trace = dr.examination.trace || [{
+        proc: "START",
+        patientId: dr.examination.patientId
+    }]
+
+    yr.examination.trace.push({
+        proc: "D2Y",
+        patientId: dr.examination.patientId
+    })
+
+    dr.examination.trace.push({
+        proc: "START",
+        patientId: yr.examination.patientId
+    })
 
 
     dLabels = dLabels.map((l, index) => {
@@ -462,6 +530,11 @@ const executeSplit = async command => {
 
     let sourcePatient = clone(loadedPatient)
 
+    sourcePatient.examination.trace = sourcePatient.examination.trace || [{
+        proc: "START",
+        patientId: sourcePatient.examination.patientId
+    }]
+
     let partitions = splitToParts(loadedPatient.labels.length, command.data.length)
 
     let patients = command.data.map((d, index) => {
@@ -471,6 +544,10 @@ const executeSplit = async command => {
         examination.patientId = d.patientId
         examination.uuid = uuid()
         examination.id = examination.uuid
+        examination.trace.push({
+            proc: "SPLIT",
+            patientId: d.patientId
+        })
 
         let labels = removeItems(sourcePatient.labels, partitions[index])
 
@@ -486,7 +563,7 @@ const executeSplit = async command => {
         }
     })
 
-    console.log(loadedPatient.examination.patientId, loadedPatient.labels.length, patients.length)
+    // console.log(loadedPatient.examination.patientId, loadedPatient.labels.length, patients.length)
 
     patients.forEach(p => {
         stat(p)

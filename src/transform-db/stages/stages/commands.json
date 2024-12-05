@@ -62004,53 +62004,6 @@
    }
   ],
   "index": 2415
- },
-
- {
-  "command": "exchange",
-  "stage": 23,
-  "data": [
-   {
-    "patientId": "SMA0050",
-    "dataset": "H2",
-    "site": "strazhesko",
-    "records": [
-      "gU8kIKjkGfMOF8X4Y5obyx2kmdn2/recordings/ThinklabsONE_9e3254f1-e361-4c0d-a0e9-6d3a90db7fd7"
-    ]
-   },
-   {
-    "patientId": "YSD1240-S-2",
-    "dataset": "yoda",
-    "site": "yoda"
-   }
-  ],
-  "index": 2416
- },
-
- {
-  "command": "exchange",
-  "stage": 23,
-  "data": [
-   {
-    "patientId": "YAL0959",
-    "dataset": "H2",
-    "site": "strazhesko",
-    "records": [
-      "gU8kIKjkGfMOF8X4Y5obyx2kmdn2/recordings/Littmann_181977c5-6077-4d44-be14-fa59a5311937"
-    ]
-   },
-   {
-    "patientId": "YSD1240-S-3",
-    "dataset": "yoda",
-    "site": "yoda"
-   }
-  ],
-  "index": 2417
  }
-
-
-
-
- 
 ]
 
