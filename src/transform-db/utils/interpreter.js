@@ -134,8 +134,17 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
         hLabels = removeItems(hLabels, yLabels.length)
     }
 
-    let models = uniqBy(yLabels.map(d => d.model))
+    yr.examination.trace = yr.examination.trace || [yr.examination.patientId]
+    hr.examination.trace = hr.examination.trace || [hr.examination.patientId]
 
+    yr.examination.trace.push(hr.examination.patientId)
+    hr.examination.trace.push(yr.examination.patientId)
+
+
+
+    let models = uniqBy(yLabels.map(d => d.model))
+    console.log("models YH", models.join(","))
+    
     yLabels.forEach( l => {
         l["Examination ID"] = hr.examination.patientId
         l.deviceDescription = {}
@@ -190,8 +199,16 @@ const exchange_P_2_H = ({ p1, p2 }) => { // tested
     }
 
 
+    yr.examination.trace = yr.examination.trace || [yr.examination.patientId]
+    hr.examination.trace = hr.examination.trace || [hr.examination.patientId]
+
+    yr.examination.trace.push(hr.examination.patientId)
+    hr.examination.trace.push(yr.examination.patientId)
+
     let models = uniqBy(hLabels.map(d => d.model))
 
+    console.log("models PH", models.join(","))
+    
     yLabels.forEach( l => {
         l["Examination ID"] = hr.examination.patientId
         l.model = models[Math.round(Math.random()*models.length)]
@@ -240,8 +257,19 @@ const exchange_H_2_Y = ({ p1, p2 }) => { // tested
     let hLabels = clone(hr.labels)
     let yLabels = clone(yr.labels)
 
+    yr.examination.trace = yr.examination.trace || [yr.examination.patientId]
+    hr.examination.trace = hr.examination.trace || [hr.examination.patientId]
+
+    yr.examination.trace.push(hr.examination.patientId)
+    hr.examination.trace.push(yr.examination.patientId)
+
+
     yModels = uniqBy(yLabels.map(d => d.model))
     hModels = uniqBy(hLabels.map(d => d.model))
+
+    console.log("models H", hModels.join(","))
+    console.log("models Y", yModels.join(","))
+    
 
     hLabels = hLabels.map((l, index) => {
         l["Examination ID"] = yr.examination.patientId
@@ -296,6 +324,14 @@ const exchange_D_2_Y = ({ p1, p2 }) => { // tested
 
     let dLabels = clone(dr.labels)
     let yLabels = clone(yr.labels)
+
+
+    yr.examination.trace = yr.examination.trace || [yr.examination.patientId]
+    hr.examination.trace = hr.examination.trace || [hr.examination.patientId]
+
+    yr.examination.trace.push(hr.examination.patientId)
+    hr.examination.trace.push(yr.examination.patientId)
+
 
     dLabels = dLabels.map((l, index) => {
         l["Examination ID"] = yr.examination.patientId
@@ -961,7 +997,7 @@ const execute = async (START_STAGE, STOP_STAGE, BUFFER_SIZE) => {
 
             }
         }
-        while (buffer.length > 0 && !hasError)
+        while (buffer.length > 0 && !hasError && bufferCount < 1)
     }
 }
 
