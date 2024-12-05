@@ -821,7 +821,7 @@ const executePart = async script => {
 
     for (let command of script) {
 
-        console.log(`${command.index}: ${command.command}`)
+        // console.log(`${command.index}: ${command.command}`)
 
         try {
 
