@@ -185,7 +185,7 @@ const exchange_P_2_H = ({ p1, p2 }) => { // tested
 
     yLabels.forEach( l => {
         l["Examination ID"] = hr.examination.patientId
-        l.model = l.models[Math.round(Math.random()*models.length)]
+        l.model = models[Math.round(Math.random()*models.length)]
         l.deviceDescription = {}
     })
     
