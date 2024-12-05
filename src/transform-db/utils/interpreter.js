@@ -3,7 +3,7 @@ const mongodb = require("../../utils/mongodb")
 const fs = require("fs")
 const { parser } = require('stream-json/jsonl/Parser')
 const path = require("path")
-const { remove, values, groupBy, flatten, keys, find, fill, uniqBy } = require("lodash")
+const { remove, values, groupBy, flatten, keys, find, fill, uniqBy, sample } = require("lodash")
 const uuid = require("uuid").v4
 
 const db = require("../../../.config-migrate-db").mongodb.ade
@@ -153,7 +153,7 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
     hLabels.forEach( l => {
         l["Examination ID"] = yr.examination.patientId
         l.deviceDescription = {}
-        l.model = models[Math.round(Math.random()*models.length)]
+        l.model = sample(models) //models[Math.trunc(Math.random()*models.length)]
     })
 
     
@@ -211,7 +211,7 @@ const exchange_P_2_H = ({ p1, p2 }) => { // tested
     
     yLabels.forEach( l => {
         l["Examination ID"] = hr.examination.patientId
-        l.model = models[Math.round(Math.random()*models.length)]
+        l.model = sample(models)//models[Math.round(Math.random()*models.length)]
         l.deviceDescription = {}
     })
     
@@ -273,7 +273,7 @@ const exchange_H_2_Y = ({ p1, p2 }) => { // tested
 
     hLabels = hLabels.map((l, index) => {
         l["Examination ID"] = yr.examination.patientId
-        l.model = yModels[Math.round(Math.random()*yModels.length)]
+        l.model = sample(yModels) //yModels[Math.round(Math.random()*yModels.length)]
         l.deviceDescription = {}
         return l
 
@@ -282,7 +282,7 @@ const exchange_H_2_Y = ({ p1, p2 }) => { // tested
 
     yLabels = yLabels.map(l => {
         l["Examination ID"] = hr.examination.patientId
-        l.model = hModels[Math.round(Math.random()*hModels.length)]
+        l.model =  sample(hModels) //hModels[Math.round(Math.random()*hModels.length)]
         l.deviceDescription = {}
         return l
     })
