@@ -61984,6 +61984,29 @@
    }
   ],
   "index": 2414
+ },
+ {
+  "command": "exchange",
+  "stage": 23,
+  "data": [
+   {
+    "patientId": "DGS49974",
+    "dataset": "digiscope",
+    "site": "digiscope",
+    "records": [
+      "gU8kIKjkGfMOF8X4Y5obyx2kmdn2/recordings/Littmann_181977c5-6077-4d44-be14-fa59a5311937"
+    ]
+   },
+   {
+    "patientId": "YSD1240-S-1",
+    "dataset": "yoda",
+    "site": "yoda"
+   }
+  ],
+  "index": 2415
  }
+
+
+ 
 ]
 

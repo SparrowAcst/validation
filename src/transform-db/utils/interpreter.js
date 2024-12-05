@@ -3,7 +3,7 @@ const mongodb = require("../../utils/mongodb")
 const fs = require("fs")
 const { parser } = require('stream-json/jsonl/Parser')
 const path = require("path")
-const { remove, values, groupBy, flatten, keys, find, fill } = require("lodash")
+const { remove, values, groupBy, flatten, keys, find, fill, uniqBy } = require("lodash")
 const uuid = require("uuid").v4
 
 const db = require("../../../.config-migrate-db").mongodb.ade
@@ -129,37 +129,63 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
 
     // yr.labels = yr.labels.filter(l => yr.$records.includes(l.path))
 
-    let yLabels = remove(yr.labels, l => yr.$records.includes(l.path))
-    let hLabels = removeItems(hr.labels, yLabels.length)
+    // let yLabels = remove(yr.labels, l => yr.$records.includes(l.path))
+    // let hLabels = removeItems(hr.labels, yLabels.length)
 
-    yLabels = yLabels.map((l, index) => {
-        
-        l["Examination ID"] = hr.examination.patientId
+    let yLabels =  clone(yr.labels) //remove(yr.labels, l => yr.$records.includes(l.path))
+    let hLabels = clone(hr.labels) //removeItems(hr.labels, yLabels.length)
 
-        l.Ethnicity = swap(l.Ethnicity, hLabels, index, "Ethnicity", "unknown")
-        l["Sex at Birth"] = swap(l["Sex at Birth"], hLabels, index, "Sex at Birth", "unknown")
-        l["Age (Years)"] = swap(l["Age (Years)"], hLabels, index, "Age (Years)", "unknown")
-        
-        // l.model = swap(l.model, hLabels, index, "model", "unknown")
-        // l.deviceDescription = swap(l.deviceDescription, hLabels, index, "deviceDescription", {})
+    let models = uniqBy(yLabels.map(d => d.model))
 
-        if(hLabels[index]){
-            hLabels[index].model = l.model
-            hLabels[index].deviceDescription = l.deviceDescription || {}
-        }
-
-        return l
-
+    yLabels.forEach( l => {
+        l.["Examination ID"] = hr.examination.patientId
+    })
+    
+    hLabels.forEach( l => {
+        l.["Examination ID"] = yr.examination.patientId
+        l.models = models[Math.round(Math.random()+models.length)]
     })
 
+    
+    // let index = 0
+    
+    // while(yLabels[index] && hLabels[index]){
+        
+    //     yLabels[index]["Examination ID"] = hr.examination.patientId
+    //     hLabels[index]["Examination ID"] = yr.examination.patientId
 
-    hLabels = hLabels.map(l => {
-        l["Examination ID"] = yr.examination.patientId
-        return l
-    })
+    //     index++
+    // }
 
-    yr.labels = yr.labels.concat(hLabels)
-    hr.labels = hr.labels.concat(yLabels)
+
+    // yLabels = yLabels.map((l, index) => {
+        
+    //     l["Examination ID"] = hr.examination.patientId
+
+    //     // l.Ethnicity = swap(l.Ethnicity, hLabels, index, "Ethnicity", "unknown")
+    //     // l["Sex at Birth"] = swap(l["Sex at Birth"], hLabels, index, "Sex at Birth", "unknown")
+    //     // l["Age (Years)"] = swap(l["Age (Years)"], hLabels, index, "Age (Years)", "unknown")
+        
+    //     // l.model = swap(l.model, hLabels, index, "model", "unknown")
+    //     // l.deviceDescription = swap(l.deviceDescription, hLabels, index, "deviceDescription", {})
+
+    //     if(hLabels[index]){
+    //         hLabels[index].model = l.model
+    //         hLabels[index].deviceDescription = l.deviceDescription || {}
+    //     }
+
+    //     return l
+
+    // })
+
+
+    // hLabels = hLabels.map(l => {
+    //     l["Examination ID"] = yr.examination.patientId
+    //     return l
+    // })
+
+    yr.labels =  hLabels //yr.labels.concat(hLabels)
+    hr.labels = yLabels //hr.labels.concat(yLabels)
     // console.log(yr.labels.map(l => `${l["Examination ID"]}: ${l.model}: ${l["Sex at Birth"]} : ${l["Age (Years)"]}`).join("\n"))
     // console.log(hr.labels.map(l => `${l["Examination ID"]}: ${l.model}: ${l["Sex at Birth"]} : ${l["Age (Years)"]}`).join("\n"))
     
@@ -217,6 +243,21 @@ const exchange_P_2_H = ({ p1, p2 }) => { // tested
     // console.log(yr.labels.map(l => `${l["Examination ID"]}: ${l.model}: ${l["Sex at Birth"]} : ${l["Age (Years)"]}`).join("\n"))
     // console.log(hr.labels.map(l => `${l["Examination ID"]}: ${l.model}: ${l["Sex at Birth"]} : ${l["Age (Years)"]}`).join("\n"))
     
+    yr.examination.forms = {
+        patient: { type: "patient", data: {} },
+        echo: { type: "patient", data: {} },
+        ekg: { type: "patient", data: {} },
+        attachenents: { type: "patient", data: [] },
+    }
+
+    hr.examination.forms = {
+        patient: { type: "patient", data: {} },
+        echo: { type: "patient", data: {} },
+        ekg: { type: "patient", data: {} },
+        attachenents: { type: "patient", data: [] },
+    }
+
+
     delete yr.$records
 
     return {
@@ -347,7 +388,7 @@ const exchange = {
     "potashev_poltava": exchange_H_2_H,
     "potashev_strazhesko": exchange_H_2_H,
     "denis_strazhesko": exchange_H_2_H,
-    "phonendo_strazhesko": exchange_P_2_H,
+    "phonendo_strazhesko": exchange_Y_2_H,
     "$HHA_strazhesko": exchange_Y_2_H,
     "strazhesko_potashev": exchange_H_2_H,
     "strazhesko_denis": exchange_H_2_H,
