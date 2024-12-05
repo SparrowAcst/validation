@@ -133,11 +133,13 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
     let models = uniqBy(yLabels.map(d => d.model))
 
     yLabels.forEach( l => {
-        l.["Examination ID"] = hr.examination.patientId
+        l["Examination ID"] = hr.examination.patientId
+        l.deviceDescription = {}
     })
     
     hLabels.forEach( l => {
-        l.["Examination ID"] = yr.examination.patientId
+        l["Examination ID"] = yr.examination.patientId
+        l.deviceDescription = {}
         l.models = models[Math.round(Math.random()*models.length)]
     })
 
@@ -182,13 +184,13 @@ const exchange_P_2_H = ({ p1, p2 }) => { // tested
     let models = uniqBy(hLabels.map(d => d.model))
 
     yLabels.forEach( l => {
-        l.["Examination ID"] = hr.examination.patientId
+        l["Examination ID"] = hr.examination.patientId
         l.models[Math.round(Math.random()*models.length)]
         l.deviceDescription = {}
     })
     
     hLabels.forEach( l => {
-        l.["Examination ID"] = yr.examination.patientId
+        l["Examination ID"] = yr.examination.patientId
         l.model = "Phonendo"
         l.models = models[Math.round(Math.random()*models.length)]
         l.deviceDescription = {}
