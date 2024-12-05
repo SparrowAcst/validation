@@ -69,7 +69,7 @@ const cardioSpot = d => [
 
 const exchange_H_2_H = ({ p1, p2 }) => { // tested
 
-    console.log(`H_2_H ${p1.examination.patientId} > ${p2.examination.patientId} store: no stored, labels: exchange all, forms: exchange`)
+    // console.log(`H_2_H ${p1.examination.patientId} > ${p2.examination.patientId} store: no stored, labels: exchange all, forms: exchange`)
 
     let r1 = clone(p1)
     let r2 = clone(p2)
@@ -120,7 +120,7 @@ const swap = (value, pool, index, field, defaultValue) => {
 
 const exchange_Y_2_H = ({ p1, p2 }) => { // tested
 
-    console.log(`Y_2_H ${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange selected, forms: no exchange`)
+    // console.log(`Y_2_H ${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange selected, forms: no exchange`)
 
 
     let yr = clone(p1)
@@ -129,6 +129,10 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
 
     let yLabels =  clone(yr.labels)
     let hLabels = clone(hr.labels)
+
+    if(hLabels.length > yLabels.length){
+        hLabels = removeItems(hLabels, yLabels.length)
+    }
 
     let models = uniqBy(yLabels.map(d => d.model))
 
@@ -140,7 +144,7 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
     hLabels.forEach( l => {
         l["Examination ID"] = yr.examination.patientId
         l.deviceDescription = {}
-        l.models = models[Math.round(Math.random()*models.length)]
+        l.model = models[Math.round(Math.random()*models.length)]
     })
 
     
@@ -172,7 +176,7 @@ const exchange_Y_2_H = ({ p1, p2 }) => { // tested
 
 const exchange_P_2_H = ({ p1, p2 }) => { // tested
 
-    console.log(`P_2_H ${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange selected, forms: no exchange`)
+    // console.log(`P_2_H ${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange selected, forms: no exchange`)
 
 
     let yr = clone(p1)
@@ -180,6 +184,11 @@ const exchange_P_2_H = ({ p1, p2 }) => { // tested
     
     let yLabels =  clone(yr.labels) 
     let hLabels = clone(hr.labels) 
+
+    if(hLabels.length > yLabels.length){
+        hLabels = removeItems(hLabels, yLabels.length)
+    }
+
 
     let models = uniqBy(hLabels.map(d => d.model))
 
@@ -223,7 +232,7 @@ const exchange_P_2_H = ({ p1, p2 }) => { // tested
 
 const exchange_H_2_Y = ({ p1, p2 }) => { // tested
 
-    console.log(`H_2_Y ${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange all, forms: all clear`)
+    // console.log(`H_2_Y ${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange all, forms: all clear`)
 
     let hr = clone(p1)
     let yr = clone(p2)
@@ -231,9 +240,12 @@ const exchange_H_2_Y = ({ p1, p2 }) => { // tested
     let hLabels = clone(hr.labels)
     let yLabels = clone(yr.labels)
 
+    yModels = uniqBy(yLabels.map(d => d.model))
+    hModels = uniqBy(hLabels.map(d => d.model))
+
     hLabels = hLabels.map((l, index) => {
         l["Examination ID"] = yr.examination.patientId
-        l.model = "unknown"
+        l.model = yModels[Math.round(Math.random()*yModels.length)]
         l.deviceDescription = {}
         return l
 
@@ -242,7 +254,7 @@ const exchange_H_2_Y = ({ p1, p2 }) => { // tested
 
     yLabels = yLabels.map(l => {
         l["Examination ID"] = hr.examination.patientId
-        l.model = "unknown"
+        l.model = hModels[Math.round(Math.random()*hModels.length)]
         l.deviceDescription = {}
         return l
     })
@@ -277,7 +289,7 @@ const exchange_H_2_Y = ({ p1, p2 }) => { // tested
 
 const exchange_D_2_Y = ({ p1, p2 }) => { // tested
 
-    console.log(`D_2_Y ${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange all set digiscope device, forms: all clear`)
+    // console.log(`D_2_Y ${p1.examination.patientId} > ${p2.examination.patientId} store: all stored, labels: exchange all set digiscope device, forms: all clear`)
 
     let dr = clone(p1)
     let yr = clone(p2)

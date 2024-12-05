@@ -1,9 +1,10 @@
 const mongodb = require("../../utils/mongodb")
-const { first, last, groupBy } = require("lodash")
+const { first, last, groupBy, flatten, keys, find } = require("lodash")
 
 const db = require("../../../.config-migrate-db").mongodb.ade
 
-const data = require("./test-path-all.json")
+// const data = require("./test-path-all.json")
+const data = require("./train-path-all.json")
 
 const schemas = [
     "potashev-part-1",
@@ -50,9 +51,9 @@ const run = async () => {
         })
 
         console.log(`${schema} ${res.length}`)
-        if(schema == "digiscope") {
-			console.log(res)
-		}
+  //       if(schema == "strazhesko-part-1") {
+		// 	console.log(res)
+		// }
         total += res.length
 
     }
@@ -86,20 +87,20 @@ const run = async () => {
         })
 
         console.log(`${schema} ${res.length}`)
-
+  //       if(schema == "strazhesko-part-1") {
+		// 	console.log(res)
+		// }
+  
         total += res.length
 
     }
-
-    total = 0
-
-    console.log(`Total ${total} ${data.length}`)
-
 
 
 
     console.log("------------------- MODELS ----------------------------")
 
+    let buffer = []
+    
     for (const schema of schemas) {
 
         let res = await mongodb.aggregate({
@@ -123,19 +124,27 @@ const run = async () => {
             ]
         })
 
-        // buffer = buffer.concat(res)
+        buffer = buffer.concat(res)
         res.forEach(r => {
             console.log(`${schema} ${r._id} ${r.count}`)
         })
-        // if(schema == "digiscope") {
-        // 	console.log(res)
-        // }
-        total += res.length
-
+        
     }
+
+
+    console.log("------------------------------------------------------")
+    let models = groupBy(flatten(buffer), d => d._id )
+    models = keys(models).map(k => ({
+    	_id: k,
+    	count: models[k].map(d => d.count).reduce((a,b) => a+b, 0)
+    }))
+    models.forEach(r => {
+        console.log(`${r._id} ${r.count}`)
+    })
 
     console.log("------------------- MURMURS ----------------------------")
 
+    console.log(`schema false true`)
     for (const schema of schemas) {
 
         let res = await mongodb.aggregate({
@@ -211,15 +220,24 @@ const run = async () => {
                         },
                     },
                 },
-
+                {
+                	$sort: {
+                		murmurs: 1
+                	}
+                }
 
             ]
         })
 
+        res = [
+        	(find(res, d => d._id == false)) ? find(res, d => d._id == false).count : 0,
+        	(find(res, d => d._id == true)) ? find(res, d => d._id == true).count : 0,
+        ]
 
-        res.forEach(r => {
-            console.log(`${schema} ${r._id} ${r.count}`)
-        })
+        
+        // res.forEach(r => {
+            console.log(`${schema} ${res[0]} ${res[1]}`)
+        // })
 
 
     }
@@ -227,6 +245,7 @@ const run = async () => {
     console.log("------------------- Ethnicity ----------------------------")
 
 
+    buffer = []
     for (const schema of schemas) {
 
         let res = await mongodb.aggregate({
@@ -250,6 +269,7 @@ const run = async () => {
             }, ]
         })
 
+        buffer = buffer.concat(res)
         console.log(`${schema} Ethnicity`)
         res.forEach(r => {
             console.log(`${r._id} ${r.count}`)
@@ -257,9 +277,20 @@ const run = async () => {
 
     }
 
+    console.log("------------------------------------------------------")
+    let eths = groupBy(flatten(buffer), d => d._id )
+    eths = keys(eths).map(k => ({
+    	_id: k,
+    	count: eths[k].map(d => d.count).reduce((a,b) => a+b, 0)
+    }))
+    eths.forEach(r => {
+        console.log(`${r._id} ${r.count}`)
+    })
+
+
     console.log("------------------- Sex ----------------------------")
 
-
+    buffer = []
 
     for (const schema of schemas) {
 
@@ -283,6 +314,13 @@ const run = async () => {
             }, ]
         })
 
+        res = res.map( d => {
+        	d._id = `"${d._id}"`
+        	return d
+        })
+
+        buffer = buffer.concat(res)
+
         console.log(`${schema} Sex`)
         res.forEach(r => {
             console.log(`${r._id} ${r.count}`)
@@ -290,8 +328,15 @@ const run = async () => {
 
     }
 
-
-
+    console.log("------------------------------------------------------")
+    let sex = groupBy(flatten(buffer), d => d._id )
+    sex = keys(sex).map(k => ({
+    	_id: (k) ? k : "n/a",
+    	count: sex[k].map(d => d.count).reduce((a,b) => a+b, 0)
+    }))
+    sex.forEach(r => {
+        console.log(`${r._id} ${r.count}`)
+    })
 
 
 }
