@@ -1186,7 +1186,7 @@ const execute = async (START_STAGE, STOP_STAGE, BUFFER_SIZE) => {
 
             }
         }
-        while (buffer.length > 0 && !hasError && bufferCount < 1)
+        while (buffer.length > 0 && !hasError)
     }
 }
 
