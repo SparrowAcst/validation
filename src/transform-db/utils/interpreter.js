@@ -263,7 +263,7 @@ const exchange_P_2_H = ({ p1, p2 }) => { // tested
     })
 
     hLabels.forEach(l => {
-        l["Examination ID"] = yr.examination.patientId
+        l["Examination ID"] = pr.examination.patientId
         // l.model = "Phonendo"
         // l.deviceDescription = {}
     })
