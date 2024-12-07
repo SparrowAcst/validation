@@ -51,9 +51,9 @@ const run = async () => {
 		buffer = buffer.concat(res)
 
 		console.log(`${schema} ${res.length}`)
-		// if(schema == "digiscope") {
-		// 	console.log(res)
-		// }
+		if(schema == "strazhesko-part-1") {
+			console.log(res)
+		}
 		total += res.length
 	
 	}
@@ -86,9 +86,9 @@ const run = async () => {
 		buffer = buffer.concat(res)
 
 		console.log(`${schema} ${res.length}`)
-		// if(schema == "digiscope") {
-		// 	console.log(res)
-		// }
+		if(schema == "strazhesko-part-1") {
+			console.log(res)
+		}
 		total += res.length
 	
 	}

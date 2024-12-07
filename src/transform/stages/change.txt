@@ -1,0 +1,195 @@
+YSD0009
+[
+  'd223a6c4-ae4f-4fcb-9614-db6b257db5c7:YSD0009:littmann',
+  '8c5fbc73-4f4e-45fd-acdf-4f43010fbaf3:YSD0009:littmann',
+  '2415412a-92fb-4914-a09a-ae4038325216:YSD0009:littmann',
+  'cbf6ba0c-a185-4a75-afc1-e56f3e8adf70:YSD0009:littmann'
+]
+YAL0371
+[
+  '742e50bd-482b-434d-967d-c752c2a8296e:YAL0371:iOS',
+  'f0032301-b70d-48a1-97d5-f57048244348:YAL0371:rnk',
+  '034e7e9d-7461-4aa4-ab7e-092afd92fd66:YAL0371:android',
+  'aabece0b-432c-452c-bafe-323765ed257b:YAL0371:android',
+  'd551b310-dae6-4316-9456-654fae748606:YAL0371:iOS',
+  '9d660a50-5175-44bc-a5a9-0adf27e27fe2:YAL0371:android',
+  '576d9db9-daa8-49ef-8f99-2a71761dd729:YAL0371:rnk',
+  'abf42c6c-89c7-4e18-bd24-4def2af3f035:YAL0371:rnk',
+  'dfedb273-1262-494c-a0b3-e71b09799b2d:YAL0371:rnk',
+  '88fc1e54-559e-4137-b6de-19dc3db085ce:YAL0371:android',
+  '1a8542f9-7867-4d9a-a730-880783f3e9e5:YAL0371:rnk',
+  '0e7a127d-f879-4699-a098-6276e350e9e0:YAL0371:android',
+  '637e6b84-63f9-455a-bea7-9e211cd52a53:YAL0371:android',
+  '66dbf38d-2adc-4790-891b-b566e535deba:YAL0371:android',
+  'd87c3148-aa0a-4b5a-8c84-fe20793fad8c:YAL0371:iOS',
+  '0dfc8b63-b96e-452b-8856-0ed72a6dd841:YAL0371:iOS',
+  '094977cd-9a8f-478e-b5c7-0e2e9d11c627:YAL0371:rnk',
+  'd541e62f-cce2-4e46-860a-5b6a18cb2ea4:YAL0371:rnk',
+  '0990741a-b9a3-4ff6-ac5e-10d397b8dc11:YAL0371:iOS',
+  '951e5762-3afa-44c2-a3cf-9308e770bc0d:YAL0371:iOS',
+  '27b95e2b-6679-4b6b-9fd3-adf2c0952a88:YAL0371:rnk',
+  '55a13e4e-9d9d-42bd-8a11-cc2b73587f9a:YAL0371:iOS',
+  'f9a97269-98f6-4582-9214-5b09214a134a:YAL0371:iOS',
+  'd7af76ce-d376-4753-82a4-1337141f8fb5:YAL0371:rnk',
+  'fb5796d0-b91e-4048-864a-10e88db1be95:YAL0371:android',
+  '52840aee-0328-455a-be5d-7f79b87092b0:YAL0371:android',
+  '8c0dd79f-6c0d-4a67-a51a-fdd5b26319c0:YAL0371:iOS',
+  '9874167e-1836-4122-8f79-fc43d939cf5c:YAL0371:iOS',
+  'c6a7297d-46d4-4dbd-aa5e-9216f42d6a2e:YAL0371:rnk',
+  '7f8dfa69-8ee6-482a-86ab-de255ae8262c:YAL0371:iOS',
+  '9835b555-3d63-4241-8b79-5df9d9d2b749:YAL0371:rnk',
+  'c73b8822-e012-4dcc-a758-1b3ea81ed7fd:YAL0371:iOS',
+  'd9decb27-8a82-425f-b591-dc787d6ad31e:YAL0371:rnk',
+  'de5da1ae-5b19-4d41-870a-d1860f91c8e3:YAL0371:iOS',
+  'e54f568b-a541-4ea2-8292-d1130beb13af:YAL0371:rnk',
+  '7f6a04c0-d628-48f1-9474-f2996f18deec:YAL0371:android',
+  '2b1eddde-ec76-4ed8-9087-ffd639694be1:YAL0371:rnk',
+  '7267811a-9b3a-4635-b44c-d07021e271eb:YAL0371:android',
+  'c7f4b8f3-e228-4bdb-83b0-180fd8c864a7:YAL0371:android',
+  'f7af1606-fba2-4c07-997d-fb9ebc717bb2:YAL0371:android',
+  '904e3a90-b876-461f-8dda-f20b4462f1e3:YAL0371:android',
+  'bf4b1c42-316b-4bd2-8967-c8d7190bbad4:YAL0371:iOS'
+]
+--------------
+YSD0009
+[
+  '742e50bd-482b-434d-967d-c752c2a8296e:YSD0009:littmann',
+  'f0032301-b70d-48a1-97d5-f57048244348:YSD0009:littmann',
+  '034e7e9d-7461-4aa4-ab7e-092afd92fd66:YSD0009:littmann',
+  'aabece0b-432c-452c-bafe-323765ed257b:YSD0009:littmann'
+]
+YAL0371
+[
+  'd223a6c4-ae4f-4fcb-9614-db6b257db5c7:YAL0371:iOS',
+  '8c5fbc73-4f4e-45fd-acdf-4f43010fbaf3:YAL0371:rnk',
+  '2415412a-92fb-4914-a09a-ae4038325216:YAL0371:android',
+  'cbf6ba0c-a185-4a75-afc1-e56f3e8adf70:YAL0371:android'
+]
+--------------
+YSD0877
+[
+  '0bef2f61-143b-4070-8cb9-d698445d1aef:YSD0877:littmann',
+  '6a60a36b-013e-4dbb-813a-080c7f7cf068:YSD0877:littmann'
+]
+YAL0385
+[
+  '425ce32e-a2e3-40db-bd43-79cd1bd23838:YAL0385:android',
+  '07560fe8-f594-4cd9-80d5-559a9c80f0c2:YAL0385:iOS',
+  '9e289fc0-0d67-4fff-a3c9-9aac9b305042:YAL0385:rnk',
+  '4c3900ea-0838-4968-b061-daf74871e981:YAL0385:iOS',
+  'cd66425f-153f-4db6-8355-e3708dfa1fb8:YAL0385:rnk',
+  'd979ff06-d440-4bec-be0e-235c710e60fe:YAL0385:android',
+  '79d77965-5d7e-4392-a413-3d46336064b1:YAL0385:android',
+  'b6e93369-1757-49e2-827d-ec7aff6c19b1:YAL0385:android',
+  '88ec9875-f21c-4c0d-84ed-31e219950b99:YAL0385:android',
+  '6c949f62-5587-41d5-a618-0dea2816c952:YAL0385:iOS',
+  '23f21344-4aeb-4b84-82ec-8b00c23c81bd:YAL0385:rnk',
+  'a61e7d34-76e5-4304-8721-3e40035efbcb:YAL0385:iOS',
+  '1bf7a96f-5f04-432a-9801-54b341cd89ea:YAL0385:android',
+  'de9d60b5-9b71-4b9c-8459-bcc5cbc5739e:YAL0385:android',
+  'd379c2b5-d73d-4556-a7de-d77aefab2b5d:YAL0385:iOS',
+  '0796ae8d-681f-4a46-9ad7-5857de36e918:YAL0385:android',
+  '256eced7-fe49-4059-987c-e1ca450631c4:YAL0385:iOS',
+  '24618560-48af-4c3e-b324-02f3cfa78b9f:YAL0385:iOS',
+  '72a69573-6aa0-4072-a83d-1c0acc274a58:YAL0385:android',
+  'e454d063-4676-4e63-b787-cba277bf6e72:YAL0385:rnk',
+  '58725d43-f3ca-41d4-8eea-b41821f3e098:YAL0385:rnk',
+  '8752f5c6-e6e6-4d2c-8d5a-b7e6f6f65c69:YAL0385:rnk',
+  '1573b982-b6f5-4518-a68a-a4ff69e0a5c3:YAL0385:iOS',
+  'b2e39067-d21a-4fb4-94bb-c2df9bdda892:YAL0385:android',
+  '4d22c46c-fb55-4249-8368-b8d7247c5e40:YAL0385:rnk',
+  '81936968-957d-45ef-8cc2-1b3d62601539:YAL0385:android',
+  'e1c5ad5e-00a4-4389-a741-942237248bc8:YAL0385:rnk',
+  'a4a2cbc9-d91f-495e-bdf4-dee24931f822:YAL0385:rnk',
+  'e96d9ad0-abfe-4e4a-9e22-7d3179554eb4:YAL0385:iOS',
+  '68d9c133-fece-46e6-a85c-e238106e4aec:YAL0385:iOS',
+  'ecd7fe5d-a630-42cc-99eb-42fb0e0cc820:YAL0385:rnk',
+  '196d7729-db43-4646-8b3b-1bf33f255a3f:YAL0385:iOS',
+  '8e768a97-bc61-415c-a9d8-1aca16d22fd9:YAL0385:android',
+  'eb264377-3065-49c3-b20a-9c71e64a5b63:YAL0385:iOS',
+  '2291e2c9-2fda-4738-b635-04192fae4276:YAL0385:rnk',
+  'ef01bff0-b167-4415-b718-0fbef709c4ae:YAL0385:rnk',
+  '3caa7725-b770-490f-9deb-5721c82b06d5:YAL0385:rnk',
+  '2d915d93-2ed0-4f38-932f-d2789a35e38a:YAL0385:iOS',
+  '0a2be496-848d-4774-9478-929324b2a5aa:YAL0385:rnk',
+  '341991e5-1c94-44fe-96dd-592248fbf7f3:YAL0385:android',
+  '2946aac4-469f-4fab-b9f0-f350bb623875:YAL0385:iOS',
+  'b7f2916c-7ffd-4898-88fa-dd24e8ab1858:YAL0385:android'
+]
+--------------
+YSD0877
+[
+  '425ce32e-a2e3-40db-bd43-79cd1bd23838:YSD0877:littmann',
+  '07560fe8-f594-4cd9-80d5-559a9c80f0c2:YSD0877:littmann'
+]
+YAL0385
+[
+  '0bef2f61-143b-4070-8cb9-d698445d1aef:YAL0385:android',
+  '6a60a36b-013e-4dbb-813a-080c7f7cf068:YAL0385:iOS'
+]
+--------------
+YSD0987
+[
+  '4c847aef-74bc-4f65-b6df-b6d32211f230:YSD0987:littmann',
+  '96b0c8cb-9640-4c06-92af-efa92f9fe42f:YSD0987:littmann',
+  '6ec78234-7253-4f1a-a86b-17e009250acf:YSD0987:littmann'
+]
+YAL0367
+[
+  '0af2eea0-b9e4-40b3-9dbb-a748e704e3bc:YAL0367:iOS',
+  '56aae04b-bca9-46a0-af85-17ba3b373161:YAL0367:android',
+  '0baa63d0-63e3-443e-bea8-9dbb86d759d1:YAL0367:iOS',
+  '492018b3-863a-417f-abcf-65c49dd0c970:YAL0367:iOS',
+  'a89fcc95-b529-4396-9d27-284722f814d0:YAL0367:iOS',
+  'b1ddbdd5-3be2-4a39-88d8-33f7d20487bd:YAL0367:rnk',
+  '12bac9d6-1484-4219-947b-ced5ec01c8a7:YAL0367:iOS',
+  'b020efcb-eb0c-47ab-8344-460851731302:YAL0367:android',
+  '7f82ba68-ce49-467b-b46f-47de10d77eac:YAL0367:rnk',
+  'e8ed9988-f6dd-4da2-b4f8-31e5920933ab:YAL0367:rnk',
+  '1199f1a6-188f-4f92-a377-2608e420ceae:YAL0367:rnk',
+  '41bae698-771e-45e3-bd2d-89426b0d4995:YAL0367:android',
+  '3f791b7f-9635-4eae-8282-908479119ba2:YAL0367:android',
+  'c2fb1265-17cd-4ce7-a59a-44908edf2785:YAL0367:android',
+  'c7f6d940-6b4f-4e4b-82bc-2ae016ad7a40:YAL0367:android',
+  '2863518d-ea2d-4963-8d9f-f46d37ec749b:YAL0367:android',
+  'c3a2e8a5-9ed8-4b07-a9b6-90869f554398:YAL0367:rnk',
+  '15527a90-370b-41bb-8dfa-410650eb6236:YAL0367:rnk',
+  '897a37ce-6cc4-47b9-a27c-9c6dcaecd7c4:YAL0367:rnk',
+  'ff0c76cf-44d2-4b19-b908-01b10451291e:YAL0367:android',
+  'c5113372-f1cb-4c7e-9957-86fb1584d6bf:YAL0367:android',
+  '55cbb7be-91d3-4036-933e-ac800222fc43:YAL0367:rnk',
+  'ed33a251-7d51-429d-afab-0f044b7f1099:YAL0367:iOS',
+  '991eec17-ce35-4297-9587-dd66546a958e:YAL0367:android',
+  '8165bc4a-8ce4-4549-8e4a-4d74e7f0ab60:YAL0367:iOS',
+  '5c9ad59e-c37f-45ee-b3a7-0e24fe2b2c1e:YAL0367:iOS',
+  '743ff38b-e609-414b-9464-001186652e98:YAL0367:android',
+  '759eed6e-541a-4293-8bc4-c9cc1ec99433:YAL0367:rnk',
+  '3f4fe263-5e57-4a60-a39e-a8abb84893b9:YAL0367:iOS',
+  '464eb09c-2875-4877-841e-3875d8fc891d:YAL0367:iOS',
+  '05cef69c-8b6e-4e27-9184-50785d8e354a:YAL0367:android',
+  '78939ef8-0496-4449-ba6c-7564b025de14:YAL0367:android',
+  '45ab1489-54d8-4e75-9770-321dc612142b:YAL0367:android',
+  '7d4b8a6e-9436-4af1-a028-e43e4db06e72:YAL0367:rnk',
+  '81131e0d-cf8e-4975-bc62-1959a428d3b0:YAL0367:iOS',
+  '621c7e2a-6e0d-4657-a8a2-f5eff24732f2:YAL0367:rnk',
+  '07f5af9d-81b0-482a-8138-924b4f63aaa2:YAL0367:iOS',
+  'ff29fddf-b65f-49bb-bcee-d119a1b07892:YAL0367:iOS',
+  'f06b728e-9dab-4e2b-ba31-d08e05d6dd97:YAL0367:rnk',
+  '6b77ca27-7bd7-41e3-a3c3-7feef015ee23:YAL0367:iOS',
+  'c25dbe52-6274-4fdf-ab9c-a0349aa127fb:YAL0367:rnk',
+  '8e21ccbc-b294-4df6-bf21-067a3a9dc40d:YAL0367:rnk'
+]
+--------------
+YSD0987
+[
+  '0af2eea0-b9e4-40b3-9dbb-a748e704e3bc:YSD0987:littmann',
+  '56aae04b-bca9-46a0-af85-17ba3b373161:YSD0987:littmann',
+  '0baa63d0-63e3-443e-bea8-9dbb86d759d1:YSD0987:littmann'
+]
+YAL0367
+[
+  '4c847aef-74bc-4f65-b6df-b6d32211f230:YAL0367:iOS',
+  '96b0c8cb-9640-4c06-92af-efa92f9fe42f:YAL0367:android',
+  '6ec78234-7253-4f1a-a86b-17e009250acf:YAL0367:iOS'
+]
+--------------

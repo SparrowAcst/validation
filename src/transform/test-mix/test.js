@@ -3,8 +3,8 @@ const { first, last, groupBy, flatten, keys, find } = require("lodash")
 
 const db = require("../../../.config-migrate-db").mongodb.ade
 
-const data = require("./test-path-all.json")
-// const data = require("./train-path-all.json")
+// const data = require("./test-path-all.json")
+const data = require("./train-path-all.json")
 
 const schemas = [
     "potashev-part-1",
@@ -142,105 +142,105 @@ const run = async () => {
         console.log(`${r._id} ${r.count}`)
     })
 
-    // console.log("------------------- MURMURS ----------------------------")
+    console.log("------------------- MURMURS ----------------------------")
 
-    // console.log(`schema false true`)
-    // for (const schema of schemas) {
+    console.log(`schema false true`)
+    for (const schema of schemas) {
 
-    //     let res = await mongodb.aggregate({
-    //         db,
-    //         collection: `${schema}${PREFIX}.labels`,
-    //         pipeline: [{
-    //                 $match: {
-    //                     path: {
-    //                         $in: data
-    //                     }
-    //                 }
-    //             },
-    //             {
-    //                 $project: {
-    //                     _id: 0,
-    //                     "Examination ID": 1,
-    //                     s: {
-    //                         $first: "$Systolic murmurs",
-    //                     },
-    //                     d: {
-    //                         $first: "$Diastolic murmurs",
-    //                     },
-    //                     o: {
-    //                         $first: "$Other murmurs",
-    //                     },
-    //                 },
-    //             },
-    //             {
-    //                 $addFields: {
-    //                     murmurs: {
-    //                         $or: [{
-    //                                 $and: [{
-    //                                         $ifNull: ["$s", false],
-    //                                     },
-    //                                     {
-    //                                         $ne: [
-    //                                             "$s",
-    //                                             "No systolic murmurs",
-    //                                         ],
-    //                                     },
-    //                                 ],
-    //                             },
-    //                             {
-    //                                 $and: [{
-    //                                         $ifNull: ["$d", false],
-    //                                     },
-    //                                     {
-    //                                         $ne: [
-    //                                             "$d",
-    //                                             "No diastolic murmurs",
-    //                                         ],
-    //                                     },
-    //                                 ],
-    //                             },
-    //                             {
-    //                                 $and: [{
-    //                                         $ifNull: ["$o", false],
-    //                                     },
-    //                                     {
-    //                                         $ne: ["$o", "No Other Murmurs"],
-    //                                     },
-    //                                 ],
-    //                             },
-    //                         ],
-    //                     },
-    //                 },
-    //             },
-    //             {
-    //                 $group: {
-    //                     _id: "$murmurs",
-    //                     count: {
-    //                         $count: {},
-    //                     },
-    //                 },
-    //             },
-    //             {
-    //             	$sort: {
-    //             		murmurs: 1
-    //             	}
-    //             }
+        let res = await mongodb.aggregate({
+            db,
+            collection: `${schema}${PREFIX}.labels`,
+            pipeline: [{
+                    $match: {
+                        path: {
+                            $in: data
+                        }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        "Examination ID": 1,
+                        s: {
+                            $first: "$Systolic murmurs",
+                        },
+                        d: {
+                            $first: "$Diastolic murmurs",
+                        },
+                        o: {
+                            $first: "$Other murmurs",
+                        },
+                    },
+                },
+                {
+                    $addFields: {
+                        murmurs: {
+                            $or: [{
+                                    $and: [{
+                                            $ifNull: ["$s", false],
+                                        },
+                                        {
+                                            $ne: [
+                                                "$s",
+                                                "No systolic murmurs",
+                                            ],
+                                        },
+                                    ],
+                                },
+                                {
+                                    $and: [{
+                                            $ifNull: ["$d", false],
+                                        },
+                                        {
+                                            $ne: [
+                                                "$d",
+                                                "No diastolic murmurs",
+                                            ],
+                                        },
+                                    ],
+                                },
+                                {
+                                    $and: [{
+                                            $ifNull: ["$o", false],
+                                        },
+                                        {
+                                            $ne: ["$o", "No Other Murmurs"],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    },
+                },
+                {
+                    $group: {
+                        _id: "$murmurs",
+                        count: {
+                            $count: {},
+                        },
+                    },
+                },
+                {
+                	$sort: {
+                		murmurs: 1
+                	}
+                }
 
-    //         ]
-    //     })
+            ]
+        })
 
-    //     res = [
-    //     	(find(res, d => d._id == false)) ? find(res, d => d._id == false).count : 0,
-    //     	(find(res, d => d._id == true)) ? find(res, d => d._id == true).count : 0,
-    //     ]
+        res = [
+        	(find(res, d => d._id == false)) ? find(res, d => d._id == false).count : 0,
+        	(find(res, d => d._id == true)) ? find(res, d => d._id == true).count : 0,
+        ]
 
         
-    //     // res.forEach(r => {
-    //         console.log(`${schema} ${res[0]} ${res[1]}`)
-    //     // })
+        // res.forEach(r => {
+            console.log(`${schema} ${res[0]} ${res[1]}`)
+        // })
 
 
-    // }
+    }
 
     // console.log("------------------- Ethnicity ----------------------------")
 
