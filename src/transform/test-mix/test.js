@@ -3,8 +3,8 @@ const { first, last, groupBy, flatten, keys, find } = require("lodash")
 
 const db = require("../../../.config-migrate-db").mongodb.ade
 
-// const data = require("./test-path-all.json")
-const data = require("./train-path-all.json")
+const data = require("./test-path-all.json")
+// const data = require("./train-path-all.json")
 
 const schemas = [
     "potashev-part-1",
