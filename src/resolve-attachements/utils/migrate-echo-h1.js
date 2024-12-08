@@ -369,11 +369,19 @@ const resolvers = {
 
 
 
-const resolveURL = async buffer => {
+const resolveURL = async dataBuffer => {
 
-    buffer = buffer.filter(d => d && d.data && d.data.en)
+    buffer = dataBuffer.filter(d => d && d.data && d.data.en)
     console.log(`RESOLVE URL for ${buffer.map(d => d.patientId)}`)
-    let result = []
+    
+    let result = dataBuffer
+        .filter( d => !buffer.map( b => b.patientId).includes(d.patientId))
+        .map( d => {
+            d.error = "no data"
+            d.migratedAt = new Date()
+            return d
+        })
+
     let idx = 0
     for (let d of buffer) {
         idx++
@@ -490,13 +498,13 @@ const execute = async formCollection => {
                             $set:{
                                
                                process_echo: true,
-
-                               "data.en.dataUrl": d.data.en.dataUrl,
-                               "data.en.dataFileName": d.data.en.dataFileName,
-                               "data.en.dataStorage": d.data.en.dataStorage,
-                               "data.en.dataPath": d.data.en.dataPath, 
+                               error: d.error,
+                               "data.en.dataUrl": (!d.error) ? d.data.en.dataUrl : null,
+                               "data.en.dataFileName": (!d.error) ? d.data.en.dataFileName: null,
+                               "data.en.dataStorage": (!d.error) ? d.data.en.dataStorage : null,
+                               "data.en.dataPath": (!d.error) ? d.data.en.dataPath: null, 
                   
-                               "data.en.resolvedData": d.data.en.resolvedData
+                               "data.en.resolvedData": (!d.error) ? d.data.en.resolvedData: null
                             }    
                         },
                         upsert: true
