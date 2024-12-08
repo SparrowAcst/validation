@@ -5,7 +5,7 @@ const s3bucket = require("../../utils/s3-bucket")
 const filesize = require("file-size")
 const uuid = require("uuid").v4
 const { extension, lookup } = require("mime-types")
-const { first, last, find } = require("lodash")
+const { first, last, find, set } = require("lodash")
 
 // const hh = require("./RESOLVED-ECHO-URL.json")
 
@@ -378,10 +378,11 @@ const resolveURL = async buffer => {
         idx++
         if (d) {
 
-            console.log(`Patient ${idx}: ${d.patientId}`)
+            console.log(`Patient ${idx}: ${d.patientId} ${!!d.data.en}`)
 
             
             let resolver = resolvers["S3"]
+            console.log(`Resolver: ${!!resolver}`)
             if (resolver) {
 
                 let res = await resolver(d)
