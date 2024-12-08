@@ -513,11 +513,13 @@ const execute = async formCollection => {
 
                 console.log(`${SOURCE} > Write buffer ${bufferCount} : ${buffer.length} items`)
 
-                await mongodb.bulkWrite({
-                    db,
-                    collection: SOURCE,
-                    commands
-                })
+                if(commands.length > 0){
+                    await mongodb.bulkWrite({
+                        db,
+                        collection: SOURCE,
+                        commands
+                    })
+                }    
 
             }
 
