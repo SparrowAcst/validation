@@ -371,7 +371,7 @@ const resolvers = {
 
 const resolveURL = async buffer => {
 
-    buffer = buffer //.filter(d => d && d.data)
+    buffer = buffer.filter(d => d && d.data && d.data.en)
     console.log(`RESOLVE URL for ${buffer.map(d => d.patientId)}`)
     let result = []
     let idx = 0
