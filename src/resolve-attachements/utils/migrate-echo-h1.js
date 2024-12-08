@@ -494,7 +494,7 @@ const execute = async formCollection => {
                                "data.en.dataUrl": d.data.en.dataUrl,
                                "data.en.dataFileName": d.data.en.dataFileName,
                                "data.en.dataStorage": d.data.en.dataStorage,
-                               "d.data.en.dataPath": d.data.en.dataPath.  
+                               "d.data.en.dataPath": d.data.en.dataPath, 
                   
                                "data.en.resolvedData": d.data.en.resolvedData
                             }    
