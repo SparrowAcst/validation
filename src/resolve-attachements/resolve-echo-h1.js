@@ -1,5 +1,5 @@
 // const yargs = require("yargs");
-const execute = require("./utils/migrate-echo")
+const execute = require("./utils/migrate-echo-h1")
 
 // const settings = yargs.argv;
 const collection  = "sparrow.form-upd" //settings.collection || settings.c 
