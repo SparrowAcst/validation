@@ -52,8 +52,8 @@ const importCollectionData = async DEST => new Promise( (resolve, reject) => {
         console.log("\n!!!!",objectBuffer.length)        
         
         if (objectBuffer.length > 0) {
-                await mongodb.insertAll({
-                    db,
+                console.log(">>> ", objectBuffer.length)
+                await docdb.insertAll({
                     collection: DEST,
                     data: objectBuffer
                 })
