@@ -3,7 +3,7 @@ module.exports = [
     /////////////////////////////////////////////////////////////////////////////
     {
         source: "sparrow.H2",
-        dest: `strazhesko-part-1.labels`,
+        dest: `strazhesko-part-1-1.labels`,
         pipeline: [{
                 $match: {
                     Clinic: "STRAZHESKO"
@@ -19,7 +19,7 @@ module.exports = [
 
     {
         source: "sparrow.H2-EXAMINATION",
-        dest: `strazhesko-part-1.examinations`,
+        dest: `strazhesko-part-1-1.examinations`,
         pipeline: [{
                 $match: {
                     siteId: "c42ac1bd-ae37-4a47-b431-44cf4d886be1"

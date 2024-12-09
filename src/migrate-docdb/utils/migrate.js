@@ -49,6 +49,8 @@ const importCollectionData = async DEST => new Promise( (resolve, reject) => {
 
     jsonStream.on('end', async () => {
         
+        console.log("\n!!!!",objectBuffer.length)        
+        
         if (objectBuffer.length > 0) {
                 await mongodb.insertAll({
                     db,
