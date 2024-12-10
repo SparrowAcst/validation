@@ -1,5 +1,6 @@
 const mongodb = require("../../utils/mongodb")
 const fs = require("fs")
+const axios = require("axios")
 const { exists, mkdir, unzip } = require("../../utils/file-system")
 const path = require("path")
 const s3bucket = require("../../utils/s3-bucket")
@@ -20,6 +21,13 @@ const db = CONFIG.mongodb.ade
 const DEST = "ADE-RECORDS"
 const TEMP_DIR = path.resolve("../temp")
 
+
+const downloadFile = async (url, dest) => {
+    const res = await axios.get(url, { responseType: 'arraybuffer' });
+    fs.writeFileSync(dest, res.data);
+} 
+
+
 const decodeFileType = file => new Promise((resolve, reject) => {
 
     detect.fromFile(file, (err, result) => {
@@ -36,11 +44,12 @@ const delay = miliseconds => new Promise( resolve => {
     setTimeout(() => { resolve()}, miliseconds)
 })
 
-const migrateFB2S3 = async ({ id, fbpath }) => {
+const migrateFB2S3 = async ({ id, fbUrl }) => {
 
+    console.log(`START: ${id}`)
     let message = `...${last(id.split("-"))} >  `
 
-    if (!id || !fbpath) {
+    if (!id || !fbUrl) {
         
         console.log(message+ "no data - err")
         
@@ -54,7 +63,7 @@ const migrateFB2S3 = async ({ id, fbpath }) => {
         const downloads = path.resolve(`${TEMP_DIR}/${id}`)
         let file = downloads
         
-        await fb.downloadFile(fbpath, file)
+        await downloadFile(fbUrl, file)
         
         let type = await decodeFileType(file)
         console.log(type)
@@ -127,7 +136,7 @@ const execute = async COLLECTION => {
                 $project: {
                     _id: 0,
                     id: 1,
-                    path: 1
+                    Source: 1
                 }
             }
         ]
@@ -141,27 +150,37 @@ const execute = async COLLECTION => {
         if (buffer.length > 0) {
 
             console.log(`${COLLECTION} > Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
+            
+            let commands = []
 
             if (buffer.length > 0) {
-
+                
+                let i = 0
+                
                 for( let d of buffer){
-                    d.process_records = await migrateFB2S3({
-                        id: d.id,
-                        fbpath: d.path
-                    })
-                }    
-
-                let commands = buffer.map(d => ({
-                    updateOne: {
-                        filter: { id: d.id },
-                        update: {
-                            $set:{
-                              process_records: d.process_records  
+                    i++
+                    console.log(`${i} from ${buffer.length}`)
+                    
+                    if(d){
+                    
+                        const process_records = await migrateFB2S3({
+                            id: d.id,
+                            fbUrl: d.Source.url
+                        })
+                        
+                        commands.push({
+                            updateOne: {
+                                filter: { id: d.id },
+                                update: {
+                                    $set:{
+                                      process_records  
+                                    }
+                                },
+                                upsert: true
                             }
-                        },
-                        upsert: true
-                    }
-                }))
+                        })          
+                    }    
+                }    
 
                 await mongodb.bulkWrite({
                     db,
