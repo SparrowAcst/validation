@@ -186,11 +186,16 @@ const execute = async COLLECTION => {
                     }    
                 }    
 
-                await mongodb.bulkWrite({
-                    db,
-                    collection: COLLECTION,
-                    commands
-                })
+                if(commands.length > 0){
+                    
+                    console.log(`${COLLECTION} > Update ${commands.length} items`)
+            
+                    await mongodb.bulkWrite({
+                        db,
+                        collection: COLLECTION,
+                        commands
+                    })
+                }    
 
                
             }
