@@ -56,3 +56,73 @@ module.exports = (schema, out) => [{
 
 
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[
+  //   {
+  //   $match:
+  //     {
+  //       $expr: {
+  //         $ne: [
+  //           "$Examination ID",
+  //           "$src.Examination ID",
+  //         ],
+  //       },
+  //     },
+  // },
+  {
+    $project: {
+      _id: 0,
+      id: 1,
+      "Examination ID": 1,
+      collection: "strazhesko-part-1.labels",
+      src: 1,
+    },
+  },
+  {
+    $addFields: {
+      backward: {
+        source: {
+          id: "$id",
+          "Examination ID": "$Examination ID",
+          collection: "$collection",
+        },
+        target: "$src",
+      },
+      forward: {
+        source: "$src",
+        target: {
+          id: "$id",
+          "Examination ID": "$Examination ID",
+          collection: "$collection",
+        },
+      },
+    },
+  },
+  {
+    $project: {
+      forward: 1,
+      backward: 1,
+    },
+  },
+]
