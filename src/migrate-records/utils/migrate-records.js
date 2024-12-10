@@ -125,7 +125,9 @@ const execute = async COLLECTION => {
             },
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    id: 1,
+                    path: 1
                 }
             }
         ]
@@ -151,7 +153,7 @@ const execute = async COLLECTION => {
 
                 let commands = buffer.map(d => ({
                     updateOne: {
-                        filter: { "id": d.id },
+                        filter: { id: d.id },
                         update: {
                             $set:{
                               process_records: d.process_records  
