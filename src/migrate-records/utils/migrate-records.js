@@ -82,6 +82,7 @@ const migrateFB2S3 = async ({ id, fbUrl }) => {
             newFile = path.resolve(`${TEMP_DIR}/${id}.${type.ext}`)
             await fs.promises.rename(file, newFile);
             file = newFile
+            downloads = ""
         }
 
 
@@ -93,7 +94,10 @@ const migrateFB2S3 = async ({ id, fbUrl }) => {
         // await fs.promises.chmod(downloads, 0o775)
         // await fs.promises.chmod(file, 0o775)
         
-        await fs.promises.unlink(downloads)
+        if(downloads) {
+            await fs.promises.unlink(downloads)
+        }    
+        
         await fs.promises.unlink(file)
         
         console.log(message + `S3: ${DEST}/${id}.${type.ext} - ok`)
