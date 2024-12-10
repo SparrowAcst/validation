@@ -42,7 +42,7 @@ const migrateFB2S3 = async ({ id, fbpath }) => {
 
     if (!id || !fbpath) {
         
-        console.log(message+ "no data")
+        console.log(message+ "no data - err")
         
         return {
             error: "no data"
@@ -107,7 +107,7 @@ const execute = async COLLECTION => {
 
     console.log(`MIGRATE RECORDS FOR ${COLLECTION}`)
     
-    const PAGE_SIZE = 2
+    const PAGE_SIZE = 50
     let skip = 0
     let bufferCount = 0
 
@@ -175,7 +175,7 @@ const execute = async COLLECTION => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0 && bufferCount < 1)
+    } while (buffer.length > 0)
 
 }
 
