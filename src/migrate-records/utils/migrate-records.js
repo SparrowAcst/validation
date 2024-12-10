@@ -67,7 +67,7 @@ const migrateFB2S3 = async ({ id, fbUrl }) => {
         
         let type = await decodeFileType(file)
         console.log(type)
-        await delay(1000)
+        
         if (type.ext == "zip") {
             
             const zip = AdmZip(file, {});
