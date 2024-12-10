@@ -60,7 +60,7 @@ const migrateFB2S3 = async ({ id, fbUrl }) => {
 
     try {
         
-        const downloads = path.resolve(`${TEMP_DIR}/${id}`)
+        let downloads = path.resolve(`${TEMP_DIR}/${id}`)
         let file = downloads
         
         await downloadFile(fbUrl, file)
