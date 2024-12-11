@@ -35,10 +35,7 @@ module.exports = [
                         _id: 0,
                         result: 0,
                     },
-                },
-                {
-                    $out: "harvest1-upd",
-                },
+                }
             ]
             },
 
