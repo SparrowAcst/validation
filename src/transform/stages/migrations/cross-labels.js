@@ -126,3 +126,75 @@ module.exports = (schema, out) => [{
     },
   },
 ]
+
+
+
+
+/// examination cross matrix
+
+[
+  {
+    $group: {
+      _id: "$src.Examination ID",
+      "Examination ID": {
+        $first: "$Examination ID",
+      },
+      src: {
+        $first: "$src",
+      },
+    },
+  },
+  {
+    $lookup: {
+      from: "examinations",
+      localField: "Examination ID",
+      foreignField: "patientId",
+      as: "examination",
+      pipeline: [
+        {
+          $project: {
+            _id: 0,
+            crashed: 1,
+            id: "$uuid",
+            patientId: "$patientId",
+            src: 1,
+          },
+        },
+      ],
+    },
+  },
+  {
+    $addFields: {
+      crashed: {
+        $first: "$examination.crashed",
+      },
+      id: {
+        $first: "$examination.id",
+      },
+      collection: {
+        $first: "$examination.src.collection",
+      },
+    },
+  },
+  {
+    $addFields: {
+      source: {
+        patientId: "$src.Examination ID",
+        collection: "$collection",
+      },
+      target: {
+        id: "$id",
+        patientId: "$Examination ID",
+        collection: "ADE-TRANSFORM.examinations",
+      },
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      source: 1,
+      target: 1,
+      crashed: 1,
+    },
+  },
+]

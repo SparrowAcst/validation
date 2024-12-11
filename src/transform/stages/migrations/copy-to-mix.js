@@ -10,6 +10,8 @@ module.exports = [
                         id: "$id",
                         "Examination ID": "$Examination ID",
                         collection: "sparrow.H2",
+                        patientCollection:"sparrow.H2-EXAMINATION",
+                        formCollection: "sparrow.H2-FORM",
                     }
                 }
             },
@@ -50,7 +52,9 @@ module.exports = [
                     src: {
                         id: "$id",
                         "Examination ID": "$Examination ID",
-                        collection: "sparrow.H2",
+                        collection: "sparrow.H2",,
+                        patientCollection:"sparrow.H2-EXAMINATION",
+                        formCollection: "sparrow.H2-FORM",
                     }
                 }
             },
@@ -90,7 +94,9 @@ module.exports = [
                     src: {
                         id: "$id",
                         "Examination ID": "$Examination ID",
-                        collection: "sparrow.H2",
+                        collection: "sparrow.H2",,
+                        patientCollection:"sparrow.H2-EXAMINATION",
+                        formCollection: "sparrow.H2-FORM",
                     }
                 }
             },
@@ -130,7 +136,9 @@ module.exports = [
                     src: {
                         id: "$id",
                         "Examination ID": "$Examination ID",
-                        collection: "sparrow.H2",
+                        collection: "sparrow.H2",,
+                        patientCollection:"sparrow.H2-EXAMINATION",
+                        formCollection: "sparrow.H2-FORM",
                     }
                 }
             },
@@ -172,6 +180,8 @@ module.exports = [
                         id: "$id",
                         "Examination ID": "$Examination ID",
                         collection: "sparrow.phonendo",
+                        patientCollection:"sparrow.phonendo-exams",
+                        formCollection: "sparrow.phonendo-forms",
                     }
                 }
             },
@@ -214,6 +224,9 @@ module.exports = [
                         id: "$id",
                         "Examination ID": "$Examination ID",
                         collection: "sparrow.digiscope",
+                        patientCollection:"sparrow.digiscope-exams",
+                        formCollection: "sparrow.digiscope-forms",
+                    
                     }
                 }
             },
@@ -255,6 +268,9 @@ module.exports = [
                         id: "$id",
                         "Examination ID": "$Examination ID",
                         collection: "sparrow.yoda",
+                        patientCollection:"sparrow.yoda-exams",
+                        formCollection: "sparrow.yoda-forms-upd",
+                    
                     }
                 }
             },
@@ -296,6 +312,9 @@ module.exports = [
                         id: "$id",
                         "Examination ID": "$Examination ID",
                         collection: "sparrow.hha",
+                        patientCollection:"sparrow.hha-examinamtion",
+                        formCollection: "sparrow.hha-form",
+                    
                     }
                 }
             },
@@ -335,6 +354,9 @@ module.exports = [
                         id: "$id",
                         "Examination ID": "$Examination ID",
                         collection: "sparrow.harvest1",
+                        patientCollection:"sparrow.examination",
+                        formCollection: "sparrow.form-upd"
+                    
                     }
                 }
             },
