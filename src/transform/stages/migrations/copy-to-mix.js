@@ -52,7 +52,7 @@ module.exports = [
                     src: {
                         id: "$id",
                         "Examination ID": "$Examination ID",
-                        collection: "sparrow.H2",,
+                        collection: "sparrow.H2",
                         patientCollection:"sparrow.H2-EXAMINATION",
                         formCollection: "sparrow.H2-FORM",
                     }
@@ -94,7 +94,7 @@ module.exports = [
                     src: {
                         id: "$id",
                         "Examination ID": "$Examination ID",
-                        collection: "sparrow.H2",,
+                        collection: "sparrow.H2",
                         patientCollection:"sparrow.H2-EXAMINATION",
                         formCollection: "sparrow.H2-FORM",
                     }
@@ -136,7 +136,7 @@ module.exports = [
                     src: {
                         id: "$id",
                         "Examination ID": "$Examination ID",
-                        collection: "sparrow.H2",,
+                        collection: "sparrow.H2",
                         patientCollection:"sparrow.H2-EXAMINATION",
                         formCollection: "sparrow.H2-FORM",
                     }
