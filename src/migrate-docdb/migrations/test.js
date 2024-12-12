@@ -2,8 +2,8 @@ module.exports = [
 
     /////////////////////////////////////////////////////////////////////////////
     {
-        source: "sparrow.H2",
-        dest: `strazhesko-part-1-1.labels`,
+        source: "DEV-TEST-CLINIC.labels",
+        dest: `DEV-TEST-CLINIC.labels`,
         pipeline: [{
                 $match: {
                     Clinic: "STRAZHESKO"
