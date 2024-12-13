@@ -1,162 +1,35 @@
 module.exports = (schema, target) => {
     return [
-    // {
-    //         source: `${schema}.labels`,
-    //         dest: `ADE-TRANSFORM.cross-examinations`,
-    //         pipeline: [{
-    //             $group: {
-    //                 _id: "$src.Examination ID",
-    //                 "Examination ID": {
-    //                     $first: "$Examination ID"
-    //                 },
-    //                 src: {
-    //                     $first: "$src"
-    //                 },
-    //                 record: {
-    //                     $push: "$src"
-    //                 }
-    //             }
-    //         }, {
-    //             $lookup: {
-    //                 from: "examinations",
-    //                 localField: "Examination ID",
-    //                 foreignField: "patientId",
-    //                 as: "examination",
-    //                 pipeline: [{
-    //                     $project: {
-    //                         _id: 0,
-    //                         crashed: 1
-    //                     }
-    //                 }],
-    //             },
-    //         }, {
-    //             $addFields: {
-    //                 crashed: {
-    //                     $first: "$examination.crashed"
-    //                 }
-    //             }
-    //         }, {
-    //             $addFields: {
-    //                 source: "$src",
-    //                 target: {
-    //                     id: "$src.id",
-    //                     patientId: "$Examination ID",
-    //                     collection: {
-    //                         $cond: [{
-    //                                 $eq: ["$crashed", true]
-    //                             },
-    //                             "ADE-TRANSFORM.examinations",
-    //                             `${target}.examinations`
-    //                         ]
-    //                     }
-    //                 }
-    //             },
-    //         }, {
-    //             $project: {
-    //                 _id: 0,
-    //                 source: 1,
-    //                 target: 1,
-    //                 crashed: 1
-    //             }
-    //         }]
-    //     },
-    //     {
-    //         source: `${schema}.labels`,
-    //         dest: `ADE-TRANSFORM.cross-labels`,
-    //         pipeline: [{
-    //                 $group: {
-    //                     _id: "$src.Examination ID",
-    //                     "Examination ID": {
-    //                         $first: "$Examination ID"
-    //                     },
-    //                     src: {
-    //                         $first: "$src"
-    //                     },
-    //                     record: {
-    //                         $push: "$src"
-    //                     }
-    //                 }
-    //             },
-    //             {
-    //                 $lookup: {
-    //                     from: "examinations",
-    //                     localField: "Examination ID",
-    //                     foreignField: "patientId",
-    //                     as: "examination",
-    //                     pipeline: [{
-    //                         $project: {
-    //                             _id: 0,
-    //                             crashed: 1
-    //                         },
-    //                     }]
-    //                 }
-    //             },
-    //             {
-    //                 $addFields: {
-    //                     crashed: {
-    //                         $first: "$examination.crashed"
-    //                     }
-    //                 }
-    //             },
-    //             {
-    //                 $unwind: {
-    //                     path: "$record"
-    //                 }
-    //             },
-    //             {
-    //                 $addFields: {
-    //                     source: "$record",
-    //                     target: {
-    //                         id: "$record.id",
-    //                         "Examination ID": "$Examination ID",
-    //                         collection: {
-    //                             $cond: [{
-    //                                     $eq: ["$crashed", true]
-    //                                 },
-    //                                 "ADE-TRANSFORM.labels",
-    //                                 "${target}.labels"
-    //                             ]
-    //                         }
-    //                     }
-    //                 }
-    //             },
-    //             {
-    //                 $project: {
-    //                     _id: 0,
-    //                     source: 1,
-    //                     target: 1,
-    //                     crashed: 1
-    //                 }
-    //             }
-    //         ]
-    //     }, 
+
         {
             source: `ADE-TRANSFORM.labels`,
             dest: `ADE-TRANSFORM.cross-crash-examinations`,
             pipeline: [{
                     $group: {
                         _id: "$src.Examination ID",
-                        "Examination ID": {
-                            $first: "$Examination ID",
+                        source_patientId: {
+                            $first: "$src.Examination ID",
                         },
-                        src: {
-                            $first: "$src",
+                        source_collection: {
+                            $first: "$src.patientCollection",
+                        },
+                        target_patientId: {
+                            $first: "$Examination ID",
                         },
                     },
                 },
                 {
                     $lookup: {
                         from: "examinations",
-                        localField: "Examination ID",
+                        localField: "target_patientId",
                         foreignField: "patientId",
-                        as: "examination",
+                        as: "target_examination",
                         pipeline: [{
                             $project: {
                                 _id: 0,
                                 crashed: 1,
                                 id: "$uuid",
-                                patientId: "$patientId",
-                                src: 1,
+                                collection: "$schema",
                             },
                         }, ],
                     },
@@ -164,26 +37,33 @@ module.exports = (schema, target) => {
                 {
                     $addFields: {
                         crashed: {
-                            $first: "$examination.crashed",
+                            $first: "$target_examination.crashed",
                         },
-                        id: {
-                            $first: "$examination.id",
+                        target_id: {
+                            $first: "$target_examination.id",
                         },
-                        collection: {
-                            $first: "$examination.src.collection",
+                        target_collection: {
+                            $first: "$target_examination.collection",
                         },
                     },
                 },
                 {
                     $addFields: {
                         source: {
-                            patientId: "$src.Examination ID",
-                            collection: "$src.patientCollection",
+                            patientId: "$source_patientId",
+                            collection: "$source_collection",
                         },
                         target: {
-                            id: "$id",
-                            patientId: "$Examination ID",
-                            collection: "ADE-TRANSFORM.examinations",
+                            id: "$target_id",
+                            patientId: "$target_patientId",
+                            schema: {
+                                $cond: [{
+                                        $eq: ["$crashed", true],
+                                    },
+                                    "ADE-TRANSFORM.examinations",
+                                    "$target_collection",
+                                ],
+                            },
                         },
                     },
                 },
@@ -196,7 +76,8 @@ module.exports = (schema, target) => {
                     },
                 },
             ]
-        }, {
+        },
+        {
             source: `ADE-TRANSFORM.labels`,
             dest: `ADE-TRANSFORM.cross-crash-labels`,
             pipeline: [{
