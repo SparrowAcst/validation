@@ -271,40 +271,6 @@ const run = async (SOURCE, DEST, pipeline) => {
 }
 
 
-
-const execute = async migrationList => {
-
-  let count = 0
-
-  for( let migration of migrationList) {
-    console.log(`MIGRATE ${count+1} of ${migrationList.length}`)
-    count++
-    await run(migration.source, migration.dest, migration.pipeline)
-  }
-
-
-}
-
-
-// const execute = async () => {
-//   let res = await docdb.aggregate({
-//     collection: "test-dataset.examinations",
-//     pipeline:[
-//       {
-//         $limit: 5
-//       },
-//       {
-//         $project: {
-//           _id: 0
-//         }
-//       }
-//     ]
-//   })
-
-//   console.log(res)
-// }
-
-
 module.exports = execute
 
 
