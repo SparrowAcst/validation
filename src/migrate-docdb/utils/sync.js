@@ -6,7 +6,7 @@ const { find } = require("lodash")
 const CROSS = "ADE-TRANSFORM.cross-labels"
 
 
-const resolveBuffer = async buffer => {
+const resolveBuffer = async (buffer, COLLECTION) => {
 
   let cross = await mongodb.aggregate({
     db,
@@ -32,7 +32,7 @@ const resolveBuffer = async buffer => {
     if(!src){
       console.log(`${d.id}: IGNORE`)
     } else {
-      console.log(`${d.id}: ${src.source["Examination ID"]} from ${src.source.collection}: ${src.source.id}`)
+      console.log(`${COLLECTION}.${d.id}: ${src.source["Examination ID"]} from ${src.source.collection}: ${src.source.id}`)
     }
 
   }) 
