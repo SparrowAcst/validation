@@ -3,7 +3,7 @@ const mongodb = require("../../utils/mongodb")
 const db = require("../../../.config-migrate-db").mongodb.ade
 const { find } = require("lodash")
 
-const CROSS = "ADE-TRANSFORM.cross-labels"
+const CROSS = "ADE-TRANSFORM.cross-examinations"
 
 
 const resolveBuffer = async (buffer, COLLECTION) => {
