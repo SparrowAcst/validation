@@ -46,7 +46,7 @@ const execute = async COLLECTION => {
 
     console.log(`SYNC EXAMINATIONS FOR ${COLLECTION}`)
     
-    const PAGE_SIZE = 20
+    const PAGE_SIZE = 100
     let skip = 0
     let bufferCount = 0
 
