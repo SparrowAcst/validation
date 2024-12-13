@@ -1,7 +1,7 @@
 const docdb = require("../../utils/docdb")
 const mongodb = require("../../utils/mongodb")
 const db = require("../../../.config-migrate-db").mongodb.ade
-const find = require("lodash")
+const { find } = require("lodash")
 
 const CROSS = "ADE-TRANSFORM.cross-labels"
 
@@ -25,8 +25,6 @@ const resolveBuffer = async buffer => {
     ]
   })
 
-  console.log(cross)
-
   buffer.forEach( d => {
 
     let src = find(cross, c => c.target.id == d.id)
@@ -34,7 +32,6 @@ const resolveBuffer = async buffer => {
     if(!src){
       console.log(`${d.id}: IGNORE`)
     } else {
-      console.log(src)
       console.log(`${d.id}: ${src.source["Examination ID"]} from ${src.source.collection}: ${src.source.id}`)
     }
 
