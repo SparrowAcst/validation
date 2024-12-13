@@ -32,7 +32,7 @@ const resolveBuffer = async (buffer, COLLECTION) => {
     if(!src){
       console.log(`${d.id}: IGNORE`)
     } else {
-      console.log(`${COLLECTION}.${d.id}: ${src.source["Examination ID"]} from ${src.source.collection}: ${src.source.id}`)
+      console.log(`${COLLECTION}.${d.id}: ${src.source.patientId]} from ${src.source.collection}`)
     }
 
   }) 
