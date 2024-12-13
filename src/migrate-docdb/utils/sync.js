@@ -14,9 +14,9 @@ const resolveBuffer = async buffer => {
     pipeline: [
       {
         $match: {
-          // crashed: {
-          //   $exists: false
-          // },
+          crashed: {
+            $exists: false
+          },
           "target.id": {
             $in: buffer.map( d => d.id)
           }
@@ -130,7 +130,7 @@ const execute = async COLLECTION => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0 && bufferCount < 1)
+    } while (buffer.length > 0 && bufferCount < 2)
 
 }
 
