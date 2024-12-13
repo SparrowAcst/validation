@@ -78,7 +78,7 @@ const execute = async COLLECTION => {
             
             let commands = []
 
-            if (buffer.length > 0) {
+            // if (buffer.length > 0) {
 
                 await resolveBuffer(buffer)
                 
@@ -121,7 +121,7 @@ const execute = async COLLECTION => {
         //         }    
 
                
-        //     }
+            // }
 
         }
 
