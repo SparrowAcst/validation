@@ -128,7 +128,7 @@ const execute = async COLLECTION => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0 bufferCount < 1)
+    } while (buffer.length > 0 && bufferCount < 1)
 
 }
 
