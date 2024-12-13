@@ -25,6 +25,8 @@ const resolveBuffer = async buffer => {
     ]
   })
 
+  console.log(cross)
+
   for(const d of buffer){
 
     let src = find(cross, c => c.target.id == d.id)
