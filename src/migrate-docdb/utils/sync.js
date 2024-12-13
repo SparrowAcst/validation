@@ -3,14 +3,14 @@ const mongodb = require("../../utils/mongodb")
 const db = require("../../../.config-migrate-db").mongodb.ade
 const find = require("lodash")
 
-const CROSS_EXAMINATIONS = "ADE-TRANSFORM.cross-examinations"
+const CROSS = "ADE-TRANSFORM.cross-labels"
 
 
 const resolveBuffer = async buffer => {
 
   let cross = await mongodb.aggregate({
     db,
-    collection: CROSS_EXAMINATIONS,
+    collection: CROSS,
     pipeline: [
       {
         $match: {
