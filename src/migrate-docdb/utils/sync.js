@@ -30,9 +30,11 @@ const resolveBuffer = async buffer => {
   buffer.forEach( d => {
 
     let src = find(cross, c => c.target.id == d.id)
+    
     if(!src){
       console.log(`${d.id}: IGNORE`)
     } else {
+      console.log(src)
       console.log(`${d.id}: ${src.source["Examination ID"]} from ${src.source.collection}: ${src.source.id}`)
     }
 
@@ -78,7 +80,7 @@ const execute = async COLLECTION => {
         if (buffer.length > 0) {
 
             console.log(`DocDB: ${COLLECTION} > Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
-            console.log(buffer)
+            // console.log(buffer)
             let commands = []
 
             // if (buffer.length > 0) {
