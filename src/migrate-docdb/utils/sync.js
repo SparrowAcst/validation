@@ -14,9 +14,9 @@ const resolveBuffer = async buffer => {
     pipeline: [
       {
         $match: {
-          crashed: {
-            $exists: false
-          },
+          // crashed: {
+          //   $exists: false
+          // },
           "target.id": {
             $in: buffer.map( d => d.id)
           }
@@ -46,7 +46,7 @@ const execute = async COLLECTION => {
 
     console.log(`SYNC EXAMINATIONS FOR ${COLLECTION}`)
     
-    const PAGE_SIZE = 10
+    const PAGE_SIZE = 20
     let skip = 0
     let bufferCount = 0
 
@@ -54,7 +54,7 @@ const execute = async COLLECTION => {
 
         const pipeline = [{
                 '$match': {
-                    processsync: {
+                    process_sync: {
                         $exists: false
                     }
                 }
@@ -77,7 +77,7 @@ const execute = async COLLECTION => {
         if (buffer.length > 0) {
 
             console.log(`DocDB: ${COLLECTION} > Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
-            
+            console.log(buffer)
             let commands = []
 
             // if (buffer.length > 0) {
