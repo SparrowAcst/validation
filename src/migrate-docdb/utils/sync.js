@@ -82,7 +82,7 @@ const execute = async COLLECTION => {
 
             // if (buffer.length > 0) {
 
-                await resolveBuffer(buffer)
+                await resolveBuffer(buffer, COLLECTION)
                 
         //         let i = 0
                 
