@@ -27,16 +27,17 @@ const resolveBuffer = async buffer => {
 
   console.log(cross)
 
-  // for(const d of buffer){
+  buffer.forEach( d => {
 
-  //   let src = find(cross, c => c.target.id == d.id)
-  //   if(!src){
-  //     console.log(`${d.id}: IGNORE`)
-  //   } else {
-  //     console.log(`${d.id}: ${src.source.patientId} from ${src.source.collection}: ${src.source.id}`)
-  //   }
+    let src = find(cross, c => c.target.id == d.id)
+    if(!src){
+      console.log(`${d.id}: IGNORE`)
+    } else {
+      console.log(`${d.id}: ${src.source["Examination ID"]} from ${src.source.collection}: ${src.source.id}`)
+    }
 
-  // } 
+  }) 
+
 
 }
 
