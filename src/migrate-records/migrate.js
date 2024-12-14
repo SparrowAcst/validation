@@ -1,6 +1,6 @@
 const execute = require("./utils/migrate-records")
 
-const COLLECTION = "sparrow.harvest1-upd"
+const COLLECTION = "sparrow.phonendo"
 
 const run = async () => {
   await execute(COLLECTION)
