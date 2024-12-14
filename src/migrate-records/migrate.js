@@ -1,6 +1,6 @@
 const execute = require("./utils/migrate-records")
 
-const COLLECTION = "sparrow.stethophone-app"
+const COLLECTION = "sparrow.taged-records"
 
 const run = async () => {
   await execute(COLLECTION)
