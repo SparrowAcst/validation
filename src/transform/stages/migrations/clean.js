@@ -95,7 +95,7 @@ module.exports = (schema, out) => [{
         pipeline: [{
                 $match: {
                     state: {
-                        $ne: "pending"
+                        $nin: ["pending", "rejected"]
                     }
                 }
             },
