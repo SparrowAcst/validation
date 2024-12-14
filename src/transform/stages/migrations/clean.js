@@ -2,6 +2,11 @@ module.exports = (schema, out) => [{
         source: `${schema}.labels`,
         dest: `${out}.labels`,
         pipeline: [{
+                $addFields: {
+                    state: "$TODO",
+                },
+            },
+            {
                 $project: {
                     _id: 0,
                     "Segmentation URL": 0,
@@ -35,6 +40,13 @@ module.exports = (schema, out) => [{
                     _import: 0,
                     "Class of the informativeness": 0,
                     supd1: 0,
+                    TODO: false,
+                    "updated at": 0,
+                    "updated by": 0,
+                    src: 0,
+                    "1st expert": 0,
+                    "2nd expert": 0,
+                    CMO: 0,
                 },
             },
             {
@@ -63,10 +75,16 @@ module.exports = (schema, out) => [{
                     examinationId: "$examinationId.uuid",
                     taskList: [],
                     "updated at": {
-                      $dateFromString:{
-                        dateString: "$updated at"
-                      }
-                    }
+                        $dateFromString: {
+                            dateString: "$updated at",
+                        },
+                    },
+                },
+            },
+            {
+                $project: {
+                    _id: 0,
+                    "Examination ID": 0,
                 },
             },
         ]
@@ -75,34 +93,42 @@ module.exports = (schema, out) => [{
         source: `${schema}.examinations`,
         dest: `${out}.examinations`,
         pipeline: [{
-            $project: {
-                _id: 0,
-                id: "$uuid",
-                userId: 1,
-                siteId: 1,
-                createdAt: {
-                    $dateFromString: {
-                        dateString: "$dateTime",
-                    },
-                },
-                synchronizedAt: {
-                    $dateFromString: {
-                        dateString: "$synchronizedAt",
-                    },
-                },
-                comment: 1,
-                state: 1,
-                "Stage Comment": 1,
-                updatedAt: {
-                    $dateFromString: {
-                        dateString: "$updated at",
-                    },
-                },
-                updatedBy: "$updated by",
-                workflowTags: 1,
-                forms: 1,
+                $match: {
+                    state: {
+                        $ne: "pending"
+                    }
+                }
             },
-        }, ]
+            {
+                $project: {
+                    _id: 0,
+                    id: "$uuid",
+                    userId: 1,
+                    siteId: 1,
+                    createdAt: {
+                        $dateFromString: {
+                            dateString: "$dateTime",
+                        },
+                    },
+                    synchronizedAt: {
+                        $dateFromString: {
+                            dateString: "$synchronizedAt",
+                        },
+                    },
+                    comment: 1,
+                    state: 1,
+                    "Stage Comment": 1,
+                    updatedAt: {
+                        $dateFromString: {
+                            dateString: "$updated at",
+                        },
+                    },
+                    updatedBy: "$updated by",
+                    workflowTags: 1,
+                    forms: 1,
+                },
+            },
+        ]
     },
 
 
