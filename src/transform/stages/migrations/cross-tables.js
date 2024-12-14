@@ -11,6 +11,9 @@ module.exports = (schema, target) => {
                         source_collection: {
                             $first: "$src.patientCollection",
                         },
+                        source_formCollection: {
+                            $first: "$src.formCollection",
+                        },
                         target_patientId: {
                             $first: "$Examination ID",
                         },
@@ -50,6 +53,7 @@ module.exports = (schema, target) => {
                         source: {
                             patientId: "$source_patientId",
                             collection: "$source_collection",
+                            form_collection: "$source_formCollection",
                         },
                         target: {
                             id: "$target_id",
