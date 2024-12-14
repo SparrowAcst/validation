@@ -1,6 +1,6 @@
 const execute = require("./utils/migrate-records")
 
-const COLLECTION = "sparrow.arabia-labels"
+const COLLECTION = "sparrow.clinic4"
 
 const run = async () => {
   await execute(COLLECTION)
