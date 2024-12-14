@@ -140,7 +140,8 @@ const execute = async COLLECTION => {
                 $project: {
                     _id: 0,
                     id: 1,
-                    Source: 1
+                    Source: 1,
+                    path: 1
                 }
             }
         ]
@@ -166,10 +167,12 @@ const execute = async COLLECTION => {
                     console.log(`${i} from ${buffer.length}`)
                     
                     if(d){
-                    
+                        
+                        let fbUrl = await fb.getSignedUrl(d.path)
+
                         const process_records = await migrateFB2S3({
                             id: d.id,
-                            fbUrl: d.Source.url
+                            fbUrl
                         })
                         
                         commands.push({
@@ -196,7 +199,6 @@ const execute = async COLLECTION => {
                         commands
                     })
                 }    
-
                
             }
 

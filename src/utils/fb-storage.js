@@ -13,6 +13,18 @@ const Storage = class {
         this.bucket = getStorage(app).bucket();
     }
 
+
+    async getSignedUrl(filename){
+
+        const file = this.bucket.file(filename)
+        let res = await file.getSignedUrl({
+                action: 'read',
+                expires: new Date().setFullYear(new Date().getFullYear() + 2)
+            })
+        return res[0]
+
+    }
+
     async uploadFile(filepath, filename) {
 
         try {

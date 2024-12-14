@@ -1,6 +1,6 @@
 const execute = require("./utils/migrate-records")
 
-const COLLECTION = "sparrow.phonendo"
+const COLLECTION = "sparrow.vinil"
 
 const run = async () => {
   await execute(COLLECTION)
