@@ -1,10 +1,82 @@
-module.exports = (schema, suffix) => ([
+module.exports = [
 
     /////////////////////////////////////////////////////////////////////////////
 
     {
-        source: `${schema}${suffix}.labels`,
-        dest: `${schema}.labels`,
+        source: `ADE-SETTINGS.app-grants`,
+        dest: `ADE-SETTINGS.app-grants`,
+        pipeline: [
+            {
+                $project: {
+                    _id: 0
+                }
+            }
+        ]
+    },
+
+    {
+        source: `ADE-SETTINGS.datasets`,
+        dest: `ADE-SETTINGS.datasets`,
+        pipeline: [
+            {
+                $project: {
+                    _id: 0
+                }
+            }
+        ]
+    },
+
+    {
+        source: `ADE-SETTINGS.metadata`,
+        dest: `ADE-SETTINGS.metadata`,
+        pipeline: [
+            {
+                $project: {
+                    _id: 0
+                }
+            }
+        ]
+    },    
+
+    {
+        source: `ADE-SETTINGS.profiles`,
+        dest: `ADE-SETTINGS.profiles`,
+        pipeline: [
+            {
+                $project: {
+                    _id: 0
+                }
+            }
+        ]
+    },
+
+    {
+        source: `ADE-SETTINGS.segmentation-request-cache`,
+        dest: `ADE-SETTINGS.segmentation-request-cache`,
+        pipeline: [
+            {
+                $project: {
+                    _id: 0
+                }
+            }
+        ]
+    },
+
+    {
+        source: `ADE-SETTINGS.segmentation-requests`,
+        dest: `ADE-SETTINGS.segmentation-requests`,
+        pipeline: [
+            {
+                $project: {
+                    _id: 0
+                }
+            }
+        ]
+    },
+
+    {
+        source: `ADE-SETTINGS.site-users`,
+        dest: `ADE-SETTINGS.site-users`,
         pipeline: [
             {
                 $project: {
@@ -16,8 +88,8 @@ module.exports = (schema, suffix) => ([
 
 
     {
-        source: `${schema}${suffix}.examinations`,
-        dest: `${schema}.examinations`,
+        source: `ADE-SETTINGS.sites`,
+        dest: `ADE-SETTINGS.sites`,
         pipeline: [
             {
                 $project: {
@@ -27,7 +99,32 @@ module.exports = (schema, suffix) => ([
         ]
     },
 
+    {
+        source: `ADE-SETTINGS.tags`,
+        dest: `ADE-SETTINGS.tags`,
+        pipeline: [
+            {
+                $project: {
+                    _id: 0
+                }
+            }
+        ]
+    },
+
+    {
+        source: `ADE-SETTINGS.workflow-tags`,
+        dest: `ADE-SETTINGS.workflow-tags`,
+        pipeline: [
+            {
+                $project: {
+                    _id: 0
+                }
+            }
+        ]
+    },
+
+
     ////////////////////////////////////////////////////////////////////////////////////
 
 
-])
+]
