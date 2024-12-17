@@ -157,6 +157,9 @@ const resolveBuffer = async (buffer, COLLECTION) => {
                 },
                 "target.id": {
                     $in: buffer.map(d => d.id)
+                },
+                "target.updateId": {
+                    $ne: UPDATE_ID
                 }
             }
         }]
@@ -167,10 +170,10 @@ const resolveBuffer = async (buffer, COLLECTION) => {
         let src = find(cross, c => c.target.id == d.id)
 
         if (!src) {
-            // console.log(`${d.id}: IGNORE`)
+            console.log(`${d.id}: IGNORE`)
             return
         } else {
-            // console.log(`${COLLECTION}.${d.id}: ${src.source.patientId} from ${src.source.collection}`)
+            console.log(`${COLLECTION}.${d.id}: ${src.source.patientId} from ${src.source.collection}`)
             return src
         }
 
@@ -305,16 +308,16 @@ const execute = async COLLECTION => {
             //             }    
             //         }    
 
-            //         if(commands.length > 0){
+            // if (commands.length > 0) {
 
-            //             console.log(`${COLLECTION} > Update ${commands.length} items`)
+            //     console.log(`${CROSS} > Update ${commands.length} items`)
 
-            //             await mongodb.bulkWrite({
-            //                 db,
-            //                 collection: COLLECTION,
-            //                 commands
-            //             })
-            //         }    
+            //     await mongodb.bulkWrite({
+            //         db,
+            //         collection: CROSS,
+            //         commands
+            //     })
+            // }
 
 
             // }

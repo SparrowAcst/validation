@@ -60,14 +60,7 @@ module.exports = (schema, target) => {
                         target: {
                             id: "$target_id",
                             patientId: "$target_patientId",
-                            schema: {
-                                $cond: [{
-                                        $eq: ["$crashed", true],
-                                    },
-                                    "ADE-TRANSFORM.examinations",
-                                    "$target_collection",
-                                ],
-                            },
+                            schema: "ADE-TRANSFORM"
                         },
                     },
                 },
@@ -130,7 +123,7 @@ module.exports = (schema, target) => {
                         target: {
                             id: "$record.id",
                             "Examination ID": "$Examination ID",
-                            collection: "ADE-TRANSFORM.labels"
+                            schema: "ADE-TRANSFORM"
                         }
                     }
                 },
