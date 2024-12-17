@@ -8,18 +8,31 @@ const uuid = require("uuid").v4
 const { flatten, cloneByPattern } = require("./flat")
 const sanitizePipeline = require("./sanitize-pipelines")
 
-
 const UPDATE_ID = uuid()
 
 const CROSS = "ADE-TRANSFORM.cross-examinations"
 
-const findExaminationUpdate = (id, pool) => {
-    return find(pool, d => d.id == id)
-}
-
-
 const detectChanges = delta => {
     return keys(delta).map(key => !isUndefined(delta[key])).reduce((a, b) => a || b, false)
+}
+
+const getTargetExaminations = async (buffer, SCHEMA) => {
+
+    let pipeline = [{
+            $match: {
+                id: {
+                    $in: buffer.map(d => d.target.id)
+                }
+            }
+        }
+    ]
+
+    let collection = `${SCHEMA}.examinations`
+
+    let result = await docdb.aggregate({ collection, pipeline })
+    console.log("targets:", result)
+    return result
+
 }
 
 
@@ -115,7 +128,7 @@ const getSourceExaminations = async buffer => {
     })
 
 
-    let updates = []
+    let result = []
 
     if (queries.length > 0) {
 
@@ -128,121 +141,99 @@ const getSourceExaminations = async buffer => {
             })
 
             console.log(`Load from ${query.collection} ${part.length} items`)
-            updates = updates.concat(part)
+            result = result.concat(part)
 
         }
 
     }
 
-
-    buffer = buffer.map(d => {
-        d.$update = findExaminationUpdate(d.target.id, updates)
-        return d
-    })
-
-
-    return buffer
+    console.log("sources:",result)
+    return result
 
 }
 
-const resolveBuffer = async (buffer, COLLECTION) => {
+const resolveBuffer = async (buffer, SCHEMA) => {
 
-    let cross = await mongodb.aggregate({
-        db,
-        collection: CROSS,
-        pipeline: [{
-            $match: {
-                crashed: {
-                    $exists: false
-                },
-                "target.id": {
-                    $in: buffer.map(d => d.id)
-                },
-                "target.updateId": {
-                    $ne: UPDATE_ID
-                }
-            }
-        }]
+    let targetExaminations = await getTargetExaminations(buffer, SCHEMA)
+    let sourceExaminations = await getSourceExaminations(buffer)
+
+    targetExaminations = targetExaminations.map(t => {
+        t.$update = find(sourceExaminations, d => d.id == t.id)
+        return t
     })
 
-    let requireUpdates = buffer.map(d => {
 
-        let src = find(cross, c => c.target.id == d.id)
 
-        if (!src) {
-            console.log(`${d.id}: IGNORE`)
-            return
-        } else {
-            console.log(`${COLLECTION}.${d.id}: ${src.source.patientId} from ${src.source.collection}`)
-            return src
-        }
-
-    })
-
-    requireUpdates = requireUpdates.filter(d => d)
-
-    console.log(`Required to update: ${requireUpdates.length} items`)
-
-    let updates = await getSourceExaminations(requireUpdates)
-
-    updates = updates.filter(u => {
-        let f = find(buffer, d => d.id == u.target.id)
-        return detectChanges(
-            Diff.delta(
-                f,
-                u.$update,
-                "forms.echo",
-                "forms.ekg",
-                "forms.patient"
-            )
-        )
-    })
-
-    console.log(`Detect changes: ${updates.length} items`)
-
-    updates.forEach(u => {
-        let f = find(buffer, d => d.id == u.target.id)
-        console.log(`${u.target.id} - ${u.source.patientId}`)
+    let updates = targetExaminations.filter(t => {
         console.log(Diff.delta(
-            f,
+            t,
+            t.$update,
+            "forms.echo",
+            "forms.ekg",
+            "forms.patient"
+        ))
+        return detectChanges(
+        Diff.delta(
+            t,
+            t.$update,
+            "forms.echo",
+            "forms.ekg",
+            "forms.patient"
+        )
+        )}
+    )
+
+    console.log("updates:", JSON.stringify(updates, null, " "))
+
+
+    console.log(`Targets: ${targetExaminations.length}, Updates: ${updates.length}`)
+
+    if( updates.length > 0 ){
+        updates.forEach( u => {
+            
+            console.log("\n------------------------------------",u)
+            console.log(Diff.delta(
+            u,
             u.$update,
             "forms.echo",
             "forms.ekg",
             "forms.patient"
         ))
-    })
-
-    let commands = buffer.map(b => ({
-        updateOne: {
-            filter: { id: b.id },
-            update: {
-                $set: {
-                    update: UPDATE_ID
-                }
-            },
-            upsert: true
-        }
-
-    }))
-
-    if (commands.length > 0) {
-
-        console.log(`Update ${commands.length} items`)
-
-        await docdb.bulkWrite({
-            collection: COLLECTION,
-            commands
         })
     }
+
+
+    // let commands = buffer.map(b => ({
+    //     updateOne: {
+    //         filter: { id: b.id },
+    //         update: {
+    //             $set: {
+    //                 update: UPDATE_ID
+    //             }
+    //         },
+    //         upsert: true
+    //     }
+
+    // }))
+
+    // if (commands.length > 0) {
+
+    //     console.log(`Update ${commands.length} items`)
+
+    //     // await docdb.bulkWrite({
+    //     //     collection: COLLECTION,
+    //     //     commands
+    //     // })
+    // }
 }
 
-const execute = async COLLECTION => {
+const execute = async SCHEMA => {
 
 
 
-    console.log(`SYNC EXAMINATIONS FOR ${COLLECTION} ${UPDATE_ID}`)
+    console.log(`SYNC EXAMINATIONS FOR ${SCHEMA} ${UPDATE_ID}`)
 
-    const PAGE_SIZE = 10
+    const PAGE_SIZE = 1
     let skip = 0
     let bufferCount = 0
 
@@ -250,8 +241,11 @@ const execute = async COLLECTION => {
 
         const pipeline = [{
                 '$match': {
-
-                    update: {
+                    "target.schema": SCHEMA,
+                    crashed: {
+                        $exists: false
+                    },
+                    "target.update": {
                         $ne: UPDATE_ID
                     }
                 }
@@ -266,20 +260,22 @@ const execute = async COLLECTION => {
             }
         ]
 
-        buffer = await docdb.aggregate({
-            collection: COLLECTION,
+        buffer = await mongodb.aggregate({
+            db,
+            collection: CROSS,
             pipeline
         })
 
+        console.log(buffer)
+            
         if (buffer.length > 0) {
 
-            console.log(`DocDB: ${COLLECTION} > Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
-            // console.log(buffer)
+            console.log(`ADE-TRANSFORM: ${SCHEMA} > Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
             let commands = []
 
             // if (buffer.length > 0) {
 
-            await resolveBuffer(buffer, COLLECTION)
+            await resolveBuffer(buffer, SCHEMA)
 
             //         let i = 0
 
@@ -329,7 +325,7 @@ const execute = async COLLECTION => {
 
     } while (buffer.length > 0 && bufferCount < 1)
 
-    console.log(`SYNC EXAMINATIONS FOR ${COLLECTION} ${UPDATE_ID} DONE`)
+    console.log(`SYNC EXAMINATIONS FOR ${SCHEMA} ${UPDATE_ID} DONE`)
 
 }
 

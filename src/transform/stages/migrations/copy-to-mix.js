@@ -29,6 +29,7 @@ module.exports = [
         pipeline: [{
                 $addFields: {
                     src: {
+                        uuid:"$uuid",
                         patientId: "$patientId",
                         collection: "sparrow.H2-EXAMINATION",
                         formCollection: "sparrow.H2-FORM",
@@ -72,6 +73,7 @@ module.exports = [
         pipeline: [{
                 $addFields: {
                     src: {
+                        uuid:"$uuid",
                         patientId: "$patientId",
                         collection: "sparrow.H2-EXAMINATION",
                         formCollection: "sparrow.H2-FORM",
@@ -114,6 +116,7 @@ module.exports = [
         pipeline: [{
                 $addFields: {
                     src: {
+                        uuid:"$uuid",
                         patientId: "$patientId",
                         collection: "sparrow.H2-EXAMINATION",
                         formCollection: "sparrow.H2-FORM",
@@ -156,6 +159,7 @@ module.exports = [
         pipeline: [{
                 $addFields: {
                     src: {
+                        uuid:"$uuid",
                         patientId: "$patientId",
                         collection: "sparrow.H2-EXAMINATION",
                         formCollection: "sparrow.H2-FORM",
@@ -199,6 +203,7 @@ module.exports = [
         pipeline: [{
                 $addFields: {
                     src: {
+                        uuid:"$uuid",
                         patientId: "$patientId",
                         collection: "sparrow.phonendo-exams",
                         formCollection: "sparrow.phonendo-forms",
@@ -244,6 +249,7 @@ module.exports = [
         pipeline: [{
                 $addFields: {
                     src: {
+                        uuid:"$uuid",
                         patientId: "$patientId",
                         collection: "sparrow.digiscope-exams",
                         formCollection: "sparrow.digiscope-forms",
@@ -288,6 +294,7 @@ module.exports = [
         pipeline: [{
                 $addFields: {
                     src: {
+                        uuid:"$uuid",
                         patientId: "$patientId",
                         collection: "sparrow.yoda-exams",
                         formCollection: "sparrow.yoda-forms-upd",
@@ -332,6 +339,7 @@ module.exports = [
         pipeline: [{
             $addFields: {
                 src: {
+                    uuid:"$uuid",
                     patientId: "$patientId",
                     collection: "sparrow.hha-examinamtion",
                     formCollection: "sparrow.hha-form",
@@ -374,6 +382,7 @@ module.exports = [
         pipeline: [{
                 $addFields: {
                     src: {
+                        uuid:"$uuid",
                         patientId: "$patientId",
                         collection: "sparrow.examination",
                         formCollection: "sparrow.form-upd",

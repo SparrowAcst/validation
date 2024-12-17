@@ -1,9 +1,9 @@
 const execute = require("./utils/sync")
 
-const COLLECTION = "strazhesko-part-1.examinations"
+const SCHEMA = "strazhesko-part-1"
 
 const run = async () => {
-  await execute(COLLECTION)
+  await execute(SCHEMA)
 }
 
 run()
