@@ -40,7 +40,7 @@ module.exports = (schema, out) => [{
                     _import: 0,
                     "Class of the informativeness": 0,
                     supd1: 0,
-                    TODO: false,
+                    TODO: 0,
                     "updated at": 0,
                     "updated by": 0,
                     src: 0,
@@ -49,6 +49,7 @@ module.exports = (schema, out) => [{
                     CMO: 0,
                     "assigned to": 0,
                     "Assigned to": 0,
+                    "Final comments": 0,
                 },
             },
             {
@@ -76,11 +77,6 @@ module.exports = (schema, out) => [{
                 $set: {
                     examinationId: "$examinationId.uuid",
                     taskList: [],
-                    "updated at": {
-                        $dateFromString: {
-                            dateString: "$updated at",
-                        },
-                    },
                 },
             },
             {
@@ -111,45 +107,13 @@ module.exports = (schema, out) => [{
                 $project: {
                     _id: 0,
                     id: "$uuid",
-                    userId: 1,
                     siteId: 1,
-                    createdAt: {
-                        $dateFromString: {
-                            dateString: "$dateTime",
-                        },
-                    },
-                    synchronizedAt: {
-                        $dateFromString: {
-                            dateString: "$synchronizedAt",
-                        },
-                    },
-                    comment: 1,
                     state: 1,
-                    "Stage Comment": 1,
-                    updatedAt: {
-                        $dateFromString: {
-                            dateString: "$updated at",
-                        },
-                    },
-                    updatedBy: "$updated by",
-                    workflowTags: 1,
                     forms: 1,
                 },
             },
             {
-                $project: {
-                    comment: 0,
-                    workflowTags: 0,
-                    "Stage Comment": 0,
-                    "updated at": 0,
-                    "updated by": 0,
-                    updatedAt: 0,
-                    updatedBy: 0,
-                },
-            },
-            {
-                $set:
-                {
+                $set: {
                     "forms.echo.data.reliability": {
                         $first: {
                             $filter: {
@@ -198,7 +162,6 @@ module.exports = (schema, out) => [{
             },
             {
                 $unset: [
-
                     ///////////////////////////////////////////////////////////////////////////////
 
                     "forms.echo.data.id",
@@ -207,14 +170,12 @@ module.exports = (schema, out) => [{
                     "forms.echo.data.dataUrl",
                     "forms.echo.data.resolvedData",
                     "forms.echo.data.changeLog",
-
                     //////////////////////////////////////////////////////////////////////////////
 
                     "forms.ekg.data.id",
                     "forms.ekg.data.reliability.createdAt",
                     "forms.ekg.data.reliability.createdBy",
                     "forms.ekg.data.changeLog",
-
                     //////////////////////////////////////////////////////////////////////////////
 
                     "forms.patient.data.id",
@@ -295,13 +256,11 @@ module.exports = (schema, out) => [{
                     "forms.patient.data.Present respiratory diseases",
                     "forms.patient.data.Changes in procedure of sound recording",
                     "forms.patient.data.Clinical diagnosis",
-
                     //////////////////////////////////////////////////////////////////////////////////
 
                     "forms.attachements",
-
                     //////////////////////////////////////////////////////////////////////////////////
-
+                    "userId",
                     "createdAt",
                     "synchronizedAt",
                 ],

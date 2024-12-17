@@ -1,9 +1,12 @@
 const docdb = require("../../utils/docdb")
 const mongodb = require("../../utils/mongodb")
 const db = require("../../../.config-migrate-db").mongodb.ade
-const { find, groupBy, keys, first, last } = require("lodash")
+const { find, groupBy, keys, first, last, isUndefined } = require("lodash")
 const Diff = require("./diff")
 const uuid = require("uuid").v4
+
+const { flatten, cloneByPattern } = require("./flat")
+const sanitizePipeline = require("./sanitize-pipelines")
 
 
 const UPDATE_ID = uuid()
@@ -11,115 +14,105 @@ const UPDATE_ID = uuid()
 const CROSS = "ADE-TRANSFORM.cross-examinations"
 
 const findExaminationUpdate = (id, pool) => {
-    return find(pool, d => d.patientId == id)
+    return find(pool, d => d.id == id)
 }
 
 
 const detectChanges = delta => {
-    return keys(delta).map(key => delta[key].length > 0).reduce((a, b) => a || b, false)
+    return keys(delta).map(key => !isUndefined(delta[key])).reduce((a, b) => a || b, false)
 }
+
 
 const getSourceExaminations = async buffer => {
 
     let queries = groupBy(buffer, d => d.source.collection)
 
-    queries = keys(queries).map(key => ({
-        collection: key,
-        pipeline: [{
-                $match: {
-                    "patientId": {
-                        $in: queries[key].map(d => d.source.patientId)
-                    }
-                }
-            },
-            {
-                $lookup: {
-                    from: last(first(queries[key]).source.form_collection.split(".")),
-                    localField: "patientId",
-                    foreignField: "patientId",
-                    as: "f",
-                    pipeline: [{
-                        $project: {
-                            _id: 0,
-                            type: 1,
-                            data: 1,
-                        },
-                    }, ],
-                },
-            },
-            {
-                $project: {
-                    forms: 0,
-                },
-            },
-            {
-                $set: {
-                    "forms.patient": {
-                        $first: {
-                            $filter: {
-                                input: "$f",
-                                as: "item",
-                                cond: {
-                                    $eq: ["$$item.type", "patient"],
-                                },
-                            },
-                        },
-                    },
-                    "forms.echo": {
-                        $first: {
-                            $filter: {
-                                input: "$f",
-                                as: "item",
-                                cond: {
-                                    $eq: ["$$item.type", "echo"],
-                                },
-                            },
-                        },
-                    },
-                    "forms.ekg": {
-                        $first: {
-                            $filter: {
-                                input: "$f",
-                                as: "item",
-                                cond: {
-                                    $eq: ["$$item.type", "ekg"],
-                                },
-                            },
-                        },
-                    },
-                    "forms.attachements": {
-                        $first: {
-                            $filter: {
-                                input: "$f",
-                                as: "item",
-                                cond: {
-                                    $eq: [
-                                        "$$item.type",
-                                        "attachements",
-                                    ],
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-            {
-                $set:
+    queries = keys(queries).map(key => {
 
+        return {
+            collection: key,
+            pipeline: [{
+                    $match: {
+                        "patientId": {
+                            $in: queries[key].map(d => d.source.patientId)
+                        }
+                    }
+                },
                 {
-                    "forms.patient.data": "$forms.patient.data.en",
-                    "forms.echo.data": "$forms.echo.data.en",
-                    "forms.ekg.data": "$forms.ekg.data.en",
+                    $lookup: {
+                        from: last(first(queries[key]).source.form_collection.split(".")),
+                        localField: "patientId",
+                        foreignField: "patientId",
+                        as: "f",
+                        pipeline: [{
+                            $project: {
+                                _id: 0,
+                                type: 1,
+                                data: 1,
+                            },
+                        }, ],
+                    },
                 },
-            },
-            {
-                $project: {
-                    _id: 0,
-                    f: 0,
+                {
+                    $project: {
+                        forms: 0,
+                    },
                 },
-            },
-        ]
-    }))
+                {
+                    $set: {
+                        "forms.patient": {
+                            $first: {
+                                $filter: {
+                                    input: "$f",
+                                    as: "item",
+                                    cond: {
+                                        $eq: ["$$item.type", "patient"],
+                                    },
+                                },
+                            },
+                        },
+                        "forms.echo": {
+                            $first: {
+                                $filter: {
+                                    input: "$f",
+                                    as: "item",
+                                    cond: {
+                                        $eq: ["$$item.type", "echo"],
+                                    },
+                                },
+                            },
+                        },
+                        "forms.ekg": {
+                            $first: {
+                                $filter: {
+                                    input: "$f",
+                                    as: "item",
+                                    cond: {
+                                        $eq: ["$$item.type", "ekg"],
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                {
+                    $set:
+
+                    {
+                        "forms.patient.data": "$forms.patient.data.en",
+                        "forms.echo.data": "$forms.echo.data.en",
+                        "forms.ekg.data": "$forms.ekg.data.en",
+                    },
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        f: 0,
+                    },
+                },
+            ].concat(sanitizePipeline.examinations)
+        }
+    })
 
 
     let updates = []
@@ -141,11 +134,11 @@ const getSourceExaminations = async buffer => {
 
     }
 
+
     buffer = buffer.map(d => {
-        d.$update = findExaminationUpdate(d.source.patientId, updates)
+        d.$update = findExaminationUpdate(d.target.id, updates)
         return d
     })
-
 
 
     return buffer
@@ -192,15 +185,12 @@ const resolveBuffer = async (buffer, COLLECTION) => {
     updates = updates.filter(u => {
         let f = find(buffer, d => d.id == u.target.id)
         return detectChanges(
-            Diff.format(
-                Diff.delta(
-                    f,
-                    u.$update,
-                    "workflowTags",
-                    "forms.echo",
-                    "forms.ekg",
-                    "forms.patient"
-                )
+            Diff.delta(
+                f,
+                u.$update,
+                "forms.echo",
+                "forms.ekg",
+                "forms.patient"
             )
         )
     })
@@ -210,16 +200,13 @@ const resolveBuffer = async (buffer, COLLECTION) => {
     updates.forEach(u => {
         let f = find(buffer, d => d.id == u.target.id)
         console.log(`${u.target.id} - ${u.source.patientId}`)
-        // console.log(    Diff.format( 
-        //         Diff.delta(
-        //             f,
-        //             u.$update,
-        //             "workflowTags",
-        //             "forms.echo",
-        //             "forms.ekg",
-        //             "forms.patient"
-        //         )
-        //     ))
+        console.log(Diff.delta(
+            f,
+            u.$update,
+            "forms.echo",
+            "forms.ekg",
+            "forms.patient"
+        ))
     })
 
     let commands = buffer.map(b => ({
@@ -252,7 +239,7 @@ const execute = async COLLECTION => {
 
     console.log(`SYNC EXAMINATIONS FOR ${COLLECTION} ${UPDATE_ID}`)
 
-    const PAGE_SIZE = 100
+    const PAGE_SIZE = 10
     let skip = 0
     let bufferCount = 0
 
@@ -260,7 +247,7 @@ const execute = async COLLECTION => {
 
         const pipeline = [{
                 '$match': {
-                    
+
                     update: {
                         $ne: UPDATE_ID
                     }
@@ -337,8 +324,8 @@ const execute = async COLLECTION => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0 && bufferCount < 2)
-    
+    } while (buffer.length > 0 && bufferCount < 1)
+
     console.log(`SYNC EXAMINATIONS FOR ${COLLECTION} ${UPDATE_ID} DONE`)
 
 }

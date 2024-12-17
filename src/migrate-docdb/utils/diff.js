@@ -32,10 +32,10 @@ const customTrivialFilter = context => {
     context.leftType = context.left === null ? 'null' : typeof context.left;
     context.rightType = context.right === null ? 'null' : typeof context.right;
 
-    if(isDate(context.left) || isDate(context.right)){
-      return  
+    if (isDate(context.left) || isDate(context.right)) {
+        return
     }
-    
+
     if (context.leftType !== context.rightType) {
         context.setResult([context.left, context.right]).exit();
         return;
@@ -78,8 +78,8 @@ customTrivialFilter.filterName = 'custom-trivial';
 const customDateFilter = context => {
 
     if (isDate(context.left) && isDate(context.right)) {
-        
-        if ( Math.abs(context.left.getTime() - context.right.getTime()) > 1000 ) {
+
+        if (Math.abs(context.left.getTime() - context.right.getTime()) > 1000) {
             context.setResult([context.left, context.right]).exit()
 
         } else {
@@ -97,16 +97,16 @@ const customDateFilter = context => {
         (isDate(context.left) && isString(context.right))
     ) {
 
-        
+
         let left = new Date(context.left)
         let right = new Date(context.right)
 
         // console.log(left, right)
 
         if (left.toString() !== "Invalid Date" && right.toString() !== "Invalid Date") {
-            
 
-            if ( Math.abs(left.getTime() - right.getTime()) > 1000 ) {
+
+            if (Math.abs(left.getTime() - right.getTime()) > 1000) {
 
                 context.setResult([context.left, context.right]).exit()
 
@@ -131,52 +131,6 @@ const customDateFilter = context => {
 customDateFilter.filterName = 'custom-dates'
 
 
-const format = (delta, parentKey) => {
-    let res = []
-    delta = jsondiffpatch.clone(delta)
-
-    keys(delta).forEach(key => {
-
-        if (key == "_t") return
-
-        let publicParentKey = parentKey || ""
-        let publicSelfKey = key //(keys(delta).includes("_t")) ? "" : key
-
-        let publicKey = [publicParentKey, publicSelfKey].filter(d => d).join(".")
-
-        if (isArray(delta[key])) {
-            let op
-            if (delta[key].length == 1) op = "insert"
-            if (delta[key].length == 2) op = "update"
-            if (delta[key].length == 3 && last(delta[key]) == 0) op = "remove"
-
-            let oldValue
-            if (delta[key].length == 1) oldValue = undefined
-            if (delta[key].length == 2) oldValue = first(delta[key])
-            if (delta[key].length == 3 && last(delta[key]) == 0) oldValue = first(delta[key])
-
-            let newValue
-            if (delta[key].length == 1) newValue = last(delta[key])
-            if (delta[key].length == 2) newValue = last(delta[key])
-            if (delta[key].length == 3 && last(delta[key]) == 0) newValue = undefined
-
-            res.push({
-                key: publicKey,
-                op,
-                oldValue,
-                newValue
-            })
-
-        } else {
-
-            res = res.concat(format(delta[key], publicKey))
-
-        }
-
-    })
-
-    return res
-}
 
 let Diff = jsondiffpatch.create({
     objectHash: (d, index) => d.name || d.id || JSON.stringify(d) || index,
@@ -192,16 +146,6 @@ customDiff = {
         let res = {}
         selectors.forEach(selector => {
             res[selector] = Diff.diff(get(left, selector), get(right, selector))
-        })
-        return res
-
-    },
-
-    format: delta => {
-
-        let res = {}
-        keys(delta).forEach(key => {
-            res[key] = format(delta[key])
         })
         return res
 

@@ -30,7 +30,7 @@ module.exports = (schema, target) => {
                                 _id: 0,
                                 crashed: 1,
                                 id: "$uuid",
-                                collection: "$schema",
+                                schema: "$schema",
                             },
                         }, ],
                     },
@@ -43,9 +43,10 @@ module.exports = (schema, target) => {
                         target_id: {
                             $first: "$target_examination.id",
                         },
-                        target_collection: {
-                            $first: "$target_examination.collection",
-                        },
+                        target_schema: target,
+                        // {
+                        //   $first: "$target_examination.collection",
+                        // },
                     },
                 },
                 {
@@ -62,8 +63,8 @@ module.exports = (schema, target) => {
                                 $cond: [{
                                         $eq: ["$crashed", true],
                                     },
-                                    "ADE-TRANSFORM.examinations",
-                                    "$target_collection",
+                                    "ADE-TRANSFORM",
+                                    "$target_schema",
                                 ],
                             },
                         },
@@ -86,15 +87,15 @@ module.exports = (schema, target) => {
                     $group: {
                         _id: "$src.Examination ID",
                         "Examination ID": {
-                            $first: "$Examination ID"
+                            $first: "$Examination ID",
                         },
                         src: {
-                            $first: "$src"
+                            $first: "$src",
                         },
                         record: {
-                            $push: "$src"
-                        }
-                    }
+                            $push: "$src",
+                        },
+                    },
                 },
                 {
                     $lookup: {
@@ -105,22 +106,22 @@ module.exports = (schema, target) => {
                         pipeline: [{
                             $project: {
                                 _id: 0,
-                                crashed: 1
+                                crashed: 1,
                             },
-                        }]
-                    }
+                        }, ],
+                    },
                 },
                 {
                     $addFields: {
                         crashed: {
-                            $first: "$examination.crashed"
-                        }
-                    }
+                            $first: "$examination.crashed",
+                        },
+                    },
                 },
                 {
                     $unwind: {
-                        path: "$record"
-                    }
+                        path: "$record",
+                    },
                 },
                 {
                     $addFields: {
@@ -128,156 +129,27 @@ module.exports = (schema, target) => {
                         target: {
                             id: "$record.id",
                             "Examination ID": "$Examination ID",
-                            collection: {
+                            schema: {
                                 $cond: [{
-                                        $eq: ["$crashed", true]
+                                        $eq: ["$crashed", true],
                                     },
-                                    "ADE-TRANSFORM.labels",
-                                    "${target}.labels"
-                                ]
-                            }
-                        }
-                    }
+                                    "ADE-TRANSFORM",
+                                    target,
+                                ],
+                            },
+                        },
+                    },
                 },
                 {
                     $project: {
                         _id: 0,
                         source: 1,
                         target: 1,
-                        crashed: 1
-                    }
-                }
+                        crashed: 1,
+                    },
+                },
             ]
         },
-        // {
-        //     source: `${schema}.labels`,
-        //     dest: `ADE-TRANSFORM.cross-crashed-examinations`,
-        //     pipeline: [{
-        //             $group: {
-        //                 _id: "$src.Examination ID",
-        //                 "Examination ID": {
-        //                     $first: "$Examination ID",
-        //                 },
-        //                 src: {
-        //                     $first: "$src",
-        //                 },
-        //             },
-        //         },
-        //         {
-        //             $lookup: {
-        //                 from: "examinations",
-        //                 localField: "Examination ID",
-        //                 foreignField: "patientId",
-        //                 as: "examination",
-        //                 pipeline: [{
-        //                     $project: {
-        //                         _id: 0,
-        //                         crashed: 1,
-        //                         id: "$uuid",
-        //                         patientId: "$patientId",
-        //                         src: 1,
-        //                     },
-        //                 }, ],
-        //             },
-        //         },
-        //         {
-        //             $addFields: {
-        //                 crashed: {
-        //                     $first: "$examination.crashed",
-        //                 },
-        //                 id: {
-        //                     $first: "$examination.id",
-        //                 },
-        //                 collection: {
-        //                     $first: "$examination.src.collection",
-        //                 },
-        //             },
-        //         },
-        //         {
-        //             $addFields: {
-        //                 source: {
-        //                     patientId: "$src.Examination ID",
-        //                     collection: "$src.patientCollection",
-        //                 },
-        //                 target: {
-        //                     id: "$id",
-        //                     patientId: "$Examination ID",
-        //                     collection: "ADE-TRANSFORM.examinations",
-        //                 },
-        //             },
-        //         },
-        //         {
-        //             $project: {
-        //                 _id: 0,
-        //                 source: 1,
-        //                 target: 1,
-        //                 crashed: 1,
-        //             },
-        //         },
-        //     ]
-        // }, 
-        // {
-        //     source: `${schema}.labels`,
-        //     dest: `ADE-TRANSFORM.cross-crashed-labels`,
-        //     pipeline: [{
-        //             $group: {
-        //                 _id: "$src.Examination ID",
-        //                 "Examination ID": {
-        //                     $first: "$Examination ID"
-        //                 },
-        //                 src: {
-        //                     $first: "$src"
-        //                 },
-        //                 record: {
-        //                     $push: "$src"
-        //                 }
-        //             }
-        //         },
-        //         {
-        //             $lookup: {
-        //                 from: "examinations",
-        //                 localField: "Examination ID",
-        //                 foreignField: "patientId",
-        //                 as: "examination",
-        //                 pipeline: [{
-        //                     $project: {
-        //                         _id: 0,
-        //                         crashed: 1
-        //                     }
-        //                 }]
-        //             }
-        //         },
-        //         {
-        //             $addFields: {
-        //                 crashed: {
-        //                     $first: "$examination.crashed"
-        //                 }
-        //             }
-        //         },
-        //         {
-        //             $unwind: {
-        //                 path: "$record"
-        //             }
-        //         },
-        //         {
-        //             $addFields: {
-        //                 source: "$record",
-        //                 target: {
-        //                     id: "$record.id",
-        //                     "Examination ID": "$Examination ID",
-        //                     collection: "ADE-TRANSFORM.labels"
-        //                 }
-        //             }
-        //         },
-        //         {
-        //             $project: {
-        //                 _id: 0,
-        //                 source: 1,
-        //                 target: 1,
-        //                 crashed: 1
-        //             }
-        //         }
-        //     ]
-        // }
+
     ]
 }
