@@ -8,7 +8,7 @@ const schemas = [
 	"yoda",
 	"harvest1",
 	"phonendo",
-	// "strazhesko-part-1",
+	"strazhesko-part-1",
 	"poltava-part-1",
 	"digiscope",
 	"hha"
