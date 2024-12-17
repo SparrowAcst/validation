@@ -8,6 +8,9 @@ module.exports = (schema, target) => {
                         source_patientId: {
                             $first: "$src.Examination ID",
                         },
+                        source_uuid: {
+                            $first: "$src.uuid",
+                        },
                         source_collection: {
                             $first: "$src.patientCollection",
                         },
@@ -52,6 +55,7 @@ module.exports = (schema, target) => {
                 {
                     $addFields: {
                         source: {
+                            uuid: "$source_uuid",
                             patientId: "$source_patientId",
                             collection: "$source_collection",
                             form_collection: "$source_formCollection",

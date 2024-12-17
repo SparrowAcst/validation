@@ -46,8 +46,8 @@ const getSourceExaminations = async buffer => {
             collection: key,
             pipeline: [{
                     $match: {
-                        "patientId": {
-                            $in: queries[key].map(d => d.source.patientId)
+                        "uuid": {
+                            $in: queries[key].map(d => d.source.uuid)
                         }
                     }
                 },
@@ -156,6 +156,10 @@ const resolveBuffer = async (buffer, SCHEMA) => {
 
     let targetExaminations = await getTargetExaminations(buffer, SCHEMA)
     let sourceExaminations = await getSourceExaminations(buffer)
+
+    buffer = buffer.map( b => {
+        b.sourceData = find(sourceExaminations, d => d.id == t.id)
+    })
 
     targetExaminations = targetExaminations.map(t => {
         t.$update = find(sourceExaminations, d => d.id == t.id)
