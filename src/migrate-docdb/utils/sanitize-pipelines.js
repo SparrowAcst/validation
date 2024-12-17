@@ -95,6 +95,7 @@ module.exports = {
             $project: {
                 _id: 0,
                 id: "$uuid",
+                patientId: 1,
                 siteId: 1,
                 state: 1,
                 forms: 1,

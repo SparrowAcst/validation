@@ -46,8 +46,8 @@ const getSourceExaminations = async buffer => {
             collection: key,
             pipeline: [{
                     $match: {
-                        "uuid": {
-                            $in: queries[key].map(d => d.source.uuid)
+                        "patientId": {
+                            $in: queries[key].map(d => d.source.patientId)
                         }
                     }
                 },
@@ -158,53 +158,50 @@ const resolveBuffer = async (buffer, SCHEMA) => {
     let sourceExaminations = await getSourceExaminations(buffer)
 
     buffer = buffer.map( b => {
-        b.sourceData = find(sourceExaminations, d => d.id == t.id)
+        b.sourceData = find(sourceExaminations, d => b.source.patientId == d.patientId)
+        b.targetData = find(targetExaminations, d => b.target.id == d.id)
     })
 
-    targetExaminations = targetExaminations.map(t => {
-        t.$update = find(sourceExaminations, d => d.id == t.id)
-        return t
-    })
+    console.log(buffer)
 
 
+    // let updates = targetExaminations.filter(t => {
+    //     console.log(Diff.delta(
+    //         t,
+    //         t.$update,
+    //         "forms.echo",
+    //         "forms.ekg",
+    //         "forms.patient"
+    //     ))
+    //     return detectChanges(
+    //     Diff.delta(
+    //         t,
+    //         t.$update,
+    //         "forms.echo",
+    //         "forms.ekg",
+    //         "forms.patient"
+    //     )
+    //     )}
+    // )
 
-    let updates = targetExaminations.filter(t => {
-        console.log(Diff.delta(
-            t,
-            t.$update,
-            "forms.echo",
-            "forms.ekg",
-            "forms.patient"
-        ))
-        return detectChanges(
-        Diff.delta(
-            t,
-            t.$update,
-            "forms.echo",
-            "forms.ekg",
-            "forms.patient"
-        )
-        )}
-    )
-
-    console.log("updates:", JSON.stringify(updates, null, " "))
+    // console.log("updates:", JSON.stringify(updates, null, " "))
 
 
-    console.log(`Targets: ${targetExaminations.length}, Updates: ${updates.length}`)
+    // console.log(`Targets: ${targetExaminations.length}, Updates: ${updates.length}`)
 
-    if( updates.length > 0 ){
-        updates.forEach( u => {
+    // if( updates.length > 0 ){
+    //     updates.forEach( u => {
             
-            console.log("\n------------------------------------",u)
-            console.log(Diff.delta(
-            u,
-            u.$update,
-            "forms.echo",
-            "forms.ekg",
-            "forms.patient"
-        ))
-        })
-    }
+    //         console.log("\n------------------------------------",u)
+    //         console.log(Diff.delta(
+    //         u,
+    //         u.$update,
+    //         "forms.echo",
+    //         "forms.ekg",
+    //         "forms.patient"
+    //     ))
+    //     })
+    // }
 
 
     // let commands = buffer.map(b => ({
