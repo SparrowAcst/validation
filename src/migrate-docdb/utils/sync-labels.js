@@ -45,6 +45,7 @@ const getTargetLabels = async (buffer, SCHEMA) => {
     let collection = `${SCHEMA}.labels`
 
     let result = await docdb.aggregate({ collection, pipeline })
+    console.log(`Load from ${SCHEMA}.labels ${result.length} items`)
     return result
 
 }
