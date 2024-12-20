@@ -1,7 +1,7 @@
 module.exports = (schema, target) => {
     return [{
             source: `${schema}.labels`,
-            dest: `ADE-TRANSFORM.cross-examinations`,
+            dest: `ADE-TRANSFORM.external-examinations`,
             pipeline: [{
                     $group: {
                         _id: "$src.Examination ID",
@@ -98,7 +98,7 @@ module.exports = (schema, target) => {
         },
         {
             source: `${schema}.labels`,
-            dest: `ADE-TRANSFORM.cross-labels`,
+            dest: `ADE-TRANSFORM.external-labels`,
             pipeline: [{
                     $group: {
                         _id: "$src.Examination ID",
