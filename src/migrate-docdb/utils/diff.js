@@ -2,6 +2,7 @@ const { keys, isArray, last, first, get, isDate, isString } = require("lodash")
 
 
 const init = async () => {
+    
     const jsondiffpatch = await import('jsondiffpatch')
 
     const customTrivialFilter = context => {
@@ -147,6 +148,7 @@ const init = async () => {
 const customDiff = {
 
     delta: async (left, right, ...selectors) => {
+        
         const Diff = await init()
         
         if (!selectors || selectors.length == 0) return Diff.diff(left, right)

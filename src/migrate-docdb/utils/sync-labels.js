@@ -4,10 +4,6 @@ const db = require("../../../.config-migrate-db").mongodb.ade
 const { find, groupBy, keys, first, last, isUndefined } = require("lodash")
 const Diff = require("./diff")
 const uuid = require("uuid").v4
-
-console.log(Diff)
-
-
 const { flatten, cloneByPattern } = require("./flat")
 const sanitizePipeline = require("./sanitize-pipelines")
 
@@ -15,7 +11,19 @@ const UPDATE_ID = uuid()
 
 const CROSS = "ADE-TRANSFORM.external-labels"
 
-const detectChanges = delta => !isUndefined(delta)
+const detectChanges = async buffer => {
+    
+    let result = []
+    
+    for( const b of buffer){
+        b.delta = await Diff.delta(b.targetData, b.sourceData)
+        
+        if( b.delta ) result.push(b)
+    }
+    
+    return result
+}
+
 
 const getTargetLabels = async (buffer, SCHEMA) => {
 
@@ -120,12 +128,7 @@ const resolveBuffer = async (buffer, SCHEMA) => {
 
 
 
-    let updates = await Promise.all(
-        buffer.filter( async t => {
-            let delta = await Diff.delta(t.targetData, t.sourceData )
-            return detectChanges(delta)
-        })
-    )
+    let updates = await detectChanges(buffer)
 
     console.log(`Targets: ${buffer.length}, Updates: ${updates.length}`)
 
