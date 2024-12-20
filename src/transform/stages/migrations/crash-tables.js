@@ -66,7 +66,6 @@ module.exports = (schema, target) => {
                             patientId: "$target_patientId",
                             schema: "ADE-TRANSFORM"
                         },
-                        ,
                         id: {
                             $function: {
                                 body: `function() {

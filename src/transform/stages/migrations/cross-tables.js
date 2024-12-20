@@ -154,7 +154,6 @@ module.exports = (schema, target) => {
                                 ],
                             },
                         },
-                        ,
                         id: {
                             $function: {
                                 body: `function() {
