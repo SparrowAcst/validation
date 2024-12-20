@@ -10,7 +10,7 @@ const sanitizePipeline = require("./sanitize-pipelines")
 
 const UPDATE_ID = uuid()
 
-const CROSS = "ADE-TRANSFORM.cross-labels"
+const CROSS = "ADE-TRANSFORM.external-labels"
 
 const detectChanges = delta => !isUndefined(delta)
 
@@ -161,14 +161,24 @@ const resolveBuffer = async (buffer, SCHEMA) => {
 
     commands = buffer.map( b => ({
         updateOne: {
-            filter: { id: b.target.id },
+            filter: { id: b.id },
             update: {
-                $set: b.sourceData
+                $set: {
+                    "target.update": UPDATE_ID
+                }
             },
+
             upsert: true
         }
     }))
 
+    if( commands.length > 0){
+        await mongodb.bulkWrite({
+            db,
+            collection: CROSS,
+            commands
+        })
+    }
 
 }
 
@@ -176,7 +186,7 @@ const execute = async SCHEMA => {
 
     console.log(`SYNC LABELS FOR ${SCHEMA} ${UPDATE_ID}`)
 
-    const PAGE_SIZE = 1
+    const PAGE_SIZE = 100
     let skip = 0
     let bufferCount = 0
 
@@ -263,9 +273,9 @@ const execute = async SCHEMA => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0 && bufferCount < 1)
+    } while (buffer.length > 0)
 
-    console.log(`SYNC EXAMINATIONS FOR ${SCHEMA} ${UPDATE_ID} DONE`)
+    console.log(`SYNC LABELS FOR ${SCHEMA} ${UPDATE_ID} DONE`)
 
 }
 
