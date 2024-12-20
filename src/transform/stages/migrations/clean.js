@@ -50,6 +50,8 @@ module.exports = (schema, out) => [{
                     "assigned to": 0,
                     "Assigned to": 0,
                     "Final comments": 0,
+                    process_records: 0,
+                    schema: 0
                 },
             },
             {

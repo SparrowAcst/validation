@@ -30,7 +30,7 @@ const getTargetExaminations = async (buffer, SCHEMA) => {
     let collection = `${SCHEMA}.examinations`
 
     let result = await docdb.aggregate({ collection, pipeline })
-    console.log("targets:", result)
+    // console.log("targets:", result)
     return result
 
 }
@@ -123,7 +123,7 @@ const getSourceExaminations = async buffer => {
                         f: 0,
                     },
                 },
-            ].concat(sanitizePipeline.examinations)
+            ].concat(sanitizePipeline().examinations)
         }
     })
 
@@ -147,7 +147,7 @@ const getSourceExaminations = async buffer => {
 
     }
 
-    console.log("sources:",result)
+    // console.log("sources:",result)
     return result
 
 }
@@ -160,42 +160,43 @@ const resolveBuffer = async (buffer, SCHEMA) => {
     buffer = buffer.map( b => {
         b.sourceData = find(sourceExaminations, d => b.source.patientId == d.patientId)
         b.targetData = find(targetExaminations, d => b.target.id == d.id)
+        return b
     })
 
-    console.log(buffer)
+    // console.log(buffer)
 
 
-    // let updates = targetExaminations.filter(t => {
-    //     console.log(Diff.delta(
-    //         t,
-    //         t.$update,
-    //         "forms.echo",
-    //         "forms.ekg",
-    //         "forms.patient"
-    //     ))
-    //     return detectChanges(
-    //     Diff.delta(
-    //         t,
-    //         t.$update,
-    //         "forms.echo",
-    //         "forms.ekg",
-    //         "forms.patient"
-    //     )
-    //     )}
-    // )
+    let updates = buffer.filter(t => {
+        // console.log(Diff.delta(
+        //     t.targetData,
+        //     t.sourceData,
+        //     "forms.echo",
+        //     "forms.ekg",
+        //     "forms.patient"
+        // ))
+        return detectChanges(
+        Diff.delta(
+            t.targetData,
+            t.sourceData,
+            "forms.echo",
+            "forms.ekg",
+            "forms.patient"
+        )
+        )}
+    )
 
     // console.log("updates:", JSON.stringify(updates, null, " "))
 
 
-    // console.log(`Targets: ${targetExaminations.length}, Updates: ${updates.length}`)
+    console.log(`Targets: ${buffer.length}, Updates: ${updates.length}`)
 
     // if( updates.length > 0 ){
     //     updates.forEach( u => {
             
-    //         console.log("\n------------------------------------",u)
+    //         console.log("\n------------------------------------",u.target.id, u.source.patientId)
     //         console.log(Diff.delta(
-    //         u,
-    //         u.$update,
+    //         u.targetData,
+    //         u.sourceData,
     //         "forms.echo",
     //         "forms.ekg",
     //         "forms.patient"
@@ -234,7 +235,7 @@ const execute = async SCHEMA => {
 
     console.log(`SYNC EXAMINATIONS FOR ${SCHEMA} ${UPDATE_ID}`)
 
-    const PAGE_SIZE = 1
+    const PAGE_SIZE = 100
     let skip = 0
     let bufferCount = 0
 
@@ -267,7 +268,7 @@ const execute = async SCHEMA => {
             pipeline
         })
 
-        console.log(buffer)
+        // console.log(buffer)
             
         if (buffer.length > 0) {
 

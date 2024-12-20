@@ -1,4 +1,4 @@
-const execute = require("./utils/sync")
+const execute = require("./utils/sync-exams")
 
 const SCHEMA = "strazhesko-part-1"
 

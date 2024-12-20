@@ -142,6 +142,7 @@ Diff.processor.pipes.diff.replace('dates', customDateFilter)
 customDiff = {
 
     delta: (left, right, ...selectors) => {
+        if(!selectors || selectors.length == 0) return Diff.diff(left, right)
 
         let res = {}
         selectors.forEach(selector => {

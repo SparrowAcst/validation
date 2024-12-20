@@ -72,11 +72,23 @@ module.exports = (schema, target) => {
                                 ],
                             },
                         },
+                        id: {
+                            $function: {
+                                body: `function() {
+                                return UUID()
+                                    .toString()
+                                    .split('"')[1];
+                            }`,
+                                args: [],
+                                lang: "js",
+                            },
+                        },
                     },
                 },
                 {
                     $project: {
                         _id: 0,
+                        id: 1,
                         source: 1,
                         target: 1,
                         crashed: 1,
@@ -142,11 +154,24 @@ module.exports = (schema, target) => {
                                 ],
                             },
                         },
+                        ,
+                        id: {
+                            $function: {
+                                body: `function() {
+                                return UUID()
+                                    .toString()
+                                    .split('"')[1];
+                            }`,
+                                args: [],
+                                lang: "js",
+                            },
+                        },
                     },
                 },
                 {
                     $project: {
                         _id: 0,
+                        id: 1, 
                         source: 1,
                         target: 1,
                         crashed: 1,

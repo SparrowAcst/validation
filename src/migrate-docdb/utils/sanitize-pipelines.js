@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = source => ({
     labels: [{
             $addFields: {
                 state: "$TODO",
@@ -48,11 +48,12 @@ module.exports = {
                 "assigned to": 0,
                 "Assigned to": 0,
                 "Final comments": 0,
+                process_records: 0
             },
         },
         {
             $lookup: {
-                from: "examinations",
+                from: (source) ? source.patientCollection : "examinations",
                 localField: "Examination ID",
                 foreignField: "patientId",
                 as: "examinationId",
@@ -87,6 +88,7 @@ module.exports = {
                 "1st level comments": 0,
                 "2nd level comments": 0,
                 "Stage Comment": 0,
+                schema: 0
             },
         },
     ],
@@ -271,4 +273,4 @@ module.exports = {
             ],
         },
     ]
-}
+})
