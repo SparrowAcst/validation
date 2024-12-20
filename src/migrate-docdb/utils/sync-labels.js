@@ -5,6 +5,9 @@ const { find, groupBy, keys, first, last, isUndefined } = require("lodash")
 const Diff = require("./diff")
 const uuid = require("uuid").v4
 
+console.log(Diff)
+
+
 const { flatten, cloneByPattern } = require("./flat")
 const sanitizePipeline = require("./sanitize-pipelines")
 
@@ -115,11 +118,14 @@ const resolveBuffer = async (buffer, SCHEMA) => {
         return b
     })
 
-    let updates = buffer.filter(t => detectChanges(
-        Diff.delta(
-            t.targetData,
-            t.sourceData
-        )))
+
+
+    let updates = await Promise.all(
+        buffer.filter( async t => {
+            let delta = await Diff.delta(t.targetData, t.sourceData )
+            return detectChanges(delta)
+        })
+    )
 
     console.log(`Targets: ${buffer.length}, Updates: ${updates.length}`)
 
