@@ -19,41 +19,40 @@ const testChanges = delta => {
 const detectChanges = async buffer => {
 
     let result = []
-    
-    for( const b of buffer){
-        
+
+    for (const b of buffer) {
+
         b.delta = await Diff.delta(
-            b.targetData, 
+            b.targetData,
             b.sourceData,
             "forms.echo",
             "forms.ekg",
             "forms.patient"
         )
-        
-        if( testChanges(b.delta) ) result.push(b)
+
+        if (testChanges(b.delta)) result.push(b)
     }
-    
+
     return result
 }
 
 const getTargetExaminations = async (buffer, SCHEMA) => {
 
     let pipeline = [{
-            $match: {
-                id: {
-                    $in: buffer.map(d => d.target.id)
-                }
+        $match: {
+            id: {
+                $in: buffer.map(d => d.target.id)
             }
         }
-    ]
+    }]
 
     console.log(`Load from ${SCHEMA}.examinations ...`)
-    
-    let result = await docdb.aggregate({ 
-        collection: `${SCHEMA}.examinations`, 
-        pipeline 
+
+    let result = await docdb.aggregate({
+        collection: `${SCHEMA}.examinations`,
+        pipeline
     })
-    
+
     console.log(`Load from ${SCHEMA}.examinations ${result.length} items`)
 
     return result
@@ -153,24 +152,24 @@ const getSourceExaminations = async buffer => {
     })
 
 
-    let result = await Promise.all(queries.map( query => 
-        ( async () => {
-            
+    let result = await Promise.all(queries.map(query =>
+        (async () => {
+
             console.log(`Load from ${query.collection} ...`)
-            
+
             let part = await mongodb.aggregate({
                 db,
                 collection: query.collection,
                 pipeline: query.pipeline
             })
-            
+
             console.log(`Load from ${query.collection} ${part.length} items`)
-            
+
             return part
-        
+
         })()
     ))
-    
+
     return flatten(result)
 
 }
@@ -182,7 +181,7 @@ const resolveBuffer = async (buffer, SCHEMA) => {
         getSourceExaminations(buffer)
     ])
 
-    buffer = buffer.map( b => {
+    buffer = buffer.map(b => {
         b.sourceData = find(sourceExaminations, d => b.source.patientId == d.patientId)
         b.targetData = find(targetExaminations, d => b.target.id == d.id)
         return b
@@ -192,48 +191,89 @@ const resolveBuffer = async (buffer, SCHEMA) => {
 
     console.log(`Targets: ${buffer.length}, Updates: ${updates.length}`)
 
-    console.log(updates)    
 
+    let commands = updates.map(b => ({
+        updateOne: {
+            filter: { id: b.target.id },
+            update: {
+                $set: {
+                    forms: b.sourceData.forms
+                }    
+            },
+            upsert: true
+        }
 
+    }))
 
+    console.log(commands)
 
-    // if( updates.length > 0 ){
-    //     updates.forEach( u => {
-            
-    //         console.log("\n------------------------------------",u.target.id, u.source.patientId)
-    //         console.log(Diff.delta(
-    //         u.targetData,
-    //         u.sourceData,
-    //         "forms.echo",
-    //         "forms.ekg",
-    //         "forms.patient"
-    //     ))
-    //     })
-    // }
+    updCommands = buffer.map(b => ({
+        updateOne: {
+            filter: { id: b.id },
+            update: {
+                $set: {
+                    "target.update": UPDATE_ID
+                }
+            },
 
+            upsert: true
+        }
+    }))
 
-    // let commands = buffer.map(b => ({
-    //     updateOne: {
-    //         filter: { id: b.id },
-    //         update: {
-    //             $set: {
-    //                 update: UPDATE_ID
-    //             }
-    //         },
-    //         upsert: true
-    //     }
+    await Promise.all([
 
-    // }))
+        (async () => {
 
-    // if (commands.length > 0) {
+            if (commands.length > 0) {
 
-    //     console.log(`Update ${commands.length} items`)
+                console.log(`Update ${commands.length} items in ${SCHEMA}.examinations`)
 
-    //     // await docdb.bulkWrite({
-    //     //     collection: COLLECTION,
-    //     //     commands
-    //     // })
-    // }
+                await docdb.bulkWrite({
+                    collection: `${SCHEMA}.examinations`,
+                    commands
+                })
+
+                console.log(`Update ${commands.length} items in ${SCHEMA}.examinations - DONE`)
+
+            }
+
+        })(),
+
+        (async () => {
+
+            if (commands.length > 0) {
+                console.log(`Save info for update ${UPDATE_ID} for ${updCommands.length} items in ${UPDATES}`)
+                await mongodb.insertAll({
+                    db,
+                    collection: UPDATES,
+                    data: [{
+                        id: UPDATE_ID,
+                        date: new Date(),
+                        collection: `${SCHEMA}.labels`,
+                        commands: JSON.stringify(commands),
+                        delta: updates
+                    }]
+                })
+                console.log(`Save update info for update ${UPDATE_ID} - DONE`)
+            }
+
+        })(),
+
+        (async () => {
+
+            if (updCommands.length > 0) {
+                console.log(`Set update status ${UPDATE_ID} for ${updCommands.length} items in ${CROSS}`)
+                await mongodb.bulkWrite({
+                    db,
+                    collection: CROSS,
+                    commands: updCommands
+                })
+                console.log(`Set update status ${UPDATE_ID} - DONE`)
+            }
+
+        })()
+    ])
+
 }
 
 const execute = async SCHEMA => {
@@ -269,63 +309,20 @@ const execute = async SCHEMA => {
             }
         ]
 
+        console.log(`ADE-TRANSFORM: ${SCHEMA} > Read buffer ${bufferCount} started at ${skip} ...`)
+
         buffer = await mongodb.aggregate({
             db,
             collection: CROSS,
             pipeline
         })
 
-        // console.log(buffer)
-            
         if (buffer.length > 0) {
 
             console.log(`ADE-TRANSFORM: ${SCHEMA} > Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
             let commands = []
 
-            // if (buffer.length > 0) {
-
             await resolveBuffer(buffer, SCHEMA)
-
-            //         let i = 0
-
-            //         for( let d of buffer){
-            //             i++
-            //             console.log(`${i} from ${buffer.length}`)
-
-            //             if(d){
-
-            //                 const process_records = await migrateFB2S3({
-            //                     id: d.id,
-            //                     fbUrl: d.Source.url
-            //                 })
-
-            //                 commands.push({
-            //                     updateOne: {
-            //                         filter: { id: d.id },
-            //                         update: {
-            //                             $set:{
-            //                               process_records  
-            //                             }
-            //                         },
-            //                         upsert: true
-            //                     }
-            //                 })          
-            //             }    
-            //         }    
-
-            // if (commands.length > 0) {
-
-            //     console.log(`${CROSS} > Update ${commands.length} items`)
-
-            //     await mongodb.bulkWrite({
-            //         db,
-            //         collection: CROSS,
-            //         commands
-            //     })
-            // }
-
-
-            // }
 
         }
 
@@ -337,7 +334,5 @@ const execute = async SCHEMA => {
     console.log(`SYNC EXAMINATIONS FOR ${SCHEMA} ${UPDATE_ID} DONE`)
 
 }
-
-
 
 module.exports = execute
