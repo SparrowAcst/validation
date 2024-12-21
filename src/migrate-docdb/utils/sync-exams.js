@@ -151,7 +151,7 @@ const getSourceExaminations = async buffer => {
                         f: 0,
                     },
                 },
-            ].concat(sanitizePipeline( {form_collection} ).examinations
+            ].concat(sanitizePipeline( {form_collection} ).examinations)
         }
     })
 
