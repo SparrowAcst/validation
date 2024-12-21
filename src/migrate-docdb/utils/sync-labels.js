@@ -4,7 +4,6 @@ const db = require("../../../.config-migrate-db").mongodb.ade
 const { find, groupBy, keys, first, last, isUndefined, flatten } = require("lodash")
 const Diff = require("./diff")
 const uuid = require("uuid").v4
-// const { flatten, cloneByPattern } = require("./flat")
 const sanitizePipeline = require("./sanitize-pipelines")
 
 const UPDATE_ID = uuid()
@@ -124,12 +123,8 @@ const getSourceLabels = async (buffer, source) => {
     //     }
 
     // }
-    console.log(result.length)
-    console.log(result)
-    result = flatten(result)
-    console.log(result.length)
     
-    return  result
+    return flatten(result)
 
 }
 
@@ -246,7 +241,7 @@ const execute = async SCHEMA => {
 
     console.log(`SYNC LABELS FOR ${SCHEMA} ${UPDATE_ID}`)
 
-    const PAGE_SIZE = 2 //1
+    const PAGE_SIZE = 500 //1
     let skip = 0
     let bufferCount = 0
 
