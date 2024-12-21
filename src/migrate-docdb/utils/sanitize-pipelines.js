@@ -110,6 +110,11 @@ module.exports = source => ({
             },
         },
         {
+            $project:{
+                forms: 0
+            }
+        },
+        {
             $set: {
                 "forms.patient": {
                     $first: {
@@ -239,6 +244,10 @@ module.exports = source => ({
                 "forms.echo.data.dataUrl",
                 "forms.echo.data.resolvedData",
                 "forms.echo.data.changeLog",
+                "forms.echo.data.dataFileName",
+                "forms.echo.data.dataPath",
+                "forms.echo.data.dataStorage",
+                
                 //////////////////////////////////////////////////////////////////////////////
 
                 "forms.ekg.data.id",
@@ -332,7 +341,7 @@ module.exports = source => ({
                 "userId",
                 "createdAt",
                 "synchronizedAt",
-                "patientId",
+                // "patientId",
             ],
         },
     ]

@@ -69,87 +69,15 @@ const getSourceExaminations = async buffer => {
         let form_collection = (queries[key].length > 0) ? queries[key][0].source.form_collection : ""
         form_collection = (form_collection) ? last(form_collection.split(".")) : ""
 
-
         return {
             collection: key,
-            pipeline: [{
+            pipeline:  
+            [{
                     $match: {
                         "patientId": {
                             $in: queries[key].map(d => d.source.patientId)
                         }
                     }
-                },
-                {
-                    $lookup: {
-                        from: last(first(queries[key]).source.form_collection.split(".")),
-                        localField: "patientId",
-                        foreignField: "patientId",
-                        as: "f",
-                        pipeline: [{
-                            $project: {
-                                _id: 0,
-                                type: 1,
-                                data: 1,
-                            },
-                        }, ],
-                    },
-                },
-                {
-                    $project: {
-                        forms: 0,
-                    },
-                },
-                {
-                    $set: {
-                        "forms.patient": {
-                            $first: {
-                                $filter: {
-                                    input: "$f",
-                                    as: "item",
-                                    cond: {
-                                        $eq: ["$$item.type", "patient"],
-                                    },
-                                },
-                            },
-                        },
-                        "forms.echo": {
-                            $first: {
-                                $filter: {
-                                    input: "$f",
-                                    as: "item",
-                                    cond: {
-                                        $eq: ["$$item.type", "echo"],
-                                    },
-                                },
-                            },
-                        },
-                        "forms.ekg": {
-                            $first: {
-                                $filter: {
-                                    input: "$f",
-                                    as: "item",
-                                    cond: {
-                                        $eq: ["$$item.type", "ekg"],
-                                    },
-                                },
-                            },
-                        },
-                    },
-                },
-                {
-                    $set:
-
-                    {
-                        "forms.patient.data": "$forms.patient.data.en",
-                        "forms.echo.data": "$forms.echo.data.en",
-                        "forms.ekg.data": "$forms.ekg.data.en",
-                    },
-                },
-                {
-                    $project: {
-                        _id: 0,
-                        f: 0,
-                    },
                 },
             ].concat(sanitizePipeline( {form_collection} ).examinations)
         }
@@ -191,11 +119,16 @@ const resolveBuffer = async (buffer, SCHEMA) => {
         return b
     })
 
+    // console.log(buffer)
+
     let updates = await detectChanges(buffer)
     updates = updates.filter(d => d.sourceData && d.sourceData.forms)
 
+    // console.log(JSON.stringify(updates, null, " "))
+
     console.log(`Targets: ${buffer.length}, Updates: ${updates.length}`)
 
+    console.log(updates.map( d => `${d.target.id}: ${JSON.stringify(d.delta)}`))
 
     let commands = updates.map(b => ({
         updateOne: {
@@ -334,7 +267,7 @@ const execute = async SCHEMA => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0) // && bufferCount < 1)
+    } while (buffer.length > 0 ) // && bufferCount < 1)
 
     console.log(`SYNC EXAMINATIONS FOR ${SCHEMA} ${UPDATE_ID} DONE`)
 
