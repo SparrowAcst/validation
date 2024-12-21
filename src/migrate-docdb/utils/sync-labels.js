@@ -246,7 +246,7 @@ const execute = async SCHEMA => {
 
     console.log(`SYNC LABELS FOR ${SCHEMA} ${UPDATE_ID}`)
 
-    const PAGE_SIZE = 500 //1
+    const PAGE_SIZE = 2 //1
     let skip = 0
     let bufferCount = 0
 
