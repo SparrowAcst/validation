@@ -247,6 +247,11 @@ module.exports = source => ({
                 "forms.echo.data.dataFileName",
                 "forms.echo.data.dataPath",
                 "forms.echo.data.dataStorage",
+                "forms.echo.data.dataFileSize",
+                "forms.echo.data.dataFileDate",
+
+
+
                 
                 //////////////////////////////////////////////////////////////////////////////
 
