@@ -66,6 +66,10 @@ const getSourceExaminations = async buffer => {
 
     queries = keys(queries).map(key => {
 
+        let form_collection = (queries[key].length > 0) ? queries[key][0].source.form_collection : ""
+        form_collection = (form_collection) ? last(form_collection.split(".")) : ""
+
+
         return {
             collection: key,
             pipeline: [{
@@ -147,7 +151,7 @@ const getSourceExaminations = async buffer => {
                         f: 0,
                     },
                 },
-            ].concat(sanitizePipeline().examinations)
+            ].concat(sanitizePipeline( {form_collection} ).examinations
         }
     })
 

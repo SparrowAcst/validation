@@ -96,7 +96,7 @@ module.exports = source => ({
 
     examinations: [{
             $lookup: {
-                from: source.form_collection,
+                from: (source) ? source.form_collection : "dummy",
                 localField: "patientId",
                 foreignField: "patientId",
                 as: "af",
