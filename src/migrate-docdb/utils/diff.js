@@ -137,6 +137,7 @@ const init = async () => {
 
     let Diff = jsondiffpatch.create({
         objectHash: (d, index) => d.name || d.id || JSON.stringify(d) || index,
+         propertyFilter: name => name != "aiSegmentation"
     })
 
     Diff.processor.pipes.diff.replace('trivial', customTrivialFilter)
