@@ -10,6 +10,7 @@ const sanitizePipeline = require("./sanitize-pipelines")
 const UPDATE_ID = uuid()
 
 const CROSS = "ADE-TRANSFORM.external-labels"
+const UPDATES = "ADE-TRANSFORM.update-log-labels"
 
 const detectChanges = async buffer => {
     
@@ -43,7 +44,7 @@ const getTargetLabels = async (buffer, SCHEMA) => {
     ]
 
     let collection = `${SCHEMA}.labels`
-
+    console.log(`Load from ${SCHEMA}.labels ...`)
     let result = await docdb.aggregate({ collection, pipeline })
     console.log(`Load from ${SCHEMA}.labels ${result.length} items`)
     return result
@@ -99,6 +100,7 @@ const getSourceLabels = async (buffer, source) => {
 
         for (const query of queries) {
 
+            console.log(`Load from ${query.collection} ...`)
             let part = await mongodb.aggregate({
                 db,
                 collection: query.collection,
@@ -118,8 +120,13 @@ const getSourceLabels = async (buffer, source) => {
 
 const resolveBuffer = async (buffer, SCHEMA) => {
 
-    let targetLabels = await getTargetLabels(buffer, SCHEMA)
-    let sourceLabels = await getSourceLabels(buffer)
+    let [targetLabels, sourceLabels] = await Promise.all([
+        getTargetLabels(buffer, SCHEMA),
+        getSourceLabels(buffer)
+    ])
+    
+    // let targetLabels = await getTargetLabels(buffer, SCHEMA)
+    // let sourceLabels = await getSourceLabels(buffer)
 
     buffer = buffer.map(b => {
         b.sourceData = find(sourceLabels, d => b.source.id == d.id)
@@ -169,7 +176,7 @@ const resolveBuffer = async (buffer, SCHEMA) => {
     // }
 
 
-    commands = buffer.map( b => ({
+    updCommands = buffer.map( b => ({
         updateOne: {
             filter: { id: b.id },
             update: {
@@ -182,13 +189,41 @@ const resolveBuffer = async (buffer, SCHEMA) => {
         }
     }))
 
-    if( commands.length > 0){
-        await mongodb.bulkWrite({
-            db,
-            collection: CROSS,
-            commands
-        })
-    }
+    await Promise.all([
+        
+        (async () => {
+            
+            if( commands.length > 0){
+                console.log(`Save update info for update ${UPDATE_ID} for ${updCommands.length} items in ${UPDATES}`)
+                await mongodb.insertAll({
+                    db,
+                    collection: UPDATES,
+                    data: [{
+                        id: UPDATE_ID,
+                        date: new Date(),
+                        collection: `${SCHEMA}.labels`,
+                        commands: JSON.stringify(commands)
+                    }]
+                })
+                console.log(`Save update info for update ${UPDATE_ID} - DONE`)
+            }    
+
+        })(),
+        
+        (async () => {
+            
+            if( updCommands.length > 0){
+                console.log(`Set update status ${UPDATE_ID} for ${updCommands.length} items in ${CROSS}`)
+                await mongodb.bulkWrite({
+                    db,
+                    collection: CROSS,
+                    commands: updCommands
+                })
+                console.log(`Set update status ${UPDATE_ID} - DONE`)
+            }
+
+        })()
+    ])
 
 }
 
@@ -196,7 +231,7 @@ const execute = async SCHEMA => {
 
     console.log(`SYNC LABELS FOR ${SCHEMA} ${UPDATE_ID}`)
 
-    const PAGE_SIZE = 1000
+    const PAGE_SIZE = 500 //1
     let skip = 0
     let bufferCount = 0
 
@@ -219,6 +254,8 @@ const execute = async SCHEMA => {
                 }
             }
         ]
+
+        console.log(`ADE-TRANSFORM: ${SCHEMA} > Read buffer ${bufferCount} started at ${skip} ...`)
 
         buffer = await mongodb.aggregate({
             db,
@@ -283,9 +320,9 @@ const execute = async SCHEMA => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0)
+    } while (buffer.length > 0 ) // && bufferCount<1)
 
-    console.log(`SYNC LABELS FOR ${SCHEMA} ${UPDATE_ID} DONE`)
+    console.log(`SYNC LABELS FOR ${SCHEMA} ${UPDATE_ID} - DONE`)
 
 }
 
