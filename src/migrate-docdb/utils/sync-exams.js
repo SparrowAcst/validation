@@ -188,6 +188,7 @@ const resolveBuffer = async (buffer, SCHEMA) => {
     })
 
     let updates = await detectChanges(buffer)
+    updates = updates.filter(d => d.sourceData.forms)
 
     console.log(`Targets: ${buffer.length}, Updates: ${updates.length}`)
 
