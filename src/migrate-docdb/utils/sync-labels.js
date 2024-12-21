@@ -94,27 +94,36 @@ const getSourceLabels = async (buffer, source) => {
     })
 
 
-    let result = []
+    let result = await Promise.all(queries.map( async query => {
+        console.log(`Load from ${query.collection} ...`)
+        await mongodb.aggregate({
+            db,
+            collection: query.collection,
+            pipeline: query.pipeline
+        })
+        console.log(`Load from ${query.collection} ${part.length} items`)
+        
+    }))
 
-    if (queries.length > 0) {
+    // if (queries.length > 0) {
 
-        for (const query of queries) {
+    //     for (const query of queries) {
 
-            console.log(`Load from ${query.collection} ...`)
-            let part = await mongodb.aggregate({
-                db,
-                collection: query.collection,
-                pipeline: query.pipeline
-            })
+    //         console.log(`Load from ${query.collection} ...`)
+    //         let part = await mongodb.aggregate({
+    //             db,
+    //             collection: query.collection,
+    //             pipeline: query.pipeline
+    //         })
 
-            console.log(`Load from ${query.collection} ${part.length} items`)
-            result = result.concat(part)
+    //         console.log(`Load from ${query.collection} ${part.length} items`)
+    //         result = result.concat(part)
 
-        }
+    //     }
 
-    }
+    // }
 
-    return result
+    return flatten(result)
 
 }
 
