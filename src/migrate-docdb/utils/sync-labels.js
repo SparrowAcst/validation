@@ -50,7 +50,6 @@ const getTargetLabels = async (buffer, SCHEMA) => {
 
 }
 
-
 const getSourceLabels = async (buffer, source) => {
 
     let queries = groupBy(buffer, d => d.source.collection)
@@ -105,27 +104,8 @@ const getSourceLabels = async (buffer, source) => {
             return part
         })()
     ))
-
-    // if (queries.length > 0) {
-
-    //     for (const query of queries) {
-
-    //         console.log(`Load from ${query.collection} ...`)
-    //         let part = await mongodb.aggregate({
-    //             db,
-    //             collection: query.collection,
-    //             pipeline: query.pipeline
-    //         })
-
-    //         console.log(`Load from ${query.collection} ${part.length} items`)
-    //         result = result.concat(part)
-
-    //     }
-
-    // }
     
     return flatten(result)
-
 }
 
 const resolveBuffer = async (buffer, SCHEMA) => {
@@ -135,32 +115,15 @@ const resolveBuffer = async (buffer, SCHEMA) => {
         getSourceLabels(buffer)
     ])
     
-    // let targetLabels = await getTargetLabels(buffer, SCHEMA)
-    // let sourceLabels = await getSourceLabels(buffer)
-
     buffer = buffer.map(b => {
         b.sourceData = find(sourceLabels, d => b.source.id == d.id)
         b.targetData = find(targetLabels, d => b.target.id == d.id)
         return b
     })
 
-
-
     let updates = await detectChanges(buffer)
 
     console.log(`Targets: ${buffer.length}, Updates: ${updates.length}`)
-
-    // if( updates.length > 0 ){
-    // updates.forEach( u => {
-
-    //     console.log("\n------------------------------------",u.target.id, u.source.id)
-    //     console.log(Diff.delta(
-    //     u.targetData,
-    //     u.sourceData
-    // ))
-    // })
-    // }
-
 
     let commands = updates.map(b => ({
         updateOne: {
@@ -174,17 +137,6 @@ const resolveBuffer = async (buffer, SCHEMA) => {
     }))
 
     console.log(commands)
-
-    // if (commands.length > 0) {
-
-    //     console.log(`Update ${commands.length} items`)
-
-    //     // await docdb.bulkWrite({
-    //     //     collection: COLLECTION,
-    //     //     commands
-    //     // })
-    // }
-
 
     updCommands = buffer.map( b => ({
         updateOne: {
@@ -200,6 +152,23 @@ const resolveBuffer = async (buffer, SCHEMA) => {
     }))
 
     await Promise.all([
+        
+        ( async () => {
+
+            if (commands.length > 0) {
+
+                console.log(`Update ${commands.length} items in ${SCHEMA}.labels`)
+
+                await docdb.bulkWrite({
+                    collection: `${SCHEMA}.labels`,
+                    commands
+                })
+                
+                console.log(`Update ${commands.length} items in ${SCHEMA}.labels - DONE`)
+                
+            }
+
+        })(),
         
         (async () => {
             
@@ -279,63 +248,17 @@ const execute = async SCHEMA => {
             console.log(`ADE-TRANSFORM: ${SCHEMA} > Read buffer ${bufferCount} started at ${skip}: ${buffer.length} items`)
             let commands = []
 
-            // console.log(buffer)
-            // if (buffer.length > 0) {
-
             await resolveBuffer(buffer, SCHEMA)
-
-            //         let i = 0
-
-            //         for( let d of buffer){
-            //             i++
-            //             console.log(`${i} from ${buffer.length}`)
-
-            //             if(d){
-
-            //                 const process_records = await migrateFB2S3({
-            //                     id: d.id,
-            //                     fbUrl: d.Source.url
-            //                 })
-
-            //                 commands.push({
-            //                     updateOne: {
-            //                         filter: { id: d.id },
-            //                         update: {
-            //                             $set:{
-            //                               process_records  
-            //                             }
-            //                         },
-            //                         upsert: true
-            //                     }
-            //                 })          
-            //             }    
-            //         }    
-
-            // if (commands.length > 0) {
-
-            //     console.log(`${CROSS} > Update ${commands.length} items`)
-
-            //     await mongodb.bulkWrite({
-            //         db,
-            //         collection: CROSS,
-            //         commands
-            //     })
-            // }
-
-
-            // }
 
         }
 
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0 ) // && bufferCount<1)
+    } while (buffer.length > 0 )
 
     console.log(`SYNC LABELS FOR ${SCHEMA} ${UPDATE_ID} - DONE`)
 
 }
-
-
 
 module.exports = execute
