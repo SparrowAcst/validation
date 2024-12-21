@@ -8,7 +8,8 @@ module.exports = (schema, suffix) => ([
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    schema: 0
                 }
             }
         ]
@@ -21,7 +22,8 @@ module.exports = (schema, suffix) => ([
         pipeline: [
             {
                 $project: {
-                    _id: 0
+                    _id: 0,
+                    schema: 0
                 }
             }
         ]

@@ -109,7 +109,33 @@ const listCollections = async options => {
 
 }
 
+const createIndex = async options => {
+	let client
+	clients++
+	try {
+		
+		const conf = normalize(options.db.name)
+		
+		client = await createClient(options)
+		
+		const res =  await client
+	    				.db(conf.dbName)
+	    				.collection(conf.collectionName)
+	    				.createIndex(options.index)
+		return res
 
+	} catch (e) {
+		
+		console.log(e.toString())
+		throw new Error(e)
+	
+	} finally {
+	
+		if(client) client.close()
+		clients--	
+	
+	}	
+}
 
 const aggregate = async options => {
 	clients++
@@ -476,5 +502,6 @@ module.exports =  {
 	insertMany: insertAll,
 	
 	insertOneIfNotExists,
-	insertManyIfNotExists	
+	insertManyIfNotExists,
+	createIndex	
 }

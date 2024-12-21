@@ -119,6 +119,16 @@ const run = async (SOURCE, DEST, pipeline) => {
   //////////////////////////////////// stage 2 ///////////////////////////////////////
    await  importCollectionData(DEST)
    console.log()
+   console.log(`CREATE INDEX for ${DEST} ...`)
+
+   await docdb.createIndex({
+      collection: DEST,
+      index: {
+        id: 1
+      }
+   })
+   console.log(`CREATE INDEX  for ${DEST} - DONE`)
+   
    console.log("DONE")
 }
 
