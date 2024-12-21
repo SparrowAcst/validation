@@ -3,15 +3,15 @@ const execute = require("./utils/migrate")
 const migrations = require("./migrations/test")
 
 const schemas = [
-	// "potashev-part-1",
-	// "denis-part-1",
-	// "yoda",
-	// "harvest1",
-	// "phonendo",
+	"potashev-part-1",
+	"denis-part-1",
+	"yoda",
+	"harvest1",
+	"phonendo",
 	"strazhesko-part-1",
-	// "poltava-part-1",
-	// "digiscope",
-	// "hha"
+	"poltava-part-1",
+	"digiscope",
+	"hha"
 ] 
 
 const SUFFIX = "-done"

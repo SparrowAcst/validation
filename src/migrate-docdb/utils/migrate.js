@@ -75,7 +75,16 @@ const importCollectionData = async DEST => new Promise( (resolve, reject) => {
 const run = async (SOURCE, DEST, pipeline) => {
 
   console.log(`MIGRATE collection "Atlas: ${SOURCE}" > DocDB: "${DEST}"`)
-  console.log(pipeline)
+  
+  console.log(`DROP ${DEST} ...`)
+  
+  await docdb.drop({
+    collection: DEST
+  })
+
+  console.log(`DROP ${DEST} - DONE`)
+  
+  // console.log(pipeline)
 
   pipeline = pipeline || []
 
