@@ -26,7 +26,7 @@ const createIndex = async options => {
 	clients++
 	try {
 		
-		const conf = normalize(options.db.name)
+		const conf = normalize(options.collection)
 		
 		client = await createClient(options)
 		
