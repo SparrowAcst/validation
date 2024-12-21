@@ -95,7 +95,7 @@ const getSourceLabels = async (buffer, source) => {
 
 
     let result = await Promise.all(queries.map( query => 
-        (async () => {
+        ( async () => {
             console.log(`Load from ${query.collection} ...`)
             let part = await mongodb.aggregate({
                 db,
@@ -105,7 +105,7 @@ const getSourceLabels = async (buffer, source) => {
             console.log(`Load from ${query.collection} ${part.length} items`)
             return part
         })()
-    )
+    ))
 
     // if (queries.length > 0) {
 
