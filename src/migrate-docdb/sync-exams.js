@@ -1,15 +1,15 @@
 const execute = require("./utils/sync-exams")
 
 const schemas = [
-	// "digiscope",
-	// "phonendo",
-	// "denis-part-1",
-	// "potashev-part-1",
-	// "poltava-part-1",
+	"digiscope",
+	"phonendo",
+	"denis-part-1",
+	"potashev-part-1",
+	"poltava-part-1",
 	"strazhesko-part-1",
-	// "harvest1",
-	// "hha",
-	// "yoda"
+	"harvest1",
+	"hha",
+	"yoda"
 ]
 
 const run = async () => {
