@@ -123,8 +123,10 @@ const getSourceLabels = async (buffer, source) => {
 
     // }
     console.log(result.length)
+    result = flatten(result)
+    console.log(result.length)
     
-    return flatten(result)
+    return  result
 
 }
 
