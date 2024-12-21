@@ -2,6 +2,7 @@ module.exports = source => ({
     labels: [{
             $addFields: {
                 state: "$TODO",
+                
             },
         },
         {

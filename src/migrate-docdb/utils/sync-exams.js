@@ -1,19 +1,39 @@
 const docdb = require("../../utils/docdb")
 const mongodb = require("../../utils/mongodb")
 const db = require("../../../.config-migrate-db").mongodb.ade
-const { find, groupBy, keys, first, last, isUndefined } = require("lodash")
+const { find, groupBy, keys, first, last, isUndefined, flatten } = require("lodash")
 const Diff = require("./diff")
 const uuid = require("uuid").v4
 
-const { flatten, cloneByPattern } = require("./flat")
 const sanitizePipeline = require("./sanitize-pipelines")
 
 const UPDATE_ID = uuid()
 
-const CROSS = "ADE-TRANSFORM.cross-examinations"
+const CROSS = "ADE-TRANSFORM.external-examinations"
+const UPDATES = "ADE-TRANSFORM.update-log-examinations"
 
-const detectChanges = delta => {
+const testChanges = delta => {
     return keys(delta).map(key => !isUndefined(delta[key])).reduce((a, b) => a || b, false)
+}
+
+const detectChanges = async buffer => {
+
+    let result = []
+    
+    for( const b of buffer){
+        
+        b.delta = await Diff.delta(
+            b.targetData, 
+            b.sourceData,
+            "forms.echo",
+            "forms.ekg",
+            "forms.patient"
+        )
+        
+        if( testChanges(b.delta) ) result.push(b)
+    }
+    
+    return result
 }
 
 const getTargetExaminations = async (buffer, SCHEMA) => {
@@ -27,10 +47,15 @@ const getTargetExaminations = async (buffer, SCHEMA) => {
         }
     ]
 
-    let collection = `${SCHEMA}.examinations`
+    console.log(`Load from ${SCHEMA}.examinations ...`)
+    
+    let result = await docdb.aggregate({ 
+        collection: `${SCHEMA}.examinations`, 
+        pipeline 
+    })
+    
+    console.log(`Load from ${SCHEMA}.examinations ${result.length} items`)
 
-    let result = await docdb.aggregate({ collection, pipeline })
-    // console.log("targets:", result)
     return result
 
 }
@@ -128,34 +153,34 @@ const getSourceExaminations = async buffer => {
     })
 
 
-    let result = []
-
-    if (queries.length > 0) {
-
-        for (const query of queries) {
-
+    let result = await Promise.all(queries.map( query => 
+        ( async () => {
+            
+            console.log(`Load from ${query.collection} ...`)
+            
             let part = await mongodb.aggregate({
                 db,
                 collection: query.collection,
                 pipeline: query.pipeline
             })
-
+            
             console.log(`Load from ${query.collection} ${part.length} items`)
-            result = result.concat(part)
-
-        }
-
-    }
-
-    // console.log("sources:",result)
-    return result
+            
+            return part
+        
+        })()
+    ))
+    
+    return flatten(result)
 
 }
 
 const resolveBuffer = async (buffer, SCHEMA) => {
 
-    let targetExaminations = await getTargetExaminations(buffer, SCHEMA)
-    let sourceExaminations = await getSourceExaminations(buffer)
+    let [targetExaminations, sourceExaminations] = await Promise.all([
+        getTargetExaminations(buffer, SCHEMA),
+        getSourceExaminations(buffer)
+    ])
 
     buffer = buffer.map( b => {
         b.sourceData = find(sourceExaminations, d => b.source.patientId == d.patientId)
@@ -163,32 +188,14 @@ const resolveBuffer = async (buffer, SCHEMA) => {
         return b
     })
 
-    // console.log(buffer)
-
-
-    let updates = buffer.filter(t => {
-        // console.log(Diff.delta(
-        //     t.targetData,
-        //     t.sourceData,
-        //     "forms.echo",
-        //     "forms.ekg",
-        //     "forms.patient"
-        // ))
-        return detectChanges(
-        Diff.delta(
-            t.targetData,
-            t.sourceData,
-            "forms.echo",
-            "forms.ekg",
-            "forms.patient"
-        )
-        )}
-    )
-
-    // console.log("updates:", JSON.stringify(updates, null, " "))
-
+    let updates = await detectChanges(buffer)
 
     console.log(`Targets: ${buffer.length}, Updates: ${updates.length}`)
+
+    console.log(updates)    
+
+
+
 
     // if( updates.length > 0 ){
     //     updates.forEach( u => {
@@ -235,7 +242,7 @@ const execute = async SCHEMA => {
 
     console.log(`SYNC EXAMINATIONS FOR ${SCHEMA} ${UPDATE_ID}`)
 
-    const PAGE_SIZE = 100
+    const PAGE_SIZE = 1000
     let skip = 0
     let bufferCount = 0
 
@@ -325,7 +332,7 @@ const execute = async SCHEMA => {
         skip += buffer.length
         bufferCount++
 
-    } while (buffer.length > 0 && bufferCount < 1)
+    } while (buffer.length > 0) // && bufferCount < 1)
 
     console.log(`SYNC EXAMINATIONS FOR ${SCHEMA} ${UPDATE_ID} DONE`)
 
