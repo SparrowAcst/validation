@@ -2,7 +2,7 @@ module.exports = source => ({
     labels: [{
             $addFields: {
                 state: "$TODO",
-                
+
             },
         },
         {
@@ -95,6 +95,72 @@ module.exports = source => ({
     ],
 
     examinations: [{
+            $lookup: {
+                from: source.form_collection,
+                localField: "patientId",
+                foreignField: "patientId",
+                as: "af",
+                pipeline: [{
+                    $project: {
+                        _id: 0,
+                        type: 1,
+                        data: "$data.en",
+                    },
+                }, ],
+            },
+        },
+        {
+            $set: {
+                "forms.patient": {
+                    $first: {
+                        $filter: {
+                            input: "$af",
+                            as: "item",
+                            cond: {
+                                $eq: ["$$item.type", "patient"],
+                            },
+                        },
+                    },
+                },
+                "forms.echo": {
+                    $first: {
+                        $filter: {
+                            input: "$af",
+                            as: "item",
+                            cond: {
+                                $eq: ["$$item.type", "echo"],
+                            },
+                        },
+                    },
+                },
+                "forms.ekg": {
+                    $first: {
+                        $filter: {
+                            input: "$af",
+                            as: "item",
+                            cond: {
+                                $eq: ["$$item.type", "ekg"],
+                            },
+                        },
+                    },
+                },
+                "forms.attachements": {
+                    $first: {
+                        $filter: {
+                            input: "$af",
+                            as: "item",
+                            cond: {
+                                $eq: [
+                                    "$$item.type",
+                                    "attachements",
+                                ],
+                            },
+                        },
+                    },
+                },
+            },
+        },
+        {
             $project: {
                 _id: 0,
                 id: "$uuid",
@@ -165,7 +231,6 @@ module.exports = source => ({
         },
         {
             $unset: [
-
                 ///////////////////////////////////////////////////////////////////////////////
 
                 "forms.echo.data.id",
@@ -174,14 +239,12 @@ module.exports = source => ({
                 "forms.echo.data.dataUrl",
                 "forms.echo.data.resolvedData",
                 "forms.echo.data.changeLog",
-
                 //////////////////////////////////////////////////////////////////////////////
 
                 "forms.ekg.data.id",
                 "forms.ekg.data.reliability.createdAt",
                 "forms.ekg.data.reliability.createdBy",
                 "forms.ekg.data.changeLog",
-
                 //////////////////////////////////////////////////////////////////////////////
 
                 "forms.patient.data.id",
@@ -262,15 +325,14 @@ module.exports = source => ({
                 "forms.patient.data.Present respiratory diseases",
                 "forms.patient.data.Changes in procedure of sound recording",
                 "forms.patient.data.Clinical diagnosis",
-
                 //////////////////////////////////////////////////////////////////////////////////
 
                 "forms.attachements",
-
                 //////////////////////////////////////////////////////////////////////////////////
                 "userId",
                 "createdAt",
                 "synchronizedAt",
+                "patientId",
             ],
         },
     ]
