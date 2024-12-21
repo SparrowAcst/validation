@@ -173,7 +173,7 @@ const resolveBuffer = async (buffer, SCHEMA) => {
         (async () => {
             
             if( commands.length > 0){
-                console.log(`Save update info for update ${UPDATE_ID} for ${updCommands.length} items in ${UPDATES}`)
+                console.log(`Save info for update ${UPDATE_ID} for ${updCommands.length} items in ${UPDATES}`)
                 await mongodb.insertAll({
                     db,
                     collection: UPDATES,
@@ -181,7 +181,8 @@ const resolveBuffer = async (buffer, SCHEMA) => {
                         id: UPDATE_ID,
                         date: new Date(),
                         collection: `${SCHEMA}.labels`,
-                        commands: JSON.stringify(commands)
+                        commands: JSON.stringify(commands),
+                        delta: updates
                     }]
                 })
                 console.log(`Save update info for update ${UPDATE_ID} - DONE`)
