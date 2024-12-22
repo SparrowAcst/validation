@@ -49,7 +49,9 @@ module.exports = source => ({
                 "assigned to": 0,
                 "Assigned to": 0,
                 "Final comments": 0,
-                process_records: 0
+                process_records: 0,
+                recordId: 0
+
             },
         },
         {
@@ -97,8 +99,8 @@ module.exports = source => ({
     examinations: [{
             $lookup: {
                 from: (source) ? source.form_collection : "dummy",
-                localField: "patientId",
-                foreignField: "patientId",
+                localField: "id",
+                foreignField: "examinationId",
                 as: "af",
                 pipeline: [{
                     $project: {

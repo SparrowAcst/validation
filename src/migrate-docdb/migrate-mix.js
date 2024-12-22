@@ -1,6 +1,6 @@
-const execute = require("./utils/migrate")
+const execute = require("./utils/migrate-mix")
 
-const migrations = require("./migrations/test")
+const migrations = require("./migrations/migrate-mix")
 
 const schemas = [
 	"potashev-part-1",

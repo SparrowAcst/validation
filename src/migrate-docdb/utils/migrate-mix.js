@@ -49,7 +49,7 @@ const importCollectionData = async DEST => new Promise( (resolve, reject) => {
 
     jsonStream.on('end', async () => {
         
-        // console.log("\n!!!!",objectBuffer.length)        
+        console.log("\n!!!!",objectBuffer.length)        
         
         if (objectBuffer.length > 0) {
                 console.log(">>> ", objectBuffer.length)
