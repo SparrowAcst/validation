@@ -1,4 +1,4 @@
-const execute = require("./utils/sync-labels")
+const execute = require("./utils/sync-labels-mix")
 
 const schemas = [
 	"digiscope",

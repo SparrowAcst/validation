@@ -1,4 +1,4 @@
-const execute = require("./utils/sync-exams")
+const execute = require("./utils/sync-exams-mix")
 
 const schemas = [
 	"digiscope",
