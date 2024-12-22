@@ -71,7 +71,7 @@ const drop = async options => {
 	} catch (e) {
 
 		console.log(e.toString())
-		throw new Error(e)
+		// throw new Error(e)
 
 	} finally {
 	
