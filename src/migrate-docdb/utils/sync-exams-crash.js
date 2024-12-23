@@ -223,10 +223,11 @@ const resolveBuffer = async buffer => {
 
     buffer = buffer.map(b => {
         try {
+        console.log("UPDATE RECORD", b.id)
         b.sourceData = find(sourceExaminations, d => b.source.patientId == d.patientId)
         b.targetData = find(targetExaminations, d => b.target.id == d.id)
         b.updateData = b.targetData
-        b.updateData.forms = b.targetData.forms
+        b.updateData.forms = b.sourceData.forms
         return b
         } catch(e) {
             console.log("ERROR", JSON.stringify(b, null, " "))
