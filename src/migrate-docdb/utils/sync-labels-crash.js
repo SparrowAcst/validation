@@ -8,7 +8,7 @@ const sanitizePipeline = require("./sanitize-pipelines")
 
 const UPDATE_ID = uuid()
 
-const CROSS = "ADE-TRANSFORM.cross-crash-labels"
+const CROSS = "ADE-TRANSFORM.crash-labels"
 const SOURCE = "ADE-TRANSFORM.labels"
 const TARGET = "ADE-TRANSFORM.labels-crash-update"
 
