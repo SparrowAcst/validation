@@ -29,6 +29,8 @@ const getTargetExaminations = async buffer => {
         }
     ]
 
+    console.log(JSON.stringify(pipeline))
+
     console.log(`Load from ${SOURCE} ...`)
 
     let result = await mongodb.aggregate({
