@@ -98,7 +98,7 @@ const drop = async options => {
 	} catch (e) {
 
 		console.log(e.toString())
-		throw new Error(e)
+		// throw new Error(e)
 
 	} finally {
 	
@@ -275,7 +275,6 @@ const insertAll = async options => {
 		let conf = normalize(options.collection)
 		
 		client = await createClient(options)
-		
 		await client
 				.db(conf.dbName)
 				.collection(conf.collectionName)
