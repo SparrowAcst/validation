@@ -196,7 +196,6 @@ const getSourceExaminations = async buffer => {
         (async () => {
 
             console.log(`Load from ${query.collection} ...`)
-            console.log(JSON.stringify(query.pipeline))
 
             let part = await mongodb.aggregate({
                 db,
@@ -224,16 +223,18 @@ const resolveBuffer = async buffer => {
 
     buffer = buffer.map(b => {
         try {
-        console.log("UPDATE RECORD")
+     
         b.sourceData = find(sourceExaminations, d => b.source.patientId == d.patientId)
         b.targetData = find(targetExaminations, d => b.target.patientId == d.patientId)
         b.updateData = b.targetData
         b.updateData.forms = b.sourceData.forms
         return b
+     
         } catch(e) {
             console.log("ERROR", b.id)
             throw e
         }
+    
     })
 
     console.log(`Targets: ${buffer.length}, Updates: ${buffer.length}`)
