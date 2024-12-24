@@ -12,6 +12,15 @@ const schemas = [
 		},
 		target: "arabia"	
 	},
+
+	{
+		source: {
+			label_collection: "innocent-reallife-labels",
+			patientCollection: "innocent-reallife-examinations",
+			form_collection: "innocent-reallife-forms"
+		},
+		target: "innocent-reallife"	
+	},
 	
 	{
 		source: {
