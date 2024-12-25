@@ -50,7 +50,9 @@ module.exports = source => ({
                 "Assigned to": 0,
                 "Final comments": 0,
                 process_records: 0,
-                recordId: 0
+                recordId: 0,
+                "geoLocation.latitude": 0,
+                "geoLocation.longitude": 0
 
             },
         },
