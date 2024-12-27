@@ -492,6 +492,7 @@ module.exports =  db => {
 	CONFIG = CONFIG[db]
 
 	console.log(`DocumentDB connect to DB ${db}`)
+	console.log(CONFIG)
 
 	return {
 		aggregate,
