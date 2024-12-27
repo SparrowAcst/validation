@@ -1,6 +1,6 @@
 const mongo = require('mongodb').MongoClient
 
-const CONFIG = require("../../.config-migrate-db/docdb/docdb.conf")
+let CONFIG = require("../../.config-migrate-db/docdb/docdb.conf")
 
 let clients = 0
 
