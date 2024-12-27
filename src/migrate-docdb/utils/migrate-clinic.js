@@ -1,7 +1,7 @@
-const docdb = require("../../utils/docdb")("TEST")
+const docdb = require("../../utils/docdb")("CLINIC")
 
 const mongodb = require("../../utils/mongodb")
-const db = require("../../../.config-migrate-db").mongodb.ade
+const db = require("../../../.config-migrate-db").mongodb.clinic
 const fs = require("fs")
 const {parser} = require('stream-json/jsonl/Parser')
 const path = require("path")
@@ -49,7 +49,7 @@ const importCollectionData = async DEST => new Promise( (resolve, reject) => {
 
     jsonStream.on('end', async () => {
         
-        console.log("\n!!!!",objectBuffer.length)        
+        // console.log("\n!!!!",objectBuffer.length)        
         
         if (objectBuffer.length > 0) {
                 console.log(">>> ", objectBuffer.length)
@@ -117,7 +117,9 @@ const run = async (SOURCE, DEST, pipeline) => {
     console.log()
 
   //////////////////////////////////// stage 2 ///////////////////////////////////////
+ 
    await  importCollectionData(DEST)
+ 
    console.log()
    console.log(`CREATE INDEX for ${DEST} ...`)
 
@@ -139,8 +141,8 @@ const execute = async migrationList => {
   let count = 0
 
   for( let migration of migrationList) {
-    console.log(`MIGRATE ${count+1} of ${migrationList.length}`)
     count++
+    console.log(`MIGRATE ${count+1} of ${migrationList.length}`)
     await run(migration.source, migration.dest, migration.pipeline)
   }
 

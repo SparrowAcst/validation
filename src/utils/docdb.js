@@ -483,25 +483,36 @@ const updateMany = async options => {
 
 
 
-module.exports =  {
-	aggregate,
-	removeAll,
-	insertAll,
-	replaceOne,
-	updateOne,
-	deleteOne,
-	bulkWrite,
-	listCollections, 
-	drop,
-	aggregate_raw,
-	deleteMany,
-	updateMany,
-	getAggregateCursor,
-	
-	insertOne: replaceOne, 
-	insertMany: insertAll,
-	
-	insertOneIfNotExists,
-	insertManyIfNotExists,
-	createIndex	
+module.exports =  db => {
+	db = db || "TEST"
+	if(!CONFIG[db]){
+		db = "TEST"
+	}
+
+	CONFIG = CONFIG[db]
+
+	console.log(`DocumentDB connect to DB ${db}`)
+
+	return {
+		aggregate,
+		removeAll,
+		insertAll,
+		replaceOne,
+		updateOne,
+		deleteOne,
+		bulkWrite,
+		listCollections, 
+		drop,
+		aggregate_raw,
+		deleteMany,
+		updateMany,
+		getAggregateCursor,
+		
+		insertOne: replaceOne, 
+		insertMany: insertAll,
+		
+		insertOneIfNotExists,
+		insertManyIfNotExists,
+		createIndex	
+	}
 }

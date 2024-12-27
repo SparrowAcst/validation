@@ -1,4 +1,4 @@
-const docdb = require("../../utils/docdb")
+const docdb = require("../../utils/docdb")("TEST")
 const mongodb = require("../../utils/mongodb")
 const db = require("../../../.config-migrate-db").mongodb.ade
 const { find, groupBy, keys, first, last, isUndefined, flatten } = require("lodash")
