@@ -75,19 +75,6 @@ module.exports = [
     },
 
     {
-        source: `ADE-SETTINGS.site-users`,
-        dest: `ADE-SETTINGS.site-users`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    },
-
-
-    {
         source: `ADE-SETTINGS.sites`,
         dest: `ADE-SETTINGS.sites`,
         pipeline: [
