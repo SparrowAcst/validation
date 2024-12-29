@@ -4,17 +4,17 @@
 const execute = require("./utils/migrate-clinic")
 
 const migrations = [
-	{
-        source: `sparrow-clinic.users`,
-        dest: `sparrow-clinic.users`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    },
+	// {
+ //        source: `sparrow-clinic.users`,
+ //        dest: `sparrow-clinic.users`,
+ //        pipeline: [
+ //            {
+ //                $project: {
+ //                    _id: 0
+ //                }
+ //            }
+ //        ]
+ //    },
     {
         source: `sparrow-clinic.users-dev`,
         dest: `sparrow-clinic.users-dev`,
