@@ -59,17 +59,17 @@ const migrations = [
             }
         ]
     },
-    {
-        source: `sparrow-clinic.organizations`,
-        dest: `sparrow-clinic.organizations`,
-        pipeline: [
-            {
-                $project: {
-                    _id: 0
-                }
-            }
-        ]
-    }
+    // {
+    //     source: `sparrow-clinic.organizations`,
+    //     dest: `sparrow-clinic.organizations`,
+    //     pipeline: [
+    //         {
+    //             $project: {
+    //                 _id: 0
+    //             }
+    //         }
+    //     ]
+    // }
 ]
 
 
