@@ -7,6 +7,7 @@ const {
     chunk: splitArray,
     isUndefined,
     sortBy,
+    first,
     last,
     isFunction,
     find,
@@ -76,19 +77,26 @@ const dir = async path => {
     }
 }
 
-const list = async path => {
+const list = async (backet, path) => {
     try {
         path = path || "**/*"
         let Prefix = path.split("/")
         Prefix = Prefix.slice(0, findIndex(Prefix, d => /\*/.test(d))).join("/")
         Prefix = (!Prefix) ? undefined : Prefix + "/"
+        console.log(Prefix)
         let { Contents } = await client.send(new ListObjectsCommand({
             Bucket: bucket,
             Prefix
         }))
         let items = Contents || []
+            
         let names = items.map(d => d.Key)
+        console.log(names, path)
+        console.log(names.filter(n => n == path))
         names = nanomatch(names, path)
+        
+        console.log(items.filter(d => names.includes(d.Key)))
+
         return items.filter(d => names.includes(d.Key))
     } catch (e) {
         // console.error("s3-bucket.list:", e.toString(), e.stack)
@@ -134,7 +142,7 @@ const metadata = async target => {
 
 const deleteFiles = async path => {
 
-    let deletedItems = await list(path)
+    let deletedItems = await list(backet, path)
     let Keys = deletedItems.map(d => d.Key)
 
     if (Keys.length == 0) return
@@ -420,6 +428,38 @@ const copyObject = async ({
     }
 }
 
+const copyObjectV2 = async ({
+    sourceKey,
+    destinationKey,
+}) => {
+
+    try {
+    
+        let sourceBucket = bucket
+        let destinationBucket = bucket
+
+        await client.send(
+            new CopyObjectCommand({
+                CopySource: `${sourceBucket}/${sourceKey}`,
+                Bucket: destinationBucket,
+                Key: destinationKey,
+            }),
+        );
+        await waitUntilObjectExists({ client }, { Bucket: destinationBucket, Key: destinationKey }, );
+        // console.log(
+        //     `Successfully copied ${sourceBucket}/${sourceKey} to ${destinationBucket}/${destinationKey}`,
+        // );
+    } catch (caught) {
+        if (caught instanceof ObjectNotInActiveTierError) {
+            console.error(
+                `Could not copy ${sourceKey} from ${sourceBucket}. Object is not in the active tier.`,
+            );
+        } else {
+            throw caught;
+        }
+    }
+}
+
 const copy = async ({ source, target, callback }) => {
 
     callback = (callback && isFunction(callback)) ? callback : (() => {})
@@ -440,8 +480,12 @@ const copy = async ({ source, target, callback }) => {
     homedir = homedir.slice(0, findIndex(homedir, d => /\*/.test(d))).join("/")
     homedir = (!homedir) ? undefined : homedir
 
-    let fileList = await list(sourcePath)
+    console.log(sourceBucket, sourcePath, targetBucket, targetPath)
 
+    let fileList = await list(sourceBucket, sourcePath)
+    
+    console.log(fileList)
+    
     let operations = fileList.map(f => ({
         sourceBucketAlias,
         sourceBucket,
@@ -466,6 +510,7 @@ module.exports = {
     getStream,
     download,
     copy,
+    copyObjectV2,
     getPresignedUrl,
     uploadLt20M,
     uploadChunks,
