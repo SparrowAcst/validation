@@ -195,7 +195,7 @@ const run = async () => {
     for (const schema of schemas) {
 
         console.log(schema)
-        // console.log(JSON.stringify(migrations(schema), null, " "))	
+        console.log(JSON.stringify(migrations(schema), null, " "))	
 
         await execute(migrations(schema))
     }
