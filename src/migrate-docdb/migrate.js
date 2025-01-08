@@ -4,24 +4,25 @@ const migrations = require("./migrations/migrate")
 
 const schemas = [
 
-	{
+    {
         source: {
             label_collection: "innocent-reallife-labels",
             patientCollection: "innocent-reallife-examinations",
             form_collection: "innocent-reallife-forms"
+            label_pipeline: [{
+                $match: {
+                    "deviceDescription.appStoreRegion": "Ukraine"
+                }
+            }],
+
+            patient_pipeline: [{
+                $match: {
+                    org: "SPD-UA"
+                }
+            }]
         },
         target: "innocent-reallife-ua",
-        label_pipeline: [{
-            $match: {
-                "deviceDescription.appStoreRegion": "Ukraine"
-            }
-        }],
 
-        patient_pipeline: [{
-            $match: {
-                org: "SPD-UA"
-            }
-        }]
     },
 
     {
@@ -29,21 +30,22 @@ const schemas = [
             label_collection: "innocent-reallife-labels",
             patientCollection: "innocent-reallife-examinations",
             form_collection: "innocent-reallife-forms"
+            label_pipeline: [{
+                $match: {
+                    "deviceDescription.appStoreRegion": {
+                        $ne: "Ukraine"
+                    }
+                }
+            }],
+
+            patient_pipeline: [{
+                $match: {
+                    org: "SPD-US"
+                }
+            }]
         },
         target: "innocent-reallife-us",
-        label_pipeline: [{
-            $match: {
-                "deviceDescription.appStoreRegion": {
-                	$ne: "Ukraine"
-                }	
-            }
-        }],
 
-        patient_pipeline: [{
-            $match: {
-                org: "SPD-US"
-            }
-        }]
     },
 
     {
@@ -195,7 +197,7 @@ const run = async () => {
     for (const schema of schemas) {
 
         console.log(schema)
-        console.log(JSON.stringify(migrations(schema), null, " "))	
+        console.log(JSON.stringify(migrations(schema), null, " "))
 
         await execute(migrations(schema))
     }
