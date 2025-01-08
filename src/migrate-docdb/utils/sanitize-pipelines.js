@@ -52,7 +52,11 @@ module.exports = source => ({
                 process_records: 0,
                 recordId: 0,
                 "geoLocation.latitude": 0,
-                "geoLocation.longitude": 0
+                "geoLocation.longitude": 0,
+                "db": 0,
+                "user": 0,
+                segmentCollection: 0,
+                segmentationRequest: 0
 
             },
         },
