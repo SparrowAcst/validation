@@ -8,7 +8,7 @@ const schemas = [
         source: {
             label_collection: "innocent-reallife-labels",
             patientCollection: "innocent-reallife-examinations",
-            form_collection: "innocent-reallife-forms"
+            form_collection: "innocent-reallife-forms",
             label_pipeline: [{
                 $match: {
                     "deviceDescription.appStoreRegion": "Ukraine"
@@ -29,7 +29,7 @@ const schemas = [
         source: {
             label_collection: "innocent-reallife-labels",
             patientCollection: "innocent-reallife-examinations",
-            form_collection: "innocent-reallife-forms"
+            form_collection: "innocent-reallife-forms",
             label_pipeline: [{
                 $match: {
                     "deviceDescription.appStoreRegion": {
