@@ -482,6 +482,7 @@ const updateMany = async options => {
 }
 
 
+console.log("INIT MONGODB CLIENT")
 
 module.exports =  {
 	aggregate,

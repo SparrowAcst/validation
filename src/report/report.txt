@@ -1,0 +1,302 @@
+Ahmad_Amro
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Heart_Harvest_2	604	256	323	128	91	 	 	1210	1635	 	 	 	
+4	Heart_Harvest_3	 	 	 	498	1371	315	 	461	772	1134	168	 	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	 	
+8	Taged_records	 	 	 	 	 	 	 	 	 	42	50	 	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Andrey_Boldak
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Heart_Harvest_2	 	 	 	 	 	 	 	 	 	 	 	 	
+4	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	11	 	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	 	
+8	Taged_records	 	 	 	36	 	 	 	 	24	 	7	 	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Bilal_Al-khateeb
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	563	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Heart_Harvest_2	813	810	852	181	336	42	94	 	 	4	 	 	
+4	Heart_Harvest_3	 	 	 	598	331	674	436	490	506	426	547	123	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	 	
+8	Taged_records	 	 	 	38	29	 	 	 	38	50	30	138	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Daria_Savchenko
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Heart_Harvest_2	852	634	616	213	255	 	131	 	546	 	 	 	
+4	Heart_Harvest_3	 	 	 	871	994	910	1326	1325	740	1333	756	486	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	33	
+8	Taged_records	 	 	 	 	 	 	 	 	47	57	63	126	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	109	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Iryna_Prodan
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	14	 	 	21	 	47	 	 	
+3	Heart_Harvest_2	1869	1670	1349	337	210	 	33	 	421	 	3	 	
+4	Heart_Harvest_3	 	 	 	443	954	910	888	1142	900	1533	1087	247	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	112	
+8	Taged_records	 	 	 	 	34	 	 	 	47	88	47	172	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Ivanna_Kuzyk
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	15	 	 	 	 	 	
+3	Heart_Harvest_2	603	248	355	270	57	 	21	18	38	 	8	 	
+4	Heart_Harvest_3	 	 	 	172	287	30	275	200	129	203	49	113	
+5	Heart_Harvest_America	 	 	 	 	 	 	1	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	6	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	66	
+8	Taged_records	 	 	 	153	32	7	 	 	44	59	50	173	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Jean_Andrade
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	5	 	 	 	 	 	
+3	Heart_Harvest_2	1351	2358	1438	254	293	43	202	 	107	 	5	 	
+4	Heart_Harvest_3	 	 	 	775	827	1175	681	913	223	 	263	144	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	28	
+8	Taged_records	 	 	 	 	 	 	 	 	31	7	45	287	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Kassiano_Ribeiro_da_Paz
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	424	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	3	 	 	 	
+3	Heart_Harvest_2	654	743	673	110	65	105	 	 	 	 	 	 	
+4	Heart_Harvest_3	 	 	 	443	469	437	215	202	146	162	318	38	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	 	
+8	Taged_records	 	 	 	28	37	 	 	 	17	 	72	162	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Kateryna_Lavrenko
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	 	58	 	 	
+3	Heart_Harvest_2	 	 	 	 	 	 	17	141	159	 	 	 	
+4	Heart_Harvest_3	 	 	 	 	 	33	463	582	504	958	393	249	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	73	
+8	Taged_records	 	 	 	 	 	 	 	 	15	37	18	141	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Marco_Antonio_Lopez_Garcia
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Heart_Harvest_2	552	824	719	175	179	 	 	 	 	 	 	 	
+4	Heart_Harvest_3	 	 	 	522	437	13	 	 	 	 	 	 	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	 	
+8	Taged_records	 	 	 	 	 	 	 	 	 	 	 	 	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+María_José_Aedo
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	11	 	 	 	 	 	
+3	Heart_Harvest_2	1697	1370	1535	351	78	 	108	 	105	 	36	 	
+4	Heart_Harvest_3	 	 	 	909	991	719	789	983	719	972	598	439	
+5	Heart_Harvest_America	 	 	 	 	 	 	1	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	6	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	 	
+8	Taged_records	 	 	 	103	34	5	 	 	 	49	30	111	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Mykhailo_Rybalka
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Heart_Harvest_2	593	271	641	234	646	123	220	 	47	 	25	 	
+4	Heart_Harvest_3	 	 	 	735	83	886	641	757	389	338	362	76	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	85	
+8	Taged_records	 	 	 	68	36	 	 	 	43	74	49	178	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	208	
+10	YODA	 	 	 	 	 	 	 	28	 	 	 	 	
+
+
+Mykola_Parkhomenko
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Heart_Harvest_2	301	343	490	347	254	43	351	 	968	519	2	 	
+4	Heart_Harvest_3	 	 	 	507	234	752	283	462	145	47	468	216	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	 	
+8	Taged_records	 	 	 	227	33	 	 	 	46	63	52	157	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Nataliya_Marchenko
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Heart_Harvest_2	219	 	 	 	 	 	 	 	 	 	 	 	
+4	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	 	
+8	Taged_records	 	 	 	 	 	 	 	 	 	 	 	 	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Oleh_Shpak
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	2	 	 	8	 	 	 	
+3	Heart_Harvest_2	136	100	14	70	8	 	266	12	 	 	 	 	
+4	Heart_Harvest_3	 	 	 	158	128	210	319	495	164	60	6	 	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	1	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	35	
+8	Taged_records	 	 	 	60	33	 	 	 	50	64	77	 	
+9	Vintage	 	23	 	 	 	 	 	 	 	 	23	637	
+10	YODA	 	 	 	 	 	 	 	62	 	 	 	 	
+
+
+Oleh_Shpak_TEST_2ND_EXPERT
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Heart_Harvest_2	 	 	 	 	 	 	 	 	 	 	 	 	
+4	Heart_Harvest_3	 	 	 	 	 	2	 	 	 	 	 	 	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	 	
+8	Taged_records	 	 	 	 	 	 	 	 	 	 	 	 	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Satenik_Rustamyan
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Heart_Harvest_2	 	 	 	 	 	 	 	 	 	 	 	 	
+4	Heart_Harvest_3	 	 	 	 	 	39	90	 	 	 	 	 	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	 	
+8	Taged_records	 	 	 	 	 	 	 	 	 	 	 	 	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Vasyl_Korostil
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	14	 	 	 	 	 	 	 	
+3	Heart_Harvest_2	373	581	460	201	165	318	70	60	286	138	20	 	
+4	Heart_Harvest_3	 	 	 	365	297	297	216	342	135	241	338	180	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	23	
+8	Taged_records	 	 	 	77	24	 	 	 	 	36	26	47	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Viktoriia_Demetska
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	 	66	 	 	
+3	Heart_Harvest_2	 	 	 	 	 	 	 	21	101	 	 	 	
+4	Heart_Harvest_3	 	 	 	 	 	 	84	357	365	682	431	210	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	85	
+8	Taged_records	 	 	 	 	 	 	 	 	12	36	39	146	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	141	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Volodymyr_Kulish
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_1	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Heart_Harvest_2	 	 	 	 	 	 	26	 	 	 	 	 	
+4	Heart_Harvest_3	 	 	 	 	 	23	201	228	223	19	77	18	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	 	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	31	
+8	Taged_records	 	 	 	 	 	 	 	 	10	 	21	 	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Yaroslav_Shpak
+No	Dataset	JAN_2024	FEB_2024	MAR_2024	APR_2024	MAY_2024	JUN_2024	JUL_2024	AUG_2024	SEP_2024	OCT_2024	NOV_2024	DEC_2024
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	258	
+2	Heart_Harvest_1	 	 	 	 	 	 	15	 	25	 	 	 	
+3	Heart_Harvest_2	 	 	 	 	586	 	144	 	280	38	168	294	
+4	Heart_Harvest_3	 	 	 	 	 	132	277	 	54	10	850	535	
+5	Heart_Harvest_America	 	 	 	 	 	 	 	 	 	 	 	 	
+6	Phonendo	 	 	 	 	 	 	 	 	1	 	 	 	
+7	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	224	
+8	Taged_records	 	 	 	476	6	 	 	 	262	402	300	977	
+9	Vintage	 	 	 	 	 	 	 	 	 	 	 	 	
+10	YODA	 	 	 	 	 	 	13	 	117	193	89	 	
+
+
+[
+  '1 2024',  '10 2024',
+  '11 2024', '12 2024',
+  '2 2024',  '3 2024',
+  '4 2024',  '5 2024',
+  '6 2024',  '7 2024',
+  '8 2024',  '9 2024'
+]

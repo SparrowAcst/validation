@@ -1,0 +1,113 @@
+Bilal_Al-khateeb
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	243	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Daria_Savchenko
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	30	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	316	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Iryna_Prodan
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	399	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Ivanna_Kuzyk
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	121	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Jean_Andrade
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	61	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Kassiano_Ribeiro_da_Paz
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	151	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	 	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Kateryna_Lavrenko
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	375	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Marco_Antonio_Lopez_Garcia
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	63	 	 	 	 	 	 	 	 	 	 	 	
+
+
+María_José_Aedo
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	165	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Mykhailo_Rybalka
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	20	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	199	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Mykola_Parkhomenko
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	234	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Oleh_Shpak
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	1	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	147	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Vasyl_Korostil
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	147	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Viktoriia_Demetska
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	179	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Volodymyr_Kulish
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	 	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	 	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	116	 	 	 	 	 	 	 	 	 	 	 	
+
+
+Yaroslav_Shpak
+No	Dataset	JAN_2025	FEB_2025	MAR_2025	APR_2025	MAY_2025	JUN_2025	JUL_2025	AUG_2025	SEP_2025	OCT_2025	NOV_2025	DEC_2025
+1	ARABIA	42	 	 	 	 	 	 	 	 	 	 	 	
+2	Heart_Harvest_3	114	 	 	 	 	 	 	 	 	 	 	 	
+3	Suspected_Innocent_from_Reallife	858	 	 	 	 	 	 	 	 	 	 	 	
+
+
+[ '1 2025' ]

@@ -9,6 +9,7 @@ const schemas = [
             label_collection: "innocent-reallife-labels",
             patientCollection: "innocent-reallife-examinations",
             form_collection: "innocent-reallife-forms",
+            
             label_pipeline: [{
                 $match: {
                     "deviceDescription.appStoreRegion": "Ukraine"

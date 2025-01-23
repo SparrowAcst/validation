@@ -1,0 +1,288 @@
+[{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Ahmad Amro",
+  "email": [
+    "--amro.ahmadmorf98@gmail.com"
+  ],
+  "role": "1st expert"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Elizabeth Marchenko",
+  "email": [
+    "elizabethmarchenkoo@gmail.com deprecated "
+  ],
+  "role": "1st expert"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Vasyl Korostil",
+  "email": [
+    "korostil7854@gmail.com"
+  ],
+  "role": "1st expert"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Satenik Rustamyan",
+  "email": [
+    "satenik.rustamyan.92@gmail.com"
+  ],
+  "role": "2nd expert",
+  "profile": "2nd diagnostician"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Jean Andrade",
+  "email": [
+    "ilutrexua@gmail.com"
+  ],
+  "role": "2nd expert",
+  "schedule": []
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Andrii Boldak Dev.",
+  "email": [
+    "andrii.boldak@sparrowacoustics.com"
+  ],
+  "role": "2nd expert",
+  "profile": "1st Diagnostician (Patient form)",
+  "schedule": [
+    "Basic_Labeling_2nd",
+    "Basic_Relabeling_2nd"
+  ]
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Marco Antonio Lopez Garcia",
+  "email": [
+    "drmarcolg@gmail.com"
+  ],
+  "role": "1st expert"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Mykola Parkhomenko",
+  "email": [
+    "mykparkhom@gmail.com"
+  ],
+  "role": "2nd expert",
+  "profile": "level B"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Iryna Prodan",
+  "email": [
+    "irina.prodan13@gmail.com"
+  ],
+  "role": "2nd expert",
+  "profile": "level A"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Tetiana Kozytska",
+  "email": [
+    "!kozytska@gmail.com"
+  ],
+  "role": "1st expert"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Volodymyr Kulish",
+  "email": [
+    "volodymyrkulishcardio@gmail.com"
+  ],
+  "role": "2nd expert",
+  "profile": "1st Diagnostician (ECG)"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Oleh Shpak TEST 1ST EXPERT",
+  "email": [
+    "bigdocnann@gmail.com"
+  ],
+  "role": "1st expert",
+  "profile": "level A"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Vira Viliura",
+  "email": [
+    "viravilyura@gmail.com"
+  ],
+  "role": "1st expert"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Bilal Al-khateeb",
+  "email": [
+    "bilalalkhateeb1995@gmail.com"
+  ],
+  "role": "1st expert"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Nataliya Marchenko",
+  "email": [
+    "nata.marchenko@gmail.com"
+  ],
+  "role": "1st expert",
+  "profile": "1st Diagnostician (Patient form)"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Muslima Jahan",
+  "email": [
+    "--jahan.muslima12345@gmail.com"
+  ],
+  "role": "1st expert"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Kateryna Lavrenko",
+  "email": [
+    "katlavrenko@gmail.com"
+  ],
+  "role": "1st expert"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Yaroslav Lutay",
+  "email": [
+    "--ymlutay@gmail.com"
+  ],
+  "role": "2nd expert",
+  "profile": "2nd diagnostician"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Oleh Shpak TEST 2ND EXPERT",
+  "email": [
+    "medicusserpens@gmail.com"
+  ],
+  "role": "2nd expert",
+  "profile": "level A"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Yaroslav Shpak",
+  "email": [
+    "ivshpakiv@gmail.com"
+  ],
+  "role": "CMO",
+  "profile": "Total control"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "María José Aedo",
+  "email": [
+    "majo.aedoparra@gmail.com"
+  ],
+  "role": "2nd expert"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Ann Kachkovska",
+  "email": [
+    "--anny9dee@gmail.com"
+  ],
+  "role": "1st expert"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Kassiano Ribeiro da Paz",
+  "email": [
+    "dr.kassiano@gmail.com"
+  ],
+  "role": "2nd expert",
+  "schedule": []
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Oleh Shpak",
+  "email": [
+    "olgerdshpak@gmail.com"
+  ],
+  "role": "admin",
+  "profile": "Diagnosis Admin",
+  "schedule": []
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Nick Pogrebnyakov",
+  "email": [
+    "!nicolai.po@gmail.com"
+  ],
+  "role": "reader"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Viktoriia Demetska",
+  "email": [
+    "vdemetskaa@gmail.com"
+  ],
+  "role": "1st expert",
+  "schedule": []
+},{
+  "app": "Reports",
+  "namedAs": "Nadia Ivanova",
+  "email": [
+    "nadia.ivanova@sparrowacoustics.com"
+  ],
+  "role": "Reader"
+},{
+  "app": "Reports",
+  "namedAs": "Mark Opauszky",
+  "email": [
+    "mark@sparrowacoustics.com"
+  ],
+  "role": "Reader"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Serhii Mostovyi",
+  "email": [
+    "semostowoy@gmail.com"
+  ],
+  "role": "2nd expert",
+  "profile": "1st Diagnostician (Echocardiography)"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Oleksandr Yarovenko",
+  "email": [
+    "yarovenko1964@gmail.com"
+  ],
+  "role": "2nd expert",
+  "profile": "1st Diagnostician (Echocardiography)"
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Andrey Boldak",
+  "email": [
+    "boldak.andrey@gmail.com"
+  ],
+  "role": "CMO",
+  "profile": "test wf",
+  "schedule": [
+    "Basic_Labeling_1st",
+    "Basic_Relabeling_1st",
+    "Basic_Finalization",
+    "CMO_Editing"
+  ]
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Andrey Boldak",
+  "email": [
+    "boldak.andrey@gmail.com"
+  ],
+  "role": "CMO",
+  "profile": "test wf",
+  "schedule": [
+    "Basic_Labeling_1st",
+    "Basic_Relabeling_1st",
+    "Basic_Finalization",
+    "CMO_Editing"
+  ]
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Andrey Boldak",
+  "email": [
+    "boldak.andrey@gmail.com"
+  ],
+  "role": "CMO",
+  "profile": "test wf",
+  "schedule": [
+    "Basic_Labeling_1st",
+    "Basic_Relabeling_1st",
+    "Basic_Finalization",
+    "CMO_Editing"
+  ]
+},{
+  "app": "Heart Harvest 1 Labeling",
+  "namedAs": "Andrey Boldak",
+  "email": [
+    "boldak.andrey@gmail.com"
+  ],
+  "role": "CMO",
+  "profile": "test wf",
+  "schedule": [
+    "Basic_Labeling_1st",
+    "Basic_Relabeling_1st",
+    "Basic_Finalization",
+    "CMO_Editing"
+  ]
+}]
