@@ -33,28 +33,45 @@ const excludes = [
 const transferFiles = async transfers => {
 
     let i = 0
+    let result = []
 
     transfers = transfers.filter( t => !excludes.includes(t.from))
 
     for(const transfer of transfers){
+        try {
+            i++
+            
+            let tempFile = path.resolve(`${TEMP_DIR}/${path.basename(transfer.from)}`)
+            let url = await s3bucket.getPresignedUrl(transfer.from)
+            console.log(`\n\n${i} from ${transfers.length}\nDownload ${url} > ${tempFile}`)
+            await downloadFile(url, tempFile)
 
-        i++
+            
+            let destDrive = await prepareFiles(path.dirname(transfer.to))
+            console.log(`\n\nUpload ${tempFile} > ${transfer.to}`)
+            await destDrive.uploadFiles({
+                fs: [tempFile],
+                googleDrive: path.dirname(transfer.to)
+            })
+
+            await unlink(tempFile)
+
+            result.push({
+                id: transfer.id,
+                transfer_complete: true
+            })
+
+        } catch(e) {
+            console.log("\n TRANSFER ERROR: ",e.toString(), e.stack)
+            result.push({
+                id: transfer.id,
+                transfer_complete: {
+                    error: `${e.toString()} ${e.stack}` 
+                }
+            })
+        }        
         
-        let tempFile = path.resolve(`${TEMP_DIR}/${path.basename(transfer.from)}`)
-        let url = await s3bucket.getPresignedUrl(transfer.from)
-        console.log(`\n\n${i} from ${transfers.length}\nDownload ${url} > ${tempFile}`)
-        await downloadFile(url, tempFile)
-
-        
-        let destDrive = await prepareFiles(path.dirname(transfer.to))
-        console.log(`\n\nUpload ${tempFile} > ${transfer.to}`)
-        await destDrive.uploadFiles({
-            fs: [tempFile],
-            googleDrive: path.dirname(transfer.to)
-        })
-
-        await unlink(tempFile)    
-    
+        return result
     }
 
 }
@@ -109,27 +126,38 @@ const execute = async () => {
         if(buffer.length > 0){
             
             let transfers = buffer.map( b => ({
+                id: b.id,
                 from: b.dataPath,
                 to: `${DEST}/${b.machine}/${path.basename(b.dataPath)}`
             }))
     
-            await transferFiles(transfers)
+            let result = await transferFiles(transfers)
 
-            console.log(`Update buffer ${bufferCount + 1}: ${buffer.length} items`)
-
-            await mongodb.updateMany({
-                db,
-                collection: "sparrow.H2-FORM",
-                filter: { "id": { $in: buffer.map(d => d.id) } },
-                data: {
-                    transfer_complete: true
+            let commands = result.map( r => ({
+                updateOne:{
+                    filter: {id: r.id},
+                    update: {
+                        $set:{
+                            transfer_complete = r.transfer_complete
+                        }
+                    },
+                    upsert: true
                 }
-            })
+            }))
+
+            if(commands.length > 0){
+
+                console.log(`Update buffer ${bufferCount + 1}: ${buffer.length} items`)
+
+                await mongodb.bulkWrite({
+                    db,
+                    collection: "sparrow.H2-FORM",
+                    commands
+                })
+            }
 
         }
-        
-        
-
+ 
         skip += buffer.length
         bufferCount++
 
