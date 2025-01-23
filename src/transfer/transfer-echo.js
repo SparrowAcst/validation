@@ -10,7 +10,7 @@ const db = require("../../.config-migrate-db").mongodb.ade
 
 const DEST = "TRANSFER-FILES/SOURCE/ECHO"
 
-const TEMP_DIR = path.resolve("../../../TEMP_TRANSFER")
+const TEMP_DIR = path.resolve("../../TEMP_TRANSFER")
 
 
 const prepareFiles = async path => {
