@@ -38,17 +38,11 @@ const transferFiles = async transfers => {
         
         await downloadFile(url, tempFile)
 
-        // await s3bucket.download({
-        //     source: transfer.from,
-        //     target: tempFile
-        // })
-
-        console.log(`Prepare ${path.dirname(transfer.to)}`)
         
         let destDrive = await prepareFiles(path.dirname(transfer.to))
-        console.log(destDrive.fileList())
 
         console.log(`Upload ${tempFile} > ${transfer.to}`)
+
         await destDrive.uploadFiles({
             fs: [tempFile],
             googleDrive: path.dirname(transfer.to)
