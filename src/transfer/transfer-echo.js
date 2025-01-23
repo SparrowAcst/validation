@@ -29,7 +29,8 @@ const downloadFile = async (url, dest) => {
 const excludes = [
     "ADE-ECHOS/f111d432-7430-4579-aba9-80c5433af4be.rar",
     "ADE-ECHOS/75e1a390-58db-49b2-8eda-48e964698567.rar",
-    "ADE-ECHOS/14cb2b7e-2b0c-4764-a4f9-b2797f25d4a6.rar"
+    "ADE-ECHOS/14cb2b7e-2b0c-4764-a4f9-b2797f25d4a6.rar",
+    "ADE-ECHOS/93626dbd-12ef-488f-8d29-a26670f7b418.rar"
 ]
 
 const transferFiles = async transfers => {
