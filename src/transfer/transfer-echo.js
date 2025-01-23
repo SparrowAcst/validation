@@ -26,9 +26,15 @@ const downloadFile = async (url, dest) => {
 } 
 
 
+const excludes = [
+    "ADE-ECHOS/f111d432-7430-4579-aba9-80c5433af4be.rar"
+]
+
 const transferFiles = async transfers => {
 
     let i = 0
+
+    transfers = transfers.filter( t => !excludes.includes(t.from))
 
     for(const transfer of transfers){
 
