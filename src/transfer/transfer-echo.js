@@ -130,6 +130,9 @@ const execute = async () => {
                 transfer_complete: {
                     $exists: false,
                 },
+                "data.en.resolvedData.error":{
+                    $exists: false
+                }
             },
         },
         {
