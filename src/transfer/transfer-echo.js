@@ -24,12 +24,15 @@ const transferFiles = async transfers => {
 
         let tempFile = path.resolve(`${TEMP_DIR}/${path.basename(transfer.from)}`)
 
+        console.log(`Download ${transfer.from} > ${tempFile}`)
         await s3bucket.download({
             source: transfer.from,
             target: tempFile
         })
 
         let destDrive = await prepareFiles(path.dirname(transfer.to))
+        
+        console.log(`Upload ${tempFile} > ${transfer.to}`)
         
         await destDrive.uploadFiles({
             fs: [tempFile],
