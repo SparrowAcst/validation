@@ -1,4 +1,5 @@
 const mongodb = require("../utils/mongodb")
+const axios = require("axios")
 const googledriveService = require("../utils/google-drive")
 const { loadJSON, unlink, mkdir, rmdir, exists, saveJSON, unzip, getFileList } = require("../utils/file-system")
 const fs = require("fs")
@@ -18,18 +19,29 @@ const prepareFiles = async path => {
     return googleDrive   
 }
 
+
+const downloadFile = async (url, dest) => {
+    const res = await axios.get(url, { responseType: 'arraybuffer' });
+    fs.writeFileSync(dest, res.data);
+} 
+
+
 const transferFiles = async transfers => {
 
     for(const transfer of transfers){
 
         let tempFile = path.resolve(`${TEMP_DIR}/${path.basename(transfer.from)}`)
 
-        console.log(`Download ${transfer.from} > ${tempFile}`)
+        let url = await s3bucket.getPresignedUrl(transfer.from)
+
+        console.log(`Download ${url} > ${tempFile}`)
         
-        await s3bucket.download({
-            source: transfer.from,
-            target: tempFile
-        })
+        await downloadFile(url, tempFile)
+
+        // await s3bucket.download({
+        //     source: transfer.from,
+        //     target: tempFile
+        // })
 
         console.log(`Prepare ${path.dirname(transfer.to)}`)
         
