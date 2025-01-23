@@ -138,7 +138,7 @@ const execute = async () => {
                     filter: {id: r.id},
                     update: {
                         $set:{
-                            transfer_complete = r.transfer_complete
+                            transfer_complete: r.transfer_complete
                         }
                     },
                     upsert: true
