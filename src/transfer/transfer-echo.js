@@ -113,7 +113,7 @@ const execute = async () => {
 
             await mongodb.updateMany({
                 db,
-                collection: sparrow.H2-FORM,
+                collection: "sparrow.H2-FORM",
                 filter: { "id": { $in: buffer.map(d => d.id) } },
                 data: {
                     transfer_complete: true
