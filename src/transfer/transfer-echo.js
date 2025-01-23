@@ -70,10 +70,10 @@ const transferFiles = async transfers => {
                 }
             })
         }        
-        
-        return result
     }
 
+    return result
+    
 }
 
 
