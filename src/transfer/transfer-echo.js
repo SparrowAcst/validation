@@ -36,12 +36,12 @@ const transferFiles = async transfers => {
         
         let tempFile = path.resolve(`${TEMP_DIR}/${path.basename(transfer.from)}`)
         let url = await s3bucket.getPresignedUrl(transfer.from)
-        console.log(`${i} from ${transfers.length}\nDownload ${url} > ${tempFile}`)
+        console.log(`\n\n${i} from ${transfers.length}\nDownload ${url} > ${tempFile}`)
         await downloadFile(url, tempFile)
 
         
         let destDrive = await prepareFiles(path.dirname(transfer.to))
-        console.log(`\nUpload ${tempFile} > ${transfer.to}`)
+        console.log(`\n\nUpload ${tempFile} > ${transfer.to}`)
         await destDrive.uploadFiles({
             fs: [tempFile],
             googleDrive: path.dirname(transfer.to)
@@ -61,9 +61,6 @@ const execute = async () => {
         console.log(`Create dir ${TEMP_DIR}`)
         await mkdir(`${TEMP_DIR}`)  
     }
-
-
-
 
     const PAGE_SIZE = 20
     let bufferCount = 0
@@ -116,7 +113,7 @@ const execute = async () => {
 
             await mongodb.updateMany({
                 db,
-                collection: SOURCE,
+                collection: sparrow.H2-FORM,
                 filter: { "id": { $in: buffer.map(d => d.id) } },
                 data: {
                     transfer_complete: true
