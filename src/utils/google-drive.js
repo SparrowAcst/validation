@@ -499,11 +499,11 @@ const Drive = class {
 		let sourceFiles = options.fs || ""
 		sourceFiles = await getFileList(sourceFiles)
 		let target = options.googleDrive || ""
-		// console.log(sourceFiles)
+		console.log(sourceFiles)
 
 		for(let i = 0; i< sourceFiles.length; i++){
 			let sourcePath = sourceFiles[i]
-			// console.log(`UPLOAD: ${sourcePath} to ${target}`)
+			console.log(`UPLOAD: ${sourcePath} to ${target}`)
 			await this.uploadFile(sourcePath, target, options.callback, false)
 		}
 	}
@@ -563,10 +563,10 @@ const Drive = class {
 		
 		const existed = this.list(`${destFolder.path}/${path.basename(sourcePath)}`)[0]
 		
-		// console.log("EXISTS", `${destFolder.path}/${path.basename(sourcePath)}`, existed)
+		console.log("EXISTS", `${destFolder.path}/${path.basename(sourcePath)}`, existed)
 
 		if(existed && !force){
-			// console.log("UPDATE", `${destFolder.path}/${path.basename(sourcePath)}`, destFolder)
+			console.log("UPDATE", `${destFolder.path}/${path.basename(sourcePath)}`, destFolder)
 			cloned =  await this.$drive.files.update({
 				fileId: existed.id,
 				resource,
@@ -575,7 +575,7 @@ const Drive = class {
 			})
 
 		} else {
-			// console.log("CREATE", `${destFolder.path}/${path.basename(sourcePath)}`, destFolder)
+			console.log("CREATE", `${destFolder.path}/${path.basename(sourcePath)}`, destFolder)
 			resource.parents = [destFolder.id]
 			cloned =  await this.$drive.files.create({
 				  resource,
