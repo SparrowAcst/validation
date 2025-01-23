@@ -1,11 +1,9 @@
 const mongodb = require("../utils/mongodb")
 const googledriveService = require("../utils/google-drive")
-const { loadJSON, unlink, filesize, mkdir, rmdir, exists, saveJSON, unzip, getFileList } = require("../utils/file-system")
+const { loadJSON, unlink, mkdir, rmdir, exists, saveJSON, unzip, getFileList } = require("../utils/file-system")
 const fs = require("fs")
 const path = require("path")
 const s3bucket = require("../utils/s3-bucket")
-const filesize = require("file-size")
-const { extension, lookup } = require("mime-types")
 const { first, last, extend } = require("lodash")
 
 const db = require("../../.config-migrate-db").mongodb.ade
