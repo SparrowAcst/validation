@@ -28,21 +28,20 @@ const downloadFile = async (url, dest) => {
 
 const transferFiles = async transfers => {
 
+    let i = 0
+
     for(const transfer of transfers){
 
-        let tempFile = path.resolve(`${TEMP_DIR}/${path.basename(transfer.from)}`)
-
-        let url = await s3bucket.getPresignedUrl(transfer.from)
-
-        console.log(`Download ${url} > ${tempFile}`)
+        i++
         
+        let tempFile = path.resolve(`${TEMP_DIR}/${path.basename(transfer.from)}`)
+        let url = await s3bucket.getPresignedUrl(transfer.from)
+        console.log(`${i} from ${transfers.length}\nDownload ${url} > ${tempFile}`)
         await downloadFile(url, tempFile)
 
         
         let destDrive = await prepareFiles(path.dirname(transfer.to))
-
-        console.log(`Upload ${tempFile} > ${transfer.to}`)
-
+        console.log(`\nUpload ${tempFile} > ${transfer.to}`)
         await destDrive.uploadFiles({
             fs: [tempFile],
             googleDrive: path.dirname(transfer.to)
@@ -66,14 +65,14 @@ const execute = async () => {
 
 
 
-    const PAGE_SIZE = 1
+    const PAGE_SIZE = 20
     let bufferCount = 0
     let skip = 0
 
     const pipeline = [{
             $match: {
                 type: "echo",
-                transfer: {
+                transfer_complete: {
                     $exists: false,
                 },
             },
@@ -84,6 +83,7 @@ const execute = async () => {
         {
             $project: {
                 _id: 0,
+                id: 1,
                 dataPath: "$data.en.resolvedData.dataPath",
                 machine: "$data.en.echocardiographic_machine",
             },
@@ -91,14 +91,17 @@ const execute = async () => {
 
     ]
 
+
+
     do {
-        console.log(pipeline)
+        
         buffer = await mongodb.aggregate({
             db,
             collection: "sparrow.H2-FORM",
             pipeline
         })
-        console.log(buffer)
+        
+        console.log(`Load buffer ${bufferCount + 1}: ${buffer.length} items`)
 
         if(buffer.length > 0){
             
@@ -107,19 +110,18 @@ const execute = async () => {
                 to: `${DEST}/${b.machine}/${path.basename(b.dataPath)}`
             }))
     
-            console.log(transfers)
-
             await transferFiles(transfers)
 
-            // await mongodb.updateMany({
-            //     db,
-            //     collection: SOURCE,
-            //     filter: { "id": { $in: buffer.map(d => d.id) } },
-            //     data: {
-            //         process_echo: true
-            //     }
-            // })
+            console.log(`Update buffer ${bufferCount + 1}: ${buffer.length} items`)
 
+            await mongodb.updateMany({
+                db,
+                collection: SOURCE,
+                filter: { "id": { $in: buffer.map(d => d.id) } },
+                data: {
+                    transfer_complete: true
+                }
+            })
 
         }
         
@@ -129,7 +131,7 @@ const execute = async () => {
         bufferCount++
 
     } 
-    while (buffer.length > 0 && bufferCount < 1)
+    while (buffer.length > 0)
 
 }
 
