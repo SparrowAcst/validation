@@ -18,7 +18,7 @@ const prepareFiles = async path => {
     return googleDrive   
 }
 
-const transferFiles = transfers => {
+const transferFiles = async transfers => {
 
     for(const transfer of transfers){
 
@@ -96,6 +96,8 @@ const execute = async () => {
             }))
     
             console.log(transfers)
+
+            await transferFiles(transfers)
 
             // await mongodb.updateMany({
             //     db,
