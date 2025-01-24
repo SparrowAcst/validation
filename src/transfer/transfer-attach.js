@@ -5,7 +5,7 @@ const { loadJSON, unlink, mkdir, rmdir, exists, saveJSON, unzip, getFileList } =
 const fs = require("fs")
 const path = require("path")
 const s3bucket = require("../utils/s3-bucket")
-const { first, last, extend } = require("lodash")
+const { first, last, extend, flatten, uniqBy } = require("lodash")
 
 const db = require("../../.config-migrate-db").mongodb.ade
 
@@ -134,105 +134,51 @@ const execute = async () => {
     let bufferCount = 0
     let skip = 0
 
-    const pipeline = [{
-            $match: {
-                transfer_complete: {
-                    $exists: false,
-                },
-            },
+    const pipeline = [
+      {
+        $match: {
+          patientId: {
+            $exists: true,
+          },
+          type: "attachements",
+          "resolvedData.0": {
+            $exists: true,
+          },
+          transfer_complete: {
+            $exists: false,
+          },
         },
-        {
-            $lookup: {
-                from: "H2-FORM",
-                localField: "id",
-                foreignField: "examinationId",
-                as: "attach",
-                pipeline: [{
-                        $match: {
-                            type: "attachements",
-                        },
-                    },
-                    {
-                        $project: {
-                            _id: 0,
-                            attach: "$resolvedData",
-                        },
-                    },
-                ],
-            },
-        },
-        {
-            $project: {
-                id: "$id",
+      },
+      {
+        $limit: PAGE_SIZE,
+      },
+      {
+        $lookup: {
+          from: "H2-EXAMINATION",
+          localField: "patientId",
+          foreignField: "patientId",
+          as: "result",
+          pipeline: [
+            {
+              $project: {
                 org: "$org",
-                attach: {
-                    $first: "$attach.attach",
-                },
+              },
             },
+          ],
         },
-        {
-            $unwind: {
-                path: "$attach",
-            },
+      },
+      {
+        $project: {
+          _id: 0,
+          id: 1,
+          org: {
+            $first: "$result.org",
+          },
+          resolvedData: 1,
         },
-        {
-            $match: {
-                "attach.url": {
-                    $ne: "toUpload",
-                },
-            },
-        },
-        // {
-        //     $limit: 20,
-        // },
+      },
     ]
-    // [
 
-    //     {
-    //         $match: {
-    //             transfer_complete: {
-    //                 $exists: false,
-    //             },
-    //         },
-    //     },
-    //     {
-    //         $limit: PAGE_SIZE
-    //     },
-    //     {
-    //         $lookup: {
-    //             from: "H2-FORM",
-    //             localField: "id",
-    //             foreignField: "examinationId",
-    //             as: "attach",
-    //             pipeline: [{
-    //                     $match: {
-    //                         type: "attachements",
-    //                     },
-    //                 },
-    //                 {
-    //                     $project: {
-    //                         _id: 0,
-    //                         attach: "$resolvedData",
-    //                     },
-    //                 },
-    //             ],
-    //         },
-    //     },
-    //     {
-    //         $project: {
-    //             id: "$id",
-    //             org: "$org",
-    //             attach: {
-    //                 $first: "$attach.attach",
-    //             },
-    //         },
-    //     },
-    //     {
-    //         $unwind: {
-    //             path: "$attach",
-    //         },
-    //     },
-    // ]
 
     const type2folder = {
         "image": "IMAGE",
@@ -245,7 +191,7 @@ const execute = async () => {
         console.log("START")
         buffer = await mongodb.aggregate({
             db,
-            collection: "sparrow.H2-EXAMINATION",
+            collection: "sparrow.H2-FORM",
             pipeline
         })
 
@@ -253,26 +199,35 @@ const execute = async () => {
 
         if (buffer.length > 0) {
 
-            let transfers = buffer.map(b => {
+            let transfers = flatten(
+             
+                buffer.map(b => {
 
-                if (b.attach && b.attach.mimeType && b.attach.name && b.attach.path) {
-                    return {
-                        id: b.id,
-                        from: b.attach.path,
-                        to: `${DEST}/${type2folder[b.attach.mimeType]}/${b.org}/${b.attach.name}`
-                    }
-                }
-            }).filter(d => d)
+                    return b.resolvedData.map( d => {
+                        if(d.error) return
 
+                        return {
+                            id: b.id,
+                            from: d.path,
+                            to: `${DEST}/${type2folder[d.mimeType]}/${b.org}/${d.name}`
+                        }    
+     
+                    }).filter(d => d)
+
+                })
+            
+            )    
+
+            // console.log(transfers)
 
             let result = await transferFiles(transfers)
 
-            let commands = result.map(r => ({
+            let commands = uniqBy(transfers, t => t.id).map(r => ({
                 updateOne: {
                     filter: { id: r.id },
                     update: {
                         $set: {
-                            transfer_complete: r.transfer_complete
+                            transfer_complete: true
                         }
                     },
                     upsert: true
@@ -285,7 +240,7 @@ const execute = async () => {
 
                 await mongodb.bulkWrite({
                     db,
-                    collection: "sparrow.H2-EXAMINATION",
+                    collection: "sparrow.H2-FROM",
                     commands
                 })
             }
