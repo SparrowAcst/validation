@@ -236,7 +236,7 @@ const execute = async () => {
                 }
             }))
 
-            console.log(commands)
+            console.log(JSON.stringify(commands))
 
             if (commands.length > 0) {
 
@@ -244,7 +244,7 @@ const execute = async () => {
 
                 await mongodb.bulkWrite({
                     db,
-                    collection: "sparrow.H2-FROM",
+                    collection: "sparrow.H2-FORM",
                     commands
                 })
             }
