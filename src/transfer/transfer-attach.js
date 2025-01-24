@@ -32,7 +32,7 @@ const downloadFile = (url, dest) => new Promise((resolve, reject) => {
             response.data.pipe(writer);
         }).catch(e => {
             throw e
-        }
+        })
 
         writer.on('finish', () => {
             console.log('File downloaded successfully.');
