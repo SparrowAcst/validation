@@ -596,6 +596,19 @@ const Drive = class {
 
 	}
 
+	async rename({fileId, name}){
+		try {
+			
+			await this.$drive.files.update({
+			    fileId,
+			    resource: {name},
+			})
+
+		} catch(e) {
+			console.log('GOOGLE DRIVE API: ' + e)
+		}	
+  	}
+
 
 	upload(source) {
 		
