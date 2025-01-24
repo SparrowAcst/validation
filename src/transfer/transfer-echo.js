@@ -80,7 +80,7 @@ const transferFiles = async transfers => {
                     id: transfer.id,
                     transfer_complete: "data not found"    
                 })
-                console.log("No data", d.id)
+                console.log("No data", transfer.id)
                 continue
             }
 
