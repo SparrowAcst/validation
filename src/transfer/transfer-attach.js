@@ -130,7 +130,7 @@ const execute = async () => {
         await mkdir(`${TEMP_DIR}`)
     }
 
-    const PAGE_SIZE = 20
+    const PAGE_SIZE = 2
     let bufferCount = 0
     let skip = 0
 
@@ -222,9 +222,9 @@ const execute = async () => {
 
             let result = await transferFiles(transfers)
 
-            let commands = uniqBy(transfers, t => t.id).map(r => ({
+            let commands = uniqBy(transfers.map(t => t.id)).map(r => ({
                 updateOne: {
-                    filter: { id: r.id },
+                    filter: { id: r },
                     update: {
                         $set: {
                             transfer_complete: true
@@ -233,6 +233,8 @@ const execute = async () => {
                     upsert: true
                 }
             }))
+
+            console.log(commands)
 
             if (commands.length > 0) {
 
