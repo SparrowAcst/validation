@@ -134,17 +134,12 @@ const execute = async () => {
     let bufferCount = 0
     let skip = 0
 
-    const pipeline = [
-
-        {
+    const pipeline = [{
             $match: {
                 transfer_complete: {
                     $exists: false,
                 },
             },
-        },
-        {
-            $limit: PAGE_SIZE
         },
         {
             $lookup: {
@@ -180,7 +175,64 @@ const execute = async () => {
                 path: "$attach",
             },
         },
+        {
+            $match: {
+                "attach.url": {
+                    $ne: "toUpload",
+                },
+            },
+        },
+        {
+            $limit: 20,
+        },
     ]
+    // [
+
+    //     {
+    //         $match: {
+    //             transfer_complete: {
+    //                 $exists: false,
+    //             },
+    //         },
+    //     },
+    //     {
+    //         $limit: PAGE_SIZE
+    //     },
+    //     {
+    //         $lookup: {
+    //             from: "H2-FORM",
+    //             localField: "id",
+    //             foreignField: "examinationId",
+    //             as: "attach",
+    //             pipeline: [{
+    //                     $match: {
+    //                         type: "attachements",
+    //                     },
+    //                 },
+    //                 {
+    //                     $project: {
+    //                         _id: 0,
+    //                         attach: "$resolvedData",
+    //                     },
+    //                 },
+    //             ],
+    //         },
+    //     },
+    //     {
+    //         $project: {
+    //             id: "$id",
+    //             org: "$org",
+    //             attach: {
+    //                 $first: "$attach.attach",
+    //             },
+    //         },
+    //     },
+    //     {
+    //         $unwind: {
+    //             path: "$attach",
+    //         },
+    //     },
+    // ]
 
     const type2folder = {
         "image": "IMAGE",
@@ -210,16 +262,16 @@ const execute = async () => {
                         to: `${DEST}/${type2folder[b.attach.mimeType]}/${b.org}/${b.attach.name}`
                     }
                 }
-            }).filter( d => d)
+            }).filter(d => d)
 
-        
+
             let result = await transferFiles(transfers)
 
-            let commands = result.map( r => ({
-                updateOne:{
-                    filter: {id: r.id},
+            let commands = result.map(r => ({
+                updateOne: {
+                    filter: { id: r.id },
                     update: {
-                        $set:{
+                        $set: {
                             transfer_complete: r.transfer_complete
                         }
                     },
@@ -227,7 +279,7 @@ const execute = async () => {
                 }
             }))
 
-            if(commands.length > 0){
+            if (commands.length > 0) {
 
                 console.log(`Update buffer ${bufferCount + 1}: ${buffer.length} items`)
 
