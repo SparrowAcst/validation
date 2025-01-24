@@ -74,6 +74,16 @@ const transferFiles = async transfers => {
 
     for(const transfer of transfers){
         try {
+            
+            if(!transfer.from){
+                result.push({
+                    id: transfer.id,
+                    transfer_complete: "data not found"    
+                })
+                console.log("No data", d.id)
+                continue
+            }
+
             i++
             
             let tempFile = path.resolve(`${TEMP_DIR}/${path.basename(transfer.from)}`)
@@ -163,11 +173,16 @@ const execute = async () => {
 
         if(buffer.length > 0){
             
-            let transfers = buffer.map( b => ({
-                id: b.id,
-                from: b.dataPath,
-                to: `${DEST}/${b.machine}/${path.basename(b.dataPath)}`
-            }))
+            let transfers = buffer.map( b => (b.dataPath) 
+                ? {
+                    id: b.id,
+                    from: b.dataPath,
+                    to: `${DEST}/${b.machine}/${path.basename(b.dataPath)}`
+                }
+                : {
+                    id: b.id
+                }
+            )
     
             let result = await transferFiles(transfers)
 
