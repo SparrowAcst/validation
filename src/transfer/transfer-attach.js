@@ -30,7 +30,9 @@ const downloadFile = (url, dest) => new Promise((resolve, reject) => {
             responseType: 'stream'
         }).then((response) => {
             response.data.pipe(writer);
-        });
+        }).catch(e => {
+            throw e
+        }
 
         writer.on('finish', () => {
             console.log('File downloaded successfully.');
@@ -41,6 +43,7 @@ const downloadFile = (url, dest) => new Promise((resolve, reject) => {
             console.error(err);
             reject()
         });
+
     } catch(e) {
         console.log(e)
         reject()
