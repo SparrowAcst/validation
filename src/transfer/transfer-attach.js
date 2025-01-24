@@ -21,26 +21,30 @@ const prepareFiles = async path => {
 
 
 const downloadFile = (url, dest) => new Promise((resolve, reject) => {
+    try {
+        const writer = fs.createWriteStream(dest)
 
-    const writer = fs.createWriteStream(dest)
+        axios({
+            method: 'get',
+            url,
+            responseType: 'stream'
+        }).then((response) => {
+            response.data.pipe(writer);
+        });
 
-    axios({
-        method: 'get',
-        url,
-        responseType: 'stream'
-    }).then((response) => {
-        response.data.pipe(writer);
-    });
+        writer.on('finish', () => {
+            console.log('File downloaded successfully.');
+            resolve()
+        });
 
-    writer.on('finish', () => {
-        console.log('File downloaded successfully.');
-        resolve()
-    });
-
-    writer.on('error', (err) => {
-        console.error(err);
+        writer.on('error', (err) => {
+            console.error(err);
+            reject()
+        });
+    } catch(e) {
+        console.log(e)
         reject()
-    });
+    }    
 
 
     // const res = await axios.get(url, { responseType: 'arraybuffer' })
@@ -88,11 +92,14 @@ const transferFiles = async transfers => {
 
             i++
 
-            let tempFile = path.resolve(`${TEMP_DIR}/${path.basename(transfer.from)}`)
-            let url = await s3bucket.getPresignedUrl(transfer.from)
-            console.log(`\n\n${i} from ${transfers.length}\nDownload ${url} > ${tempFile}`)
-            await downloadFile(url, tempFile)
-
+            try {
+                let tempFile = path.resolve(`${TEMP_DIR}/${path.basename(transfer.from)}`)
+                let url = await s3bucket.getPresignedUrl(transfer.from)
+                console.log(`\n\n${i} from ${transfers.length}\nDownload ${url} > ${tempFile}`)
+                await downloadFile(url, tempFile)
+            } catch(e) {
+                continue
+            }    
 
             let destDrive = await prepareFiles(path.dirname(transfer.to))
             console.log(`\n\nUpload ${tempFile} > ${transfer.to}`)
