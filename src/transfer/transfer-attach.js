@@ -130,7 +130,7 @@ const execute = async () => {
         await mkdir(`${TEMP_DIR}`)
     }
 
-    const PAGE_SIZE = 5
+    const PAGE_SIZE = 20
     let bufferCount = 0
     let skip = 0
 
@@ -244,7 +244,7 @@ const execute = async () => {
         bufferCount++
 
     }
-    while (buffer.length > 0 && bufferCount < 1)
+    while (buffer.length > 0)
 
 }
 
