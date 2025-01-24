@@ -75,6 +75,8 @@ const transferFiles = async transfers => {
     for (const transfer of transfers) {
         try {
 
+            console.log(transfer)
+
             if (!transfer.from) {
                 result.push({
                     id: transfer.id,
