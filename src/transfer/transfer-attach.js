@@ -21,85 +21,85 @@ const prepareFiles = async path => {
 
 
 
-const downloadFile = (url, dest) => new Promise(async (resolve, reject) => {
+// const downloadFile = (url, dest) => new Promise(async (resolve, reject) => {
     
-    try {
-        const writer = fs.createWriteStream(dest)
-        
-        writer.on('finish', () => {
-            console.log('File downloaded successfully.');
-            resolve()
-        })
-
-        writer.on('error', (err) => {
-            console.error(err);
-            reject()
-        })
-
-        try {
-            let response = await axios({
-                method: 'get',
-                url,
-                responseType: 'stream'
-            })  
-        } catch(e) {
-            
-            throw e
-        }
-
-        response.data.pipe(writer);
-
-    } catch(e) {
-        // console.log(e)
-        reject()
-    }    
-
-})
-
-
-
-// const downloadFile = (url, dest) => new Promise((resolve, reject) => {
 //     try {
 //         const writer = fs.createWriteStream(dest)
-
-//         axios({
-//             method: 'get',
-//             url,
-//             responseType: 'stream'
-//         }).then((response) => {
-//             response.data.pipe(writer);
-//         }).catch(e => {
-//             throw e
-//         })
-
+        
 //         writer.on('finish', () => {
 //             console.log('File downloaded successfully.');
 //             resolve()
-//         });
+//         })
 
 //         writer.on('error', (err) => {
 //             console.error(err);
 //             reject()
-//         });
+//         })
+
+//         try {
+//             let response = await axios({
+//                 method: 'get',
+//                 url,
+//                 responseType: 'stream'
+//             })  
+//         } catch(e) {
+            
+//             throw e
+//         }
+
+//         response.data.pipe(writer);
 
 //     } catch(e) {
-//         console.log(e)
+//         // console.log(e)
 //         reject()
 //     }    
 
-
-//     // const res = await axios.get(url, { responseType: 'arraybuffer' })
-//     // const writer = fs.createWriteStream(dest)
-//     // const res = await axios.get(url, { responseType: "stream" })
-//     // res.data.pipe(writer)
-//     // writer.on('finish', () => {
-//     //   console.log('File downloaded successfully.');
-//     // });
-//     // writer.on('error', (err) => {
-//     //   console.error(err);
-//     // });    
-//     // fs.writeFileSync(dest, res.data);
 // })
+
+
+
+const downloadFile = (url, dest) => new Promise((resolve, reject) => {
+    try {
+        const writer = fs.createWriteStream(dest)
+
+        axios({
+            method: 'get',
+            url,
+            responseType: 'stream'
+        }).then((response) => {
+            response.data.pipe(writer);
+        }).catch(e => {
+            throw e
+        })
+
+        writer.on('finish', () => {
+            console.log('File downloaded successfully.');
+            resolve()
+        });
+
+        writer.on('error', (err) => {
+            console.error(err);
+            reject()
+        });
+
+    } catch(e) {
+        console.log(e)
+        reject()
+    }    
+
+
+    // const res = await axios.get(url, { responseType: 'arraybuffer' })
+    // const writer = fs.createWriteStream(dest)
+    // const res = await axios.get(url, { responseType: "stream" })
+    // res.data.pipe(writer)
+    // writer.on('finish', () => {
+    //   console.log('File downloaded successfully.');
+    // });
+    // writer.on('error', (err) => {
+    //   console.error(err);
+    // });    
+    // fs.writeFileSync(dest, res.data);
+})
 
 
 const excludes = [
